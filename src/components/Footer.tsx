@@ -10,7 +10,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
         <div className="col-span-1 md:col-span-1 space-y-6">
           <BrandLogo className="items-start" />
-          <p className="text-sm font-light opacity-60 leading-relaxed max-w-xs">
+          <p className="text-sm font-light opacity-60 leading-relaxed max-w-xs mt-4">
             Premium artificial jewelry for the woman who wears her vibe with confidence. Boutique collections, hand-picked aesthetics.
           </p>
           <div className="flex gap-4">
@@ -53,14 +53,14 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <Mail className="w-4 h-4 text-brand-gold" />
-              <span>hello@mohakluxe.com</span>
+              <span>hello@mohakthevibe.com</span>
             </li>
           </ul>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-brand-ivory/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest opacity-40">
-        <p>© 2024 Mohak Luxe - All Rights Reserved.</p>
+        <p>© 2024 Mohak – The Vibe. All Rights Reserved.</p>
         <div className="flex gap-8">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>

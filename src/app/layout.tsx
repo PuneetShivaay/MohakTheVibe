@@ -3,13 +3,13 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Mohak Luxe – Wear The Vibe',
+  title: 'Mohak – The Vibe | Premium Artificial Jewelry',
   description: 'Premium artificial jewelry for the modern woman. Boutique collections and AI-powered vibe styling.',
   openGraph: {
-    title: 'Mohak Luxe – Premium Artificial Jewelry',
+    title: 'Mohak – The Vibe | Premium Artificial Jewelry',
     description: 'Discover your vibe with our curated jewelry collections.',
-    url: 'https://mohakluxe.com',
-    siteName: 'Mohak Luxe',
+    url: 'https://mohakthevibe.com',
+    siteName: 'Mohak – The Vibe',
     images: [
       {
         url: 'https://picsum.photos/seed/mohak-og/1200/630',
