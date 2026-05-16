@@ -3,86 +3,146 @@
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Badge } from "@/components/ui/badge";
-import { ShoppingBag, Instagram, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const products = [
-  { id: 'p1', imgId: 'jhumka-1', name: 'Mayura Temple Jhumkas', price: '₹1,899', category: 'Traditional' },
-  { id: 'p2', imgId: 'stud-1', name: 'Stellar Diamond Studs', price: '₹999', category: 'Contemporary' },
-  { id: 'p3', imgId: 'drop-1', name: 'Luna Pearl Drops', price: '₹1,499', category: 'Evening' },
-  { id: 'p4', imgId: 'hoop-1', name: 'Infinity Gold Hoops', price: '₹1,299', category: 'Minimalist' },
-  { id: 'p5', imgId: 'chandelier-1', name: 'Royal Solitaire Chandeliers', price: '₹2,499', category: 'Statement' },
-  { id: 'p6', imgId: 'daily-earring', name: 'Dewdrop Daily Studs', price: '₹799', category: 'Daily' },
+  { 
+    id: 'p1', 
+    imgId: 'jhumka-green', 
+    name: 'MINAKARI HALF GREEN JHUMKA', 
+    oldPrice: '₹299.00', 
+    price: '₹199.00', 
+    tags: 'earrings · Silver Replica · studs' 
+  },
+  { 
+    id: 'p2', 
+    imgId: 'jhumka-red', 
+    name: 'MINAKARI HALF RED JHUMKA', 
+    oldPrice: '₹299.00', 
+    price: '₹199.00', 
+    tags: 'earrings · Silver Replica · studs' 
+  },
+  { 
+    id: 'p3', 
+    imgId: 'lotus-firozi', 
+    name: 'LOTUS MINAKARI FIROZI DROP EARRINGS', 
+    oldPrice: '₹349.00', 
+    price: '₹210.00', 
+    tags: 'earrings · Silver Replica · studs' 
+  },
+  { 
+    id: 'p4', 
+    imgId: 'lotus-black', 
+    name: 'LOTUS MINAKARI BLACK DROP EARRINGS', 
+    oldPrice: '₹349.00', 
+    price: '₹210.00', 
+    tags: 'earrings · Silver Replica · studs' 
+  },
+  { 
+    id: 'p5', 
+    imgId: 'lotus-wine', 
+    name: 'LOTUS MINAKARI WINE DROP EARRINGS', 
+    oldPrice: '₹349.00', 
+    price: '₹210.00', 
+    tags: 'earrings · Silver Replica · studs' 
+  },
+  { 
+    id: 'p6', 
+    imgId: 'kundan-green', 
+    name: 'GREEN CRYSTAL KUNDAN DROPS EARRING', 
+    oldPrice: '₹349.00', 
+    price: '₹299.00', 
+    tags: 'earrings · Silver Replica · studs' 
+  },
+  { 
+    id: 'p7', 
+    imgId: 'rect-gold', 
+    name: 'GOLD PLATED RECTANGULAR DROP EARRINGS WITH STONE', 
+    oldPrice: '₹249.00', 
+    price: '₹149.00', 
+    tags: 'earrings · Silver Replica · studs' 
+  },
+  { 
+    id: 'p8', 
+    imgId: 'rect-mirror', 
+    name: 'RECTANGULAR DROP MIRROR ROSE GOLD PLATED EARRING WITH STONE', 
+    oldPrice: '₹249.00', 
+    price: '₹149.00', 
+    tags: 'earrings · Silver Replica · studs' 
+  },
 ];
 
 export function JewelryCatalog() {
   return (
-    <section id="catalog" className="py-24 px-6 md:px-12 bg-background">
+    <section id="catalog" className="py-24 px-6 md:px-12 bg-background relative">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div className="max-w-xl">
-            <h2 className="font-headline text-4xl md:text-5xl mb-4 text-foreground">The Earring Edit</h2>
-            <p className="text-muted-foreground font-light text-lg">
-              Explore our boutique collection of premium artificial earrings. From ancestral temple designs to modern stardust aesthetics.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Badge variant="outline" className="border-brand-gold text-brand-gold px-4 py-1 text-sm rounded-none cursor-pointer">All Designs</Badge>
-            <Badge variant="ghost" className="hover:text-brand-gold px-4 py-1 text-sm rounded-none cursor-pointer">Jhumkas</Badge>
-            <Badge variant="ghost" className="hover:text-brand-gold px-4 py-1 text-sm rounded-none cursor-pointer">Studs</Badge>
-            <Badge variant="ghost" className="hover:text-brand-gold px-4 py-1 text-sm rounded-none cursor-pointer">Hoops</Badge>
-          </div>
+        <div className="text-center mb-16">
+          <h2 className="font-headline text-5xl md:text-6xl text-foreground">Earrings</h2>
         </div>
 
-        <div className="pinterest-grid">
+        {/* Navigation Arrows (Decorative/Navigation intent as per screenshot) */}
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:block">
+          <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
+            <ChevronLeft className="w-6 h-6 text-foreground/40" />
+          </Button>
+        </div>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:block">
+          <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
+            <ChevronRight className="w-6 h-6 text-foreground/40" />
+          </Button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
           {products.map((product) => {
             const img = PlaceHolderImages.find(i => i.id === product.imgId)?.imageUrl;
             return (
-              <div key={product.id} className="mb-8 break-inside-avoid group cursor-pointer relative">
-                <div className="relative overflow-hidden bg-brand-ivory border border-brand-gold/10 hover:border-brand-gold/40 transition-all duration-500">
+              <div key={product.id} className="flex flex-col group cursor-pointer">
+                {/* Product Image Container */}
+                <div className="relative aspect-square overflow-hidden bg-brand-ivory border border-foreground/[0.03]">
                   {img && (
                     <Image
                       src={img}
                       alt={product.name}
-                      width={600}
-                      height={800}
-                      className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      data-ai-hint="earring product"
                     />
                   )}
-                  
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-brand-midnight/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-                    <div className="flex flex-wrap gap-2 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                      <Button size="sm" variant="secondary" className="bg-brand-gold hover:bg-brand-beige text-brand-midnight border-none">
-                        <ShoppingBag className="w-4 h-4 mr-2" /> Flipkart
-                      </Button>
-                      <Button size="sm" variant="secondary" className="bg-brand-midnight text-brand-ivory border border-brand-gold/30 hover:bg-brand-gold hover:text-brand-midnight">
-                        <ShoppingBag className="w-4 h-4 mr-2" /> Meesho
-                      </Button>
-                      <Button size="sm" variant="outline" className="text-brand-ivory border-brand-ivory/40 hover:bg-brand-ivory/10">
-                        <Instagram className="w-4 h-4" />
-                      </Button>
-                    </div>
+                  {/* SALE Badge */}
+                  <div className="absolute top-0 right-0 p-3">
+                    <span className="text-[10px] tracking-widest text-foreground/40 uppercase font-medium">SALE</span>
                   </div>
                 </div>
                 
-                <div className="mt-4 flex justify-between items-start">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-widest text-brand-gold font-medium">{product.category}</span>
-                    <h3 className="font-headline text-xl mt-1 text-foreground">{product.name}</h3>
+                {/* Product Details */}
+                <div className="mt-5 space-y-1.5">
+                  <div className="flex justify-between items-start gap-4">
+                    <h3 className="text-[11px] font-bold tracking-widest leading-tight text-foreground uppercase max-w-[70%]">
+                      {product.name}
+                    </h3>
+                    <div className="flex flex-col items-end whitespace-nowrap">
+                      <span className="text-[10px] text-foreground/30 line-through">{product.oldPrice}</span>
+                      <span className="text-[11px] font-bold text-foreground">{product.price}</span>
+                    </div>
                   </div>
-                  <p className="font-medium text-brand-gold">{product.price}</p>
+                  <p className="text-[10px] italic text-foreground/40 font-light">
+                    {product.tags}
+                  </p>
                 </div>
               </div>
             );
           })}
         </div>
-        
-        <div className="mt-16 text-center">
-          <Button variant="ghost" className="text-brand-gold font-medium hover:bg-brand-gold/5 group">
-            Discover Full Gallery <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
+
+        {/* Carousel pagination dots from screenshot */}
+        <div className="flex justify-center gap-3 mt-16">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div 
+              key={i} 
+              className={`w-2 h-2 rounded-full border border-foreground/20 ${i === 3 ? 'bg-foreground/20' : 'transparent'}`} 
+            />
+          ))}
         </div>
       </div>
     </section>

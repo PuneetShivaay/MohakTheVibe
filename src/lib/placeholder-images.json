@@ -7,40 +7,52 @@
       "imageHint": "earring model"
     },
     {
-      "id": "jhumka-1",
-      "description": "Ornate gold-plated traditional Jhumka earrings",
-      "imageUrl": "https://picsum.photos/seed/jhumka1/600/800",
-      "imageHint": "jhumka earrings"
+      "id": "jhumka-green",
+      "description": "Minakari Half Green Jhumka",
+      "imageUrl": "https://picsum.photos/seed/green-jhumka/600/600",
+      "imageHint": "green jhumka"
     },
     {
-      "id": "stud-1",
-      "description": "Sparkling diamond-style artificial studs",
-      "imageUrl": "https://picsum.photos/seed/stud1/600/700",
-      "imageHint": "stud earrings"
+      "id": "jhumka-red",
+      "description": "Minakari Half Red Jhumka",
+      "imageUrl": "https://picsum.photos/seed/red-jhumka/600/600",
+      "imageHint": "red jhumka"
     },
     {
-      "id": "drop-1",
-      "description": "Elegant pearl drop earrings for evening wear",
-      "imageUrl": "https://picsum.photos/seed/drop1/600/900",
-      "imageHint": "drop earrings"
+      "id": "lotus-firozi",
+      "description": "Lotus Minakari Firozi Drop Earrings",
+      "imageUrl": "https://picsum.photos/seed/firozi-lotus/600/600",
+      "imageHint": "firozi earrings"
     },
     {
-      "id": "hoop-1",
-      "description": "Modern minimalist gold-plated hoops",
-      "imageUrl": "https://picsum.photos/seed/hoop1/600/600",
-      "imageHint": "hoop earrings"
+      "id": "lotus-black",
+      "description": "Lotus Minakari Black Drop Earrings",
+      "imageUrl": "https://picsum.photos/seed/black-lotus/600/600",
+      "imageHint": "black earrings"
     },
     {
-      "id": "chandelier-1",
-      "description": "Statement chandelier earrings for special occasions",
-      "imageUrl": "https://picsum.photos/seed/chandelier1/800/800",
-      "imageHint": "chandelier earrings"
+      "id": "lotus-wine",
+      "description": "Lotus Minakari Wine Drop Earrings",
+      "imageUrl": "https://picsum.photos/seed/wine-lotus/600/600",
+      "imageHint": "wine earrings"
     },
     {
-      "id": "daily-earring",
-      "description": "Close up of a dainty everyday earring",
-      "imageUrl": "https://picsum.photos/seed/daily1/600/600",
-      "imageHint": "minimalist earring"
+      "id": "kundan-green",
+      "description": "Green Crystal Kundan Drops Earring",
+      "imageUrl": "https://picsum.photos/seed/green-kundan/600/600",
+      "imageHint": "kundan earring"
+    },
+    {
+      "id": "rect-gold",
+      "description": "Gold Plated Rectangular Drop Earrings",
+      "imageUrl": "https://picsum.photos/seed/rect-gold/600/600",
+      "imageHint": "gold earrings"
+    },
+    {
+      "id": "rect-mirror",
+      "description": "Rectangular Drop Mirror Rose Gold Plated",
+      "imageUrl": "https://picsum.photos/seed/mirror-rose/600/600",
+      "imageHint": "mirror earrings"
     },
     {
       "id": "lifestyle-earring",
