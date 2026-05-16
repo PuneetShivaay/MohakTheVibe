@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -9,13 +8,15 @@ import { Button } from "@/components/ui/button";
 const instaImages = ["insta-1", "insta-2", "insta-3", "insta-4"];
 
 export function InstagramGrid() {
+  const instagramUrl = "https://www.instagram.com/mohakthevibe/";
+
   return (
     <section className="py-24 px-6 md:px-12 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="font-headline text-4xl md:text-5xl mb-4">On the Gram</h2>
           <p className="text-muted-foreground font-light max-w-xl mx-auto">
-            Join our community of luxe enthusiasts. Tag us <span className="text-brand-gold font-medium">@MohakLuxe</span> to be featured.
+            Join our community of luxe enthusiasts. Tag us <span className="text-brand-gold font-medium">@mohakthevibe</span> to be featured.
           </p>
         </div>
 
@@ -23,7 +24,7 @@ export function InstagramGrid() {
           {instaImages.map((id, index) => {
             const img = PlaceHolderImages.find(i => i.id === id);
             return (
-              <div key={id} className="relative aspect-square group overflow-hidden cursor-pointer">
+              <div key={id} className="relative aspect-square group overflow-hidden cursor-pointer" onClick={() => window.open(instagramUrl, "_blank")}>
                 <Image
                   src={img?.imageUrl || ""}
                   alt={`Instagram Post ${index + 1}`}
@@ -42,7 +43,7 @@ export function InstagramGrid() {
           <Button 
             variant="outline" 
             className="border-brand-midnight text-brand-midnight hover:bg-brand-midnight hover:text-white px-10 rounded-none h-12"
-            onClick={() => window.open("https://instagram.com/mohakluxe", "_blank")}
+            onClick={() => window.open(instagramUrl, "_blank")}
           >
             Follow Our Journey
           </Button>

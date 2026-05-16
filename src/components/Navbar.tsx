@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -20,6 +19,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const instagramUrl = "https://www.instagram.com/mohakthevibe/";
+
   return (
     <nav className={cn(
       "fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-4 px-6 md:px-12",
@@ -40,8 +41,12 @@ export function Navbar() {
         {/* Desktop Links Right + Controls */}
         <div className="hidden lg:flex items-center gap-8">
           <div className="flex items-center gap-4">
-            <a href="https://instagram.com" target="_blank" className="hover:text-brand-gold transition-colors"><Instagram className="w-5 h-5" /></a>
-            <a href="https://wa.me" target="_blank" className="hover:text-brand-gold transition-colors"><MessageCircle className="w-5 h-5" /></a>
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="https://wa.me/yournumber" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
+              <MessageCircle className="w-5 h-5" />
+            </a>
           </div>
           <div className="h-6 w-[1px] bg-brand-gold/30 mx-2" />
           <ThemeToggle />
@@ -66,8 +71,12 @@ export function Navbar() {
           <a href="#ai-stylist" onClick={() => setMobileMenuOpen(false)} className="font-headline text-3xl">AI Stylist</a>
           <a href="#brand-story" onClick={() => setMobileMenuOpen(false)} className="font-headline text-3xl">Our Story</a>
           <div className="flex justify-center gap-8 pt-10 border-t border-brand-gold/10">
-            <Instagram className="w-8 h-8 text-brand-gold" />
-            <MessageCircle className="w-8 h-8 text-brand-gold" />
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+              <Instagram className="w-8 h-8 text-brand-gold" />
+            </a>
+            <a href="https://wa.me/yournumber" target="_blank" rel="noopener noreferrer">
+              <MessageCircle className="w-8 h-8 text-brand-gold" />
+            </a>
           </div>
         </div>
       </div>

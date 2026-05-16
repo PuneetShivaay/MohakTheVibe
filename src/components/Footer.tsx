@@ -1,10 +1,11 @@
-
 "use client";
 
 import { BrandLogo } from "./BrandLogo";
 import { Instagram, Facebook, MessageCircle, Mail, MapPin, Phone } from "lucide-react";
 
 export function Footer() {
+  const instagramUrl = "https://www.instagram.com/mohakthevibe/";
+
   return (
     <footer className="bg-brand-midnight text-brand-ivory pt-24 pb-12 px-6 md:px-12 border-t border-brand-gold/10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
@@ -14,9 +15,15 @@ export function Footer() {
             Premium artificial jewelry for the woman who wears her vibe with confidence. Boutique collections, hand-picked aesthetics.
           </p>
           <div className="flex gap-4">
-            <Instagram className="w-5 h-5 text-brand-gold cursor-pointer hover:opacity-70" />
-            <Facebook className="w-5 h-5 text-brand-gold cursor-pointer hover:opacity-70" />
-            <MessageCircle className="w-5 h-5 text-brand-gold cursor-pointer hover:opacity-70" />
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:opacity-70 transition-opacity">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="#" className="text-brand-gold hover:opacity-70 transition-opacity">
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a href="https://wa.me/yournumber" target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:opacity-70 transition-opacity">
+              <MessageCircle className="w-5 h-5" />
+            </a>
           </div>
         </div>
 
