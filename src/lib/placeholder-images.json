@@ -47,6 +47,42 @@
       "description": "Jewelry box filled with various earring styles",
       "imageUrl": "https://picsum.photos/seed/box1/800/800",
       "imageHint": "jewelry collection"
+    },
+    {
+      "id": "lifestyle-1",
+      "description": "Brand story lifestyle image",
+      "imageUrl": "https://picsum.photos/seed/lifestyle1/800/1000",
+      "imageHint": "jewelry lifestyle"
+    },
+    {
+      "id": "ring-1",
+      "description": "Luxury ring detail",
+      "imageUrl": "https://picsum.photos/seed/ring1/400/400",
+      "imageHint": "luxury ring"
+    },
+    {
+      "id": "insta-1",
+      "description": "Instagram feature 1",
+      "imageUrl": "https://picsum.photos/seed/insta1/600/600",
+      "imageHint": "fashion aesthetic"
+    },
+    {
+      "id": "insta-2",
+      "description": "Instagram feature 2",
+      "imageUrl": "https://picsum.photos/seed/insta2/600/600",
+      "imageHint": "jewelry detail"
+    },
+    {
+      "id": "insta-3",
+      "description": "Instagram feature 3",
+      "imageUrl": "https://picsum.photos/seed/insta3/600/600",
+      "imageHint": "luxury jewelry"
+    },
+    {
+      "id": "insta-4",
+      "description": "Instagram feature 4",
+      "imageUrl": "https://picsum.photos/seed/insta4/600/600",
+      "imageHint": "aesthetic vibe"
     }
   ]
 }

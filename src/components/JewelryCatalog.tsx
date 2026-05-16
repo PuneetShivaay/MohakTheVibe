@@ -37,17 +37,19 @@ export function JewelryCatalog() {
 
         <div className="pinterest-grid">
           {products.map((product) => {
-            const img = PlaceHolderImages.find(i => i.id === product.imgId);
+            const img = PlaceHolderImages.find(i => i.id === product.imgId)?.imageUrl;
             return (
               <div key={product.id} className="mb-8 break-inside-avoid group cursor-pointer relative">
                 <div className="relative overflow-hidden bg-brand-ivory border border-brand-gold/10 hover:border-brand-gold/40 transition-all duration-500">
-                  <Image
-                    src={img?.imageUrl || ""}
-                    alt={product.name}
-                    width={600}
-                    height={800}
-                    className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  {img && (
+                    <Image
+                      src={img}
+                      alt={product.name}
+                      width={600}
+                      height={800}
+                      className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
                   
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-brand-midnight/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">

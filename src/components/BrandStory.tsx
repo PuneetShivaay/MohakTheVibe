@@ -5,28 +5,35 @@ import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export function BrandStory() {
+  const lifestyleImg = PlaceHolderImages.find(i => i.id === "lifestyle-1")?.imageUrl;
+  const ringImg = PlaceHolderImages.find(i => i.id === "ring-1")?.imageUrl;
+
   return (
     <section id="brand-story" className="py-24 px-6 md:px-12 bg-brand-ivory overflow-hidden">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
         <div className="relative group">
           <div className="absolute -top-10 -left-10 w-40 h-40 border border-brand-gold/20 rounded-full animate-float -z-10" />
           <div className="relative overflow-hidden aspect-[4/5] border-[12px] border-white shadow-2xl">
-            <Image
-              src={PlaceHolderImages.find(i => i.id === "lifestyle-1")?.imageUrl || ""}
-              alt="The Mohak – The Vibe Story"
-              fill
-              className="object-cover transition-transform duration-1000 group-hover:scale-110"
-              data-ai-hint="jewelry detail"
-            />
+            {lifestyleImg && (
+              <Image
+                src={lifestyleImg}
+                alt="The Mohak – The Vibe Story"
+                fill
+                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                data-ai-hint="jewelry detail"
+              />
+            )}
           </div>
           <div className="absolute -bottom-8 -right-8 w-48 h-48 overflow-hidden border-[8px] border-white shadow-xl hidden lg:block">
-            <Image
-              src={PlaceHolderImages.find(i => i.id === "ring-1")?.imageUrl || ""}
-              alt="Detail"
-              fill
-              className="object-cover"
-              data-ai-hint="luxury ring"
-            />
+            {ringImg && (
+              <Image
+                src={ringImg}
+                alt="Detail"
+                fill
+                className="object-cover"
+                data-ai-hint="luxury ring"
+              />
+            )}
           </div>
         </div>
 

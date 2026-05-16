@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -22,15 +23,18 @@ export function InstagramGrid() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {instaImages.map((id, index) => {
-            const img = PlaceHolderImages.find(i => i.id === id);
+            const img = PlaceHolderImages.find(i => i.id === id)?.imageUrl;
+            
             return (
               <div key={id} className="relative aspect-square group overflow-hidden cursor-pointer" onClick={() => window.open(instagramUrl, "_blank")}>
-                <Image
-                  src={img?.imageUrl || ""}
-                  alt={`Instagram Post ${index + 1}`}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+                {img && (
+                  <Image
+                    src={img}
+                    alt={`Instagram Post ${index + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                )}
                 <div className="absolute inset-0 bg-brand-gold/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                    <Instagram className="text-white w-8 h-8" />
                 </div>

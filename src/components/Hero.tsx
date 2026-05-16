@@ -7,20 +7,22 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 export function Hero() {
-  const heroImg = PlaceHolderImages.find(img => img.id === "hero-earrings");
+  const heroImg = PlaceHolderImages.find(img => img.id === "hero-earrings")?.imageUrl;
 
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src={heroImg?.imageUrl || ""}
-          alt="Mohak – The Vibe Earring Collection"
-          fill
-          className="object-cover scale-105"
-          priority
-          data-ai-hint="earring model"
-        />
+        {heroImg && (
+          <Image
+            src={heroImg}
+            alt="Mohak – The Vibe Earring Collection"
+            fill
+            className="object-cover scale-105"
+            priority
+            data-ai-hint="earring model"
+          />
+        )}
         <div className="absolute inset-0 bg-brand-midnight/40 dark:bg-brand-midnight/60 backdrop-blur-[2px]" />
       </div>
 
