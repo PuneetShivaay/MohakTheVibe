@@ -1,11 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
-import { Menu, X, Instagram, MessageCircle } from "lucide-react";
+import { Menu, X, ShoppingBag, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+const navLinks = [
+  { name: "HOME", href: "/" },
+  { name: "EARRINGS", href: "#catalog" },
+  { name: "COLLECTIONS", href: "#festive" },
+  { name: "ABOUT US", href: "#brand-story" },
+];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -19,66 +25,62 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const instagramUrl = "https://www.instagram.com/mohakthevibe/";
-  const whatsappUrl = "https://wa.me/c/175282363322554";
-
   return (
     <nav className={cn(
-      "fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-4 px-6 md:px-12",
-      isScrolled ? "bg-background/80 backdrop-blur-md shadow-sm border-b border-brand-gold/10" : "bg-transparent"
+      "fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-6 px-6 md:px-12",
+      isScrolled ? "bg-background/90 backdrop-blur-md py-4 border-b" : "bg-transparent"
     )}>
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Desktop Links Left */}
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between">
+        {/* Left: Navigation Menu */}
         <div className="hidden lg:flex items-center gap-8">
-          <a href="#catalog" className="text-xs uppercase tracking-widest hover:text-brand-gold transition-colors font-medium">Catalog</a>
-          <a href="#ai-stylist" className="text-xs uppercase tracking-widest hover:text-brand-gold transition-colors font-medium">AI Stylist</a>
+          {navLinks.map((link) => (
+            <a 
+              key={link.name}
+              href={link.href} 
+              className="text-[10px] tracking-[0.2em] font-medium hover:text-brand-gold transition-colors dashed-link"
+            >
+              {link.name}
+            </a>
+          ))}
         </div>
 
-        {/* Center Logo */}
-        <a href="/" className="hover:opacity-80 transition-opacity">
-          <BrandLogo />
-        </a>
+        {/* Center: Brand Name */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <a href="/" className="font-headline text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase">
+            MOHAK
+          </a>
+        </div>
 
-        {/* Desktop Links Right + Controls */}
-        <div className="hidden lg:flex items-center gap-8">
-          <div className="flex items-center gap-4">
-            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
-              <Instagram className="w-5 h-5" />
-            </a>
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
-              <MessageCircle className="w-5 h-5" />
-            </a>
+        {/* Right: Icons */}
+        <div className="flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-6">
+            <button className="hover:text-brand-gold transition-colors"><Search className="w-4 h-4" /></button>
+            <button className="hover:text-brand-gold transition-colors"><ShoppingBag className="w-4 h-4" /></button>
           </div>
-          <div className="h-6 w-[1px] bg-brand-gold/30 mx-2" />
+          <div className="h-4 w-[1px] bg-foreground/10 mx-2 hidden md:block" />
           <ThemeToggle />
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="lg:hidden flex items-center gap-4">
-          <ThemeToggle />
-          <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       <div className={cn(
         "fixed inset-0 bg-background z-[99] lg:hidden transition-transform duration-500 pt-32 px-12",
         mobileMenuOpen ? "translate-x-0" : "translate-x-full"
       )}>
-        <div className="flex flex-col gap-10 text-center">
-          <a href="#catalog" onClick={() => setMobileMenuOpen(false)} className="font-headline text-3xl">Catalog</a>
-          <a href="#ai-stylist" onClick={() => setMobileMenuOpen(false)} className="font-headline text-3xl">AI Stylist</a>
-          <a href="#brand-story" onClick={() => setMobileMenuOpen(false)} className="font-headline text-3xl">Our Story</a>
-          <div className="flex justify-center gap-8 pt-10 border-t border-brand-gold/10">
-            <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
-              <Instagram className="w-8 h-8 text-brand-gold" />
+        <div className="flex flex-col gap-8">
+          {navLinks.map((link) => (
+            <a 
+              key={link.name}
+              href={link.href} 
+              onClick={() => setMobileMenuOpen(false)}
+              className="font-headline text-4xl tracking-tight dashed-link"
+            >
+              {link.name}
             </a>
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              <MessageCircle className="w-8 h-8 text-brand-gold" />
-            </a>
-          </div>
+          ))}
         </div>
       </div>
     </nav>

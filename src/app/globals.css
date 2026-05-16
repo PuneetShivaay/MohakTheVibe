@@ -1,48 +1,47 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 36 33% 97%; /* Soft Ivory */
-    --foreground: 0 0% 7%; /* Midnight Luxe */
+    --background: 0 0% 98%; /* Clean Off-White */
+    --foreground: 0 0% 10%; /* Deep Charcoal */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    --card-foreground: 0 0% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
+    --popover-foreground: 0 0% 10%;
     --primary: 41 54% 54%; /* Signature Gold */
-    --primary-foreground: 36 33% 97%;
-    --secondary: 38 31% 85%; /* Champagne Beige */
-    --secondary-foreground: 0 0% 7%;
-    --muted: 36 20% 90%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 95%;
     --muted-foreground: 0 0% 45%;
     --accent: 41 54% 54%;
-    --accent-foreground: 36 33% 97%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 41 54% 54% / 0.2;
-    --input: 41 54% 54% / 0.2;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
     --ring: 41 54% 54%;
-    --radius: 0.75rem;
+    --radius: 0rem; /* Sharp edges for a high-fashion feel */
   }
   .dark {
-    --background: 0 0% 7%; /* Midnight Luxe */
-    --foreground: 36 33% 97%; /* Soft Ivory */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
     --card: 0 0% 10%;
-    --card-foreground: 36 33% 97%;
+    --card-foreground: 0 0% 95%;
     --popover: 0 0% 10%;
-    --popover-foreground: 36 33% 97%;
-    --primary: 41 54% 54%; /* Signature Gold */
+    --popover-foreground: 0 0% 95%;
+    --primary: 41 54% 54%;
     --primary-foreground: 0 0% 7%;
     --secondary: 0 0% 15%;
-    --secondary-foreground: 36 33% 97%;
+    --secondary-foreground: 0 0% 95%;
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
     --accent: 41 54% 54%;
     --accent-foreground: 0 0% 7%;
-    --border: 41 54% 54% / 0.3;
-    --input: 41 54% 54% / 0.3;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
     --ring: 41 54% 54%;
   }
 }
@@ -59,6 +58,26 @@
   }
 }
 
+.font-serif-italic {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
+.dashed-link::before {
+  content: "—";
+  margin-right: 0.5rem;
+  opacity: 0.5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
 .pinterest-grid {
   columns: 1;
   column-gap: 1.5rem;
@@ -72,19 +91,4 @@
   .pinterest-grid {
     columns: 3;
   }
-}
-
-.gold-border-gradient {
-  border-image: linear-gradient(to bottom right, #C9A14A, #E8DCC8) 1;
-}
-
-.glass-morphism {
-  background: rgba(250, 247, 242, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(201, 161, 74, 0.1);
-}
-
-.dark .glass-morphism {
-  background: rgba(18, 18, 18, 0.8);
-  border: 1px solid rgba(201, 161, 74, 0.2);
 }
