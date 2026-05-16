@@ -1,3 +1,4 @@
+
 "use client";
 
 import { BrandLogo } from "./BrandLogo";
@@ -5,7 +6,8 @@ import { Instagram, Facebook, MessageCircle, Mail, MapPin, Phone } from "lucide-
 
 export function Footer() {
   const instagramUrl = "https://www.instagram.com/mohakthevibe/";
-  const whatsappUrl = "https://wa.me/c/175282363322554";
+  const whatsappChatUrl = "https://wa.me/916388498674";
+  const whatsappCatalogUrl = "https://wa.me/c/916388498674";
 
   return (
     <footer className="bg-brand-midnight text-brand-ivory pt-24 pb-12 px-6 md:px-12 border-t border-brand-gold/10">
@@ -22,7 +24,7 @@ export function Footer() {
             <a href="#" className="text-brand-gold hover:opacity-70 transition-opacity">
               <Facebook className="w-5 h-5" />
             </a>
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:opacity-70 transition-opacity">
+            <a href={whatsappChatUrl} target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:opacity-70 transition-opacity">
               <MessageCircle className="w-5 h-5" />
             </a>
           </div>
@@ -34,7 +36,7 @@ export function Footer() {
             <li><a href="#" className="hover:text-brand-gold transition-colors">Flipkart Shop</a></li>
             <li><a href="#" className="hover:text-brand-gold transition-colors">Meesho Store</a></li>
             <li><a href="#" className="hover:text-brand-gold transition-colors">Amazon Collection</a></li>
-            <li><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">WhatsApp Catalogue</a></li>
+            <li><a href={whatsappCatalogUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">WhatsApp Catalogue</a></li>
           </ul>
         </div>
 
@@ -57,7 +59,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <Phone className="w-4 h-4 text-brand-gold" />
-              <span>+91 98765 43210</span>
+              <span>+91 63884 98674</span>
             </li>
             <li className="flex items-center gap-3">
               <Mail className="w-4 h-4 text-brand-gold" />
