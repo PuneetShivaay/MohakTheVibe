@@ -1,9 +1,7 @@
-
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { FestiveCollections } from "@/components/FestiveCollections";
 import { JewelryCatalog } from "@/components/JewelryCatalog";
-import { AIStylist } from "@/components/AIStylist";
 import { BrandStory } from "@/components/BrandStory";
 import { InstagramGrid } from "@/components/InstagramGrid";
 import { ContactSection } from "@/components/ContactSection";
@@ -18,7 +16,6 @@ export default function Home() {
       <FestiveCollections />
       <JewelryCatalog />
       <BrandStory />
-      <AIStylist />
       <InstagramGrid />
       <ContactSection />
       <Footer />
