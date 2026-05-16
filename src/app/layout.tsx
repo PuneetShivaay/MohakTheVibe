@@ -1,6 +1,7 @@
 
 import type {Metadata} from 'next';
 import './globals.css';
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: 'Mohak – The Vibe | Premium Artificial Jewelry',
@@ -36,6 +37,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased selection:bg-brand-gold/30">
         {children}
+        <Toaster />
       </body>
     </html>
   );

@@ -45,7 +45,7 @@ export function Footer() {
           <ul className="space-y-4 text-sm font-light opacity-60">
             <li><a href="#brand-story" className="hover:text-brand-gold transition-colors">Our Story</a></li>
             <li><a href="#catalog" className="hover:text-brand-gold transition-colors">Collections</a></li>
-            <li><a href="#" className="hover:text-brand-gold transition-colors">Ethics & Quality</a></li>
+            <li><a href="#contact" className="hover:text-brand-gold transition-colors">Contact Us</a></li>
             <li><a href="#" className="hover:text-brand-gold transition-colors">Shipping Info</a></li>
           </ul>
         </div>
@@ -53,9 +53,9 @@ export function Footer() {
         <div className="space-y-6">
           <h4 className="font-headline text-xl">Boutique Office</h4>
           <ul className="space-y-4 text-sm font-light opacity-60">
-            <li className="flex items-center gap-3">
-              <MapPin className="w-4 h-4 text-brand-gold" />
-              <span>Luxe Towers, Design District, India</span>
+            <li className="flex items-start gap-3">
+              <MapPin className="w-4 h-4 text-brand-gold shrink-0 mt-1" />
+              <span>Gomti Nagar Lucknow, Uttar Pradesh India</span>
             </li>
             <li className="flex items-center gap-3">
               <Phone className="w-4 h-4 text-brand-gold" />
@@ -63,7 +63,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <Mail className="w-4 h-4 text-brand-gold" />
-              <span>hello@mohakthevibe.com</span>
+              <span>mohakthevibe@gmail.com</span>
             </li>
           </ul>
         </div>
