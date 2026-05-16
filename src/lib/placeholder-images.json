@@ -3,98 +3,98 @@
     {
       "id": "hero-earrings",
       "description": "Model wearing spectacular statement artificial earrings",
-      "imageUrl": "https://picsum.photos/seed/earring-hero/1920/1080",
+      "imageUrl": "https://picsum.photos/seed/earring-hero-99/1920/1080",
       "imageHint": "earring model"
     },
     {
       "id": "jhumka-green",
       "description": "Minakari Half Green Jhumka",
-      "imageUrl": "https://picsum.photos/seed/green-jhumka/600/600",
+      "imageUrl": "https://picsum.photos/seed/green-jhumka-1/600/600",
       "imageHint": "green jhumka"
     },
     {
       "id": "jhumka-red",
       "description": "Minakari Half Red Jhumka",
-      "imageUrl": "https://picsum.photos/seed/red-jhumka/600/600",
+      "imageUrl": "https://picsum.photos/seed/red-jhumka-1/600/600",
       "imageHint": "red jhumka"
     },
     {
       "id": "lotus-firozi",
       "description": "Lotus Minakari Firozi Drop Earrings",
-      "imageUrl": "https://picsum.photos/seed/firozi-lotus/600/600",
+      "imageUrl": "https://picsum.photos/seed/firozi-lotus-1/600/600",
       "imageHint": "firozi earrings"
     },
     {
       "id": "lotus-black",
       "description": "Lotus Minakari Black Drop Earrings",
-      "imageUrl": "https://picsum.photos/seed/black-lotus/600/600",
+      "imageUrl": "https://picsum.photos/seed/black-lotus-1/600/600",
       "imageHint": "black earrings"
     },
     {
       "id": "lotus-wine",
       "description": "Lotus Minakari Wine Drop Earrings",
-      "imageUrl": "https://picsum.photos/seed/wine-lotus/600/600",
+      "imageUrl": "https://picsum.photos/seed/wine-lotus-1/600/600",
       "imageHint": "wine earrings"
     },
     {
       "id": "kundan-green",
       "description": "Green Crystal Kundan Drops Earring",
-      "imageUrl": "https://picsum.photos/seed/green-kundan/600/600",
+      "imageUrl": "https://picsum.photos/seed/green-kundan-1/600/600",
       "imageHint": "kundan earring"
     },
     {
       "id": "rect-gold",
       "description": "Gold Plated Rectangular Drop Earrings",
-      "imageUrl": "https://picsum.photos/seed/rect-gold/600/600",
+      "imageUrl": "https://picsum.photos/seed/rect-gold-1/600/600",
       "imageHint": "gold earrings"
     },
     {
       "id": "rect-mirror",
       "description": "Rectangular Drop Mirror Rose Gold Plated",
-      "imageUrl": "https://picsum.photos/seed/mirror-rose/600/600",
+      "imageUrl": "https://picsum.photos/seed/mirror-rose-1/600/600",
       "imageHint": "mirror earrings"
     },
     {
       "id": "lifestyle-earring",
       "description": "Jewelry box filled with various earring styles",
-      "imageUrl": "https://picsum.photos/seed/box1/800/800",
-      "imageHint": "jewelry collection"
+      "imageUrl": "https://picsum.photos/seed/box-earrings/800/800",
+      "imageHint": "earring collection"
     },
     {
       "id": "lifestyle-1",
-      "description": "Brand story lifestyle image",
-      "imageUrl": "https://picsum.photos/seed/lifestyle1/800/1000",
-      "imageHint": "jewelry lifestyle"
+      "description": "Brand story lifestyle image featuring earrings",
+      "imageUrl": "https://picsum.photos/seed/lifestyle-earring-1/800/1000",
+      "imageHint": "earring lifestyle"
     },
     {
-      "id": "ring-1",
-      "description": "Luxury ring detail",
-      "imageUrl": "https://picsum.photos/seed/ring1/400/400",
-      "imageHint": "luxury ring"
+      "id": "earring-detail",
+      "description": "Macro detail of a handcrafted earring",
+      "imageUrl": "https://picsum.photos/seed/earring-macro/400/400",
+      "imageHint": "earring detail"
     },
     {
       "id": "insta-1",
-      "description": "Instagram feature 1",
-      "imageUrl": "https://picsum.photos/seed/insta1/600/600",
-      "imageHint": "fashion aesthetic"
+      "description": "Instagram feature: Statement Earrings",
+      "imageUrl": "https://picsum.photos/seed/insta-earring-1/600/600",
+      "imageHint": "statement earrings"
     },
     {
       "id": "insta-2",
-      "description": "Instagram feature 2",
-      "imageUrl": "https://picsum.photos/seed/insta2/600/600",
-      "imageHint": "jewelry detail"
+      "description": "Instagram feature: Ethnic Jhumkas",
+      "imageUrl": "https://picsum.photos/seed/insta-earring-2/600/600",
+      "imageHint": "ethnic earrings"
     },
     {
       "id": "insta-3",
-      "description": "Instagram feature 3",
-      "imageUrl": "https://picsum.photos/seed/insta3/600/600",
-      "imageHint": "luxury jewelry"
+      "description": "Instagram feature: Contemporary Studs",
+      "imageUrl": "https://picsum.photos/seed/insta-earring-3/600/600",
+      "imageHint": "stud earrings"
     },
     {
       "id": "insta-4",
-      "description": "Instagram feature 4",
-      "imageUrl": "https://picsum.photos/seed/insta4/600/600",
-      "imageHint": "aesthetic vibe"
+      "description": "Instagram feature: Pearl Drops",
+      "imageUrl": "https://picsum.photos/seed/insta-earring-4/600/600",
+      "imageHint": "pearl earrings"
     }
   ]
 }

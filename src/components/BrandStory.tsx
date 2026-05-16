@@ -6,7 +6,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export function BrandStory() {
   const lifestyleImg = PlaceHolderImages.find(i => i.id === "lifestyle-1")?.imageUrl;
-  const ringImg = PlaceHolderImages.find(i => i.id === "ring-1")?.imageUrl;
+  const detailImg = PlaceHolderImages.find(i => i.id === "earring-detail")?.imageUrl;
 
   return (
     <section id="brand-story" className="py-24 px-6 md:px-12 bg-brand-ivory overflow-hidden">
@@ -20,18 +20,18 @@ export function BrandStory() {
                 alt="The Mohak – The Vibe Story"
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                data-ai-hint="jewelry detail"
+                data-ai-hint="earring lifestyle"
               />
             )}
           </div>
           <div className="absolute -bottom-8 -right-8 w-48 h-48 overflow-hidden border-[8px] border-white shadow-xl hidden lg:block">
-            {ringImg && (
+            {detailImg && (
               <Image
-                src={ringImg}
+                src={detailImg}
                 alt="Detail"
                 fill
                 className="object-cover"
-                data-ai-hint="luxury ring"
+                data-ai-hint="earring detail"
               />
             )}
           </div>
@@ -53,7 +53,7 @@ export function BrandStory() {
           <div className="grid grid-cols-2 gap-8 py-8 border-y border-brand-gold/10">
             <div>
               <h4 className="font-headline text-xl mb-2">Curated Craft</h4>
-              <p className="text-sm opacity-60 font-light">Each piece is hand-selected to meet our stringent standards of 'Luxe Aesthetics'.</p>
+              <p className="text-sm opacity-60 font-light">Each pair of earrings is hand-selected to meet our stringent standards of 'Luxe Aesthetics'.</p>
             </div>
             <div>
               <h4 className="font-headline text-xl mb-2">Boutique Service</h4>
