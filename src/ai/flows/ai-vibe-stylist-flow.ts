@@ -1,8 +1,9 @@
+
 'use server';
 /**
- * @fileOverview An AI-powered fashion assistant that suggests perfectly matched jewelry pieces from Mohak Luxe's collection.
+ * @fileOverview An AI-powered fashion assistant that suggests perfectly matched earrings from Mohak – The Vibe's collection.
  *
- * - aiVibeStylist - A function that handles the jewelry recommendation process.
+ * - aiVibeStylist - A function that handles the earring recommendation process.
  * - AIVibeStylistInput - The input type for the aiVibeStylist function.
  * - AIVibeStylistOutput - The return type for the aiVibeStylist function.
  */
@@ -25,19 +26,19 @@ const AIVibeStylistOutputSchema = z.object({
       z.object({
         type: z
           .string()
-          .describe('The type of jewelry recommended (e.g., Necklace, Earrings, Bracelet, Ring).'),
+          .describe('The type of earrings recommended (e.g., Jhumka, Studs, Hoops, Chandelier, Drop Earrings).'),
         style: z
           .string()
-          .describe('The style of the jewelry (e.g., Statement, Delicate, Vintage, Modern, Minimalist).'),
+          .describe('The style of the earrings (e.g., Temple Jewelry, Contemporary, Minimalist, Royal, Vintage).'),
         description: z
           .string()
-          .describe('A brief explanation of why this specific jewelry piece matches the vibe and occasion.'),
+          .describe('A brief explanation of why this specific pair of earrings matches the vibe and occasion.'),
         keywords: z
           .array(z.string())
-          .describe('Keywords describing the aesthetic, materials, or features (e.g., "gold-plated", "pearl", "geometric", "sparkling").'),
+          .describe('Keywords describing the aesthetic (e.g., "gold-plated", "pearl", "floral", "oxidized", "sparkling").'),
       })
     )
-    .describe('An array of personalized artificial jewelry recommendations.'),
+    .describe('An array of personalized artificial earring recommendations.'),
   brandMessage: z.string().optional().describe('An optional concluding message from the AI stylist.'),
 });
 export type AIVibeStylistOutput = z.infer<typeof AIVibeStylistOutputSchema>;
@@ -52,15 +53,15 @@ const aiVibeStylistPrompt = ai.definePrompt({
   name: 'aiVibeStylistPrompt',
   input: {schema: AIVibeStylistInputSchema},
   output: {schema: AIVibeStylistOutputSchema},
-  prompt: `You are the AI Vibe Stylist for "Mohak – The Vibe", a premium artificial jewelry brand. Your goal is to provide personalized and perfectly matched jewelry recommendations.
+  prompt: `You are the AI Vibe Stylist for "Mohak – The Vibe", a premium artificial earring boutique. Your goal is to provide personalized and perfectly matched earring recommendations.
 
-Mohak Luxe embodies feminine luxury with a Pinterest-inspired aesthetic. Our primary brand colors are Midnight Luxe (#121212), Signature Gold (#C9A14A), and Soft Ivory (#FAF7F2). Secondary accents include Champagne Beige (#E8DCC8) and Muted Copper (#B76E48). Our typography uses 'Playfair Display' for headlines and 'Inter' for body copy, emphasizing a blend of classic and modern elegance.
+Mohak Luxe specializes exclusively in high-quality artificial earrings with a Pinterest-inspired aesthetic. Our collections range from traditional Indian Jhumkas and Temple jewelry to modern, minimalist studs and hoops.
 
-Based on the following occasion or outfit description, suggest 2-3 artificial jewelry pieces from Mohak Luxe's collection that perfectly match the vibe. Ensure your recommendations align with our brand's luxurious, elegant, and modern aesthetic. For each recommendation, provide the jewelry type, its style, a brief description of why it fits, and relevant keywords.
+Based on the following occasion or outfit description, suggest 2-3 pairs of artificial earrings from Mohak – The Vibe's collection that perfectly match the vibe. Ensure your recommendations align with our brand's luxurious, elegant, and modern aesthetic.
 
 Occasion or Outfit Description: {{{occasionOrOutfitDescription}}}
 
-Make sure your output is a JSON array of recommendations as described by the output schema. Ensure all fields are filled. Also include a friendly brand message at the end. Do not include any additional text outside the JSON block.`,
+Make sure your output is a JSON array of recommendations as described by the output schema. Include a friendly brand message at the end. Do not include any additional text outside the JSON block.`,
 });
 
 const aiVibeStylistFlow = ai.defineFlow(

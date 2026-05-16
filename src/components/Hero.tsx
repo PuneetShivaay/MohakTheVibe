@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 export function Hero() {
-  const heroImg = PlaceHolderImages.find(img => img.id === "hero-bg");
+  const heroImg = PlaceHolderImages.find(img => img.id === "hero-earrings");
 
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
@@ -15,11 +15,11 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <Image
           src={heroImg?.imageUrl || ""}
-          alt="Mohak Luxe Hero"
+          alt="Mohak – The Vibe Earring Collection"
           fill
           className="object-cover scale-105"
           priority
-          data-ai-hint="jewelry model"
+          data-ai-hint="earring model"
         />
         <div className="absolute inset-0 bg-brand-midnight/40 dark:bg-brand-midnight/60 backdrop-blur-[2px]" />
       </div>
@@ -31,13 +31,13 @@ export function Hero() {
       {/* Hero Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
         <h2 className="text-brand-gold font-body tracking-[0.4em] uppercase text-sm mb-6 drop-shadow-md">
-          Established Luxe
+          Curated Earring Boutique
         </h2>
         <h1 className="font-headline text-5xl md:text-8xl text-brand-ivory mb-8 leading-tight">
           Wear <span className="italic">The</span> Vibe
         </h1>
         <p className="text-brand-ivory/90 font-light text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-          Curated artificial jewelry that blends boutique luxury with contemporary feminine aesthetics.
+          Artificial earrings reimagined. Discover your statement piece from our hand-picked collection of premium luxe aesthetics.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button 
@@ -45,7 +45,7 @@ export function Hero() {
             className="bg-brand-gold text-brand-midnight hover:bg-brand-beige border-none px-10 rounded-none h-14 text-base font-medium"
             onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            Explore Catalog
+            Explore Earring Catalog
           </Button>
           <Button 
             variant="outline" 
@@ -53,7 +53,7 @@ export function Hero() {
             className="border-brand-ivory text-brand-ivory hover:bg-brand-ivory/10 px-10 rounded-none h-14 text-base font-medium group"
             onClick={() => document.getElementById('ai-stylist')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            AI Vibe Stylist <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            AI Style Finder <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
       </div>

@@ -1,64 +1,52 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-bg",
-      "description": "Luxurious lifestyle shot of a woman wearing gold jewelry",
-      "imageUrl": "https://picsum.photos/seed/mohak1/1920/1080",
-      "imageHint": "jewelry model"
+      "id": "hero-earrings",
+      "description": "Model wearing spectacular statement artificial earrings",
+      "imageUrl": "https://picsum.photos/seed/earring-hero/1920/1080",
+      "imageHint": "earring model"
     },
     {
-      "id": "necklace-1",
-      "description": "Premium gold-plated necklace on soft ivory background",
-      "imageUrl": "https://picsum.photos/seed/mohak2/600/800",
-      "imageHint": "gold necklace"
+      "id": "jhumka-1",
+      "description": "Ornate gold-plated traditional Jhumka earrings",
+      "imageUrl": "https://picsum.photos/seed/jhumka1/600/800",
+      "imageHint": "jhumka earrings"
     },
     {
-      "id": "earrings-1",
-      "description": "Elegant pearl drop earrings",
-      "imageUrl": "https://picsum.photos/seed/mohak3/600/700",
-      "imageHint": "pearl earrings"
+      "id": "stud-1",
+      "description": "Sparkling diamond-style artificial studs",
+      "imageUrl": "https://picsum.photos/seed/stud1/600/700",
+      "imageHint": "stud earrings"
     },
     {
-      "id": "bracelet-1",
-      "description": "Modern minimalist gold cuff",
-      "imageUrl": "https://picsum.photos/seed/mohak4/600/900",
-      "imageHint": "gold bracelet"
+      "id": "drop-1",
+      "description": "Elegant pearl drop earrings for evening wear",
+      "imageUrl": "https://picsum.photos/seed/drop1/600/900",
+      "imageHint": "drop earrings"
     },
     {
-      "id": "ring-1",
-      "description": "Sparkling statement ring with vintage details",
-      "imageUrl": "https://picsum.photos/seed/mohak5/600/600",
-      "imageHint": "luxury ring"
+      "id": "hoop-1",
+      "description": "Modern minimalist gold-plated hoops",
+      "imageUrl": "https://picsum.photos/seed/hoop1/600/600",
+      "imageHint": "hoop earrings"
     },
     {
-      "id": "lifestyle-1",
-      "description": "Close up of jewelry details on a hand",
-      "imageUrl": "https://picsum.photos/seed/mohak6/800/800",
-      "imageHint": "jewelry detail"
+      "id": "chandelier-1",
+      "description": "Statement chandelier earrings for special occasions",
+      "imageUrl": "https://picsum.photos/seed/chandelier1/800/800",
+      "imageHint": "chandelier earrings"
     },
     {
-      "id": "insta-1",
-      "description": "Aesthetic jewelry flatlay",
-      "imageUrl": "https://picsum.photos/seed/mohak7/600/600",
-      "imageHint": "jewelry aesthetic"
+      "id": "daily-earring",
+      "description": "Close up of a dainty everyday earring",
+      "imageUrl": "https://picsum.photos/seed/daily1/600/600",
+      "imageHint": "minimalist earring"
     },
     {
-      "id": "insta-2",
-      "description": "Model wearing statement pieces in a boutique setting",
-      "imageUrl": "https://picsum.photos/seed/mohak8/600/600",
-      "imageHint": "fashion model"
-    },
-    {
-      "id": "insta-3",
-      "description": "Golden jewelry reflecting soft light",
-      "imageUrl": "https://picsum.photos/seed/mohak9/600/600",
-      "imageHint": "golden luxury"
-    },
-    {
-      "id": "insta-4",
-      "description": "Silk and gold luxury palette",
-      "imageUrl": "https://picsum.photos/seed/mohak10/600/600",
-      "imageHint": "silk gold"
+      "id": "lifestyle-earring",
+      "description": "Jewelry box filled with various earring styles",
+      "imageUrl": "https://picsum.photos/seed/box1/800/800",
+      "imageHint": "jewelry collection"
     }
   ]
 }

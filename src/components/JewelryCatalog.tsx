@@ -8,11 +8,12 @@ import { ShoppingBag, Instagram, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const products = [
-  { id: 'p1', imgId: 'necklace-1', name: 'Celestial Gold Choker', price: '₹2,499', category: 'Necklace' },
-  { id: 'p2', imgId: 'earrings-1', name: 'Vintage Pearl Drops', price: '₹1,299', category: 'Earrings' },
-  { id: 'p3', imgId: 'bracelet-1', name: 'Infinity Cuff', price: '₹1,899', category: 'Bracelet' },
-  { id: 'p4', imgId: 'ring-1', name: 'Royal Solitaire', price: '₹999', category: 'Ring' },
-  { id: 'p5', imgId: 'lifestyle-1', name: 'Daily Luxe Set', price: '₹3,299', category: 'Curation' },
+  { id: 'p1', imgId: 'jhumka-1', name: 'Mayura Temple Jhumkas', price: '₹1,899', category: 'Traditional' },
+  { id: 'p2', imgId: 'stud-1', name: 'Stellar Diamond Studs', price: '₹999', category: 'Contemporary' },
+  { id: 'p3', imgId: 'drop-1', name: 'Luna Pearl Drops', price: '₹1,499', category: 'Evening' },
+  { id: 'p4', imgId: 'hoop-1', name: 'Infinity Gold Hoops', price: '₹1,299', category: 'Minimalist' },
+  { id: 'p5', imgId: 'chandelier-1', name: 'Royal Solitaire Chandeliers', price: '₹2,499', category: 'Statement' },
+  { id: 'p6', imgId: 'daily-earring', name: 'Dewdrop Daily Studs', price: '₹799', category: 'Daily' },
 ];
 
 export function JewelryCatalog() {
@@ -21,15 +22,16 @@ export function JewelryCatalog() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-xl">
-            <h2 className="font-headline text-4xl md:text-5xl mb-4 text-foreground">The Collection</h2>
+            <h2 className="font-headline text-4xl md:text-5xl mb-4 text-foreground">The Earring Edit</h2>
             <p className="text-muted-foreground font-light text-lg">
-              A curated selection of our finest pieces, designed for the woman who speaks through her accessories.
+              Explore our boutique collection of premium artificial earrings. From ancestral temple designs to modern stardust aesthetics.
             </p>
           </div>
-          <div className="flex gap-4">
-            <Badge variant="outline" className="border-brand-gold text-brand-gold px-4 py-1 text-sm rounded-none">All Pieces</Badge>
-            <Badge variant="ghost" className="hover:text-brand-gold px-4 py-1 text-sm rounded-none">Necklaces</Badge>
-            <Badge variant="ghost" className="hover:text-brand-gold px-4 py-1 text-sm rounded-none">Earrings</Badge>
+          <div className="flex flex-wrap gap-2">
+            <Badge variant="outline" className="border-brand-gold text-brand-gold px-4 py-1 text-sm rounded-none cursor-pointer">All Designs</Badge>
+            <Badge variant="ghost" className="hover:text-brand-gold px-4 py-1 text-sm rounded-none cursor-pointer">Jhumkas</Badge>
+            <Badge variant="ghost" className="hover:text-brand-gold px-4 py-1 text-sm rounded-none cursor-pointer">Studs</Badge>
+            <Badge variant="ghost" className="hover:text-brand-gold px-4 py-1 text-sm rounded-none cursor-pointer">Hoops</Badge>
           </div>
         </div>
 
@@ -77,7 +79,7 @@ export function JewelryCatalog() {
         
         <div className="mt-16 text-center">
           <Button variant="ghost" className="text-brand-gold font-medium hover:bg-brand-gold/5 group">
-            View All Jewelry <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            Discover Full Gallery <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
       </div>
