@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "studio-3509723287-ebe81"
-  }
+    "default": "studio-3509723287-ebe81",
+    "production": "mohak-the-vibe"
+  },
+  "targets": {},
+  "etags": {}
 }
