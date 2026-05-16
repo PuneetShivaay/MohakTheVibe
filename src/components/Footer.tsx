@@ -5,6 +5,7 @@ import { Instagram, Facebook, MessageCircle, Mail, MapPin, Phone } from "lucide-
 
 export function Footer() {
   const instagramUrl = "https://www.instagram.com/mohakthevibe/";
+  const whatsappUrl = "https://wa.me/c/175282363322554";
 
   return (
     <footer className="bg-brand-midnight text-brand-ivory pt-24 pb-12 px-6 md:px-12 border-t border-brand-gold/10">
@@ -21,7 +22,7 @@ export function Footer() {
             <a href="#" className="text-brand-gold hover:opacity-70 transition-opacity">
               <Facebook className="w-5 h-5" />
             </a>
-            <a href="https://wa.me/yournumber" target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:opacity-70 transition-opacity">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:opacity-70 transition-opacity">
               <MessageCircle className="w-5 h-5" />
             </a>
           </div>
@@ -33,7 +34,7 @@ export function Footer() {
             <li><a href="#" className="hover:text-brand-gold transition-colors">Flipkart Shop</a></li>
             <li><a href="#" className="hover:text-brand-gold transition-colors">Meesho Store</a></li>
             <li><a href="#" className="hover:text-brand-gold transition-colors">Amazon Collection</a></li>
-            <li><a href="#" className="hover:text-brand-gold transition-colors">Bulk Inquiries</a></li>
+            <li><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">WhatsApp Catalogue</a></li>
           </ul>
         </div>
 

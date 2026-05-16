@@ -20,6 +20,7 @@ export function Navbar() {
   }, []);
 
   const instagramUrl = "https://www.instagram.com/mohakthevibe/";
+  const whatsappUrl = "https://wa.me/c/175282363322554";
 
   return (
     <nav className={cn(
@@ -44,7 +45,7 @@ export function Navbar() {
             <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
               <Instagram className="w-5 h-5" />
             </a>
-            <a href="https://wa.me/yournumber" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">
               <MessageCircle className="w-5 h-5" />
             </a>
           </div>
@@ -74,7 +75,7 @@ export function Navbar() {
             <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
               <Instagram className="w-8 h-8 text-brand-gold" />
             </a>
-            <a href="https://wa.me/yournumber" target="_blank" rel="noopener noreferrer">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="w-8 h-8 text-brand-gold" />
             </a>
           </div>
