@@ -1,0 +1,25 @@
+UPLOADING YOUR EARRING IMAGES:
+
+1. Upload your image files into this folder (public/images/).
+2. Rename your files to match the names listed in 'src/lib/placeholder-images.json'.
+   For example, rename your main jhumka image to 'jhumka-green.jpg'.
+
+Expected files for current configuration:
+- hero-earrings.jpg
+- jhumka-green.jpg
+- jhumka-red.jpg
+- lotus-firozi.jpg
+- lotus-black.jpg
+- lotus-wine.jpg
+- kundan-green.jpg
+- rect-gold.jpg
+- rect-mirror.jpg
+- lifestyle-earring.jpg
+- lifestyle-1.jpg
+- earring-detail.jpg
+- insta-1.jpg
+- insta-2.jpg
+- insta-3.jpg
+- insta-4.jpg
+
+NOTE: If you use different filenames or extensions (like .png), update the 'imageUrl' values in 'src/lib/placeholder-images.json' accordingly.
