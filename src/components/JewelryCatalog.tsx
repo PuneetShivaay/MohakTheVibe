@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const products = [
@@ -74,6 +74,8 @@ const products = [
 ];
 
 export function JewelryCatalog() {
+  const flipkartSearchUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
+
   return (
     <section id="catalog" className="py-24 px-6 md:px-12 bg-background relative">
       <div className="max-w-7xl mx-auto">
@@ -82,22 +84,22 @@ export function JewelryCatalog() {
         </div>
 
         {/* Navigation Arrows (Decorative/Navigation intent as per screenshot) */}
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:block">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
           <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
             <ChevronLeft className="w-6 h-6 text-foreground/40" />
           </Button>
         </div>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:block">
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
           <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
             <ChevronRight className="w-6 h-6 text-foreground/40" />
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
           {products.map((product) => {
             const img = PlaceHolderImages.find(i => i.id === product.imgId)?.imageUrl;
             return (
-              <div key={product.id} className="flex flex-col group cursor-pointer">
+              <div key={product.id} className="flex flex-col group">
                 {/* Product Image Container */}
                 <div className="relative aspect-square overflow-hidden bg-brand-ivory border border-foreground/[0.03]">
                   {img && (
@@ -116,7 +118,7 @@ export function JewelryCatalog() {
                 </div>
                 
                 {/* Product Details */}
-                <div className="mt-5 space-y-1.5">
+                <div className="mt-5 space-y-3 flex-grow">
                   <div className="flex justify-between items-start gap-4">
                     <h3 className="text-[11px] font-bold tracking-widest leading-tight text-foreground uppercase max-w-[70%]">
                       {product.name}
@@ -129,6 +131,22 @@ export function JewelryCatalog() {
                   <p className="text-[10px] italic text-foreground/40 font-light">
                     {product.tags}
                   </p>
+                </div>
+
+                {/* Buy on Flipkart Button */}
+                <div className="mt-4">
+                  <a 
+                    href={flipkartSearchUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block"
+                  >
+                    <Button 
+                      className="w-full bg-[#2874f0] hover:bg-[#1b5ec0] text-white rounded-none h-11 text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-2 border-none"
+                    >
+                      <span className="text-yellow-400">⚡</span> Buy on Flipkart
+                    </Button>
+                  </a>
                 </div>
               </div>
             );
