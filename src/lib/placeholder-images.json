@@ -33,7 +33,7 @@
     {
       "id": "festive-item-3",
       "description": "Festive Collection Item 3",
-      "imageUrl": "/images/earring/earring3.png",
+      "imageUrl": "/images/earring/earring19.png",
       "imageHint": "traditional jewelry"
     },
     {
@@ -51,13 +51,13 @@
     {
       "id": "catalog-jhumka-green",
       "description": "Minakari Half Green Jhumka",
-      "imageUrl": "/images/earring/earring1.png",
+      "imageUrl": "/images/earring/earring11.png",
       "imageHint": "green jhumka"
     },
     {
       "id": "catalog-jhumka-red",
       "description": "Minakari Half Red Jhumka",
-      "imageUrl": "/images/earring/earring1.png",
+      "imageUrl": "/images/earring/earring21.png",
       "imageHint": "red jhumka"
     },
     {
@@ -75,7 +75,7 @@
     {
       "id": "catalog-lotus-wine",
       "description": "Lotus Minakari Wine Drop Earrings",
-      "imageUrl": "/images/earring/earring5.png",
+      "imageUrl": "/images/earring/earring20.png",
       "imageHint": "wine earrings"
     },
     {
@@ -87,7 +87,7 @@
     {
       "id": "catalog-rect-gold",
       "description": "Gold Plated Rectangular Drop Earrings",
-      "imageUrl": "/images/earring/earring7.png",
+      "imageUrl": "/images/earring/earring18.png",
       "imageHint": "gold earrings"
     },
     {
@@ -117,7 +117,7 @@
     {
       "id": "insta-post-2",
       "description": "Instagram feature: Ethnic Jhumkas",
-      "imageUrl": "/images/earring/earring13.jpeg",
+      "imageUrl": "/images/earring/earring17.png",
       "imageHint": "ethnic earrings"
     },
     {
@@ -129,7 +129,7 @@
     {
       "id": "insta-post-4",
       "description": "Instagram feature: Pearl Drops",
-      "imageUrl": "/images/earring/earring4.png",
+      "imageUrl": "/images/earring/earring16.png",
       "imageHint": "pearl earrings"
     }
   ]
