@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -9,7 +8,7 @@ import { Button } from "@/components/ui/button";
 const products = [
   { 
     id: 'p1', 
-    imgId: 'jhumka-green', 
+    imgId: 'catalog-jhumka-green', 
     name: 'MINAKARI HALF GREEN JHUMKA', 
     oldPrice: '₹299.00', 
     price: '₹199.00', 
@@ -17,7 +16,7 @@ const products = [
   },
   { 
     id: 'p2', 
-    imgId: 'jhumka-red', 
+    imgId: 'catalog-jhumka-red', 
     name: 'MINAKARI HALF RED JHUMKA', 
     oldPrice: '₹299.00', 
     price: '₹199.00', 
@@ -25,7 +24,7 @@ const products = [
   },
   { 
     id: 'p3', 
-    imgId: 'lotus-firozi', 
+    imgId: 'catalog-lotus-firozi', 
     name: 'LOTUS MINAKARI FIROZI DROP EARRINGS', 
     oldPrice: '₹349.00', 
     price: '₹210.00', 
@@ -33,7 +32,7 @@ const products = [
   },
   { 
     id: 'p4', 
-    imgId: 'lotus-black', 
+    imgId: 'catalog-lotus-black', 
     name: 'LOTUS MINAKARI BLACK DROP EARRINGS', 
     oldPrice: '₹349.00', 
     price: '₹210.00', 
@@ -41,7 +40,7 @@ const products = [
   },
   { 
     id: 'p5', 
-    imgId: 'lotus-wine', 
+    imgId: 'catalog-lotus-wine', 
     name: 'LOTUS MINAKARI WINE DROP EARRINGS', 
     oldPrice: '₹349.00', 
     price: '₹210.00', 
@@ -49,7 +48,7 @@ const products = [
   },
   { 
     id: 'p6', 
-    imgId: 'kundan-green', 
+    imgId: 'catalog-kundan-green', 
     name: 'GREEN CRYSTAL KUNDAN DROPS EARRING', 
     oldPrice: '₹349.00', 
     price: '₹299.00', 
@@ -57,7 +56,7 @@ const products = [
   },
   { 
     id: 'p7', 
-    imgId: 'rect-gold', 
+    imgId: 'catalog-rect-gold', 
     name: 'GOLD PLATED RECTANGULAR DROP EARRINGS WITH STONE', 
     oldPrice: '₹249.00', 
     price: '₹149.00', 
@@ -65,7 +64,7 @@ const products = [
   },
   { 
     id: 'p8', 
-    imgId: 'rect-mirror', 
+    imgId: 'catalog-rect-mirror', 
     name: 'RECTANGULAR DROP MIRROR ROSE GOLD PLATED EARRING WITH STONE', 
     oldPrice: '₹249.00', 
     price: '₹149.00', 
@@ -75,7 +74,7 @@ const products = [
 
 export function JewelryCatalog() {
   const flipkartSearchUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
-  const flipkartLogo = PlaceHolderImages.find(img => img.id === "flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
+  const flipkartLogo = PlaceHolderImages.find(img => img.id === "header-flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
 
   return (
     <section id="catalog" className="py-16 sm:py-24 px-6 md:px-12 bg-background relative">

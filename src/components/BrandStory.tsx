@@ -1,12 +1,11 @@
-
 "use client";
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export function BrandStory() {
-  const lifestyleImg = PlaceHolderImages.find(i => i.id === "lifestyle-1")?.imageUrl;
-  const detailImg = PlaceHolderImages.find(i => i.id === "earring-detail")?.imageUrl;
+  const lifestyleImg = PlaceHolderImages.find(i => i.id === "brand-story-lifestyle")?.imageUrl;
+  const detailImg = PlaceHolderImages.find(i => i.id === "brand-story-detail")?.imageUrl;
 
   return (
     <section id="brand-story" className="py-16 sm:py-24 px-6 md:px-12 bg-brand-ivory overflow-hidden">

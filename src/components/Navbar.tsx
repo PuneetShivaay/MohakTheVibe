@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -20,8 +19,8 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const flipkartStoreUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
-  const flipkartLogo = PlaceHolderImages.find(img => img.id === "flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
-  const brandLogo = PlaceHolderImages.find(img => img.id === "brand-logo")?.imageUrl;
+  const flipkartLogo = PlaceHolderImages.find(img => img.id === "header-flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
+  const brandLogo = PlaceHolderImages.find(img => img.id === "header-brand-logo")?.imageUrl;
 
   const logoShadow = "0px 2px 4px rgba(0, 0, 0, 0.15), 0px 0px 10px rgba(255, 255, 255, 0.5)";
 

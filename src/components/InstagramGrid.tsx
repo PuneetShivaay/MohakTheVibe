@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -6,7 +5,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const instaImages = ["insta-1", "insta-2", "insta-3", "insta-4"];
+const instaImages = ["insta-post-1", "insta-post-2", "insta-post-3", "insta-post-4"];
 
 export function InstagramGrid() {
   const instagramUrl = "https://www.instagram.com/mohakthevibe/";

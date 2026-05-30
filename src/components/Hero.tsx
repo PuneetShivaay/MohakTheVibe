@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -6,7 +5,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
-  const modelImg = PlaceHolderImages.find(img => img.id === "hero-earrings")?.imageUrl;
+  const modelImg = PlaceHolderImages.find(img => img.id === "hero-main-bg")?.imageUrl;
 
   return (
     <section className="relative min-h-screen w-full flex flex-col lg:flex-row items-center overflow-hidden bg-background">
