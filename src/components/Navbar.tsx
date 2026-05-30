@@ -2,10 +2,12 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { ThemeToggle } from "./ThemeToggle";
 import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const navLinks = [
   { name: "HOME", href: "/" },
@@ -18,6 +20,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const flipkartStoreUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
+  const flipkartLogo = PlaceHolderImages.find(img => img.id === "flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -66,17 +69,14 @@ export function Navbar() {
               className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
               title="Shop on Flipkart"
             >
-              <svg viewBox="0 0 100 100" className="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
-                {/* Yellow Shopping Bag */}
-                <path d="M15,35 L85,35 C88,35 90,37 90,40 L90,85 C90,88 88,90 85,90 L15,90 C12,90 10,88 10,85 L10,40 C10,37 12,35 15,35 Z" fill="#ffd800" />
-                {/* Bag Inner Flap */}
-                <path d="M15,35 L22,25 L78,25 L85,35 Z" fill="#f8c300" opacity="0.8" />
-                {/* Smiley Handle */}
-                <path d="M38,48 C38,60 62,60 62,48" fill="none" stroke="#eb1c24" strokeWidth="3.5" strokeLinecap="round" />
-                {/* Blue 'f' logo part */}
-                <path d="M42,70 L80,70" fill="none" stroke="#2874f0" strokeWidth="10" strokeLinecap="round" />
-                <path d="M58,55 C78,55 78,65 78,75 L78,90" fill="none" stroke="#2874f0" strokeWidth="10" strokeLinecap="round" />
-              </svg>
+              <Image 
+                src={flipkartLogo}
+                alt="Shop on Flipkart"
+                width={32}
+                height={32}
+                className="object-contain h-8 w-auto"
+                data-ai-hint="flipkart logo"
+              />
             </a>
           </div>
           <div className="h-4 w-[1px] bg-foreground/10 mx-2 hidden md:block" />

@@ -95,6 +95,12 @@
       "description": "Instagram feature: Pearl Drops",
       "imageUrl": "/images/earring4.png",
       "imageHint": "pearl earrings"
+    },
+    {
+      "id": "flipkart-logo",
+      "description": "Flipkart Official Logo",
+      "imageUrl": "/images/flipkart-logo.png",
+      "imageHint": "flipkart logo"
     }
   ]
 }
