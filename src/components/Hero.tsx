@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -12,11 +13,11 @@ export function Hero() {
       {/* Left Content */}
       <div className="w-full lg:w-1/2 h-full flex flex-col justify-center px-6 sm:px-12 md:px-16 lg:px-24 py-24 sm:py-32 lg:py-0 z-10">
         <div className="max-w-xl animate-fade-in-up">
-          <h1 className="font-headline text-5xl sm:text-6xl md:text-8xl lg:text-9xl leading-[0.9] text-foreground mb-6 sm:mb-8">
+          <h1 className="font-headline text-4xl sm:text-6xl md:text-7xl lg:text-9xl leading-[0.9] text-foreground mb-6 sm:mb-8">
             finest <br /> 
             <span className="italic">jewelry,</span>
           </h1>
-          <p className="text-foreground/70 text-base sm:text-lg md:text-xl font-light mb-8 sm:mb-12 italic">
+          <p className="text-foreground/70 text-sm sm:text-base md:text-lg lg:text-xl font-light mb-8 sm:mb-12 italic">
             inspired by our life.
           </p>
           <div className="flex">
@@ -37,7 +38,7 @@ export function Hero() {
           {modelImg && (
             <Image
               src={modelImg}
-              alt="Mohak Mohak Signature Collection"
+              alt="Mohak Signature Collection"
               fill
               className="object-cover object-center"
               priority

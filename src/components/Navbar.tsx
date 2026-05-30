@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -52,7 +53,7 @@ export function Navbar() {
           <div className="flex items-center flex-shrink-0">
             <a href="/" className="flex items-center">
               {brandLogo ? (
-                <div className="relative h-7 w-20 sm:h-10 sm:w-32 md:w-40">
+                <div className="relative h-6 w-20 sm:h-8 sm:w-28 md:w-40">
                   <Image 
                     src={brandLogo} 
                     alt="Mohak" 
@@ -64,14 +65,14 @@ export function Navbar() {
                       target.style.display = 'none';
                       const parent = target.parentElement;
                       if (parent) {
-                        parent.innerHTML = `<span class="font-headline text-lg sm:text-xl md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase" style="text-shadow: ${logoShadow}">MOHAK</span>`;
+                        parent.innerHTML = `<span class="font-headline text-base sm:text-lg md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase" style="text-shadow: ${logoShadow}">MOHAK</span>`;
                       }
                     }}
                   />
                 </div>
               ) : (
                 <span 
-                  className="font-headline text-lg sm:text-xl md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase"
+                  className="font-headline text-base sm:text-lg md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase"
                   style={{ textShadow: logoShadow }}
                 >
                   MOHAK
@@ -137,41 +138,41 @@ export function Navbar() {
         mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
       )}>
         <div className="flex flex-col h-full pt-20 pb-12 px-6 sm:px-12 overflow-y-auto">
-          <div className="flex flex-col gap-6 sm:gap-10">
+          <div className="flex flex-col gap-4 sm:gap-8">
             {navLinks.map((link) => (
               <a 
                 key={link.name}
                 href={link.href} 
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-headline text-2xl sm:text-4xl md:text-5xl tracking-tight border-b border-foreground/5 pb-4 hover:text-brand-gold transition-colors"
+                className="font-headline text-lg sm:text-2xl tracking-tight border-b border-foreground/5 pb-3 hover:text-brand-gold transition-colors"
               >
                 {link.name}
               </a>
             ))}
             
             {/* Mobile search and shop links */}
-            <div className="mt-6 space-y-6">
+            <div className="mt-4 space-y-4">
               <a 
                 href={flipkartStoreUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-headline text-xl sm:text-3xl md:text-4xl tracking-tight text-[#2874f0] flex items-center gap-4 group"
+                className="font-headline text-base sm:text-xl tracking-tight text-[#2874f0] flex items-center gap-4 group"
               >
                 <span>FLIPKART SHOP</span>
                 <Image 
                   src={flipkartLogo}
                   alt="Flipkart"
-                  width={40}
-                  height={40}
-                  className="object-contain h-7 sm:h-10 w-auto group-hover:scale-110 transition-transform"
+                  width={32}
+                  height={32}
+                  className="object-contain h-6 sm:h-8 w-auto group-hover:scale-110 transition-transform"
                 />
               </a>
               
-              <div className="pt-8 border-t border-foreground/5">
-                <p className="text-[9px] uppercase tracking-[0.4em] text-foreground/40 mb-4">Connect with us</p>
-                <div className="flex gap-6 sm:gap-8">
-                   <a href="https://www.instagram.com/mohakthevibe/" target="_blank" className="text-lg sm:text-2xl font-headline">Instagram</a>
-                   <a href="https://wa.me/916388498674" target="_blank" className="text-lg sm:text-2xl font-headline">WhatsApp</a>
+              <div className="pt-6 border-t border-foreground/5">
+                <p className="text-[8px] uppercase tracking-[0.4em] text-foreground/40 mb-3">Connect with us</p>
+                <div className="flex gap-4 sm:gap-6">
+                   <a href="https://www.instagram.com/mohakthevibe/" target="_blank" className="text-base sm:text-xl font-headline">Instagram</a>
+                   <a href="https://wa.me/916388498674" target="_blank" className="text-base sm:text-xl font-headline">WhatsApp</a>
                 </div>
               </div>
             </div>

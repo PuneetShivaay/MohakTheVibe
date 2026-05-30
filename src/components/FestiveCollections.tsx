@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -13,11 +14,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-/**
- * To edit the images in this section:
- * 1. Change the 'id' below to match an ID in src/lib/placeholder-images.json
- * 2. Currently using dedicated 'festive-item-X' IDs so you can have different images here.
- */
 const festiveItems = [
   { id: 'festive-item-1', title: 'Emerald Royale' },
   { id: 'festive-item-2', title: 'Ruby Radiance' },
@@ -28,22 +24,21 @@ const festiveItems = [
 
 export function FestiveCollections() {
   return (
-    <section id="festive" className="py-24 sm:py-32 px-6 bg-brand-ivory/20 overflow-hidden relative">
+    <section id="festive" className="py-16 sm:py-24 md:py-32 px-6 bg-brand-ivory/20 overflow-hidden relative">
       <div className="max-w-7xl mx-auto relative">
-        {/* Decorative Background Element */}
         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 border border-brand-gold/5 rounded-full pointer-events-none" />
         
-        <div className="text-center mb-16 sm:mb-24 animate-fade-in space-y-4">
-          <span className="text-brand-gold uppercase tracking-[0.4em] text-[10px] font-semibold">Special Edition</span>
-          <h2 className="font-headline text-4xl sm:text-5xl md:text-7xl text-foreground leading-tight">
+        <div className="text-center mb-12 sm:mb-24 animate-fade-in space-y-3 sm:space-y-4">
+          <span className="text-brand-gold uppercase tracking-[0.4em] text-[9px] sm:text-[10px] font-semibold">Special Edition</span>
+          <h2 className="font-headline text-3xl sm:text-5xl md:text-7xl text-foreground leading-tight">
             Festive Collections
           </h2>
-          <p className="text-foreground/60 text-base sm:text-lg max-w-2xl mx-auto font-light">
+          <p className="text-foreground/60 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-light">
             In this Festive Season, Be the Real You with Mohak. Discover curated elegance for your most celebrated moments.
           </p>
         </div>
 
-        <div className="relative px-4 sm:px-12">
+        <div className="relative px-0 sm:px-12">
           <Carousel
             opts={{
               align: "start",
@@ -57,7 +52,7 @@ export function FestiveCollections() {
                 const img = imgData?.imageUrl;
                 
                 return (
-                  <CarouselItem key={item.id} className="pl-4 sm:pl-6 basis-full sm:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={item.id} className="pl-4 sm:pl-6 basis-[85%] sm:basis-1/2 lg:basis-1/3">
                     <div className="group relative aspect-[4/5] overflow-hidden bg-white shadow-sm transition-all duration-500 hover:shadow-2xl border border-brand-gold/5">
                       {img ? (
                         <Image
@@ -68,14 +63,13 @@ export function FestiveCollections() {
                         />
                       ) : (
                         <div className="w-full h-full bg-muted flex items-center justify-center text-xs text-muted-foreground">
-                          Image ID "{item.id}" not found
+                          Image not found
                         </div>
                       )}
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                        <h3 className="text-white font-headline text-2xl mb-2">{item.title}</h3>
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 sm:p-8">
+                        <h3 className="text-white font-headline text-xl sm:text-2xl mb-2">{item.title}</h3>
                         <div className="w-12 h-[1px] bg-brand-gold" />
-                        <p className="text-white/70 text-[10px] tracking-widest uppercase mt-4">View Details</p>
+                        <p className="text-white/70 text-[9px] tracking-widest uppercase mt-4">View Details</p>
                       </div>
                     </div>
                   </CarouselItem>
@@ -90,10 +84,10 @@ export function FestiveCollections() {
           </Carousel>
         </div>
 
-        <div className="mt-16 sm:mt-24 text-center">
+        <div className="mt-12 sm:mt-24 text-center">
           <Button 
             variant="outline"
-            className="h-12 px-12 rounded-none border-brand-midnight/20 text-[10px] tracking-[0.3em] uppercase hover:bg-brand-midnight hover:text-white transition-all group"
+            className="h-10 sm:h-12 px-8 sm:px-12 rounded-none border-brand-midnight/20 text-[9px] sm:text-[10px] tracking-[0.3em] uppercase hover:bg-brand-midnight hover:text-white transition-all group"
             onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}
           >
             <span className="dashed-link">EXPLORE THE FULL RANGE</span>
