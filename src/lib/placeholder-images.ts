@@ -1,4 +1,3 @@
-
 import data from './placeholder-images.json';
 
 export type ImagePlaceholder = {
@@ -8,5 +7,5 @@ export type ImagePlaceholder = {
   imageHint: string;
 };
 
-// Access the nested array to match the JSON structure
-export const PlaceHolderImages: ImagePlaceholder[] = (data as any).placeholderImages || [];
+// Access the nested array to match the JSON structure with a fallback
+export const PlaceHolderImages: ImagePlaceholder[] = (data as any)?.placeholderImages || [];

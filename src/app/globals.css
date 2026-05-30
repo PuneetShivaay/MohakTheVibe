@@ -78,17 +78,12 @@
   animation: fadeIn 1s ease-out forwards;
 }
 
-.pinterest-grid {
-  columns: 1;
-  column-gap: 1.5rem;
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
-@media (min-width: 640px) {
-  .pinterest-grid {
-    columns: 2;
-  }
-}
-@media (min-width: 1024px) {
-  .pinterest-grid {
-    columns: 3;
-  }
+
+/* Custom logo shadow utility */
+.logo-shadow {
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15), 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
