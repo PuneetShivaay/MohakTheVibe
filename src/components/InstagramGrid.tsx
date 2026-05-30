@@ -12,16 +12,16 @@ export function InstagramGrid() {
   const instagramUrl = "https://www.instagram.com/mohakthevibe/";
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-white">
+    <section className="py-16 sm:py-24 px-6 md:px-12 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="font-headline text-4xl md:text-5xl mb-4">On the Gram</h2>
-          <p className="text-muted-foreground font-light max-w-xl mx-auto">
+        <div className="text-center mb-10 sm:mb-16">
+          <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl mb-4">On the Gram</h2>
+          <p className="text-sm sm:text-base text-muted-foreground font-light max-w-xl mx-auto">
             Join our community of luxe enthusiasts. Tag us <span className="text-brand-gold font-medium">@mohakthevibe</span> to be featured.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           {instaImages.map((id, index) => {
             const img = PlaceHolderImages.find(i => i.id === id)?.imageUrl;
             
@@ -36,17 +36,17 @@ export function InstagramGrid() {
                   />
                 )}
                 <div className="absolute inset-0 bg-brand-gold/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                   <Instagram className="text-white w-8 h-8" />
+                   <Instagram className="text-white w-6 h-6 sm:w-8 sm:h-8" />
                 </div>
               </div>
             );
           })}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-10 sm:mt-12 text-center">
           <Button 
             variant="outline" 
-            className="border-brand-midnight text-brand-midnight hover:bg-brand-midnight hover:text-white px-10 rounded-none h-12"
+            className="border-brand-midnight text-brand-midnight hover:bg-brand-midnight hover:text-white px-8 sm:px-10 rounded-none h-11 sm:h-12 text-[10px] sm:text-xs"
             onClick={() => window.open(instagramUrl, "_blank")}
           >
             Follow Our Journey

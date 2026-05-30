@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -10,19 +11,19 @@ export function Hero() {
   return (
     <section className="relative min-h-screen w-full flex flex-col lg:flex-row items-center overflow-hidden bg-background">
       {/* Left Content */}
-      <div className="w-full lg:w-1/2 h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 py-32 lg:py-0 z-10">
+      <div className="w-full lg:w-1/2 h-full flex flex-col justify-center px-6 sm:px-12 md:px-16 lg:px-24 py-24 sm:py-32 lg:py-0 z-10">
         <div className="max-w-xl animate-fade-in-up">
-          <h1 className="font-headline text-7xl md:text-9xl leading-[0.9] text-foreground mb-8">
+          <h1 className="font-headline text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9] text-foreground mb-6 sm:mb-8">
             finest <br /> 
             <span className="italic">jewelry,</span>
           </h1>
-          <p className="text-foreground/70 text-xl font-light mb-12 italic">
+          <p className="text-foreground/70 text-lg md:text-xl font-light mb-8 sm:mb-12 italic">
             inspired by our life.
           </p>
           <div className="flex">
             <Button 
               variant="outline"
-              className="group h-12 px-8 rounded-none border-foreground/20 text-[10px] tracking-[0.3em] uppercase hover:bg-foreground hover:text-background transition-all"
+              className="group h-11 sm:h-12 px-6 sm:px-8 rounded-none border-foreground/20 text-[9px] sm:text-[10px] tracking-[0.3em] uppercase hover:bg-foreground hover:text-background transition-all"
               onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <span className="dashed-link">EXPLORE NOW</span>
@@ -32,7 +33,7 @@ export function Hero() {
       </div>
 
       {/* Right Image Container */}
-      <div className="w-full lg:w-1/2 h-[60vh] lg:h-screen relative">
+      <div className="w-full lg:w-1/2 h-[50vh] sm:h-[60vh] lg:h-screen relative">
         <div className="absolute inset-0 z-0">
           {modelImg && (
             <Image
@@ -41,14 +42,13 @@ export function Hero() {
               fill
               className="object-cover object-center"
               priority
-              data-ai-hint="luxury model"
             />
           )}
-          {/* Subtle circle overlay decoration inspired by image */}
+          {/* Subtle circle overlay decoration */}
           <div className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 w-[120%] h-[120%] border border-foreground/5 rounded-full pointer-events-none" />
-          <div className="absolute bottom-1/4 right-8 flex flex-col gap-8 items-center text-[10px] tracking-[0.3em] vertical-text mix-blend-difference text-white">
+          <div className="absolute bottom-1/4 right-6 sm:right-8 flex flex-col gap-6 sm:gap-8 items-center text-[9px] sm:text-[10px] tracking-[0.3em] vertical-text mix-blend-difference text-white">
             <span className="rotate-90 origin-center whitespace-nowrap opacity-40">INSTAGRAM</span>
-            <div className="w-[1px] h-12 bg-white/40" />
+            <div className="w-[1px] h-10 sm:h-12 bg-white/40" />
           </div>
         </div>
       </div>

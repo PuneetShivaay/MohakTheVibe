@@ -43,8 +43,8 @@ export function Navbar() {
   return (
     <>
       <nav className={cn(
-        "fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-6 px-6 md:px-12",
-        isScrolled || mobileMenuOpen ? "bg-background/95 backdrop-blur-md py-4 border-b" : "bg-transparent"
+        "fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-4 px-4 md:py-6 md:px-12",
+        isScrolled || mobileMenuOpen ? "bg-background/95 backdrop-blur-md py-3 border-b" : "bg-transparent"
       )}>
         <div className="max-w-[1600px] mx-auto flex items-center justify-between relative h-10">
           {/* Left: Navigation Menu */}
@@ -64,7 +64,7 @@ export function Navbar() {
           <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
             <a href="/" className="flex items-center">
               {brandLogo ? (
-                <div className="relative h-10 w-32 md:w-40">
+                <div className="relative h-8 w-24 sm:h-10 sm:w-32 md:w-40">
                   <Image 
                     src={brandLogo} 
                     alt="Mohak" 
@@ -72,18 +72,17 @@ export function Navbar() {
                     className="object-contain"
                     priority
                     onError={(e) => {
-                      // If image fails to load, fallback to text
                       const target = e.target as any;
                       target.style.display = 'none';
                       const parent = target.parentElement;
                       if (parent) {
-                        parent.innerHTML = '<span class="font-headline text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase">MOHAK</span>';
+                        parent.innerHTML = '<span class="font-headline text-xl md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase">MOHAK</span>';
                       }
                     }}
                   />
                 </div>
               ) : (
-                <span className="font-headline text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase">
+                <span className="font-headline text-xl md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase">
                   MOHAK
                 </span>
               )}
@@ -91,7 +90,7 @@ export function Navbar() {
           </div>
 
           {/* Right: Icons */}
-          <div className="flex items-center gap-4 md:gap-6">
+          <div className="flex items-center gap-2 md:gap-6">
             <div className="hidden md:flex items-center gap-6">
               <button className="hover:text-brand-gold transition-colors">
                 <Search className="w-4 h-4" />
@@ -109,11 +108,9 @@ export function Navbar() {
                   width={32}
                   height={32}
                   className="object-contain h-8 w-auto"
-                  data-ai-hint="flipkart logo"
                 />
               </a>
             </div>
-            <div className="h-4 w-[1px] bg-foreground/10 mx-2 hidden md:block" />
             <ThemeToggle />
             <Button 
               variant="ghost" 
@@ -121,7 +118,7 @@ export function Navbar() {
               className="lg:hidden" 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
         </div>
@@ -132,26 +129,26 @@ export function Navbar() {
         "fixed inset-0 bg-background z-[99] lg:hidden transition-all duration-500 ease-in-out",
         mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
       )}>
-        <div className="flex flex-col h-full pt-32 pb-12 px-10 overflow-y-auto">
-          <div className="flex flex-col gap-10">
+        <div className="flex flex-col h-full pt-24 pb-12 px-8 sm:px-12 overflow-y-auto">
+          <div className="flex flex-col gap-8 sm:gap-10">
             {navLinks.map((link) => (
               <a 
                 key={link.name}
                 href={link.href} 
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-headline text-5xl tracking-tight border-b border-foreground/5 pb-4 hover:text-brand-gold transition-colors"
+                className="font-headline text-3xl sm:text-4xl md:text-5xl tracking-tight border-b border-foreground/5 pb-4 hover:text-brand-gold transition-colors"
               >
                 {link.name}
               </a>
             ))}
             
             {/* Mobile search and shop links */}
-            <div className="mt-8 space-y-8">
+            <div className="mt-6 space-y-6">
               <a 
                 href={flipkartStoreUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-headline text-4xl tracking-tight text-[#2874f0] flex items-center gap-4 group"
+                className="font-headline text-2xl sm:text-3xl md:text-4xl tracking-tight text-[#2874f0] flex items-center gap-4 group"
               >
                 <span>FLIPKART SHOP</span>
                 <Image 
@@ -159,15 +156,15 @@ export function Navbar() {
                   alt="Flipkart"
                   width={40}
                   height={40}
-                  className="object-contain h-10 w-auto group-hover:scale-110 transition-transform"
+                  className="object-contain h-8 sm:h-10 w-auto group-hover:scale-110 transition-transform"
                 />
               </a>
               
-              <div className="pt-12 border-t border-foreground/5">
-                <p className="text-[10px] uppercase tracking-[0.4em] text-foreground/40 mb-6">Connect with us</p>
-                <div className="flex gap-8">
-                   <a href="https://www.instagram.com/mohakthevibe/" target="_blank" className="text-2xl font-headline">Instagram</a>
-                   <a href="https://wa.me/916388498674" target="_blank" className="text-2xl font-headline">WhatsApp</a>
+              <div className="pt-8 border-t border-foreground/5">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-foreground/40 mb-4">Connect with us</p>
+                <div className="flex gap-6 sm:gap-8">
+                   <a href="https://www.instagram.com/mohakthevibe/" target="_blank" className="text-xl sm:text-2xl font-headline">Instagram</a>
+                   <a href="https://wa.me/916388498674" target="_blank" className="text-xl sm:text-2xl font-headline">WhatsApp</a>
                 </div>
               </div>
             </div>

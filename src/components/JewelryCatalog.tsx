@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const products = [
@@ -77,25 +77,25 @@ export function JewelryCatalog() {
   const flipkartSearchUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
 
   return (
-    <section id="catalog" className="py-24 px-6 md:px-12 bg-background relative">
+    <section id="catalog" className="py-16 sm:py-24 px-6 md:px-12 bg-background relative">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="font-headline text-5xl md:text-6xl text-foreground">Earrings</h2>
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="font-headline text-4xl sm:text-5xl md:text-6xl text-foreground">Earrings</h2>
         </div>
 
-        {/* Navigation Arrows (Decorative/Navigation intent as per screenshot) */}
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
-          <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
-            <ChevronLeft className="w-6 h-6 text-foreground/40" />
+        {/* Navigation Arrows */}
+        <div className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
+          <Button variant="ghost" size="icon" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-foreground/40" />
           </Button>
         </div>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
-          <Button variant="ghost" size="icon" className="w-12 h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
-            <ChevronRight className="w-6 h-6 text-foreground/40" />
+        <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
+          <Button variant="ghost" size="icon" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-foreground/40" />
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-12 sm:gap-y-16">
           {products.map((product) => {
             const img = PlaceHolderImages.find(i => i.id === product.imgId)?.imageUrl;
             return (
@@ -108,27 +108,26 @@ export function JewelryCatalog() {
                       alt={product.name}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      data-ai-hint="earring product"
                     />
                   )}
                   {/* SALE Badge */}
                   <div className="absolute top-0 right-0 p-3">
-                    <span className="text-[10px] tracking-widest text-foreground/40 uppercase font-medium">SALE</span>
+                    <span className="text-[9px] sm:text-[10px] tracking-widest text-foreground/40 uppercase font-medium">SALE</span>
                   </div>
                 </div>
                 
                 {/* Product Details */}
-                <div className="mt-5 space-y-3 flex-grow">
-                  <div className="flex justify-between items-start gap-4">
-                    <h3 className="text-[11px] font-bold tracking-widest leading-tight text-foreground uppercase max-w-[70%]">
+                <div className="mt-4 sm:mt-5 space-y-2 sm:space-y-3 flex-grow">
+                  <div className="flex justify-between items-start gap-3 sm:gap-4">
+                    <h3 className="text-[10px] sm:text-[11px] font-bold tracking-widest leading-tight text-foreground uppercase max-w-[70%]">
                       {product.name}
                     </h3>
                     <div className="flex flex-col items-end whitespace-nowrap">
-                      <span className="text-[10px] text-foreground/30 line-through">{product.oldPrice}</span>
-                      <span className="text-[11px] font-bold text-foreground">{product.price}</span>
+                      <span className="text-[9px] sm:text-[10px] text-foreground/30 line-through">{product.oldPrice}</span>
+                      <span className="text-[10px] sm:text-[11px] font-bold text-foreground">{product.price}</span>
                     </div>
                   </div>
-                  <p className="text-[10px] italic text-foreground/40 font-light">
+                  <p className="text-[9px] sm:text-[10px] italic text-foreground/40 font-light">
                     {product.tags}
                   </p>
                 </div>
@@ -142,7 +141,7 @@ export function JewelryCatalog() {
                     className="block"
                   >
                     <Button 
-                      className="w-full bg-[#2874f0] hover:bg-[#1b5ec0] text-white rounded-none h-11 text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-2 border-none"
+                      className="w-full bg-[#2874f0] hover:bg-[#1b5ec0] text-white rounded-none h-10 sm:h-11 text-[9px] sm:text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-2 border-none"
                     >
                       <span className="text-yellow-400">⚡</span> Buy on Flipkart
                     </Button>
@@ -153,12 +152,12 @@ export function JewelryCatalog() {
           })}
         </div>
 
-        {/* Carousel pagination dots from screenshot */}
-        <div className="flex justify-center gap-3 mt-16">
+        {/* Carousel pagination dots */}
+        <div className="flex justify-center gap-3 mt-12 sm:mt-16">
           {[1, 2, 3, 4, 5].map((i) => (
             <div 
               key={i} 
-              className={`w-2 h-2 rounded-full border border-foreground/20 ${i === 3 ? 'bg-foreground/20' : 'transparent'}`} 
+              className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full border border-foreground/20 ${i === 3 ? 'bg-foreground/20' : 'transparent'}`} 
             />
           ))}
         </div>
