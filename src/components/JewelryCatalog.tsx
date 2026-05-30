@@ -75,6 +75,7 @@ const products = [
 
 export function JewelryCatalog() {
   const flipkartSearchUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
+  const flipkartLogo = PlaceHolderImages.find(img => img.id === "flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
 
   return (
     <section id="catalog" className="py-16 sm:py-24 px-6 md:px-12 bg-background relative">
@@ -141,9 +142,16 @@ export function JewelryCatalog() {
                     className="block"
                   >
                     <Button 
-                      className="w-full bg-[#2874f0] hover:bg-[#1b5ec0] text-white rounded-none h-10 sm:h-11 text-[9px] sm:text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-2 border-none"
+                      className="w-full bg-[#2874f0] hover:bg-[#1b5ec0] text-white rounded-none h-10 sm:h-11 text-[9px] sm:text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-3 border-none"
                     >
-                      <span className="text-yellow-400">⚡</span> Buy on Flipkart
+                      <Image 
+                        src={flipkartLogo}
+                        alt="Flipkart"
+                        width={20}
+                        height={20}
+                        className="object-contain h-5 w-auto"
+                      />
+                      Buy on Flipkart
                     </Button>
                   </a>
                 </div>

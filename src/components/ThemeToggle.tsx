@@ -35,7 +35,7 @@ export function ThemeToggle() {
       ) : (
         <Sun className="h-5 w-5" />
       )}
-      <span className="sr-only">Toggle Luxe Mode</span>
+      <span className="sr-only">Toggle Mohak Mode</span>
     </Button>
   );
 }

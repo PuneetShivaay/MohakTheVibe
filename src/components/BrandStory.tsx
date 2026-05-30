@@ -51,7 +51,7 @@ export function BrandStory() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 py-6 sm:py-8 border-y border-brand-gold/10">
             <div>
               <h4 className="font-headline text-lg sm:text-xl mb-2">Curated Craft</h4>
-              <p className="text-xs sm:text-sm opacity-60 font-light">Each pair of earrings is hand-selected to meet our stringent standards of 'Luxe Aesthetics'.</p>
+              <p className="text-xs sm:text-sm opacity-60 font-light">Each pair of earrings is hand-selected to meet our stringent standards of 'Mohak Aesthetics'.</p>
             </div>
             <div>
               <h4 className="font-headline text-lg sm:text-xl mb-2">Boutique Service</h4>

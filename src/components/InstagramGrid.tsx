@@ -17,7 +17,7 @@ export function InstagramGrid() {
         <div className="text-center mb-10 sm:mb-16">
           <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl mb-4">On the Gram</h2>
           <p className="text-sm sm:text-base text-muted-foreground font-light max-w-xl mx-auto">
-            Join our community of luxe enthusiasts. Tag us <span className="text-brand-gold font-medium">@mohakthevibe</span> to be featured.
+            Join our community of Mohak enthusiasts. Tag us <span className="text-brand-gold font-medium">@mohakthevibe</span> to be featured.
           </p>
         </div>
 

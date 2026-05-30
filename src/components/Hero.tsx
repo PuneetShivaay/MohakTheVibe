@@ -38,7 +38,7 @@ export function Hero() {
           {modelImg && (
             <Image
               src={modelImg}
-              alt="Mohak Luxe Signature Collection"
+              alt="Mohak Mohak Signature Collection"
               fill
               className="object-cover object-center"
               priority

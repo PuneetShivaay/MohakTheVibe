@@ -49,7 +49,7 @@ export function ContactSection() {
           <div>
             <span className="text-brand-gold uppercase tracking-[0.4em] text-[10px] sm:text-xs font-semibold">Get In Touch</span>
             <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl text-brand-midnight mt-4 mb-6 leading-tight">
-              Contact our <span className="italic">Luxe Team</span>
+              Contact our <span className="italic">Mohak Team</span>
             </h2>
             <p className="text-muted-foreground font-light text-base sm:text-lg max-w-md">
               Have questions about a specific piece or want a custom curation? Our team in Gomti Nagar is ready to assist you.
