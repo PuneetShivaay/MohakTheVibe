@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -62,11 +63,19 @@ export function Navbar() {
               href={flipkartStoreUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-brand-gold transition-all duration-300 transform hover:scale-110"
+              className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
               title="Shop on Flipkart"
             >
-              <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#2874f0]" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.433 13.922l-.128-.158H6.69l-.128.158A5.992 5.992 0 005.15 17.5a6.002 6.002 0 1010.85 0 5.992 5.992 0 00-1.567-3.578zM12 21a3 3 0 110-6 3 3 0 010 6zm5.83-16.11A.75.75 0 0017.08 4H6.92a.75.75 0 00-.75.75v1.5a.75.75 0 00.75.75h10.16a.75.75 0 00.75-.75v-1.5zm1.17 4.5a.75.75 0 00-.75-.75H5.75a.75.75 0 00-.75.75v1.5a.75.75 0 00.75.75h12.5a.75.75 0 00.75-.75v-1.5z"/>
+              <svg viewBox="0 0 100 100" className="w-8 h-8" xmlns="http://www.w3.org/2000/svg">
+                {/* Yellow Shopping Bag */}
+                <path d="M15,35 L85,35 C88,35 90,37 90,40 L90,85 C90,88 88,90 85,90 L15,90 C12,90 10,88 10,85 L10,40 C10,37 12,35 15,35 Z" fill="#ffd800" />
+                {/* Bag Inner Flap */}
+                <path d="M15,35 L22,25 L78,25 L85,35 Z" fill="#f8c300" opacity="0.8" />
+                {/* Smiley Handle */}
+                <path d="M38,48 C38,60 62,60 62,48" fill="none" stroke="#eb1c24" strokeWidth="3.5" strokeLinecap="round" />
+                {/* Blue 'f' logo part */}
+                <path d="M42,70 L80,70" fill="none" stroke="#2874f0" strokeWidth="10" strokeLinecap="round" />
+                <path d="M58,55 C78,55 78,65 78,75 L78,90" fill="none" stroke="#2874f0" strokeWidth="10" strokeLinecap="round" />
               </svg>
             </a>
           </div>
@@ -99,7 +108,7 @@ export function Navbar() {
             href={flipkartStoreUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-headline text-4xl tracking-tight dashed-link text-[#2874f0]"
+            className="font-headline text-4xl tracking-tight dashed-link text-[#2874f0] flex items-center gap-4"
           >
             FLIPKART SHOP
           </a>
