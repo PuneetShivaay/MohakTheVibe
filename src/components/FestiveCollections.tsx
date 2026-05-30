@@ -1,46 +1,93 @@
 
 "use client";
 
+import * as React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+const festiveItems = [
+  { id: 'jhumka-green', title: 'Emerald Jhumkas' },
+  { id: 'jhumka-red', title: 'Ruby Radiance' },
+  { id: 'lotus-firozi', title: 'Turquoise Lotus' },
+  { id: 'kundan-green', title: 'Royal Kundan' },
+  { id: 'lotus-black', title: 'Midnight Lotus' },
+];
 
 export function FestiveCollections() {
   return (
-    <section id="festive" className="py-24 sm:py-32 px-6 bg-background overflow-hidden relative">
-      <div className="max-w-4xl mx-auto text-center relative">
-        {/* Background Decorative Circle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] opacity-[0.03] pointer-events-none">
-          <svg viewBox="0 0 100 100" className="w-full h-full">
-            <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="1 2" />
-          </svg>
-        </div>
-
-        <div className="relative z-10 animate-fade-in space-y-6 sm:space-y-8">
-          <h2 className="font-headline text-3xl sm:text-5xl md:text-7xl text-foreground leading-tight">
-            Festive Special Collections
+    <section id="festive" className="py-24 sm:py-32 px-6 bg-brand-ivory/20 overflow-hidden relative">
+      <div className="max-w-7xl mx-auto relative">
+        {/* Decorative Background Element */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 border border-brand-gold/5 rounded-full pointer-events-none" />
+        
+        <div className="text-center mb-16 sm:mb-24 animate-fade-in space-y-4">
+          <span className="text-brand-gold uppercase tracking-[0.4em] text-[10px] font-semibold">Special Edition</span>
+          <h2 className="font-headline text-4xl sm:text-5xl md:text-7xl text-foreground leading-tight">
+            Festive Collections
           </h2>
-          <p className="text-foreground/60 text-base sm:text-lg md:text-xl font-light">
-            In this Festive Season Be Real You with Mohak
+          <p className="text-foreground/60 text-base sm:text-lg max-w-2xl mx-auto font-light">
+            In this Festive Season, Be the Real You with Mohak. Discover curated elegance for your most celebrated moments.
           </p>
-          <div className="pt-4 sm:pt-8">
-            <Button 
-              variant="outline"
-              className="h-11 sm:h-12 px-8 sm:px-12 rounded-none border-foreground/20 text-[9px] sm:text-[10px] tracking-[0.3em] uppercase hover:bg-foreground hover:text-background transition-all"
-              onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <span className="dashed-link">EXPLORE NOW</span>
-            </Button>
-          </div>
         </div>
 
-        {/* Carousel-like dots indicator */}
-        <div className="flex justify-center gap-3 mt-12 sm:mt-16">
-          {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-            <div key={i} className={cn(
-              "w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full border border-foreground/20",
-              i === 1 ? "bg-foreground/10" : "transparent"
-            )} />
-          ))}
+        <div className="relative px-4 sm:px-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4 sm:-ml-6">
+              {festiveItems.map((item) => {
+                const img = PlaceHolderImages.find(p => p.id === item.id)?.imageUrl;
+                return (
+                  <CarouselItem key={item.id} className="pl-4 sm:pl-6 basis-full sm:basis-1/2 lg:basis-1/3">
+                    <div className="group relative aspect-[4/5] overflow-hidden bg-white shadow-sm transition-all duration-500 hover:shadow-2xl border border-brand-gold/5">
+                      {img && (
+                        <Image
+                          src={img}
+                          alt={item.title}
+                          fill
+                          className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                        />
+                      )}
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h3 className="text-white font-headline text-2xl mb-2">{item.title}</h3>
+                        <div className="w-12 h-[1px] bg-brand-gold" />
+                        <p className="text-white/70 text-[10px] tracking-widest uppercase mt-4">View Details</p>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            
+            <div className="hidden md:block">
+              <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 border-brand-gold/20 text-brand-gold hover:bg-brand-gold hover:text-white transition-all h-12 w-12 rounded-none" />
+              <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 border-brand-gold/20 text-brand-gold hover:bg-brand-gold hover:text-white transition-all h-12 w-12 rounded-none" />
+            </div>
+          </Carousel>
+        </div>
+
+        <div className="mt-16 sm:mt-24 text-center">
+          <Button 
+            variant="outline"
+            className="h-12 px-12 rounded-none border-brand-midnight/20 text-[10px] tracking-[0.3em] uppercase hover:bg-brand-midnight hover:text-white transition-all group"
+            onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}
+          >
+            <span className="dashed-link">EXPLORE THE FULL RANGE</span>
+          </Button>
         </div>
       </div>
     </section>

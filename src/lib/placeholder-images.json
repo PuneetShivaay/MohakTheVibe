@@ -63,37 +63,37 @@
     {
       "id": "lifestyle-earring",
       "description": "Jewelry box filled with various earring styles",
-      "imageUrl": "/images/earring/earring4.png",
+      "imageUrl": "/images/earring/earring9.png",
       "imageHint": "earring collection"
     },
     {
       "id": "lifestyle-1",
       "description": "Brand story lifestyle image featuring earrings",
-      "imageUrl": "/images/earring/earring5.png",
+      "imageUrl": "/images/earring/earring10.jpeg",
       "imageHint": "earring lifestyle"
     },
     {
       "id": "earring-detail",
       "description": "Macro detail of a handcrafted earring",
-      "imageUrl": "/images/earring/earring6.png",
+      "imageUrl": "/images/earring/earring11.png",
       "imageHint": "earring detail"
     },
     {
       "id": "insta-1",
       "description": "Instagram feature: Statement Earrings",
-      "imageUrl": "/images/earring/earring1.png",
+      "imageUrl": "/images/earring/earring12.jpeg",
       "imageHint": "statement earrings"
     },
     {
       "id": "insta-2",
       "description": "Instagram feature: Ethnic Jhumkas",
-      "imageUrl": "/images/earring/earring2.png",
+      "imageUrl": "/images/earring/earring13.jpeg",
       "imageHint": "ethnic earrings"
     },
     {
       "id": "insta-3",
       "description": "Instagram feature: Contemporary Studs",
-      "imageUrl": "/images/earring/earring3.png",
+      "imageUrl": "/images/earring/earring14.png",
       "imageHint": "stud earrings"
     },
     {
