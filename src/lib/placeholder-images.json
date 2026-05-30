@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "brand-logo",
+      "description": "Main Brand Logo Image",
+      "imageUrl": "/images/logo.png",
+      "imageHint": "brand logo"
+    },
+    {
       "id": "hero-earrings",
       "description": "Model wearing spectacular statement artificial earrings",
       "imageUrl": "/images/header.png",
@@ -15,7 +21,7 @@
     {
       "id": "jhumka-red",
       "description": "Minakari Half Red Jhumka",
-      "imageUrl": "/images/earring2.png",
+      "imageUrl": "/images/earring1.png",
       "imageHint": "red jhumka"
     },
     {
