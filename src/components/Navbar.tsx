@@ -23,6 +23,8 @@ export function Navbar() {
   const flipkartLogo = PlaceHolderImages.find(img => img.id === "flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
   const brandLogo = PlaceHolderImages.find(img => img.id === "brand-logo")?.imageUrl;
 
+  const logoShadow = "0px 2px 4px rgba(0, 0, 0, 0.15), 0px 0px 10px rgba(255, 255, 255, 0.5)";
+
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -76,13 +78,16 @@ export function Navbar() {
                       target.style.display = 'none';
                       const parent = target.parentElement;
                       if (parent) {
-                        parent.innerHTML = '<span class="font-headline text-xl md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase">MOHAK</span>';
+                        parent.innerHTML = `<span class="font-headline text-xl md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase" style="text-shadow: ${logoShadow}">MOHAK</span>`;
                       }
                     }}
                   />
                 </div>
               ) : (
-                <span className="font-headline text-xl md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase">
+                <span 
+                  className="font-headline text-xl md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase"
+                  style={{ textShadow: logoShadow }}
+                >
                   MOHAK
                 </span>
               )}
