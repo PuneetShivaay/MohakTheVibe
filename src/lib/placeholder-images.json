@@ -15,91 +15,91 @@
     {
       "id": "jhumka-green",
       "description": "Minakari Half Green Jhumka",
-      "imageUrl": "/images/earring1.png",
+      "imageUrl": "/images/earring/earring1.png",
       "imageHint": "green jhumka"
     },
     {
       "id": "jhumka-red",
       "description": "Minakari Half Red Jhumka",
-      "imageUrl": "/images/earring1.png",
+      "imageUrl": "/images/earring/earring1.png",
       "imageHint": "red jhumka"
     },
     {
       "id": "lotus-firozi",
       "description": "Lotus Minakari Firozi Drop Earrings",
-      "imageUrl": "/images/earring3.png",
+      "imageUrl": "/images/earring/earring3.png",
       "imageHint": "firozi earrings"
     },
     {
       "id": "lotus-black",
       "description": "Lotus Minakari Black Drop Earrings",
-      "imageUrl": "/images/earring4.png",
+      "imageUrl": "/images/earring/earring4.png",
       "imageHint": "black earrings"
     },
     {
       "id": "lotus-wine",
       "description": "Lotus Minakari Wine Drop Earrings",
-      "imageUrl": "/images/earring5.png",
+      "imageUrl": "/images/earring/earring5.png",
       "imageHint": "wine earrings"
     },
     {
       "id": "kundan-green",
       "description": "Green Crystal Kundan Drops Earring",
-      "imageUrl": "/images/earring6.png",
+      "imageUrl": "/images/earring/earring6.png",
       "imageHint": "kundan earring"
     },
     {
       "id": "rect-gold",
       "description": "Gold Plated Rectangular Drop Earrings",
-      "imageUrl": "/images/earring7.png",
+      "imageUrl": "/images/earring/earring7.png",
       "imageHint": "gold earrings"
     },
     {
       "id": "rect-mirror",
       "description": "Rectangular Drop Mirror Rose Gold Plated",
-      "imageUrl": "/images/earring8.png",
+      "imageUrl": "/images/earring/earring8.png",
       "imageHint": "mirror earrings"
     },
     {
       "id": "lifestyle-earring",
       "description": "Jewelry box filled with various earring styles",
-      "imageUrl": "/images/earring4.png",
+      "imageUrl": "/images/earring/earring4.png",
       "imageHint": "earring collection"
     },
     {
       "id": "lifestyle-1",
       "description": "Brand story lifestyle image featuring earrings",
-      "imageUrl": "/images/earring5.png",
+      "imageUrl": "/images/earring/earring5.png",
       "imageHint": "earring lifestyle"
     },
     {
       "id": "earring-detail",
       "description": "Macro detail of a handcrafted earring",
-      "imageUrl": "/images/earring6.png",
+      "imageUrl": "/images/earring/earring6.png",
       "imageHint": "earring detail"
     },
     {
       "id": "insta-1",
       "description": "Instagram feature: Statement Earrings",
-      "imageUrl": "/images/earring1.png",
+      "imageUrl": "/images/earring/earring1.png",
       "imageHint": "statement earrings"
     },
     {
       "id": "insta-2",
       "description": "Instagram feature: Ethnic Jhumkas",
-      "imageUrl": "/images/earring2.png",
+      "imageUrl": "/images/earring/earring2.png",
       "imageHint": "ethnic earrings"
     },
     {
       "id": "insta-3",
       "description": "Instagram feature: Contemporary Studs",
-      "imageUrl": "/images/earring3.png",
+      "imageUrl": "/images/earring/earring3.png",
       "imageHint": "stud earrings"
     },
     {
       "id": "insta-4",
       "description": "Instagram feature: Pearl Drops",
-      "imageUrl": "/images/earring4.png",
+      "imageUrl": "/images/earring/earring4.png",
       "imageHint": "pearl earrings"
     },
     {
