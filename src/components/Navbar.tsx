@@ -48,22 +48,9 @@ export function Navbar() {
         "fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-4 px-4 md:py-6 md:px-12",
         isScrolled || mobileMenuOpen ? "bg-background/95 backdrop-blur-md py-3 border-b" : "bg-transparent"
       )}>
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between relative h-10">
-          {/* Left: Navigation Menu */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a 
-                key={link.name}
-                href={link.href} 
-                className="text-[10px] tracking-[0.2em] font-medium hover:text-brand-gold transition-colors dashed-link"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-
-          {/* Center: Brand Logo/Name */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
+        <div className="max-w-[1600px] mx-auto flex items-center h-10">
+          {/* Left: Brand Logo */}
+          <div className="flex items-center flex-shrink-0">
             <a href="/" className="flex items-center">
               {brandLogo ? (
                 <div className="relative h-8 w-24 sm:h-10 sm:w-32 md:w-40">
@@ -92,6 +79,22 @@ export function Navbar() {
                 </span>
               )}
             </a>
+          </div>
+
+          {/* Spacer to push everything else right */}
+          <div className="flex-grow" />
+
+          {/* Center-Right: Navigation Menu */}
+          <div className="hidden lg:flex items-center gap-8 mr-12">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name}
+                href={link.href} 
+                className="text-[10px] tracking-[0.2em] font-medium hover:text-brand-gold transition-colors dashed-link"
+              >
+                {link.name}
+              </a>
+            ))}
           </div>
 
           {/* Right: Icons */}
