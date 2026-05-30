@@ -13,6 +13,36 @@
       "imageHint": "earring model"
     },
     {
+      "id": "festive-1",
+      "description": "Festive Collection Item 1",
+      "imageUrl": "/images/earring/earring1.png",
+      "imageHint": "festive jewelry"
+    },
+    {
+      "id": "festive-2",
+      "description": "Festive Collection Item 2",
+      "imageUrl": "/images/earring/earring2.png",
+      "imageHint": "royal jewelry"
+    },
+    {
+      "id": "festive-3",
+      "description": "Festive Collection Item 3",
+      "imageUrl": "/images/earring/earring3.png",
+      "imageHint": "traditional jewelry"
+    },
+    {
+      "id": "festive-4",
+      "description": "Festive Collection Item 4",
+      "imageUrl": "/images/earring/earring4.png",
+      "imageHint": "elegant jewelry"
+    },
+    {
+      "id": "festive-5",
+      "description": "Festive Collection Item 5",
+      "imageUrl": "/images/earring/earring5.png",
+      "imageHint": "bridal jewelry"
+    },
+    {
       "id": "jhumka-green",
       "description": "Minakari Half Green Jhumka",
       "imageUrl": "/images/earring/earring1.png",

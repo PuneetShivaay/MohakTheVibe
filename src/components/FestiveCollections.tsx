@@ -17,14 +17,14 @@ import {
 /**
  * To edit the images in this section:
  * 1. Change the 'id' below to match an ID in src/lib/placeholder-images.json
- * 2. Update the 'title' for the caption
+ * 2. Currently using dedicated 'festive-X' IDs so you can have different images here.
  */
 const festiveItems = [
-  { id: 'jhumka-green', title: 'Emerald Jhumkas' },
-  { id: 'jhumka-red', title: 'Ruby Radiance' },
-  { id: 'lotus-firozi', title: 'Turquoise Lotus' },
-  { id: 'kundan-green', title: 'Royal Kundan' },
-  { id: 'lotus-black', title: 'Midnight Lotus' },
+  { id: 'festive-1', title: 'Emerald Royale' },
+  { id: 'festive-2', title: 'Ruby Radiance' },
+  { id: 'festive-3', title: 'Turquoise Lotus' },
+  { id: 'festive-4', title: 'Royal Kundan' },
+  { id: 'festive-5', title: 'Midnight Lotus' },
 ];
 
 export function FestiveCollections() {
