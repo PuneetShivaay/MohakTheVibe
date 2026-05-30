@@ -14,6 +14,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+/**
+ * To edit the images in this section:
+ * 1. Change the 'id' below to match an ID in src/lib/placeholder-images.json
+ * 2. Update the 'title' for the caption
+ */
 const festiveItems = [
   { id: 'jhumka-green', title: 'Emerald Jhumkas' },
   { id: 'jhumka-red', title: 'Ruby Radiance' },
@@ -49,17 +54,23 @@ export function FestiveCollections() {
           >
             <CarouselContent className="-ml-4 sm:-ml-6">
               {festiveItems.map((item) => {
-                const img = PlaceHolderImages.find(p => p.id === item.id)?.imageUrl;
+                const imgData = PlaceHolderImages.find(p => p.id === item.id);
+                const img = imgData?.imageUrl;
+                
                 return (
                   <CarouselItem key={item.id} className="pl-4 sm:pl-6 basis-full sm:basis-1/2 lg:basis-1/3">
                     <div className="group relative aspect-[4/5] overflow-hidden bg-white shadow-sm transition-all duration-500 hover:shadow-2xl border border-brand-gold/5">
-                      {img && (
+                      {img ? (
                         <Image
                           src={img}
                           alt={item.title}
                           fill
                           className="object-cover transition-transform duration-1000 group-hover:scale-110"
                         />
+                      ) : (
+                        <div className="w-full h-full bg-muted flex items-center justify-center text-xs text-muted-foreground">
+                          Image ID "{item.id}" not found
+                        </div>
                       )}
                       {/* Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-brand-midnight/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
