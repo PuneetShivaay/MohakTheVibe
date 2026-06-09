@@ -1,4 +1,4 @@
-# **App Name**: Mohak
+# **App Name**: Mohak (Mohak The Vibe)
 
 ## Core Features:
 
