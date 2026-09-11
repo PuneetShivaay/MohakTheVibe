@@ -134,7 +134,7 @@ export function Navbar() {
                       target.style.display = 'none';
                       const parent = target.parentElement;
                       if (parent) {
-                        parent.innerHTML = '<span class="text-[10px] text-[#f43397] font-bold px-1">M</span>';
+                        parent.innerHTML = '<span class="text-[10px] text-[#580A46] font-bold px-1">M</span>';
                       }
                     }}
                   />
@@ -193,7 +193,7 @@ export function Navbar() {
                 href={meeshoStoreUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-headline text-lg sm:text-xl tracking-tight text-[#f43397] flex items-center justify-between group bg-pink-50/50 p-4 rounded-lg"
+                className="font-headline text-lg sm:text-xl tracking-tight text-[#580A46] flex items-center justify-between group bg-[#580A46]/5 p-4 rounded-lg"
               >
                 <span>SHOP ON MEESHO</span>
                 <div className="group-hover:scale-110 transition-transform">
@@ -208,7 +208,7 @@ export function Navbar() {
                       target.style.display = 'none';
                       const parent = target.parentElement;
                       if (parent) {
-                        parent.innerHTML = '<span class="text-xs text-[#f43397] font-bold">M</span>';
+                        parent.innerHTML = '<span class="text-xs text-[#580A46] font-bold">M</span>';
                       }
                     }}
                   />

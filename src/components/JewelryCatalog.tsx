@@ -165,7 +165,7 @@ export function JewelryCatalog() {
                     className="block"
                   >
                     <Button 
-                      className="w-full bg-[#f43397] hover:bg-[#d8227e] text-white rounded-none h-10 sm:h-11 text-[9px] sm:text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-3 border-none"
+                      className="w-full bg-[#580A46] hover:bg-[#48083a] text-white rounded-none h-10 sm:h-11 text-[9px] sm:text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-3 border-none"
                     >
                       <Image 
                         src={meeshoLogo}
