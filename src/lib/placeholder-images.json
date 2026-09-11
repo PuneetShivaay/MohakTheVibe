@@ -13,6 +13,12 @@
       "imageHint": "flipkart logo"
     },
     {
+      "id": "header-meesho-logo",
+      "description": "Meesho Official Logo",
+      "imageUrl": "/images/meesho-logo.png",
+      "imageHint": "meesho logo"
+    },
+    {
       "id": "hero-main-bg",
       "description": "Model wearing spectacular statement artificial earrings",
       "imageUrl": "/images/header.png",

@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -18,8 +19,12 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  
   const flipkartStoreUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
+  const meeshoStoreUrl = "https://www.meesho.com/MohakTheVibe";
+  
   const flipkartLogo = PlaceHolderImages.find(img => img.id === "header-flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
+  const meeshoLogo = PlaceHolderImages.find(img => img.id === "header-meesho-logo")?.imageUrl || "/images/meesho-logo.png";
   const brandLogo = PlaceHolderImages.find(img => img.id === "header-brand-logo")?.imageUrl;
 
   React.useEffect(() => {
@@ -94,21 +99,47 @@ export function Navbar() {
               <button className="hover:text-brand-gold transition-colors">
                 <Search className="w-4 h-4" />
               </button>
-              <a 
-                href={flipkartStoreUrl} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
-                title="Shop on Flipkart"
-              >
-                <Image 
-                  src={flipkartLogo}
-                  alt="Shop on Flipkart"
-                  width={28}
-                  height={28}
-                  className="object-contain h-7 md:h-8 w-auto"
-                />
-              </a>
+              
+              <div className="flex items-center gap-3">
+                <a 
+                  href={flipkartStoreUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
+                  title="Shop on Flipkart"
+                >
+                  <Image 
+                    src={flipkartLogo}
+                    alt="Shop on Flipkart"
+                    width={28}
+                    height={28}
+                    className="object-contain h-7 md:h-8 w-auto"
+                  />
+                </a>
+                <a 
+                  href={meeshoStoreUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center p-0.5 bg-white rounded-full overflow-hidden"
+                  title="Shop on Meesho"
+                >
+                  <Image 
+                    src={meeshoLogo}
+                    alt="Shop on Meesho"
+                    width={28}
+                    height={28}
+                    className="object-contain h-7 md:h-8 w-auto"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = '<span class="text-[10px] text-[#f43397] font-bold px-1">M</span>';
+                      }
+                    }}
+                  />
+                </a>
+              </div>
             </div>
             <ThemeToggle />
             <Button 
@@ -141,7 +172,7 @@ export function Navbar() {
               </a>
             ))}
             
-            <div className="mt-4 space-y-6">
+            <div className="mt-4 space-y-4">
               <a 
                 href={flipkartStoreUrl}
                 target="_blank"
@@ -156,6 +187,32 @@ export function Navbar() {
                   height={32}
                   className="object-contain h-8 w-auto group-hover:scale-110 transition-transform"
                 />
+              </a>
+
+              <a 
+                href={meeshoStoreUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-headline text-lg sm:text-xl tracking-tight text-[#f43397] flex items-center justify-between group bg-pink-50/50 p-4 rounded-lg"
+              >
+                <span>SHOP ON MEESHO</span>
+                <div className="bg-white rounded-full p-1 group-hover:scale-110 transition-transform">
+                  <Image 
+                    src={meeshoLogo}
+                    alt="Meesho"
+                    width={32}
+                    height={32}
+                    className="object-contain h-8 w-auto"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = '<span class="text-xs text-[#f43397] font-bold">M</span>';
+                      }
+                    }}
+                  />
+                </div>
               </a>
               
               <div className="pt-8 border-t border-foreground/5">
