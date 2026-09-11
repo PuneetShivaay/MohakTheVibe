@@ -120,7 +120,7 @@ export function Navbar() {
                   href={meeshoStoreUrl} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center p-0.5 bg-white rounded-full overflow-hidden"
+                  className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
                   title="Shop on Meesho"
                 >
                   <Image 
@@ -196,7 +196,7 @@ export function Navbar() {
                 className="font-headline text-lg sm:text-xl tracking-tight text-[#f43397] flex items-center justify-between group bg-pink-50/50 p-4 rounded-lg"
               >
                 <span>SHOP ON MEESHO</span>
-                <div className="bg-white rounded-full p-1 group-hover:scale-110 transition-transform">
+                <div className="group-hover:scale-110 transition-transform">
                   <Image 
                     src={meeshoLogo}
                     alt="Meesho"

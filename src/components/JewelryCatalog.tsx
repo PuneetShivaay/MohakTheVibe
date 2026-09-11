@@ -167,23 +167,21 @@ export function JewelryCatalog() {
                     <Button 
                       className="w-full bg-[#f43397] hover:bg-[#d8227e] text-white rounded-none h-10 sm:h-11 text-[9px] sm:text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-3 border-none"
                     >
-                      <div className="relative h-5 w-5 flex items-center justify-center bg-white rounded-full overflow-hidden p-0.5">
-                        <Image 
-                          src={meeshoLogo}
-                          alt="Meesho"
-                          width={20}
-                          height={20}
-                          className="object-contain h-full w-auto"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                            const parent = target.parentElement;
-                            if (parent) {
-                              parent.innerHTML = '<span class="text-[8px] text-[#f43397] font-bold">M</span>';
-                            }
-                          }}
-                        />
-                      </div>
+                      <Image 
+                        src={meeshoLogo}
+                        alt="Meesho"
+                        width={20}
+                        height={20}
+                        className="object-contain h-5 w-auto"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.innerHTML = '<span class="text-[8px] text-white font-bold">M</span>';
+                          }
+                        }}
+                      />
                       Buy on Meesho
                     </Button>
                   </a>
