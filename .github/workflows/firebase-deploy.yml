@@ -12,18 +12,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Uncomment and modify this step if your project requires a build command (e.g., npm run build)
-      # - name: Install Dependencies and Build
-      #   run: |
-      #     npm install
-      #     npm run build
-
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          firebaseToken: "${{ secrets.FIREBASE_TOKEN }}"
           channelId: "live"
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT: mohak-the-vibe
