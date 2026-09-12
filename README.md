@@ -1,4 +1,4 @@
-# Mohak – The Vibe | Firebase Studio
+# Mohak – The Vibe
 
 See Live: https://mohak-the-vibe.web.app/
 
