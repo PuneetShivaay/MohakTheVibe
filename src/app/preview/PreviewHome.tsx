@@ -97,7 +97,7 @@ export function PreviewHome() {
 
       {/* Hero */}
       <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-        <Image src="/images/header.png" alt="Model wearing Mohak earrings" fill priority className="object-cover object-center" />
+        <Image src="/images/hero.webp" alt="Model wearing Mohak earrings" fill priority className="object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
         <div className="relative h-full max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col justify-end pb-20 md:pb-28 text-white">
           <Reveal>

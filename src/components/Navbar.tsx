@@ -52,8 +52,8 @@ export function Navbar() {
         className={cn(
           "fixed top-0 inset-x-0 z-[100] transition-all duration-500 ease-out-soft",
           overHero
-            ? "bg-transparent py-5 md:py-7"
-            : "bg-background/90 backdrop-blur-md border-b border-brand-gold/20 py-3"
+            ? "bg-transparent text-white py-5 md:py-7"
+            : "bg-background/90 text-foreground backdrop-blur-md border-b border-brand-gold/20 py-3"
         )}
       >
         <nav

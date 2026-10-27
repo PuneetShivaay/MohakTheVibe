@@ -25,7 +25,7 @@ Installed but unused: `firebase` (client SDK), `recharts`, `date-fns`, `react-da
 
 ## Rendering and hosting model
 - `next build` produces plain HTML/CSS/JS in `out/`. No Node server runs in production.
-- `images.unoptimized: true`: `next/image` does no resizing or format conversion, so source images should be exported at web sizes (ideally WebP, under ~300 KB).
+- `images.unoptimized: true`: `next/image` does no resizing or format conversion, so source images should be exported at web sizes (ideally WebP, under ~300 KB). `sharp` is available in `node_modules`, e.g. `hero.webp` was made with `sharp('public/images/header.png').resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 80 })`.
 - Consequences of static export:
   - No API routes, server actions, ISR/`revalidate`, or runtime environment secrets.
   - Dynamic routes (e.g. `/collections/[slug]`) need `generateStaticParams`.
@@ -113,6 +113,7 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 - **Placeholder UI**: catalog arrows and pagination dots do nothing (phase 4).
 - **Unused code**: Genkit stubs in `src/ai/`, `AIStylist.tsx`, unused dependencies listed above, `public/images/INSTRUCTIONS.txt` lists file names that no longer match.
 - **Windows build**: `npm run build` sets `NODE_ENV` inline, which fails in PowerShell (workaround in `SETUP.md`).
+- **Bundle size**: Framer Motion raised home first-load JS to ~208 KB. Acceptable for now; revisit with `LazyMotion` in phase 9 if Lighthouse flags it.
 - **Dev server and build together**: running `next build` while `next dev` is running corrupts the shared `.next` folder (dev returns 500). Restart the dev server after a build.
 
 ## Planned architecture changes

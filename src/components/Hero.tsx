@@ -1,63 +1,70 @@
 "use client";
 
+import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Button } from "@/components/ui/button";
+import { PAGE_LINKS } from "@/lib/site";
+import { Reveal } from "./Reveal";
 
 export function Hero() {
-  const modelImg = PlaceHolderImages.find(img => img.id === "hero-main-bg")?.imageUrl;
+  const heroImg = PlaceHolderImages.find((img) => img.id === "hero-main-bg")?.imageUrl ?? "/images/hero.webp";
+
+  // Subtle parallax: the photo drifts down slightly slower than the page scrolls
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "12%"]);
 
   return (
-    <section className="relative min-h-screen w-full flex flex-col lg:flex-row items-center overflow-hidden bg-background">
-      {/* Left Content */}
-      <div className="w-full lg:w-1/2 h-full flex flex-col justify-center px-6 sm:px-12 md:px-16 lg:px-24 py-24 sm:py-32 lg:py-0 z-10">
-        <div className="max-w-xl animate-fade-in-up">
-          <h1 className="font-headline text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.9] text-foreground mb-6 sm:mb-8">
-            finest <br /> 
-            <span className="italic">jewelry,</span>
-          </h1>
-          <p className="text-foreground/70 text-sm sm:text-base md:text-lg lg:text-xl font-light mb-8 sm:mb-12 italic">
-            inspired by our life.
-          </p>
-          <div className="flex">
-            <Button 
-              variant="outline"
-              className="group h-11 sm:h-12 px-6 sm:px-8 rounded-none border-foreground/20 text-[9px] sm:text-[10px] tracking-[0.3em] uppercase hover:bg-foreground hover:text-background transition-all"
-              onClick={() => document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' })}
+    <section ref={sectionRef} className="relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-brand-midnight">
+      {/* Mobile: photo fills the top ~3/4 so the earring stays clear of the text below */}
+      <motion.div style={{ y: imageY }} className="absolute inset-x-0 top-0 h-[78%] md:h-[115%]">
+        <Image
+          src={heroImg}
+          alt="Model wearing Mohak kundan chandelier earrings"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[60%_35%]"
+        />
+      </motion.div>
+
+      {/* Overlays: photo fades into Midnight on mobile, left fade on desktop, light top fade for the navbar */}
+      <div className="absolute inset-x-0 top-[40%] h-[38.5%] bg-gradient-to-b from-transparent to-brand-midnight md:hidden" />
+      <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-black/65 via-black/35 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/30 to-transparent" />
+
+      <div className="relative h-full max-w-site mx-auto px-6 md:px-12 flex flex-col justify-end md:justify-center pb-20 md:pb-0 text-white">
+        <div className="max-w-xl">
+          <Reveal>
+            <p className="text-eyebrow uppercase text-brand-beige mb-6">Handpicked Indian jewellery</p>
+          </Reveal>
+          <Reveal delay={150}>
+            <h1 className="font-headline text-display-xl">
+              Wear the <em className="text-brand-beige">vibe.</em>
+            </h1>
+          </Reveal>
+          <Reveal delay={300}>
+            <p className="mt-8 max-w-md text-sm md:text-base font-light text-white/80 leading-relaxed">
+              Jewellery that carries the craft of India, made for the way you live now.
+            </p>
+          </Reveal>
+          <Reveal delay={450} className="mt-10 flex flex-wrap items-center gap-8">
+            <Link
+              href={PAGE_LINKS.collections}
+              className="bg-brand-copper hover:bg-brand-copper/90 text-white text-eyebrow uppercase px-8 py-4 transition-colors"
             >
-              <span className="dashed-link">EXPLORE NOW</span>
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Image Container */}
-      <div className="w-full lg:w-1/2 h-[50vh] sm:h-[60vh] lg:h-screen relative">
-        <div className="absolute inset-0 z-0">
-          {modelImg && (
-            <Image
-              src={modelImg}
-              alt="Mohak Signature Collection"
-              fill
-              className="object-cover object-center"
-              priority
-            />
-          )}
-          {/* Subtle circle overlay decoration */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 w-[120%] h-[120%] border border-foreground/5 rounded-full pointer-events-none" />
-          <div className="absolute bottom-1/4 right-6 sm:right-8 flex flex-col gap-6 sm:gap-8 items-center text-[9px] sm:text-[10px] tracking-[0.3em] vertical-text mix-blend-difference text-white">
-            <span className="rotate-90 origin-center whitespace-nowrap opacity-40">INSTAGRAM</span>
-            <div className="w-[1px] h-10 sm:h-12 bg-white/40" />
-          </div>
-        </div>
-      </div>
-
-      {/* Aesthetic arrow indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden lg:block">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-[1px] h-24 bg-foreground/20 relative">
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 border-r border-b border-foreground/20 rotate-45" />
-          </div>
+              Explore the Collection
+            </Link>
+            <Link
+              href={PAGE_LINKS.story}
+              className="text-eyebrow uppercase border-b border-white/40 pb-1 hover:border-white transition-colors"
+            >
+              Our Story
+            </Link>
+          </Reveal>
         </div>
       </div>
     </section>

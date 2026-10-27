@@ -10,14 +10,21 @@ export const SITE_LINKS = {
 } as const;
 
 // Home-page anchors for now; switch to /collections and /our-story when those pages ship (phases 5–6)
+export const PAGE_LINKS = {
+  collections: "/#festive",
+  signature: "/#catalog",
+  story: "/#brand-story",
+  contact: "/#contact",
+} as const;
+
 export const NAV_LINKS = {
   left: [
-    { label: "Collections", href: "/#festive" },
-    { label: "Signature", href: "/#catalog" },
+    { label: "Collections", href: PAGE_LINKS.collections },
+    { label: "Signature", href: PAGE_LINKS.signature },
   ],
   right: [
-    { label: "Our Story", href: "/#brand-story" },
-    { label: "Contact", href: "/#contact" },
+    { label: "Our Story", href: PAGE_LINKS.story },
+    { label: "Contact", href: PAGE_LINKS.contact },
   ],
 } as const;
 

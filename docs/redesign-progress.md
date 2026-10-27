@@ -24,12 +24,13 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [ ] Is @mohakthevibe a Business/Creator account linked to a Facebook Page? (needed for the API)
 - [ ] Meta developer app created, and access token and user ID generated?
 - [ ] Start with a widget (e.g. Behold) before the Graph API, to avoid 60-day token refresh?
-- [ ] Do we have high-quality, consistent product, on-model and hero images or video?
+- [ ] Do we have high-quality, consistent product and on-model images? (Hero photo is good; keep that style.)
+- [ ] Hero copy: keep "Wear the vibe." and the placeholder subline, or provide brand wording?
 
 ## Status
 - [x] 1. Foundations (tokens, SectionHeading, Framer Motion, `products.ts`, shared layout)
-- [x] 2. Navbar (white-on-hero text waits for phase 3)
-- [ ] 3. Hero
+- [x] 2. Navbar
+- [x] 3. Hero
 - [ ] 4. Signature Pieces (JewelryCatalog)
 - [ ] 5. Collections (home tiles and `/collections/[slug]`)
 - [ ] 6. Our Story (home teaser and `/our-story`)
@@ -61,4 +62,14 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - Mobile menu: full-screen, large serif links, closes on Escape or link tap, `aria-expanded`/`aria-controls`.
   - Links come from `NAV_LINKS` in `src/lib/site.ts`; they point to home anchors (`/#festive`, `/#catalog`, `/#brand-story`, `/#contact`) until phases 5–6 add real pages.
   - Smooth scrolling (motion-safe) with `scroll-padding-top` for the fixed bar.
-  - Follow-up for phase 3: when the hero becomes a full-bleed dark image, make the transparent navbar text white (`overHero` in `Navbar.tsx`).
+  - Follow-up for phase 3: when the hero becomes a full-bleed dark image, make the transparent navbar text white (`overHero` in `Navbar.tsx`). Done in phase 3.
+- 2026-10-27: **Phase 3 done** on `redesign`:
+  - Hero rewritten: full-bleed photo, "Wear the *vibe.*" headline, one copper CTA ("Explore the Collection") plus an "Our Story" text link, staggered `Reveal` entrance, subtle scroll parallax (off with reduced motion).
+  - Desktop: text on the left over a left-to-right dark gradient. Mobile: photo fills the top ~78% and fades into Midnight so the earring stays clear of the text.
+  - Removed the split layout, decorative circle, vertical "INSTAGRAM" text and arrow; deleted the unused `.vertical-text` and `.logo-shadow` CSS.
+  - Hero image: `public/images/hero.webp` (56 KB, generated from `header.png`, 1.8 MB). The PNG is kept as the source.
+  - Navbar text is white while transparent over the hero.
+  - Fixed a hydration mismatch in `Reveal` for reduced-motion visitors (now uses `MotionConfig reducedMotion="user"`: fade only, same server/client markup).
+  - Hero/navbar section links come from `PAGE_LINKS` in `src/lib/site.ts`.
+  - Verified with headless Edge screenshots at 1440px and a true 390px width (via iframe; headless Edge's minimum window is 496px). No console hydration warnings on `/` or `/preview`. Production build passes; home first-load JS is 208 KB (Framer Motion is most of the increase).
+  - Hero copy ("Handpicked Indian jewellery", "Jewellery that carries the craft of India…") is placeholder; confirm or replace.
