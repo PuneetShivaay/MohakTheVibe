@@ -3,12 +3,13 @@
 
 import { BrandLogo } from "./BrandLogo";
 import { Instagram, Facebook, MessageCircle, Mail, MapPin, Phone } from "lucide-react";
+import { SITE_LINKS } from "@/lib/site";
 
 export function Footer() {
-  const instagramUrl = "https://www.instagram.com/mohakthevibe/";
-  const whatsappChatUrl = "https://wa.me/916388498674";
-  const whatsappCatalogUrl = "https://wa.me/c/916388498674";
-  const meeshoStoreUrl = "https://www.meesho.com/MohakTheVibe";
+  const instagramUrl = SITE_LINKS.instagram;
+  const whatsappChatUrl = SITE_LINKS.whatsappChat;
+  const whatsappCatalogUrl = SITE_LINKS.whatsappCatalog;
+  const meeshoStoreUrl = SITE_LINKS.meeshoStore;
 
   return (
     <footer className="bg-brand-midnight text-brand-ivory pt-24 pb-12 px-6 md:px-12 border-t border-brand-gold/10">
@@ -34,7 +35,7 @@ export function Footer() {
         <div className="space-y-6">
           <h4 className="font-headline text-xl">Marketplaces</h4>
           <ul className="space-y-4 text-sm font-light opacity-60">
-            <li><a href="https://www.flipkart.com/search?q=mohak+the+vibe" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">Flipkart Shop</a></li>
+            <li><a href={SITE_LINKS.flipkartStore} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">Flipkart Shop</a></li>
             <li><a href={meeshoStoreUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">Meesho Store</a></li>
             <li><a href="#" className="hover:text-brand-gold transition-colors">Amazon Collection</a></li>
             <li><a href={whatsappCatalogUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">WhatsApp Catalogue</a></li>

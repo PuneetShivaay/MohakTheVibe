@@ -5,6 +5,8 @@ import Image from "next/image";
 import { ArrowRight, Instagram } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandLogo } from "@/components/BrandLogo";
+import { Reveal } from "@/components/Reveal";
+import { Eyebrow } from "@/components/SectionHeading";
 
 const navLinks = ["Collections", "Signature", "Our Story", "Journal"];
 
@@ -35,42 +37,6 @@ const ugc = [
 
 const marketplaces = ["Flipkart", "Meesho", "Amazon"];
 
-// Fades and rises children into view once, on first scroll into the viewport
-function Reveal({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = React.useState(false);
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={cn(
-        "motion-safe:transition-all motion-safe:duration-700 ease-out",
-        visible ? "opacity-100 translate-y-0" : "motion-safe:opacity-0 motion-safe:translate-y-6",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
 function Lotus({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 24" fill="none" stroke="currentColor" strokeWidth="0.75" className={className} aria-hidden>
@@ -80,10 +46,6 @@ function Lotus({ className }: { className?: string }) {
       <path d="M2 22H46" />
     </svg>
   );
-}
-
-function Eyebrow({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <p className={cn("text-[10px] uppercase tracking-[0.35em] text-brand-gold", className)}>{children}</p>;
 }
 
 export function PreviewHome() {
@@ -203,7 +165,7 @@ export function PreviewHome() {
               <Reveal key={c.name} delay={i * 120} className={cn(i === 0 && "md:row-span-2")}>
                 <a href="#" className="group relative block overflow-hidden h-full">
                   <div className={cn("relative w-full", i === 0 ? "aspect-[3/4] md:aspect-auto md:h-full md:min-h-[720px]" : "aspect-[4/3]")}>
-                    <Image src={c.img} alt={c.name} fill className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105" />
+                    <Image src={c.img} alt={c.name} fill className="object-cover transition-transform [transition-duration:1200ms] ease-out group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   </div>
                   <div className="absolute bottom-0 inset-x-0 p-6 md:p-10 text-white">

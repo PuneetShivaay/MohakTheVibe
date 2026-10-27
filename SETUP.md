@@ -38,11 +38,11 @@ Open http://localhost:9002.
 On Windows PowerShell, `npm run build` may fail because the script sets `NODE_ENV=production` inline. Use `$env:NODE_ENV="production"; npx next build` instead.
 
 ## Project layout
-- `src/app/page.tsx`: home page composed of section components (more routes planned, see `docs/redesign-plan.md`)
+- `src/app/(site)/`: public pages and their shared layout (`page.tsx` is the home page; the folder name doesn't appear in URLs)
 - `src/app/preview/`: temporary redesign mock at http://localhost:9002/preview
 - `src/components/`: sections (Hero, JewelryCatalog, and so on); `BrandLogo.tsx` is the SVG logo
 - `src/lib/placeholder-images.json`: image URLs and ids
-- `src/lib/products.ts` (planned): product and collection data
+- `src/lib/products.ts`: product and collection data; `src/lib/site.ts`: WhatsApp and marketplace links
 - `public/images/`: local images (see `INSTRUCTIONS.txt` there)
 - `docs/`: architecture, blueprint, redesign plan and progress
 

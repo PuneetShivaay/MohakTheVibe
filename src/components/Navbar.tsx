@@ -8,6 +8,7 @@ import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { SITE_LINKS } from "@/lib/site";
 
 const navLinks = [
   { name: "HOME", href: "/" },
@@ -20,8 +21,8 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   
-  const flipkartStoreUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
-  const meeshoStoreUrl = "https://www.meesho.com/MohakTheVibe";
+  const flipkartStoreUrl = SITE_LINKS.flipkartStore;
+  const meeshoStoreUrl = SITE_LINKS.meeshoStore;
   
   const flipkartLogo = PlaceHolderImages.find(img => img.id === "header-flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
   const meeshoLogo = PlaceHolderImages.find(img => img.id === "header-meesho-logo")?.imageUrl || "/images/meesho-logo.png";
@@ -218,8 +219,8 @@ export function Navbar() {
               <div className="pt-8 border-t border-foreground/5">
                 <p className="text-[8px] uppercase tracking-[0.4em] text-foreground/40 mb-4">Connect with us</p>
                 <div className="flex flex-wrap gap-6 sm:gap-8">
-                   <a href="https://www.instagram.com/mohakthevibe/" target="_blank" className="text-lg sm:text-xl font-headline hover:text-brand-gold transition-colors">Instagram</a>
-                   <a href="https://wa.me/916388498674" target="_blank" className="text-lg sm:text-xl font-headline hover:text-brand-gold transition-colors">WhatsApp</a>
+                   <a href={SITE_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="text-lg sm:text-xl font-headline hover:text-brand-gold transition-colors">Instagram</a>
+                   <a href={SITE_LINKS.whatsappChat} target="_blank" rel="noopener noreferrer" className="text-lg sm:text-xl font-headline hover:text-brand-gold transition-colors">WhatsApp</a>
                 </div>
               </div>
             </div>

@@ -5,78 +5,10 @@ import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const products = [
-  { 
-    id: 'p1', 
-    imgId: 'catalog-jhumka-green', 
-    name: 'MINAKARI HALF GREEN JHUMKA', 
-    oldPrice: '₹299.00', 
-    price: '₹199.00', 
-    tags: 'earrings · Silver Replica · studs' 
-  },
-  { 
-    id: 'p2', 
-    imgId: 'catalog-jhumka-red', 
-    name: 'MINAKARI HALF RED JHUMKA', 
-    oldPrice: '₹299.00', 
-    price: '₹199.00', 
-    tags: 'earrings · Silver Replica · studs' 
-  },
-  { 
-    id: 'p3', 
-    imgId: 'catalog-lotus-firozi', 
-    name: 'LOTUS MINAKARI FIROZI DROP EARRINGS', 
-    oldPrice: '₹349.00', 
-    price: '₹210.00', 
-    tags: 'earrings · Silver Replica · studs' 
-  },
-  { 
-    id: 'p4', 
-    imgId: 'catalog-lotus-black', 
-    name: 'LOTUS MINAKARI BLACK DROP EARRINGS', 
-    oldPrice: '₹349.00', 
-    price: '₹210.00', 
-    tags: 'earrings · Silver Replica · studs' 
-  },
-  { 
-    id: 'p5', 
-    imgId: 'catalog-lotus-wine', 
-    name: 'LOTUS MINAKARI WINE DROP EARRINGS', 
-    oldPrice: '₹349.00', 
-    price: '₹210.00', 
-    tags: 'earrings · Silver Replica · studs' 
-  },
-  { 
-    id: 'p6', 
-    imgId: 'catalog-kundan-green', 
-    name: 'GREEN CRYSTAL KUNDAN DROPS EARRING', 
-    oldPrice: '₹349.00', 
-    price: '₹299.00', 
-    tags: 'earrings · Silver Replica · studs' 
-  },
-  { 
-    id: 'p7', 
-    imgId: 'catalog-rect-gold', 
-    name: 'GOLD PLATED RECTANGULAR DROP EARRINGS WITH STONE', 
-    oldPrice: '₹249.00', 
-    price: '₹149.00', 
-    tags: 'earrings · Silver Replica · studs' 
-  },
-  { 
-    id: 'p8', 
-    imgId: 'catalog-rect-mirror', 
-    name: 'RECTANGULAR DROP MIRROR ROSE GOLD PLATED EARRING WITH STONE', 
-    oldPrice: '₹249.00', 
-    price: '₹149.00', 
-    tags: 'earrings · Silver Replica · studs' 
-  },
-];
+import { products } from "@/lib/products";
+import { SITE_LINKS } from "@/lib/site";
 
 export function JewelryCatalog() {
-  const flipkartSearchUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
-  const meeshoStoreUrl = "https://www.meesho.com/MohakTheVibe";
-  
   const flipkartLogo = PlaceHolderImages.find(img => img.id === "header-flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
   const meeshoLogo = PlaceHolderImages.find(img => img.id === "header-meesho-logo")?.imageUrl || "/images/meesho-logo.png";
 
@@ -139,7 +71,7 @@ export function JewelryCatalog() {
                 {/* Marketplace Buttons */}
                 <div className="mt-4 space-y-2">
                   <a 
-                    href={flipkartSearchUrl} 
+                    href={product.links?.flipkart ?? SITE_LINKS.flipkartStore} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="block"
@@ -159,7 +91,7 @@ export function JewelryCatalog() {
                   </a>
                   
                   <a 
-                    href={meeshoStoreUrl} 
+                    href={product.links?.meesho ?? SITE_LINKS.meeshoStore} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="block"

@@ -4,11 +4,12 @@ import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SITE_LINKS } from "@/lib/site";
 
 const instaImages = ["insta-post-1", "insta-post-2", "insta-post-3", "insta-post-4"];
 
 export function InstagramGrid() {
-  const instagramUrl = "https://www.instagram.com/mohakthevibe/";
+  const instagramUrl = SITE_LINKS.instagram;
 
   return (
     <section className="py-16 sm:py-24 px-6 md:px-12 bg-white">

@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%; /* Clean Off-White */
-    --foreground: 0 0% 10%; /* Deep Charcoal */
+    --background: 37 44% 96%; /* Soft Ivory #FAF7F2 */
+    --foreground: 0 0% 7%; /* Midnight #121212 */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --card-foreground: 0 0% 7%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
+    --popover-foreground: 0 0% 7%;
     --primary: 41 54% 54%; /* Signature Gold */
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 90%;
-    --secondary-foreground: 0 0% 10%;
-    --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 45%;
+    --secondary: 37 30% 90%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 37 30% 93%;
+    --muted-foreground: 0 0% 40%;
     --accent: 41 54% 54%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
+    --border: 38 30% 87%; /* Warm hairline */
+    --input: 38 30% 87%;
     --ring: 41 54% 54%;
     --radius: 0rem; /* Sharp edges for a high-fashion feel */
   }
