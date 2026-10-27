@@ -1,5 +1,7 @@
 # **App Name**: Mohak (Mohak The Vibe)
 
+> Original spec. Where it conflicts with `docs/redesign-plan.md` (e.g. floating particles, AI Stylist, discount styling, single-page layout), the redesign plan wins.
+
 ## Core Features:
 
 - Marketplace Redirect Hub: Smart interaction points on every product card allowing direct navigation to Flipkart, Meesho, or launching WhatsApp and Instagram DM chats.
