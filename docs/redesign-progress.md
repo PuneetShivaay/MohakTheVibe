@@ -11,6 +11,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - Animation: **Framer Motion** (installed; use `Reveal`)
 - Logo: **`BrandLogo` SVG** (compact mark in navbar, full logo in footer); `mohak.png` for social previews only
 - Look: **approved** via `/preview`
+- Keep as is: **"Our Essence" section** (`BrandStory.tsx`): layered framed images, copy and layout stay; the redesign builds around it
 - Branch: all redesign work on **`redesign`**; merge to `main` (which auto-deploys) only when complete. Delete `src/app/preview/` before merging
 - References: Indian sites first (Giva, Palmonas, Tanishq); see `docs/redesign-plan.md`
 
@@ -73,3 +74,4 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - Hero/navbar section links come from `PAGE_LINKS` in `src/lib/site.ts`.
   - Verified with headless Edge screenshots at 1440px and a true 390px width (via iframe; headless Edge's minimum window is 496px). No console hydration warnings on `/` or `/preview`. Production build passes; home first-load JS is 208 KB (Framer Motion is most of the increase).
   - Hero copy ("Handpicked Indian jewellery", "Jewellery that carries the craft of India…") is placeholder; confirm or replace.
+- 2026-10-27: Decided to keep the "Our Essence – Wear Your Vibe, Own the Room." section (`BrandStory.tsx`) unchanged. Plan phase 6 updated: no redesign of this section; `/our-story` will reuse its visual language.

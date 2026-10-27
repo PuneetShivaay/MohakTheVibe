@@ -51,7 +51,7 @@ No per-product pages for now (decided). Products appear as cards on the home and
 2. Brand promise strip: Handpicked · Anti-tarnish · Gift-ready · Pan-India delivery.
 3. Collections: 2–3 large editorial tiles linking to `/collections/[slug]`.
 4. Signature Pieces: 4–6 curated 3:4 cards, hover image swap, quiet marketplace text links.
-5. Story teaser: split image/text, pull quote, link to `/our-story`.
+5. Story: the existing **"Our Essence – Wear Your Vibe, Own the Room."** section (`BrandStory.tsx`), kept as is (decided). Layered framed images (large 4:5 print, small square print overlapping bottom-right on desktop), two value columns, pull quote.
 6. "Worn by you": Instagram/UGC grid.
 7. Gift/packaging moment.
 8. Footer: `BrandLogo`, large faded MOHAK wordmark, WhatsApp opt-in, monochrome "Also available on" badges.
@@ -68,7 +68,7 @@ No per-product pages for now (decided). Products appear as cards on the home and
 3. **Hero**: full-bleed editorial image or video with gradient overlay, tagline, one CTA, subtle parallax. Remove the decorative circle, vertical "INSTAGRAM" text and arrow.
 4. **Signature Pieces (JewelryCatalog)**: 3:4 cards, hover crossfade, quiet marketplace links, 1px gold borders; remove sale styling and dead carousel controls.
 5. **Collections**: home tiles plus `/collections/[slug]` pages with per-page metadata.
-6. **Our Story**: home teaser (split layout, pull quote, trust strip) plus `/our-story` page.
+6. **Our Story**: keep `BrandStory` ("Our Essence") on the home page unchanged in layout and copy; only token-level alignment if needed (e.g. `max-w-site`). Add a "Read our story" link once `/our-story` exists, and build `/our-story` in the same visual language (layered framed images, Playfair italic gold accents).
 7. **InstagramGrid**: live posts and reels (see below).
 8. **Footer and WhatsAppCTA**: refine, keep the number `916388498674` consistent.
 9. **Polish**: `sitemap.ts`, 404 page, loading state, accessibility and contrast check in both modes, Lighthouse.
