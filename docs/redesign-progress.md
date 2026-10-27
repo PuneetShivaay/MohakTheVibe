@@ -11,6 +11,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - Animation: **Framer Motion** (install in phase 1)
 - Logo: **`BrandLogo` SVG** (compact mark in navbar, full logo in footer); `mohak.png` for social previews only
 - Look: **approved** via `/preview`
+- Branch: all redesign work on **`redesign`**; merge to `main` (which auto-deploys) only when complete. Delete `src/app/preview/` before merging
 - References: Indian sites first (Giva, Palmonas, Tanishq); see `docs/redesign-plan.md`
 
 ## Open questions
