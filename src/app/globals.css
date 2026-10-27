@@ -50,6 +50,14 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-padding-top: 5rem; /* keep anchored sections clear of the fixed navbar */
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
   body {
     @apply bg-background text-foreground font-body;
   }

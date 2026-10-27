@@ -7,7 +7,7 @@ Next.js 15 (App Router, React 19, TypeScript, Tailwind, shadcn/ui) jewelry brand
 ## Architecture
 - Public pages live in the `src/app/(site)/` route group; its `layout.tsx` adds Navbar, Footer and WhatsAppCTA. `(site)/page.tsx` is the home page: Hero → FestiveCollections → JewelryCatalog → BrandStory → InstagramGrid → ContactSection.
 - Hybrid multipage (see redesign plan): `/`, `/collections/[slug]`, `/our-story`, all inside `(site)/`, each exporting its own `metadata`. No per-product pages for now.
-- Data: products and collections in `src/lib/products.ts`; WhatsApp number and Instagram/marketplace links in `src/lib/site.ts` (`SITE_LINKS`). Never hardcode these in components.
+- Data: products and collections in `src/lib/products.ts`; WhatsApp number, Instagram/marketplace links and navigation in `src/lib/site.ts` (`SITE_LINKS`, `MARKETPLACES`, `NAV_LINKS`). Never hardcode these in components.
 - `src/components/*.tsx` are feature sections (named exports, mostly `"use client"`). For new sections use `Reveal` (Framer Motion scroll animation), `SectionHeading`/`Eyebrow`, and the tokens `text-display*`, `text-eyebrow`, `py-section`, `max-w-site`. `src/components/ui/` is generated shadcn/ui (see `components.json`) – prefer reusing over editing.
 - `src/app/preview/` is a temporary, noindex design mock of the approved redesign. Use it as the visual reference; don't link to it, and delete it once the redesign ships.
 - Logo: `BrandLogo.tsx` (SVG). Use `<BrandLogo compact />` for the navbar mark. `public/mohak.png` is for Open Graph only (dark background).

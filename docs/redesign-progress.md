@@ -28,7 +28,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 
 ## Status
 - [x] 1. Foundations (tokens, SectionHeading, Framer Motion, `products.ts`, shared layout)
-- [ ] 2. Navbar
+- [x] 2. Navbar (white-on-hero text waits for phase 3)
 - [ ] 3. Hero
 - [ ] 4. Signature Pieces (JewelryCatalog)
 - [ ] 5. Collections (home tiles and `/collections/[slug]`)
@@ -54,3 +54,11 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - `firebase.json`: `cleanUrls`, no SPA rewrite (real 404s), images cached 1 day instead of 1 year.
   - Deleted unused `ui/calendar.tsx`, which broke `npm run build`.
   - Verified: typecheck clean, production build exports `/`, `/preview`, `404`; dev server renders `/` and `/preview`, unknown URL returns 404.
+- 2026-10-27: **Phase 2 done** on `redesign`:
+  - Navbar rewritten: centred `<BrandLogo compact />` (replaces the missing `logo.png` and its `innerHTML` fallback), links split left/right, Instagram icon, ThemeToggle.
+  - Transparent at the top of the home page only; solid blurred Ivory bar with a gold hairline on scroll and on other pages.
+  - Removed the non-working search button and the Flipkart/Meesho logo images; marketplaces now appear as quiet text links in the mobile menu.
+  - Mobile menu: full-screen, large serif links, closes on Escape or link tap, `aria-expanded`/`aria-controls`.
+  - Links come from `NAV_LINKS` in `src/lib/site.ts`; they point to home anchors (`/#festive`, `/#catalog`, `/#brand-story`, `/#contact`) until phases 5–6 add real pages.
+  - Smooth scrolling (motion-safe) with `scroll-padding-top` for the fixed bar.
+  - Follow-up for phase 3: when the hero becomes a full-bleed dark image, make the transparent navbar text white (`overHero` in `Navbar.tsx`).

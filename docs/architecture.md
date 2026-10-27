@@ -69,7 +69,7 @@ docs/                   blueprint, redesign plan/progress, this file
 ## How pages are composed
 - `src/app/(site)/layout.tsx` wraps every public page with Navbar, Footer and WhatsAppCTA. New pages go inside `(site)/`.
 - `src/app/(site)/page.tsx` renders the home sections: Hero → FestiveCollections → JewelryCatalog → BrandStory → InstagramGrid → ContactSection.
-- Navigation currently uses in-page anchors (`#catalog`, `#festive`, `#brand-story`); phase 2 switches to routes.
+- Navigation: `Navbar` reads `NAV_LINKS` and `MARKETPLACES` from `src/lib/site.ts`. Links currently point to home anchors (`/#festive`, `/#catalog`, `/#brand-story`, `/#contact`) and switch to routes as pages ship. The bar is transparent only at the top of `/` (`usePathname`), otherwise solid.
 
 Sections are client components (`"use client"`) with named exports. Most could be server components; only interactive ones (Navbar scroll state, ThemeToggle, ContactSection form, carousels, `Reveal`) need the client.
 
@@ -108,7 +108,8 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 
 ## Known issues and tech debt
 - **Build on `main`**: `main` still contains `src/components/ui/calendar.tsx`, which fails the type check, so `npm run build` (and likely the deploy workflow) fails there. Fixed on `redesign` by deleting the unused file.
-- **Missing navbar logo**: Navbar looks up `/images/logo.png`, which does not exist, so it shows text. Phase 2 switches to `<BrandLogo compact />`.
+- **No ESLint config**: `next lint` opens an interactive setup prompt and `next build` skips linting. Add an `eslint.config.mjs` (Next.js "Strict") when convenient.
+- **Unused image entry**: `header-brand-logo` in `placeholder-images.json` points to a missing file and is no longer used.
 - **Placeholder UI**: catalog arrows and pagination dots do nothing (phase 4).
 - **Unused code**: Genkit stubs in `src/ai/`, `AIStylist.tsx`, unused dependencies listed above, `public/images/INSTRUCTIONS.txt` lists file names that no longer match.
 - **Windows build**: `npm run build` sets `NODE_ENV` inline, which fails in PowerShell (workaround in `SETUP.md`).
@@ -117,5 +118,5 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 ## Planned architecture changes
 From `redesign-plan.md`:
 - Routes: `/collections/[slug]` (via `generateStaticParams`) and `/our-story` inside `(site)/`, with per-page `metadata` and `sitemap.ts`.
-- Navbar links move from `#anchors` to routes (phase 2).
+- `NAV_LINKS` move from home anchors to routes (phases 5–6).
 - Instagram feed: must respect static export (build-time fetch with scheduled rebuild, client widget, or a Cloud Function).
