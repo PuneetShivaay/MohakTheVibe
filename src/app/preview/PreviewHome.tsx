@@ -13,26 +13,26 @@ const navLinks = ["Collections", "Signature", "Our Story", "Journal"];
 const promises = ["Handpicked", "Anti-tarnish", "Gift-ready", "Pan-India delivery"];
 
 const collections = [
-  { name: "Minakari", line: "Enamel colour, hand-painted", img: "/images/earring/earring11.png" },
-  { name: "Kundan", line: "Crystal set, quietly royal", img: "/images/earring/earring6.png" },
-  { name: "The Festive Edit", line: "For your brightest evenings", img: "/images/earring/earring15.jpeg" },
+  { name: "Minakari", line: "Enamel colour, hand-painted", img: "/images/earring/earring11.webp" },
+  { name: "Kundan", line: "Crystal set, quietly royal", img: "/images/earring/earring6.webp" },
+  { name: "The Festive Edit", line: "For your brightest evenings", img: "/images/earring/earring15.webp" },
 ];
 
 // Second image stands in for the on-model shot used on hover
 const pieces = [
-  { name: "Minakari Half Jhumka", colour: "Emerald", price: "₹199", img: "/images/earring/earring11.png", alt: "/images/earring/earring21.png" },
-  { name: "Lotus Minakari Drop", colour: "Firozi", price: "₹210", img: "/images/earring/earring3.png", alt: "/images/earring/earring4.png" },
-  { name: "Crystal Kundan Drop", colour: "Green", price: "₹299", img: "/images/earring/earring6.png", alt: "/images/earring/earring19.png" },
-  { name: "Rectangular Mirror Drop", colour: "Rose Gold", price: "₹149", img: "/images/earring/earring8.png", alt: "/images/earring/earring18.png" },
+  { name: "Minakari Half Jhumka", colour: "Emerald", price: "₹199", img: "/images/earring/earring11.webp", alt: "/images/earring/earring21.webp" },
+  { name: "Lotus Minakari Drop", colour: "Firozi", price: "₹210", img: "/images/earring/earring3.webp", alt: "/images/earring/earring4.webp" },
+  { name: "Crystal Kundan Drop", colour: "Green", price: "₹299", img: "/images/earring/earring6.webp", alt: "/images/earring/earring19.webp" },
+  { name: "Rectangular Mirror Drop", colour: "Rose Gold", price: "₹149", img: "/images/earring/earring8.webp", alt: "/images/earring/earring18.webp" },
 ];
 
 const ugc = [
-  "/images/earring/earring12.jpeg",
-  "/images/earring/earring17.png",
-  "/images/earring/earring14.png",
-  "/images/earring/earring16.png",
-  "/images/earring/earring13.jpeg",
-  "/images/earring/earring10.jpeg",
+  "/images/earring/earring12.webp",
+  "/images/earring/earring17.webp",
+  "/images/earring/earring14.webp",
+  "/images/earring/earring16.webp",
+  "/images/earring/earring13.webp",
+  "/images/earring/earring10.webp",
 ];
 
 const marketplaces = ["Flipkart", "Meesho", "Amazon"];
@@ -225,7 +225,7 @@ export function PreviewHome() {
         <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-12 md:gap-24 items-center">
           <Reveal>
             <div className="relative aspect-[4/5] overflow-hidden">
-              <Image src="/images/earring/earring10.jpeg" alt="Mohak craft detail" fill className="object-cover" />
+              <Image src="/images/earring/earring10.webp" alt="Mohak craft detail" fill className="object-cover" />
             </div>
           </Reveal>
           <Reveal delay={150}>

@@ -1,137 +1,116 @@
-
-"use client";
-
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { products } from "@/lib/products";
+import { getCollection, products, type Product } from "@/lib/products";
 import { SITE_LINKS } from "@/lib/site";
+import { cn } from "@/lib/utils";
+import { Reveal } from "./Reveal";
+import { SectionHeading } from "./SectionHeading";
 
-export function JewelryCatalog() {
-  const flipkartLogo = PlaceHolderImages.find(img => img.id === "header-flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
-  const meeshoLogo = PlaceHolderImages.find(img => img.id === "header-meesho-logo")?.imageUrl || "/images/meesho-logo.png";
+const imageUrl = (id?: string) => (id ? PlaceHolderImages.find((img) => img.id === id)?.imageUrl : undefined);
+
+// Per-product listing where we have one, otherwise the store page
+function marketplaceLinks(product: Product) {
+  const links = [
+    { label: "Flipkart", href: product.links?.flipkart ?? SITE_LINKS.flipkartStore },
+    { label: "Meesho", href: product.links?.meesho ?? SITE_LINKS.meeshoStore },
+  ];
+  if (product.links?.amazon) links.push({ label: "Amazon", href: product.links.amazon });
+  return links;
+}
+
+const quietLink =
+  "border-b border-transparent pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors";
+
+function ProductCard({ product }: { product: Product }) {
+  const img = imageUrl(product.imgId);
+  const hoverImg = imageUrl(product.hoverImgId);
+  const collection = getCollection(product.collection);
 
   return (
-    <section id="catalog" className="py-16 sm:py-24 px-6 md:px-12 bg-background relative">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="font-headline text-4xl sm:text-5xl md:text-6xl text-foreground">Earrings</h2>
-        </div>
+    <article className="group">
+      <div className="relative aspect-[3/4] overflow-hidden bg-muted border border-brand-gold/15">
+        {img && (
+          <Image
+            src={img}
+            alt={product.name}
+            fill
+            sizes="(min-width: 1024px) 25vw, 50vw"
+            className={cn(
+              "object-cover transition-all duration-700 ease-out-soft",
+              hoverImg ? "group-hover:opacity-0" : "group-hover:scale-[1.03]"
+            )}
+          />
+        )}
+        {hoverImg && (
+          <Image
+            src={hoverImg}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 25vw, 50vw"
+            className="object-cover opacity-0 transition-opacity duration-700 ease-out-soft group-hover:opacity-100"
+          />
+        )}
+      </div>
 
-        {/* Navigation Arrows */}
-        <div className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
-          <Button variant="ghost" size="icon" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-foreground/40" />
-          </Button>
-        </div>
-        <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 hidden md:block z-10">
-          <Button variant="ghost" size="icon" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-foreground/10 bg-white/80 shadow-sm">
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-foreground/40" />
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-12 sm:gap-y-16">
-          {products.map((product) => {
-            const img = PlaceHolderImages.find(i => i.id === product.imgId)?.imageUrl;
-            return (
-              <div key={product.id} className="flex flex-col group">
-                {/* Product Image Container */}
-                <div className="relative aspect-square overflow-hidden bg-brand-ivory border border-foreground/[0.03]">
-                  {img && (
-                    <Image
-                      src={img}
-                      alt={product.name}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  )}
-                  {/* SALE Badge */}
-                  <div className="absolute top-0 right-0 p-3">
-                    <span className="text-[9px] sm:text-[10px] tracking-widest text-foreground/40 uppercase font-medium">SALE</span>
-                  </div>
-                </div>
-                
-                {/* Product Details */}
-                <div className="mt-4 sm:mt-5 space-y-2 sm:space-y-3 flex-grow">
-                  <div className="flex justify-between items-start gap-3 sm:gap-4">
-                    <h3 className="text-[10px] sm:text-[11px] font-bold tracking-widest leading-tight text-foreground uppercase max-w-[70%]">
-                      {product.name}
-                    </h3>
-                    <div className="flex flex-col items-end whitespace-nowrap">
-                      <span className="text-[9px] sm:text-[10px] text-foreground/30 line-through">{product.oldPrice}</span>
-                      <span className="text-[10px] sm:text-[11px] font-bold text-foreground">{product.price}</span>
-                    </div>
-                  </div>
-                  <p className="text-[9px] sm:text-[10px] italic text-foreground/40 font-light">
-                    {product.tags}
-                  </p>
-                </div>
-
-                {/* Marketplace Buttons */}
-                <div className="mt-4 space-y-2">
-                  <a 
-                    href={product.links?.flipkart ?? SITE_LINKS.flipkartStore} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <Button 
-                      className="w-full bg-[#2874f0] hover:bg-[#1b5ec0] text-white rounded-none h-10 sm:h-11 text-[9px] sm:text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-3 border-none"
-                    >
-                      <Image 
-                        src={flipkartLogo}
-                        alt="Flipkart"
-                        width={20}
-                        height={20}
-                        className="object-contain h-5 w-auto"
-                      />
-                      Buy on Flipkart
-                    </Button>
-                  </a>
-                  
-                  <a 
-                    href={product.links?.meesho ?? SITE_LINKS.meeshoStore} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    <Button 
-                      className="w-full bg-[#580A46] hover:bg-[#48083a] text-white rounded-none h-10 sm:h-11 text-[9px] sm:text-[10px] tracking-[0.2em] font-bold uppercase transition-all flex items-center justify-center gap-3 border-none"
-                    >
-                      <Image 
-                        src={meeshoLogo}
-                        alt="Meesho"
-                        width={20}
-                        height={20}
-                        className="object-contain h-5 w-auto"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          const parent = target.parentElement;
-                          if (parent) {
-                            parent.innerHTML = '<span class="text-[8px] text-white font-bold">M</span>';
-                          }
-                        }}
-                      />
-                      Buy on Meesho
-                    </Button>
-                  </a>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Carousel pagination dots */}
-        <div className="flex justify-center gap-3 mt-12 sm:mt-16">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div 
-              key={i} 
-              className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full border border-foreground/20 ${i === 3 ? 'bg-foreground/20' : 'transparent'}`} 
-            />
+      <div className="pt-5 text-center">
+        {collection && <p className="text-eyebrow uppercase text-brand-gold mb-2">{collection.name}</p>}
+        <h3 className="font-headline text-base md:text-lg leading-snug">{product.name}</h3>
+        <p className="mt-1 text-sm text-foreground/60">{product.price}</p>
+        <div className="mt-4 flex justify-center gap-5 text-eyebrow uppercase text-foreground/60">
+          {marketplaceLinks(product).map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Buy ${product.name} on ${link.label} (opens in a new tab)`}
+              className={quietLink}
+            >
+              {link.label}
+            </a>
           ))}
         </div>
+      </div>
+    </article>
+  );
+}
+
+export function JewelryCatalog() {
+  return (
+    <section id="catalog" className="py-section px-6 md:px-12 bg-card">
+      <div className="max-w-site mx-auto">
+        <Reveal className="mb-16 md:mb-20">
+          <SectionHeading
+            eyebrow="Signature Pieces"
+            title={
+              <>
+                The ones she <em>keeps</em>
+              </>
+            }
+            description="Handpicked favourites, each one ready to wear and ready to gift."
+          />
+        </Reveal>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 md:gap-x-8 gap-y-14">
+          {products.map((product, i) => (
+            <Reveal key={product.id} delay={(i % 4) * 100}>
+              <ProductCard product={product} />
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="mt-16 md:mt-20 text-center">
+          <p className="text-eyebrow uppercase text-foreground/60">
+            Shop the full range on{" "}
+            <a href={SITE_LINKS.flipkartStore} target="_blank" rel="noopener noreferrer" className={`text-foreground ${quietLink}`}>
+              Flipkart
+            </a>{" "}
+            ·{" "}
+            <a href={SITE_LINKS.meeshoStore} target="_blank" rel="noopener noreferrer" className={`text-foreground ${quietLink}`}>
+              Meesho
+            </a>
+          </p>
+        </Reveal>
       </div>
     </section>
   );

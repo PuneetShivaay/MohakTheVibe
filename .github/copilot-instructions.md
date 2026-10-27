@@ -18,7 +18,8 @@ Next.js 15 (App Router, React 19, TypeScript, Tailwind, shadcn/ui) jewelry brand
 ## Conventions
 - Import via `@/` alias. Style with Tailwind and brand tokens like `text-brand-gold` (defined in `tailwind.config.ts`/`globals.css`); palette: Midnight `121212`, Gold `C9A14A`, Ivory `FAF7F2`, Copper `B76E48`, Champagne `E8DCC8` (hex). Fonts: Playfair Display (headings), Inter (body).
 - Dark/light "Mohak Mode" is handled via `ThemeToggle.tsx`; keep styles working in both modes.
-- Use `cn()` from `src/lib/utils.ts` for class merging; toasts via `src/hooks/use-toast.ts`.
+- Use `cn()` from `src/lib/utils.ts` for class merging; toasts via `src/hooks/use-toast.ts`. If you add a custom Tailwind `fontSize`, register it in `utils.ts` (`extendTailwindMerge`) or `cn()` will drop it next to a colour class.
+- Product cards: single price only (no sale/strikethrough), marketplace links as quiet text. New product photos go in `public/images/earring/` as WebP (≤1200px wide).
 
 ## Workflows
 - `npm run dev` (Turbopack, port **9002**), `npm run build`, `npm run lint`, `npm run typecheck`.

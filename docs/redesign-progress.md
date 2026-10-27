@@ -25,14 +25,26 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [ ] Is @mohakthevibe a Business/Creator account linked to a Facebook Page? (needed for the API)
 - [ ] Meta developer app created, and access token and user ID generated?
 - [ ] Start with a widget (e.g. Behold) before the Graph API, to avoid 60-day token refresh?
-- [ ] Do we have high-quality, consistent product and on-model images? (Hero photo is good; keep that style.)
+- [ ] **Product names don't match their photos** (already true on the live site). Correct names in `src/lib/products.ts`, or confirm which image belongs to which product:
+  | id | Name in data | Photo shows (`imgId` → file) |
+  |---|---|---|
+  | p1 | Minakari Half Green Jhumka | Blue leaf jhumka (`earring11`) |
+  | p2 | Minakari Half Red Jhumka | Black/red chandbali on stand (`earring21`) |
+  | p3 | Lotus Minakari Firozi Drop Earrings | Yellow chandbali (`earring3`) |
+  | p4 | Lotus Minakari Black Drop Earrings | Aqua kundan drop (`earring4`) |
+  | p5 | Lotus Minakari Wine Drop Earrings | Peacock jhumka (`earring20`) |
+  | p6 | Green Crystal Kundan Drop Earrings | Green kundan drop (`earring6`), matches |
+  | p7 | Gold Plated Rectangular Drop Earrings | Teal paisley jhumka (`earring18`) |
+  | p8 | Rose Gold Mirror Rectangular Drop Earrings | Silver oxidised, square stones (`earring8`) |
+- [ ] Which 4–6 products are "Signature"? All 8 are shown for now (plan says 4–6)
+- [ ] On-model or second photo per product for the hover swap (`hoverImgId`)? Product photography is consistent (warm beige sets); keep that style. Hero photo is good.
 - [ ] Hero copy: keep "Wear the vibe." and the placeholder subline, or provide brand wording?
 
 ## Status
 - [x] 1. Foundations (tokens, SectionHeading, Framer Motion, `products.ts`, shared layout)
 - [x] 2. Navbar
 - [x] 3. Hero
-- [ ] 4. Signature Pieces (JewelryCatalog)
+- [x] 4. Signature Pieces (JewelryCatalog), production build pending (user runs it)
 - [ ] 5. Collections (home tiles and `/collections/[slug]`)
 - [ ] 6. Our Story (home teaser and `/our-story`)
 - [ ] 7. InstagramGrid (live posts and reels)
@@ -75,3 +87,12 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - Verified with headless Edge screenshots at 1440px and a true 390px width (via iframe; headless Edge's minimum window is 496px). No console hydration warnings on `/` or `/preview`. Production build passes; home first-load JS is 208 KB (Framer Motion is most of the increase).
   - Hero copy ("Handpicked Indian jewellery", "Jewellery that carries the craft of India…") is placeholder; confirm or replace.
 - 2026-10-27: Decided to keep the "Our Essence – Wear Your Vibe, Own the Room." section (`BrandStory.tsx`) unchanged. Plan phase 6 updated: no redesign of this section; `/our-story` will reuse its visual language.
+- 2026-10-28: **Phase 4 done** on `redesign`:
+  - `JewelryCatalog` rewritten as "Signature Pieces / The ones she *keeps*" using `SectionHeading` and `Reveal`; now a server component (less client JS).
+  - 3:4 cards with 1px gold hairline, collection label, Title Case name, single price; gentle zoom on hover, or crossfade when a product has `hoverImgId`.
+  - Removed "SALE", strikethrough prices, the generic tag line, the dead arrows and pagination dots, and the blue/purple Flipkart/Meesho buttons.
+  - Marketplace links are quiet text ("Flipkart · Meesho", plus Amazon when a product has a link) with descriptive `aria-label`s; "Shop the full range on Flipkart · Meesho" under the grid.
+  - `products.ts`: dropped `oldPrice` and `tags`, prices as "₹199", names in Title Case, added `hoverImgId` and `getCollection()`.
+  - Images: every earring image referenced in `placeholder-images.json` converted to WebP (max 1200px, quality 80): 26.6 MB → 2.2 MB. Originals kept. Preview uses the WebP files too. "Our Essence" looks the same (format change only).
+  - Fixed `cn()`: `tailwind-merge` treated the custom `text-eyebrow`/`text-display*` sizes as colours and dropped them when combined with a colour class (broke `Eyebrow` labels). Registered them via `extendTailwindMerge` in `src/lib/utils.ts`.
+  - Verified: typecheck clean; headless Edge screenshots at 1440px and true 390px; no hydration warnings. **Production build not run** (user runs builds).

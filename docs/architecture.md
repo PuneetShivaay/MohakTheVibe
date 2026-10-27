@@ -25,7 +25,7 @@ Installed but unused: `firebase` (client SDK), `recharts`, `date-fns`, `react-da
 
 ## Rendering and hosting model
 - `next build` produces plain HTML/CSS/JS in `out/`. No Node server runs in production.
-- `images.unoptimized: true`: `next/image` does no resizing or format conversion, so source images should be exported at web sizes (ideally WebP, under ~300 KB). `sharp` is available in `node_modules`, e.g. `hero.webp` was made with `sharp('public/images/header.png').resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 80 })`.
+- `images.unoptimized: true`: `next/image` does no resizing or format conversion, so source images should be exported at web sizes (ideally WebP, under ~300 KB). `sharp` is available in `node_modules`, e.g. `hero.webp` was made with `sharp('public/images/header.png').resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 80 })`. Product images in `public/images/earring/` have `.webp` versions (max 1200px wide, quality 80) next to the original PNG/JPEG; `placeholder-images.json` points to the `.webp`. Convert any new photo the same way before adding it.
 - Consequences of static export:
   - No API routes, server actions, ISR/`revalidate`, or runtime environment secrets.
   - Dynamic routes (e.g. `/collections/[slug]`) need `generateStaticParams`.
@@ -54,7 +54,7 @@ src/
     ui/                 Generated shadcn/ui components
   hooks/                use-toast, use-mobile
   lib/
-    utils.ts            cn() class merge helper
+    utils.ts            cn() class merge helper (knows the custom text-display*/text-eyebrow sizes)
     site.ts             WhatsApp number, Instagram and marketplace store links
     products.ts         Products, collections, getProductsByCollection()
     placeholder-images.ts / .json   Image registry (id → URL)
@@ -74,7 +74,8 @@ docs/                   blueprint, redesign plan/progress, this file
 Sections are client components (`"use client"`) with named exports. Most could be server components; only interactive ones (Navbar scroll state, ThemeToggle, ContactSection form, carousels, `Reveal`) need the client.
 
 ## Data
-- **Products and collections**: `src/lib/products.ts`. Each product has a `collection` slug and optional per-product `links` (Flipkart/Meesho/Amazon); components fall back to the store links. Collection names are a draft.
+- **Products and collections**: `src/lib/products.ts`. Each product has `name`, `imgId`, `collection` slug, a single `price` (no sale/compare-at price), optional `hoverImgId` (second photo for the hover crossfade) and optional per-product `links` (Flipkart/Meesho/Amazon); components fall back to the store links. Collection names are a draft, and several product names don't match their photos yet (see progress doc).
+- **Signature Pieces** (`JewelryCatalog.tsx`) is a server component; only the `Reveal` wrappers run on the client.
 - **Contact details**: `src/lib/site.ts` (`WHATSAPP_NUMBER`, `SITE_LINKS`). Import from there; don't hardcode links in components.
 - **Images**: components look up `PlaceHolderImages.find(img => img.id === "...")` and must handle a missing result. Files live in `public/images/`.
 
@@ -92,7 +93,7 @@ Sections are client components (`"use client"`) with named exports. Most could b
 ## Integrations
 | Integration | How |
 |---|---|
-| Flipkart / Meesho | External links (store/search URLs until per-product links are added in `products.ts`) |
+| Flipkart / Meesho | Quiet text links on each product card and under the grid (store/search URLs until per-product links are added in `products.ts`) |
 | Amazon | Planned |
 | WhatsApp | `wa.me` chat and catalogue links; floating `WhatsAppCTA` |
 | Instagram | Profile link; grid uses local placeholder images (live feed planned, phase 7) |
@@ -110,7 +111,8 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 - **Build on `main`**: `main` still contains `src/components/ui/calendar.tsx`, which fails the type check, so `npm run build` (and likely the deploy workflow) fails there. Fixed on `redesign` by deleting the unused file.
 - **No ESLint config**: `next lint` opens an interactive setup prompt and `next build` skips linting. Add an `eslint.config.mjs` (Next.js "Strict") when convenient.
 - **Unused image entry**: `header-brand-logo` in `placeholder-images.json` points to a missing file and is no longer used.
-- **Placeholder UI**: catalog arrows and pagination dots do nothing (phase 4).
+- **Original images in the repo**: the source PNG/JPEG files (~27 MB) are still committed next to their `.webp` versions and are no longer served by the site. Move them out of `public/` (or delete) once the WebP versions are confirmed.
+- **Unused marketplace logos**: `flipkart-logo.png` and `meesho_logo.png` (and their `placeholder-images.json` entries) are no longer used after phases 2 and 4.
 - **Unused code**: Genkit stubs in `src/ai/`, `AIStylist.tsx`, unused dependencies listed above, `public/images/INSTRUCTIONS.txt` lists file names that no longer match.
 - **Windows build**: `npm run build` sets `NODE_ENV` inline, which fails in PowerShell (workaround in `SETUP.md`).
 - **Bundle size**: Framer Motion raised home first-load JS to ~208 KB. Acceptable for now; revisit with `LazyMotion` in phase 9 if Lighthouse flags it.
