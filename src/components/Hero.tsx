@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { PAGE_LINKS } from "@/lib/site";
-import { Reveal } from "./Reveal";
+import { FadeIn } from "./FadeIn";
 
 export function Hero() {
   const heroImg = PlaceHolderImages.find((img) => img.id === "hero-main-bg")?.imageUrl ?? "/images/hero.webp";
@@ -38,20 +38,20 @@ export function Hero() {
 
       <div className="relative h-full max-w-site mx-auto px-6 md:px-12 flex flex-col justify-end md:justify-center pb-20 md:pb-0 text-white">
         <div className="max-w-xl">
-          <Reveal>
+          <FadeIn>
             <p className="text-eyebrow uppercase text-brand-beige mb-6">Handpicked Indian jewellery</p>
-          </Reveal>
-          <Reveal delay={150}>
+          </FadeIn>
+          <FadeIn delay={150}>
             <h1 className="font-headline text-display-xl">
               Wear the <em className="text-brand-beige">vibe.</em>
             </h1>
-          </Reveal>
-          <Reveal delay={300}>
+          </FadeIn>
+          <FadeIn delay={300}>
             <p className="mt-8 max-w-md text-sm md:text-base font-light text-white/80 leading-relaxed">
               Jewellery that carries the craft of India, made for the way you live now.
             </p>
-          </Reveal>
-          <Reveal delay={450} className="mt-10 flex flex-wrap items-center gap-8">
+          </FadeIn>
+          <FadeIn delay={450} className="mt-10 flex flex-wrap items-center gap-8">
             <Link
               href={PAGE_LINKS.collections}
               className="bg-brand-copper hover:bg-brand-copper/90 text-white text-eyebrow uppercase px-8 py-4 transition-colors"
@@ -64,7 +64,7 @@ export function Hero() {
             >
               Our Story
             </Link>
-          </Reveal>
+          </FadeIn>
         </div>
       </div>
     </section>

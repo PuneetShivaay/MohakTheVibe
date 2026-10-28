@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LayeredImages } from "@/components/LayeredImages";
 import { PromiseStrip } from "@/components/PromiseStrip";
 import { imageUrl } from "@/components/ProductCard";
+import { FadeIn } from "@/components/FadeIn";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 import { PAGE_LINKS, SITE_LINKS } from "@/lib/site";
@@ -56,7 +57,7 @@ export default function OurStoryPage() {
       {/* Intro beside the two framed prints */}
       <section className="pt-28 md:pt-36 pb-section px-6 md:px-12">
         <div className="max-w-site mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-          <Reveal>
+          <FadeIn>
             <Eyebrow className="mb-6">Our Story</Eyebrow>
             <h1 className="font-headline text-display-xl">
               Wear your vibe, <em className="text-brand-gold">own the room.</em>
@@ -66,11 +67,11 @@ export default function OurStoryPage() {
               you are. We bring boutique elegance to everyday dressing, with pieces rooted in Indian craft and styled for
               the way you live now.
             </p>
-          </Reveal>
+          </FadeIn>
           {mainImg && (
-            <Reveal delay={150} className="lg:mr-8 lg:mb-8">
+            <FadeIn delay={150} className="lg:mr-8 lg:mb-8">
               <LayeredImages main={mainImg} mainAlt="Mohak earrings, styled" detail={detailImg} priority />
-            </Reveal>
+            </FadeIn>
           )}
         </div>
       </section>

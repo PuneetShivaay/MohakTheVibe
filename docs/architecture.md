@@ -44,7 +44,9 @@ src/
       collections/[slug]/page.tsx   Collection page (static params, per-page metadata)
       our-story/page.tsx            Brand story page
     preview/            TEMPORARY redesign mock (noindex, outside (site) so it has its own chrome)
-    globals.css         Tailwind layers, light/dark CSS variables, small utilities
+    globals.css         Tailwind layers, light/dark CSS variables, smooth scrolling
+    not-found.tsx       Branded 404 (adds Navbar/Footer itself; exported as 404.html)
+    sitemap.ts, robots.ts   Static /sitemap.xml and /robots.txt (robots disallows /preview)
   components/
     Navbar, Hero, CollectionTiles, JewelryCatalog, BrandStory,
     InstagramGrid, ContactSection, Footer, WhatsAppCTA   Page sections
@@ -55,7 +57,8 @@ src/
     GiftBand.tsx        Midnight "gift-ready" band with logo and WhatsApp prompt
     BrandLogo.tsx       SVG logo (`compact` = mark only)
     SectionHeading.tsx  SectionHeading and Eyebrow (shared section titles)
-    Reveal.tsx          Fade-and-rise on scroll (Framer Motion, respects reduced motion)
+    Reveal.tsx          Fade-and-rise on scroll (Framer Motion, respects reduced motion); below the first screen only
+    FadeIn.tsx          CSS-only entrance for first-screen content (visible without JavaScript)
     ThemeToggle.tsx     Light/dark "Mohak Mode" switch
     AIStylist.tsx       Stub (feature removed)
     ui/                 Generated shadcn/ui components
@@ -97,7 +100,7 @@ Sections are client components (`"use client"`) with named exports. Most could b
   - Spacing: `py-section` (vertical section padding, 96–160px).
   - Width: `max-w-site` (1400px content width).
   - Easing: `ease-out-soft`.
-- Dark mode: `darkMode: ['class']`. `ThemeToggle` toggles the `dark` class on `<html>` and stores the choice in `localStorage` (`mohak-theme`). Because this runs after hydration, dark-mode users may see a brief light flash on load.
+- Dark mode: `darkMode: ['class']`. `ThemeToggle` toggles the `dark` class on `<html>` and stores the choice in `localStorage` (`mohak-theme`). A small inline script in the root layout `<head>` applies the saved mode before first paint, so there is no light flash.
 - Fonts: `font-headline` (Playfair Display) for headings, `font-body` (Inter) for text.
 
 ## Integrations
@@ -108,7 +111,8 @@ Sections are client components (`"use client"`) with named exports. Most could b
 | WhatsApp | `wa.me` chat (with prefilled message) and catalogue links. `WhatsAppCTA` is a small Midnight/gold button that fades in after ~60% of the first screen and is removed from tab order while hidden |
 | Instagram | `InstagramGrid` ("Worn by *you*") is a server component. At build time `src/lib/instagram.ts` fetches the latest 6 posts from the Instagram Graph API if `INSTAGRAM_ACCESS_TOKEN` and `INSTAGRAM_USER_ID` are set (GitHub secrets → build env); otherwise, or on any error, it shows local photos `insta-post-1…6` linking to the profile. Remote images use a plain `<img>`. Feed only updates when the site rebuilds (daily `schedule` ready but commented out in the workflow) |
 | Contact form | Validates with zod, then opens the visitor's email client (`mailto:`). No data is sent to a server |
-| SEO | `metadata` in `layout.tsx` (title, description, Open Graph, Twitter card, `metadataBase` for absolute URLs); per-collection `generateMetadata` |
+| SEO | `metadata` in `layout.tsx` (title, description, Open Graph, Twitter card, `metadataBase` for absolute URLs); per-page metadata and canonical URLs on collection and story pages; `sitemap.xml`, `robots.txt`; 404 is `noindex` |
+| Accessibility | "Skip to content" link (root layout) to `#main`; descriptive `aria-label`s on external links; reduced motion respected by `Reveal`, `FadeIn`, hero parallax and smooth scrolling |
 
 ## Build and deploy
 1. Push to `main` triggers `.github/workflows/firebase-deploy.yml`.
@@ -121,17 +125,16 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 - **Build on `main`**: `main` still contains `src/components/ui/calendar.tsx`, which fails the type check, so `npm run build` (and likely the deploy workflow) fails there. Fixed on `redesign` by deleting the unused file.
 - **`.env` is committed**: `.env` is tracked in git (and in history) and `.gitignore` only covers `.env*.local`. Its contents were not reviewed. If it holds any key, rotate that key, then `git rm --cached .env` and add `.env` to `.gitignore`. Use GitHub secrets for CI and `.env.local` for local values.
 - **No ESLint config**: `next lint` opens an interactive setup prompt and `next build` skips linting. Add an `eslint.config.mjs` (Next.js "Strict") when convenient.
-- **Unused image entry**: `header-brand-logo` in `placeholder-images.json` points to a missing file and is no longer used.
 - **Original images in the repo**: the source PNG/JPEG files (~27 MB) are still committed next to their `.webp` versions and are no longer served by the site. Move them out of `public/` (or delete) once the WebP versions are confirmed.
-- **Unused marketplace logos**: `flipkart-logo.png` and `meesho_logo.png` (and their `placeholder-images.json` entries) are no longer used after phases 2 and 4.
+- **Unused marketplace logos**: `flipkart-logo.png` and `meesho_logo.png` files are no longer used (their registry entries were removed in phase 9).
 - **Unused code**: Genkit stubs in `src/ai/`, `AIStylist.tsx`, unused dependencies listed above, `public/images/INSTRUCTIONS.txt` lists file names that no longer match.
 - **Windows build**: `npm run build` sets `NODE_ENV` inline, which fails in PowerShell (workaround in `SETUP.md`).
-- **Bundle size**: Framer Motion raised home first-load JS to ~208 KB. Acceptable for now; revisit with `LazyMotion` in phase 9 if Lighthouse flags it.
-- **Content hidden until JavaScript runs**: `Reveal` server-renders with `opacity: 0`, so above-the-fold text and images stay invisible until hydration (blank on slow phones, worse LCP). Phase 9: don't wrap first-screen content in `Reveal`, or start it visible.
+- **Bundle size**: Framer Motion raised home first-load JS to ~208 KB. Revisit with `LazyMotion` if Lighthouse flags it in the final test.
+- **`Reveal` hides content until JavaScript runs**: it server-renders with `opacity: 0`. Fixed for first-screen content in phase 9 by using `FadeIn` (CSS) in the hero and page intros; keep `Reveal` for content below the fold.
 - **Unused festive images**: `festive-item-1/3/4/5` in `placeholder-images.json` became unused when `FestiveCollections` was replaced (`festive-item-2` is the Contemporary cover).
 - **Dev server and build together**: running `next build` while `next dev` is running corrupts the shared `.next` folder (dev returns 500). Restart the dev server after a build.
 
-## Planned architecture changes
-From `redesign-plan.md`:
-- `sitemap.ts` and `robots.ts` (phase 9).
+## Remaining work
+All nine redesign phases are implemented on `redesign`. Still open:
+- Final test pass (checklist in `redesign-progress.md`), then merge to `main`.
 - Instagram live feed: code is in place; needs the Meta app, token and GitHub secrets, then enable the workflow `schedule`.

@@ -39,11 +39,23 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Apply the saved Mohak Mode before first paint, so dark-mode visitors don't see a light flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "try{if(localStorage.getItem('mohak-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}",
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased selection:bg-brand-gold/30">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-background focus:px-4 focus:py-3 focus:text-eyebrow focus:uppercase focus:outline focus:outline-brand-gold"
+        >
+          Skip to content
+        </a>
         {children}
         <Toaster />
       </body>

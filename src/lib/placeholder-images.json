@@ -1,24 +1,6 @@
 {
   "placeholderImages": [
     {
-      "id": "header-brand-logo",
-      "description": "Main Brand Logo Image",
-      "imageUrl": "/images/logo.png",
-      "imageHint": "brand logo"
-    },
-    {
-      "id": "header-flipkart-logo",
-      "description": "Flipkart Official Logo",
-      "imageUrl": "/images/flipkart-logo.png",
-      "imageHint": "flipkart logo"
-    },
-    {
-      "id": "header-meesho-logo",
-      "description": "Meesho Official Logo",
-      "imageUrl": "/images/meesho_logo.png",
-      "imageHint": "meesho logo"
-    },
-    {
       "id": "hero-main-bg",
       "description": "Model wearing spectacular statement artificial earrings",
       "imageUrl": "/images/hero.webp",

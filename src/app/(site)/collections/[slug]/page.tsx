@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { CollectionTile } from "@/components/CollectionTiles";
 import { LayeredImages } from "@/components/LayeredImages";
 import { imageUrl, ProductCard, ShopFullRange } from "@/components/ProductCard";
+import { FadeIn } from "@/components/FadeIn";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 
@@ -55,7 +56,7 @@ export default async function CollectionPage({ params }: Params) {
       {/* Intro: text beside the cover photo */}
       <section className="pt-28 md:pt-36 pb-section px-6 md:px-12">
         <div className="max-w-site mx-auto grid md:grid-cols-2 gap-10 md:gap-20 items-center">
-          <Reveal>
+          <FadeIn>
             <nav aria-label="Breadcrumb" className="mb-8 text-eyebrow uppercase text-foreground/60">
               <Link href="/#collections" className="hover:text-brand-gold transition-colors">
                 Collections
@@ -69,9 +70,9 @@ export default async function CollectionPage({ params }: Params) {
             <p className="mt-6 text-eyebrow uppercase text-foreground/60">
               {items.length} {items.length === 1 ? "piece" : "pieces"}
             </p>
-          </Reveal>
+          </FadeIn>
           {cover && (
-            <Reveal delay={150} className="lg:mr-8 lg:mb-8">
+            <FadeIn delay={150} className="lg:mr-8 lg:mb-8">
               <LayeredImages
                 main={cover}
                 mainAlt={`${collection.name} collection`}
@@ -79,7 +80,7 @@ export default async function CollectionPage({ params }: Params) {
                 detailAlt={detailProduct?.name}
                 priority
               />
-            </Reveal>
+            </FadeIn>
           )}
         </div>
       </section>

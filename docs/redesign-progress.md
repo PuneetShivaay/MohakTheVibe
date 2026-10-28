@@ -53,7 +53,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [x] 6. Our Story (`/our-story`; home "Our Essence" unchanged)
 - [x] 7. InstagramGrid (live feed code ready; shows local photos until the token is set up)
 - [x] 8. Footer and WhatsAppCTA (plus gift band and contact section)
-- [ ] 9. Polish and QA (sitemap, 404, accessibility, Lighthouse)
+- [x] 9. Polish (sitemap, robots, 404, first-screen visibility, dark-mode flash, skip link). Lighthouse and QA run in the final test
 
 ## Log
 - 2026-10-27: Plan and progress files created. No code changed yet.
@@ -125,6 +125,22 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - New `GiftBand` ("Every piece arrives *gift-ready.*") on home between Instagram and Contact.
   - `ContactSection` restyled with the redesign tokens and `SectionHeading`, dark-mode aware; adds a WhatsApp line; form logic unchanged.
   - New `CONTACT` in `site.ts`; no contact details hardcoded in components any more.
+- 2026-10-28: **Phase 9 done** on `redesign` (typecheck only, not visually tested). **All nine phases are implemented.**
+  - `sitemap.ts` and `robots.ts` (static; robots disallows `/preview`).
+  - Branded 404 (`app/not-found.tsx`: "This piece has *wandered off.*", links home and to collections, `noindex`).
+  - New CSS-only `FadeIn` (`animate-reveal`) replaces `Reveal` in the hero and the collection/story page intros, so first-screen content shows without waiting for JavaScript (fixes the blank-page risk seen in phase 5, helps LCP).
+  - Inline script applies the saved dark mode before first paint (no light flash).
+  - "Skip to content" link; `main#main` on all pages.
+  - Cleanup: removed the dead logo entries from `placeholder-images.json` and unused CSS (`dashed-link`, `font-serif-italic`, `animate-fade-in`).
+  - Not done by design: `loading.tsx` (pages are pre-built HTML, no loading state needed); Lighthouse (part of the final test).
+
+## Before merging to main
+- [ ] Final test checklist below passes
+- [ ] Delete `src/app/preview/` (and its `robots.ts` rule)
+- [ ] Resolve the `.env` question (see open questions)
+- [ ] Decide on the original PNG/JPEG images in `public/images/` (~27 MB, no longer used by the site)
+- [ ] Confirm or replace placeholder copy: hero subline, collection descriptions, `/our-story`, product names
+- [ ] Merge `redesign` into `main` (this deploys the live site)
 
 ## Final test checklist
 Run after all phases (user builds with `$env:NODE_ENV="production"; npx next build`, then `npx serve out`):
@@ -137,7 +153,10 @@ Run after all phases (user builds with `$env:NODE_ENV="production"; npx next bui
 - [ ] Promise strip under the hero on home (2 columns on mobile)
 - [ ] Dark mode on every page
 - [ ] Reduced-motion setting: content visible, no movement
-- [ ] Unknown URL shows the 404 page
+- [ ] Unknown URL shows the branded 404 page with navbar and footer
+- [ ] `/sitemap.xml` lists home, our-story and the three collections; `/robots.txt` disallows /preview
+- [ ] Dark mode: reload with dark mode saved, no light flash
+- [ ] Keyboard: Tab shows "Skip to content" first; menu, links and form reachable
 - [ ] Lighthouse (performance, accessibility, SEO) on home and one collection page
 - [ ] Instagram section: 6 local photos without a token; with a token in .env.local, live posts and reel badges
 - [ ] Footer (both modes), gift band, contact form (validation messages, opens email app), WhatsApp button appears after scrolling and opens chat with the prefilled message
