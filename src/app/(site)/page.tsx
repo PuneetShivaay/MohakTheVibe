@@ -1,5 +1,5 @@
 import { Hero } from "@/components/Hero";
-import { FestiveCollections } from "@/components/FestiveCollections";
+import { CollectionTiles } from "@/components/CollectionTiles";
 import { JewelryCatalog } from "@/components/JewelryCatalog";
 import { BrandStory } from "@/components/BrandStory";
 import { InstagramGrid } from "@/components/InstagramGrid";
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <FestiveCollections />
+      <CollectionTiles />
       <JewelryCatalog />
       <BrandStory />
       <InstagramGrid />

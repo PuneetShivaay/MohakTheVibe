@@ -11,6 +11,8 @@ export type Collection = {
   slug: string;
   name: string;
   tagline: string;
+  // Intro paragraph on the collection page; also used as its meta description
+  description: string;
   coverImageId: string;
 };
 
@@ -27,11 +29,29 @@ export type Product = {
   links?: MarketplaceLinks;
 };
 
-// Draft collections: names and slugs still to be confirmed (see docs/redesign-progress.md)
+// Draft collections: names, slugs and copy still to be confirmed (see docs/redesign-progress.md)
 export const collections: Collection[] = [
-  { slug: "minakari", name: "Minakari", tagline: "Enamel colour, hand-painted", coverImageId: "catalog-jhumka-green" },
-  { slug: "kundan", name: "Kundan", tagline: "Crystal set, quietly royal", coverImageId: "catalog-kundan-green" },
-  { slug: "contemporary", name: "Contemporary", tagline: "Clean lines for every day", coverImageId: "catalog-rect-gold" },
+  {
+    slug: "minakari",
+    name: "Minakari",
+    tagline: "Enamel colour, hand-painted",
+    description: "Bright enamel work in the Minakari tradition. Jhumkas and chandbalis with colour that carries across a room.",
+    coverImageId: "catalog-jhumka-red",
+  },
+  {
+    slug: "kundan",
+    name: "Kundan",
+    tagline: "Crystal set, quietly royal",
+    description: "Glass stones set in gold-tone frames, inspired by royal courts and light enough to wear every day.",
+    coverImageId: "catalog-kundan-green",
+  },
+  {
+    slug: "contemporary",
+    name: "Contemporary",
+    tagline: "Clean lines for every day",
+    description: "Modern shapes and oxidised finishes for workdays, brunches and everything in between.",
+    coverImageId: "festive-item-2",
+  },
 ];
 
 // Names carried over from the old catalog. Several do not match their photo yet (see docs/redesign-progress.md).

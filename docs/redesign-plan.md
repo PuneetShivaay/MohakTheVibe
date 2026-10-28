@@ -67,7 +67,7 @@ No per-product pages for now (decided). Products appear as cards on the home and
 2. **Navbar**: transparent over the hero, blurred on scroll, centred `<BrandLogo compact />` (replaces the missing `/images/logo.png` lookup), route-based links.
 3. **Hero**: full-bleed editorial image or video with gradient overlay, tagline, one CTA, subtle parallax. Remove the decorative circle, vertical "INSTAGRAM" text and arrow.
 4. **Signature Pieces (JewelryCatalog)**: 3:4 cards, hover crossfade, quiet marketplace links, 1px gold borders; remove sale styling and dead carousel controls.
-5. **Collections**: home tiles plus `/collections/[slug]` pages with per-page metadata.
+5. **Collections**: home tiles plus `/collections/[slug]` pages with per-page metadata. Collection intros reuse the "Our Essence" two-prints layout (`LayeredImages`), which is now a signature pattern for brand moments.
 6. **Our Story**: keep `BrandStory` ("Our Essence") on the home page unchanged in layout and copy; only token-level alignment if needed (e.g. `max-w-site`). Add a "Read our story" link once `/our-story` exists, and build `/our-story` in the same visual language (layered framed images, Playfair italic gold accents).
 7. **InstagramGrid**: live posts and reels (see below).
 8. **Footer and WhatsAppCTA**: refine, keep the number `916388498674` consistent.

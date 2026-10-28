@@ -41,11 +41,15 @@ src/
     (site)/             Route group for public pages (not part of the URL)
       layout.tsx        Shared Navbar, <main>, Footer, WhatsAppCTA
       page.tsx          Home page: composes the section components
+      collections/[slug]/page.tsx   Collection page (static params, per-page metadata)
     preview/            TEMPORARY redesign mock (noindex, outside (site) so it has its own chrome)
     globals.css         Tailwind layers, light/dark CSS variables, small utilities
   components/
-    Navbar, Hero, FestiveCollections, JewelryCatalog, BrandStory,
+    Navbar, Hero, CollectionTiles, JewelryCatalog, BrandStory,
     InstagramGrid, ContactSection, Footer, WhatsAppCTA   Page sections
+    ProductCard.tsx     ProductCard, ShopFullRange, imageUrl(), quietLink (shared by home and collection pages)
+    CollectionTiles.tsx CollectionTiles (home section) and CollectionTile (one linked cover tile)
+    LayeredImages.tsx   Two framed prints (large 4:5 + small square overlap), the "Our Essence" look
     BrandLogo.tsx       SVG logo (`compact` = mark only)
     SectionHeading.tsx  SectionHeading and Eyebrow (shared section titles)
     Reveal.tsx          Fade-and-rise on scroll (Framer Motion, respects reduced motion)
@@ -56,7 +60,7 @@ src/
   lib/
     utils.ts            cn() class merge helper (knows the custom text-display*/text-eyebrow sizes)
     site.ts             WhatsApp number, Instagram and marketplace store links
-    products.ts         Products, collections, getProductsByCollection()
+    products.ts         Products, collections, getProductsByCollection(), getCollection()
     placeholder-images.ts / .json   Image registry (id → URL)
   ai/                   Genkit leftovers; all files are stubs ("Feature removed")
 public/
@@ -68,14 +72,15 @@ docs/                   blueprint, redesign plan/progress, this file
 
 ## How pages are composed
 - `src/app/(site)/layout.tsx` wraps every public page with Navbar, Footer and WhatsAppCTA. New pages go inside `(site)/`.
-- `src/app/(site)/page.tsx` renders the home sections: Hero → FestiveCollections → JewelryCatalog → BrandStory → InstagramGrid → ContactSection.
-- Navigation: `Navbar` reads `NAV_LINKS` and `MARKETPLACES` from `src/lib/site.ts`. Links currently point to home anchors (`/#festive`, `/#catalog`, `/#brand-story`, `/#contact`) and switch to routes as pages ship. The bar is transparent only at the top of `/` (`usePathname`), otherwise solid.
+- `src/app/(site)/page.tsx` renders the home sections: Hero → CollectionTiles → JewelryCatalog → BrandStory → InstagramGrid → ContactSection.
+- `src/app/(site)/collections/[slug]/page.tsx`: one static page per entry in `collections` (`generateStaticParams`, `dynamicParams = false`, so unknown slugs 404). Sections: intro text beside `LayeredImages` (cover + another piece from the collection; single-piece collections show only the cover), the collection's products (small collections are centred), "Shop the full range", and tiles for the other collections. `generateMetadata` sets title, description, canonical and Open Graph/Twitter image per collection.
+- Navigation: `Navbar` reads `NAV_LINKS` and `MARKETPLACES` from `src/lib/site.ts`. Links point to home anchors via `PAGE_LINKS` (`/#collections`, `/#catalog`, `/#brand-story`, `/#contact`); collection tiles link to `/collections/[slug]`. The bar is transparent only at the top of `/` (`usePathname`), otherwise solid.
 
 Sections are client components (`"use client"`) with named exports. Most could be server components; only interactive ones (Navbar scroll state, ThemeToggle, ContactSection form, carousels, `Reveal`) need the client.
 
 ## Data
 - **Products and collections**: `src/lib/products.ts`. Each product has `name`, `imgId`, `collection` slug, a single `price` (no sale/compare-at price), optional `hoverImgId` (second photo for the hover crossfade) and optional per-product `links` (Flipkart/Meesho/Amazon); components fall back to the store links. Collection names are a draft, and several product names don't match their photos yet (see progress doc).
-- **Signature Pieces** (`JewelryCatalog.tsx`) is a server component; only the `Reveal` wrappers run on the client.
+- **Server components**: `JewelryCatalog`, `ProductCard`, `CollectionTiles`, `LayeredImages` and the collection page render on the server; only the `Reveal` wrappers run on the client.
 - **Contact details**: `src/lib/site.ts` (`WHATSAPP_NUMBER`, `SITE_LINKS`). Import from there; don't hardcode links in components.
 - **Images**: components look up `PlaceHolderImages.find(img => img.id === "...")` and must handle a missing result. Files live in `public/images/`.
 
@@ -98,7 +103,7 @@ Sections are client components (`"use client"`) with named exports. Most could b
 | WhatsApp | `wa.me` chat and catalogue links; floating `WhatsAppCTA` |
 | Instagram | Profile link; grid uses local placeholder images (live feed planned, phase 7) |
 | Contact form | Validates with zod, then opens the visitor's email client (`mailto:`). No data is sent to a server |
-| SEO | `metadata` export in `layout.tsx` (title, description, Open Graph, Twitter card) |
+| SEO | `metadata` in `layout.tsx` (title, description, Open Graph, Twitter card, `metadataBase` for absolute URLs); per-collection `generateMetadata` |
 
 ## Build and deploy
 1. Push to `main` triggers `.github/workflows/firebase-deploy.yml`.
@@ -116,10 +121,12 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 - **Unused code**: Genkit stubs in `src/ai/`, `AIStylist.tsx`, unused dependencies listed above, `public/images/INSTRUCTIONS.txt` lists file names that no longer match.
 - **Windows build**: `npm run build` sets `NODE_ENV` inline, which fails in PowerShell (workaround in `SETUP.md`).
 - **Bundle size**: Framer Motion raised home first-load JS to ~208 KB. Acceptable for now; revisit with `LazyMotion` in phase 9 if Lighthouse flags it.
+- **Content hidden until JavaScript runs**: `Reveal` server-renders with `opacity: 0`, so above-the-fold text and images stay invisible until hydration (blank on slow phones, worse LCP). Phase 9: don't wrap first-screen content in `Reveal`, or start it visible.
+- **Unused festive images**: `festive-item-1/3/4/5` in `placeholder-images.json` became unused when `FestiveCollections` was replaced (`festive-item-2` is the Contemporary cover).
 - **Dev server and build together**: running `next build` while `next dev` is running corrupts the shared `.next` folder (dev returns 500). Restart the dev server after a build.
 
 ## Planned architecture changes
 From `redesign-plan.md`:
-- Routes: `/collections/[slug]` (via `generateStaticParams`) and `/our-story` inside `(site)/`, with per-page `metadata` and `sitemap.ts`.
-- `NAV_LINKS` move from home anchors to routes (phases 5–6).
+- Route: `/our-story` inside `(site)/` (phase 6), then `sitemap.ts` (phase 9).
+- `PAGE_LINKS.story` moves from `/#brand-story` to `/our-story` (phase 6).
 - Instagram feed: must respect static export (build-time fetch with scheduled rebuild, client widget, or a Cloud Function).

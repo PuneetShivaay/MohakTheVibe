@@ -9,9 +9,9 @@ export const SITE_LINKS = {
   meeshoStore: "https://www.meesho.com/MohakTheVibe",
 } as const;
 
-// Home-page anchors for now; switch to /collections and /our-story when those pages ship (phases 5–6)
+// Home-page anchors; collection pages live at /collections/[slug], /our-story ships in phase 6
 export const PAGE_LINKS = {
-  collections: "/#festive",
+  collections: "/#collections",
   signature: "/#catalog",
   story: "/#brand-story",
   contact: "/#contact",

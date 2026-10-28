@@ -12,13 +12,15 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - Logo: **`BrandLogo` SVG** (compact mark in navbar, full logo in footer); `mohak.png` for social previews only
 - Look: **approved** via `/preview`
 - Keep as is: **"Our Essence" section** (`BrandStory.tsx`): layered framed images, copy and layout stay; the redesign builds around it
+- Signature pattern: **two framed prints** (large 4:5 + small square overlapping bottom-right), from "Our Essence"; reused via `LayeredImages` on collection pages and `/our-story`
+- Testing: **no per-phase builds or screenshots**; finish all phases, then test together (see "Final test checklist")
 - Branch: all redesign work on **`redesign`**; merge to `main` (which auto-deploys) only when complete. Delete `src/app/preview/` before merging
 - References: Indian sites first (Giva, Palmonas, Tanishq); see `docs/redesign-plan.md`
 
 ## Open questions
 - [ ] Amazon product links to add alongside Flipkart and Meesho?
 - [ ] Per-product marketplace URLs (currently every card links to a store search)?
-- [ ] Which collections get their own page? Draft in `src/lib/products.ts`: Minakari, Kundan, Contemporary (Festive could be an edit across them)
+- [ ] Confirm collections. Built with the draft in `src/lib/products.ts`: Minakari (5 pieces), Kundan (1), Contemporary (2), with placeholder taglines/descriptions. Kundan needs more pieces to feel complete. "Oxidised" may suit the Contemporary pieces better
 - [ ] Has the deploy on `main` been failing? `npm run build` fails there on `calendar.tsx` (fixed on `redesign`); check the GitHub Actions tab
 - [ ] Content for `/our-story`: founder story, photos, packaging shots?
 - [ ] Original vector logo (SVG/AI/PDF) from the designer? Current options: `public/mohak.png` (raster, dark background, used only for social previews) and `BrandLogo.tsx` (hand-made SVG approximation, used in footer and preview). Navbar's `/images/logo.png` is missing.
@@ -45,7 +47,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [x] 2. Navbar
 - [x] 3. Hero
 - [x] 4. Signature Pieces (JewelryCatalog), production build pending (user runs it)
-- [ ] 5. Collections (home tiles and `/collections/[slug]`)
+- [x] 5. Collections (home tiles and `/collections/[slug]`)
 - [ ] 6. Our Story (home teaser and `/our-story`)
 - [ ] 7. InstagramGrid (live posts and reels)
 - [ ] 8. Footer and WhatsAppCTA
@@ -96,3 +98,21 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - Images: every earring image referenced in `placeholder-images.json` converted to WebP (max 1200px, quality 80): 26.6 MB → 2.2 MB. Originals kept. Preview uses the WebP files too. "Our Essence" looks the same (format change only).
   - Fixed `cn()`: `tailwind-merge` treated the custom `text-eyebrow`/`text-display*` sizes as colours and dropped them when combined with a colour class (broke `Eyebrow` labels). Registered them via `extendTailwindMerge` in `src/lib/utils.ts`.
   - Verified: typecheck clean; headless Edge screenshots at 1440px and true 390px; no hydration warnings. **Production build not run** (user runs builds).
+- 2026-10-28: **Phase 5 done** on `redesign`:
+  - Home: `FestiveCollections` carousel replaced by `CollectionTiles` ("Collections / Crafted *stories*"): tall Minakari tile beside stacked Kundan and Contemporary tiles, each with tagline, piece count and hover arrow. Section id `collections`; `PAGE_LINKS.collections` is now `/#collections`. `FestiveCollections.tsx` deleted (restore from git if wanted).
+  - New static pages `/collections/minakari`, `/collections/kundan`, `/collections/contemporary`: breadcrumb, tagline, large title, description, piece count beside the "Our Essence" two-prints layout (`LayeredImages`: cover + another piece; Kundan shows the cover only), product grid (small collections centred), "Shop the full range", tiles for the other collections. Unknown slugs 404.
+  - Per-collection title, description, canonical URL and Open Graph/Twitter image; `metadataBase` added to the root layout. Site description no longer mentions the removed AI stylist.
+  - Shared `ProductCard`/`ShopFullRange` extracted from `JewelryCatalog`; collections gained a `description` field; covers chosen by photo (Minakari: black/red chandbali, Kundan: green kundan, Contemporary: oxidised silver chandbali).
+  - Checked before the no-testing decision: routes and 404, metadata, no hydration warnings, desktop and 390px screenshots of tiles and pages (single-print version). The two-prints intro was added after and is not visually tested. Typecheck clean.
+
+## Final test checklist
+Run after all phases (user builds with `$env:NODE_ENV="production"; npx next build`, then `npx serve out`):
+- [ ] Production build passes and exports `/`, `/collections/*`, `/our-story`, `/preview`, `404`
+- [ ] Home, desktop and mobile: hero crop and text, navbar transparent → solid on scroll, mobile menu
+- [ ] Collection pages: two-prints intro (small print from 1024px up), Kundan single-piece layout, "More collections" tiles
+- [ ] Signature Pieces cards, quiet marketplace links open the right store in a new tab
+- [ ] "Our Essence" unchanged (two framed prints, floating circle)
+- [ ] Dark mode on every page
+- [ ] Reduced-motion setting: content visible, no movement
+- [ ] Unknown URL shows the 404 page
+- [ ] Lighthouse (performance, accessibility, SEO) on home and one collection page

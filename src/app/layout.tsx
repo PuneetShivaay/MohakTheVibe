@@ -3,8 +3,10 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
+  // Resolves relative Open Graph image and canonical URLs on sub-pages
+  metadataBase: new URL('https://mohak-the-vibe.web.app'),
   title: 'Mohak – The Vibe | Premium Artificial Jewelry',
-  description: 'Premium artificial jewelry for the modern woman. Boutique collections and AI-powered vibe styling.',
+  description: 'Premium artificial jewelry for the modern woman. Handpicked Minakari, Kundan and contemporary earrings, gift-ready.',
   openGraph: {
     title: 'Mohak – The Vibe | Premium Artificial Jewelry',
     description: 'Discover your vibe with our curated jewelry collections.',
