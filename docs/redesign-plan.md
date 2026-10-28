@@ -85,5 +85,15 @@ Source: Instagram Graph API. The site is a static export (see `architecture.md`)
 - Fallback: keep the current `PlaceHolderImages` grid if the fetch fails.
 - Alternative with no API setup: a third-party widget (Behold, Elfsight, SnapWidget).
 
+**Implemented (phase 7):** `src/lib/instagram.ts` fetches `https://graph.instagram.com/{INSTAGRAM_USER_ID}/media` at build time (Instagram API with Instagram Login; verify the endpoint and API version against Meta's current docs when the app is created). `InstagramGrid` is a server component: 6 live posts (reels get a play badge) or, without credentials or on any error, 6 local photos (`insta-post-1…6`) linking to the profile. The deploy workflow passes `INSTAGRAM_ACCESS_TOKEN`/`INSTAGRAM_USER_ID` secrets to the build; the daily `schedule` is in the workflow but commented out.
+
+To switch the live feed on:
+1. Make @mohakthevibe a Business/Creator account and create a Meta app with Instagram API access.
+2. Generate a long-lived access token and note the Instagram user ID.
+3. Add both as GitHub repository secrets (Settings → Secrets and variables → Actions). **Never put them in `.env` or any committed file.**
+4. Uncomment the `schedule` block in `.github/workflows/firebase-deploy.yml` so the feed refreshes daily (`media_url` links expire, so a daily rebuild keeps them valid).
+5. Plan token refresh before the 60-day expiry.
+- Local test: put the two variables in `.env.local` (git-ignored) and build.
+
 ## Out of scope
 Cart/checkout, re-enabling the AI Stylist, per-product pages (`/products/[slug]`; revisit once each product has 3+ photos and its own marketplace links).

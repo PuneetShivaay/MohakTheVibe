@@ -63,6 +63,7 @@ src/
     utils.ts            cn() class merge helper (knows the custom text-display*/text-eyebrow sizes)
     site.ts             WhatsApp number, Instagram and marketplace store links
     products.ts         Products, collections, getProductsByCollection(), getCollection()
+    instagram.ts        Build-time Instagram feed (getInstagramPosts), null when unavailable
     placeholder-images.ts / .json   Image registry (id → URL)
   ai/                   Genkit leftovers; all files are stubs ("Feature removed")
 public/
@@ -104,7 +105,7 @@ Sections are client components (`"use client"`) with named exports. Most could b
 | Flipkart / Meesho | Quiet text links on each product card and under the grid (store/search URLs until per-product links are added in `products.ts`) |
 | Amazon | Planned |
 | WhatsApp | `wa.me` chat and catalogue links; floating `WhatsAppCTA` |
-| Instagram | Profile link; grid uses local placeholder images (live feed planned, phase 7) |
+| Instagram | `InstagramGrid` ("Worn by *you*") is a server component. At build time `src/lib/instagram.ts` fetches the latest 6 posts from the Instagram Graph API if `INSTAGRAM_ACCESS_TOKEN` and `INSTAGRAM_USER_ID` are set (GitHub secrets → build env); otherwise, or on any error, it shows local photos `insta-post-1…6` linking to the profile. Remote images use a plain `<img>`. Feed only updates when the site rebuilds (daily `schedule` ready but commented out in the workflow) |
 | Contact form | Validates with zod, then opens the visitor's email client (`mailto:`). No data is sent to a server |
 | SEO | `metadata` in `layout.tsx` (title, description, Open Graph, Twitter card, `metadataBase` for absolute URLs); per-collection `generateMetadata` |
 
@@ -117,6 +118,7 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 
 ## Known issues and tech debt
 - **Build on `main`**: `main` still contains `src/components/ui/calendar.tsx`, which fails the type check, so `npm run build` (and likely the deploy workflow) fails there. Fixed on `redesign` by deleting the unused file.
+- **`.env` is committed**: `.env` is tracked in git (and in history) and `.gitignore` only covers `.env*.local`. Its contents were not reviewed. If it holds any key, rotate that key, then `git rm --cached .env` and add `.env` to `.gitignore`. Use GitHub secrets for CI and `.env.local` for local values.
 - **No ESLint config**: `next lint` opens an interactive setup prompt and `next build` skips linting. Add an `eslint.config.mjs` (Next.js "Strict") when convenient.
 - **Unused image entry**: `header-brand-logo` in `placeholder-images.json` points to a missing file and is no longer used.
 - **Original images in the repo**: the source PNG/JPEG files (~27 MB) are still committed next to their `.webp` versions and are no longer served by the site. Move them out of `public/` (or delete) once the WebP versions are confirmed.
@@ -131,4 +133,4 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 ## Planned architecture changes
 From `redesign-plan.md`:
 - `sitemap.ts` and `robots.ts` (phase 9).
-- Instagram feed: must respect static export (build-time fetch with scheduled rebuild, client widget, or a Cloud Function).
+- Instagram live feed: code is in place; needs the Meta app, token and GitHub secrets, then enable the workflow `schedule`.

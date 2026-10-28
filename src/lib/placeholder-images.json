@@ -137,6 +137,18 @@
       "description": "Instagram feature: Pearl Drops",
       "imageUrl": "/images/earring/earring16.webp",
       "imageHint": "pearl earrings"
+    },
+    {
+      "id": "insta-post-5",
+      "description": "Pink kundan chandbali, styled",
+      "imageUrl": "/images/earring/earring5.webp",
+      "imageHint": "instagram post"
+    },
+    {
+      "id": "insta-post-6",
+      "description": "Black and gold chandbali, styled",
+      "imageUrl": "/images/earring/earring15.webp",
+      "imageHint": "instagram post"
     }
   ]
 }

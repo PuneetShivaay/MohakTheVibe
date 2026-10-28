@@ -19,7 +19,12 @@ npm install
 This step is required. Without it, `npm run dev` fails with `'next' is not recognized as an internal or external command`.
 
 ## 3. Environment variables
-None needed. The site is a static export with no server-side secrets. If you ever add one, put it in `.env.local` (git-ignored) and never commit real keys.
+None needed. Optional, for the live Instagram feed (read only at build time):
+```
+INSTAGRAM_ACCESS_TOKEN=...
+INSTAGRAM_USER_ID=...
+```
+Put them in `.env.local` (git-ignored), never in `.env` or any committed file. Without them the Instagram section shows local photos. In CI they come from GitHub repository secrets (see `docs/redesign-plan.md`, Instagram feed).
 
 ## 4. Run the dev server
 ```bash

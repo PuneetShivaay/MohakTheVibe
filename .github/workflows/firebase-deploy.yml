@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  # Enable once the Instagram secrets exist, to refresh the feed daily (see docs/redesign-plan.md, phase 7):
+  # schedule:
+  #   - cron: "30 0 * * *"
 
 jobs:
   build_and_deploy:
@@ -17,6 +20,10 @@ jobs:
 
       - name: Build Project
         run: npm run build
+        env:
+          # Optional: build-time Instagram feed. Empty if the secrets are not set, then local images are used.
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

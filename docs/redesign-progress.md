@@ -21,6 +21,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [ ] Amazon product links to add alongside Flipkart and Meesho?
 - [ ] Per-product marketplace URLs (currently every card links to a store search)?
 - [ ] Confirm collections. Built with the draft in `src/lib/products.ts`: Minakari (5 pieces), Kundan (1), Contemporary (2), with placeholder taglines/descriptions. Kundan needs more pieces to feel complete. "Oxidised" may suit the Contemporary pieces better
+- [ ] **Security: `.env` is committed to git** (tracked and in history; `.gitignore` only covers `.env*.local`). Check what it contains; rotate any key in it; then untrack it and ignore it (needs your go-ahead)
 - [ ] Has the deploy on `main` been failing? `npm run build` fails there on `calendar.tsx` (fixed on `redesign`); check the GitHub Actions tab
 - [ ] Content for `/our-story`: page is built with placeholder copy (intro, four values, "How to shop"). Founder story, real values wording and packaging photos would replace it. Is "Anti-tarnish" accurate for all pieces? It appears in the promise strip on home and story pages
 - [ ] Original vector logo (SVG/AI/PDF) from the designer? Current options: `public/mohak.png` (raster, dark background, used only for social previews) and `BrandLogo.tsx` (hand-made SVG approximation, used in footer and preview). Navbar's `/images/logo.png` is missing.
@@ -49,7 +50,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [x] 4. Signature Pieces (JewelryCatalog), production build pending (user runs it)
 - [x] 5. Collections (home tiles and `/collections/[slug]`)
 - [x] 6. Our Story (`/our-story`; home "Our Essence" unchanged)
-- [ ] 7. InstagramGrid (live posts and reels)
+- [x] 7. InstagramGrid (live feed code ready; shows local photos until the token is set up)
 - [ ] 8. Footer and WhatsAppCTA
 - [ ] 9. Polish and QA (sitemap, 404, accessibility, Lighthouse)
 
@@ -110,6 +111,12 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - Navbar and hero "Our Story" links now open `/our-story` (`PAGE_LINKS.story`).
   - `BrandStory.tsx` ("Our Essence") untouched.
   - Copy is placeholder, based on the existing Our Essence wording; see open question.
+- 2026-10-28: **Phase 7 done** on `redesign` (typecheck only, not visually tested):
+  - `InstagramGrid` rewritten as a server component: "@mohakthevibe / Worn by *you*", edge-to-edge 3×2 (mobile) / 6×1 (desktop) grid, hover overlay, play badge for reels, "Follow us on Instagram" link.
+  - `src/lib/instagram.ts`: build-time fetch of the latest 6 posts when `INSTAGRAM_ACCESS_TOKEN` and `INSTAGRAM_USER_ID` are set; 10 s timeout; on any error logs a status (never the token) and falls back.
+  - Fallback: local photos `insta-post-1…6` (added 5 and 6) linking to the profile. This is what the site shows until the API is set up.
+  - Deploy workflow passes the two GitHub secrets to `npm run build`; daily `schedule` added but commented out (would redeploy `main` daily). Steps to switch on in `docs/redesign-plan.md`.
+  - Found: `.env` is committed to git (see open questions). Not read, not changed.
 
 ## Final test checklist
 Run after all phases (user builds with `$env:NODE_ENV="production"; npx next build`, then `npx serve out`):
@@ -124,3 +131,4 @@ Run after all phases (user builds with `$env:NODE_ENV="production"; npx next bui
 - [ ] Reduced-motion setting: content visible, no movement
 - [ ] Unknown URL shows the 404 page
 - [ ] Lighthouse (performance, accessibility, SEO) on home and one collection page
+- [ ] Instagram section: 6 local photos without a token; with a token in .env.local, live posts and reel badges
