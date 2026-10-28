@@ -52,6 +52,7 @@ src/
     CollectionTiles.tsx CollectionTiles (home section) and CollectionTile (one linked cover tile)
     LayeredImages.tsx   Two framed prints (large 4:5 + small square overlap), the "Our Essence" look
     PromiseStrip.tsx    Handpicked · Anti-tarnish · Gift-ready · Pan-India delivery strip (BRAND_PROMISES)
+    GiftBand.tsx        Midnight "gift-ready" band with logo and WhatsApp prompt
     BrandLogo.tsx       SVG logo (`compact` = mark only)
     SectionHeading.tsx  SectionHeading and Eyebrow (shared section titles)
     Reveal.tsx          Fade-and-rise on scroll (Framer Motion, respects reduced motion)
@@ -75,7 +76,7 @@ docs/                   blueprint, redesign plan/progress, this file
 
 ## How pages are composed
 - `src/app/(site)/layout.tsx` wraps every public page with Navbar, Footer and WhatsAppCTA. New pages go inside `(site)/`.
-- `src/app/(site)/page.tsx` renders the home sections: Hero → PromiseStrip → CollectionTiles → JewelryCatalog → BrandStory → InstagramGrid → ContactSection.
+- `src/app/(site)/page.tsx` renders the home sections: Hero → PromiseStrip → CollectionTiles → JewelryCatalog → BrandStory → InstagramGrid → GiftBand → ContactSection.
 - `src/app/(site)/our-story/page.tsx`: intro beside `LayeredImages`, `PromiseStrip`, four values, Midnight pull-quote band, "How to shop" (3 steps) with links to collections and WhatsApp. Copy is placeholder.
 - `src/app/(site)/collections/[slug]/page.tsx`: one static page per entry in `collections` (`generateStaticParams`, `dynamicParams = false`, so unknown slugs 404). Sections: intro text beside `LayeredImages` (cover + another piece from the collection; single-piece collections show only the cover), the collection's products (small collections are centred), "Shop the full range", and tiles for the other collections. `generateMetadata` sets title, description, canonical and Open Graph/Twitter image per collection.
 - Navigation: `Navbar` reads `NAV_LINKS` and `MARKETPLACES` from `src/lib/site.ts`. Links come from `PAGE_LINKS`: `/#collections`, `/#catalog`, `/our-story`, `/#contact`; collection tiles link to `/collections/[slug]`. The home "Our Essence" section keeps its `#brand-story` id but is no longer a nav target. The bar is transparent only at the top of `/` (`usePathname`), otherwise solid.
@@ -85,7 +86,7 @@ Sections are client components (`"use client"`) with named exports. Most could b
 ## Data
 - **Products and collections**: `src/lib/products.ts`. Each product has `name`, `imgId`, `collection` slug, a single `price` (no sale/compare-at price), optional `hoverImgId` (second photo for the hover crossfade) and optional per-product `links` (Flipkart/Meesho/Amazon); components fall back to the store links. Collection names are a draft, and several product names don't match their photos yet (see progress doc).
 - **Server components**: `JewelryCatalog`, `ProductCard`, `CollectionTiles`, `LayeredImages` and the collection page render on the server; only the `Reveal` wrappers run on the client.
-- **Contact details**: `src/lib/site.ts` (`WHATSAPP_NUMBER`, `SITE_LINKS`). Import from there; don't hardcode links in components.
+- **Contact details**: `src/lib/site.ts`: `WHATSAPP_NUMBER`, `SITE_LINKS` (Instagram, WhatsApp, marketplaces), `CONTACT` (email, location, phone, WhatsApp link with a prefilled hello). Import from there; don't hardcode links or contact details in components (only `site.ts` and the temporary preview contain them).
 - **Images**: components look up `PlaceHolderImages.find(img => img.id === "...")` and must handle a missing result. Files live in `public/images/`.
 
 ## Styling and theming
@@ -104,7 +105,7 @@ Sections are client components (`"use client"`) with named exports. Most could b
 |---|---|
 | Flipkart / Meesho | Quiet text links on each product card and under the grid (store/search URLs until per-product links are added in `products.ts`) |
 | Amazon | Planned |
-| WhatsApp | `wa.me` chat and catalogue links; floating `WhatsAppCTA` |
+| WhatsApp | `wa.me` chat (with prefilled message) and catalogue links. `WhatsAppCTA` is a small Midnight/gold button that fades in after ~60% of the first screen and is removed from tab order while hidden |
 | Instagram | `InstagramGrid` ("Worn by *you*") is a server component. At build time `src/lib/instagram.ts` fetches the latest 6 posts from the Instagram Graph API if `INSTAGRAM_ACCESS_TOKEN` and `INSTAGRAM_USER_ID` are set (GitHub secrets → build env); otherwise, or on any error, it shows local photos `insta-post-1…6` linking to the profile. Remote images use a plain `<img>`. Feed only updates when the site rebuilds (daily `schedule` ready but commented out in the workflow) |
 | Contact form | Validates with zod, then opens the visitor's email client (`mailto:`). No data is sent to a server |
 | SEO | `metadata` in `layout.tsx` (title, description, Open Graph, Twitter card, `metadataBase` for absolute URLs); per-collection `generateMetadata` |

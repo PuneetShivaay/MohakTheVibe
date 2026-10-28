@@ -22,6 +22,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [ ] Per-product marketplace URLs (currently every card links to a store search)?
 - [ ] Confirm collections. Built with the draft in `src/lib/products.ts`: Minakari (5 pieces), Kundan (1), Contemporary (2), with placeholder taglines/descriptions. Kundan needs more pieces to feel complete. "Oxidised" may suit the Contemporary pieces better
 - [ ] **Security: `.env` is committed to git** (tracked and in history; `.gitignore` only covers `.env*.local`). Check what it contains; rotate any key in it; then untrack it and ignore it (needs your go-ahead)
+- [ ] Removed dead footer links (they pointed to `#`): Facebook, Amazon, Shipping Info, Privacy Policy, Terms. Provide the Facebook page and Amazon store URLs to add them back. Privacy/Terms/Shipping pages may be worth adding (the contact form handles names and emails)
 - [ ] Has the deploy on `main` been failing? `npm run build` fails there on `calendar.tsx` (fixed on `redesign`); check the GitHub Actions tab
 - [ ] Content for `/our-story`: page is built with placeholder copy (intro, four values, "How to shop"). Founder story, real values wording and packaging photos would replace it. Is "Anti-tarnish" accurate for all pieces? It appears in the promise strip on home and story pages
 - [ ] Original vector logo (SVG/AI/PDF) from the designer? Current options: `public/mohak.png` (raster, dark background, used only for social previews) and `BrandLogo.tsx` (hand-made SVG approximation, used in footer and preview). Navbar's `/images/logo.png` is missing.
@@ -51,7 +52,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [x] 5. Collections (home tiles and `/collections/[slug]`)
 - [x] 6. Our Story (`/our-story`; home "Our Essence" unchanged)
 - [x] 7. InstagramGrid (live feed code ready; shows local photos until the token is set up)
-- [ ] 8. Footer and WhatsAppCTA
+- [x] 8. Footer and WhatsAppCTA (plus gift band and contact section)
 - [ ] 9. Polish and QA (sitemap, 404, accessibility, Lighthouse)
 
 ## Log
@@ -117,6 +118,13 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - Fallback: local photos `insta-post-1…6` (added 5 and 6) linking to the profile. This is what the site shows until the API is set up.
   - Deploy workflow passes the two GitHub secrets to `npm run build`; daily `schedule` added but commented out (would redeploy `main` daily). Steps to switch on in `docs/redesign-plan.md`.
   - Found: `.env` is committed to git (see open questions). Not read, not changed.
+- 2026-10-28: **Phase 8 done** on `redesign` (typecheck only, not visually tested):
+  - Footer rewritten as a server component on the Ivory background: logo and line, Instagram/WhatsApp icons; Explore (collection pages, Signature, Our Story, Contact); Also available on (Flipkart, Meesho, WhatsApp Catalogue); Get in touch (location, tap-to-call phone, mailto email); oversized faded MOHAK wordmark; copyright year from the build date.
+  - Removed dead `#` links (Facebook, Amazon, Shipping Info, Privacy Policy, Terms); see open question.
+  - `WhatsAppCTA`: Midnight/gold 48px button instead of the bright green floating one; fades in after scrolling past the first screen; opens a chat with a prefilled hello (was the catalogue).
+  - New `GiftBand` ("Every piece arrives *gift-ready.*") on home between Instagram and Contact.
+  - `ContactSection` restyled with the redesign tokens and `SectionHeading`, dark-mode aware; adds a WhatsApp line; form logic unchanged.
+  - New `CONTACT` in `site.ts`; no contact details hardcoded in components any more.
 
 ## Final test checklist
 Run after all phases (user builds with `$env:NODE_ENV="production"; npx next build`, then `npx serve out`):
@@ -132,3 +140,4 @@ Run after all phases (user builds with `$env:NODE_ENV="production"; npx next bui
 - [ ] Unknown URL shows the 404 page
 - [ ] Lighthouse (performance, accessibility, SEO) on home and one collection page
 - [ ] Instagram section: 6 local photos without a token; with a token in .env.local, live posts and reel badges
+- [ ] Footer (both modes), gift band, contact form (validation messages, opens email app), WhatsApp button appears after scrolling and opens chat with the prefilled message

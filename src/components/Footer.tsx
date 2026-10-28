@@ -1,83 +1,105 @@
-
-"use client";
-
+import Link from "next/link";
+import { Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
-import { Instagram, Facebook, MessageCircle, Mail, MapPin, Phone } from "lucide-react";
-import { SITE_LINKS } from "@/lib/site";
+import { collections } from "@/lib/products";
+import { CONTACT, MARKETPLACES, NAV_LINKS, SITE_LINKS } from "@/lib/site";
+
+const columnTitle = "text-eyebrow uppercase text-brand-gold mb-6";
+const columnLink = "text-sm text-foreground/70 hover:text-brand-gold transition-colors";
 
 export function Footer() {
-  const instagramUrl = SITE_LINKS.instagram;
-  const whatsappChatUrl = SITE_LINKS.whatsappChat;
-  const whatsappCatalogUrl = SITE_LINKS.whatsappCatalog;
-  const meeshoStoreUrl = SITE_LINKS.meeshoStore;
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-brand-midnight text-brand-ivory pt-24 pb-12 px-6 md:px-12 border-t border-brand-gold/10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-        <div className="col-span-1 md:col-span-1 space-y-6">
+    <footer className="bg-background border-t border-brand-gold/20 pt-20 md:pt-24 pb-10 px-6 md:px-12 overflow-hidden">
+      <div className="max-w-site mx-auto grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] pb-16 border-b border-brand-gold/20">
+        {/* Brand */}
+        <div>
           <BrandLogo className="items-start" />
-          <p className="text-sm font-light opacity-60 leading-relaxed max-w-xs mt-4">
-            Premium artificial jewelry for the woman who wears her vibe with confidence. Boutique collections, hand-picked aesthetics.
+          <p className="mt-6 max-w-xs text-sm text-foreground/70 font-light leading-relaxed">
+            Handpicked jewellery for the woman who wears her vibe with confidence.
           </p>
-          <div className="flex gap-4">
-            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:opacity-70 transition-opacity">
-              <Instagram className="w-5 h-5" />
+          <div className="mt-6 flex gap-5">
+            <a href={SITE_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Mohak on Instagram" className="text-brand-gold hover:opacity-70 transition-opacity">
+              <Instagram className="w-5 h-5" strokeWidth={1.25} />
             </a>
-            <a href="#" className="text-brand-gold hover:opacity-70 transition-opacity">
-              <Facebook className="w-5 h-5" />
-            </a>
-            <a href={whatsappChatUrl} target="_blank" rel="noopener noreferrer" className="text-brand-gold hover:opacity-70 transition-opacity">
-              <MessageCircle className="w-5 h-5" />
+            <a href={SITE_LINKS.whatsappChat} target="_blank" rel="noopener noreferrer" aria-label="Chat with Mohak on WhatsApp" className="text-brand-gold hover:opacity-70 transition-opacity">
+              <MessageCircle className="w-5 h-5" strokeWidth={1.25} />
             </a>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <h4 className="font-headline text-xl">Marketplaces</h4>
-          <ul className="space-y-4 text-sm font-light opacity-60">
-            <li><a href={SITE_LINKS.flipkartStore} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">Flipkart Shop</a></li>
-            <li><a href={meeshoStoreUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">Meesho Store</a></li>
-            <li><a href="#" className="hover:text-brand-gold transition-colors">Amazon Collection</a></li>
-            <li><a href={whatsappCatalogUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">WhatsApp Catalogue</a></li>
+        {/* Explore */}
+        <nav aria-label="Footer">
+          <p className={columnTitle}>Explore</p>
+          <ul className="space-y-3">
+            {collections.map((c) => (
+              <li key={c.slug}>
+                <Link href={`/collections/${c.slug}`} className={columnLink}>
+                  {c.name}
+                </Link>
+              </li>
+            ))}
+            {[...NAV_LINKS.left.slice(1), ...NAV_LINKS.right].map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className={columnLink}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Shop */}
+        <div>
+          <p className={columnTitle}>Also available on</p>
+          <ul className="space-y-3">
+            {MARKETPLACES.map((m) => (
+              <li key={m.label}>
+                <a href={m.href} target="_blank" rel="noopener noreferrer" className={columnLink}>
+                  {m.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={SITE_LINKS.whatsappCatalog} target="_blank" rel="noopener noreferrer" className={columnLink}>
+                WhatsApp Catalogue
+              </a>
+            </li>
           </ul>
         </div>
 
-        <div className="space-y-6">
-          <h4 className="font-headline text-xl">The Brand</h4>
-          <ul className="space-y-4 text-sm font-light opacity-60">
-            <li><a href="#brand-story" className="hover:text-brand-gold transition-colors">Our Story</a></li>
-            <li><a href="#catalog" className="hover:text-brand-gold transition-colors">Collections</a></li>
-            <li><a href="#contact" className="hover:text-brand-gold transition-colors">Contact Us</a></li>
-            <li><a href="#" className="hover:text-brand-gold transition-colors">Shipping Info</a></li>
-          </ul>
-        </div>
-
-        <div className="space-y-6">
-          <h4 className="font-headline text-xl">Boutique Office</h4>
-          <ul className="space-y-4 text-sm font-light opacity-60">
+        {/* Contact */}
+        <div>
+          <p className={columnTitle}>Get in touch</p>
+          <ul className="space-y-4 text-sm text-foreground/70">
             <li className="flex items-start gap-3">
-              <MapPin className="w-4 h-4 text-brand-gold shrink-0 mt-1" />
-              <span>Gomti Nagar Lucknow, Uttar Pradesh India</span>
+              <MapPin aria-hidden className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
+              <span>{CONTACT.location}</span>
             </li>
             <li className="flex items-center gap-3">
-              <Phone className="w-4 h-4 text-brand-gold" />
-              <span>+91 63884 98674</span>
+              <Phone aria-hidden className="w-4 h-4 text-brand-gold shrink-0" strokeWidth={1.25} />
+              <a href={CONTACT.phoneHref} className="hover:text-brand-gold transition-colors">
+                {CONTACT.phoneDisplay}
+              </a>
             </li>
             <li className="flex items-center gap-3">
-              <Mail className="w-4 h-4 text-brand-gold" />
-              <span>mohakthevibe@gmail.com</span>
+              <Mail aria-hidden className="w-4 h-4 text-brand-gold shrink-0" strokeWidth={1.25} />
+              <a href={`mailto:${CONTACT.email}`} className="hover:text-brand-gold transition-colors break-all">
+                {CONTACT.email}
+              </a>
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto pt-8 border-t border-brand-ivory/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest opacity-40">
-        <p>© 2024 Mohak – The Vibe. All Rights Reserved.</p>
-        <div className="flex gap-8">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
-      </div>
+      {/* Oversized faded wordmark */}
+      <p aria-hidden className="font-headline text-[22vw] md:text-[16vw] leading-none tracking-[0.08em] text-center text-foreground/[0.05] select-none pt-10">
+        MOHAK
+      </p>
+      <p className="max-w-site mx-auto mt-4 text-center text-eyebrow uppercase text-foreground/50">
+        © {year} Mohak – The Vibe. All rights reserved.
+      </p>
     </footer>
   );
 }

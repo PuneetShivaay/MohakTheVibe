@@ -9,6 +9,15 @@ export const SITE_LINKS = {
   meeshoStore: "https://www.meesho.com/MohakTheVibe",
 } as const;
 
+// Public business contact details shown in the footer and contact section
+export const CONTACT = {
+  email: "mohakthevibe@gmail.com",
+  location: "Gomti Nagar, Lucknow, Uttar Pradesh, India",
+  phoneDisplay: "+91 63884 98674",
+  phoneHref: `tel:+${WHATSAPP_NUMBER}`,
+  whatsappHello: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Mohak, I'd like to know more about a piece.")}`,
+} as const;
+
 // Home-page anchors plus the story page; collection pages live at /collections/[slug]
 export const PAGE_LINKS = {
   collections: "/#collections",
