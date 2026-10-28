@@ -22,7 +22,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [ ] Per-product marketplace URLs (currently every card links to a store search)?
 - [ ] Confirm collections. Built with the draft in `src/lib/products.ts`: Minakari (5 pieces), Kundan (1), Contemporary (2), with placeholder taglines/descriptions. Kundan needs more pieces to feel complete. "Oxidised" may suit the Contemporary pieces better
 - [ ] Has the deploy on `main` been failing? `npm run build` fails there on `calendar.tsx` (fixed on `redesign`); check the GitHub Actions tab
-- [ ] Content for `/our-story`: founder story, photos, packaging shots?
+- [ ] Content for `/our-story`: page is built with placeholder copy (intro, four values, "How to shop"). Founder story, real values wording and packaging photos would replace it. Is "Anti-tarnish" accurate for all pieces? It appears in the promise strip on home and story pages
 - [ ] Original vector logo (SVG/AI/PDF) from the designer? Current options: `public/mohak.png` (raster, dark background, used only for social previews) and `BrandLogo.tsx` (hand-made SVG approximation, used in footer and preview). Navbar's `/images/logo.png` is missing.
 - [ ] Is @mohakthevibe a Business/Creator account linked to a Facebook Page? (needed for the API)
 - [ ] Meta developer app created, and access token and user ID generated?
@@ -48,7 +48,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [x] 3. Hero
 - [x] 4. Signature Pieces (JewelryCatalog), production build pending (user runs it)
 - [x] 5. Collections (home tiles and `/collections/[slug]`)
-- [ ] 6. Our Story (home teaser and `/our-story`)
+- [x] 6. Our Story (`/our-story`; home "Our Essence" unchanged)
 - [ ] 7. InstagramGrid (live posts and reels)
 - [ ] 8. Footer and WhatsAppCTA
 - [ ] 9. Polish and QA (sitemap, 404, accessibility, Lighthouse)
@@ -104,6 +104,12 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
   - Per-collection title, description, canonical URL and Open Graph/Twitter image; `metadataBase` added to the root layout. Site description no longer mentions the removed AI stylist.
   - Shared `ProductCard`/`ShopFullRange` extracted from `JewelryCatalog`; collections gained a `description` field; covers chosen by photo (Minakari: black/red chandbali, Kundan: green kundan, Contemporary: oxidised silver chandbali).
   - Checked before the no-testing decision: routes and 404, metadata, no hydration warnings, desktop and 390px screenshots of tiles and pages (single-print version). The two-prints intro was added after and is not visually tested. Typecheck clean.
+- 2026-10-28: **Phase 6 done** on `redesign` (typecheck only, not visually tested):
+  - New `/our-story` page: intro ("Wear your vibe, *own the room.*") beside the two framed prints (Our Essence photo + pink peacock jhumka), promise strip, four values (Curated craft, Made to last, Ready to gift, Boutique service), Midnight pull-quote band with the existing brand quote, "How to shop" in three steps, links to collections and WhatsApp. Own title, description and canonical URL.
+  - New `PromiseStrip` (Handpicked · Anti-tarnish · Gift-ready · Pan-India delivery), also added on home directly under the hero.
+  - Navbar and hero "Our Story" links now open `/our-story` (`PAGE_LINKS.story`).
+  - `BrandStory.tsx` ("Our Essence") untouched.
+  - Copy is placeholder, based on the existing Our Essence wording; see open question.
 
 ## Final test checklist
 Run after all phases (user builds with `$env:NODE_ENV="production"; npx next build`, then `npx serve out`):
@@ -112,6 +118,8 @@ Run after all phases (user builds with `$env:NODE_ENV="production"; npx next bui
 - [ ] Collection pages: two-prints intro (small print from 1024px up), Kundan single-piece layout, "More collections" tiles
 - [ ] Signature Pieces cards, quiet marketplace links open the right store in a new tab
 - [ ] "Our Essence" unchanged (two framed prints, floating circle)
+- [ ] `/our-story`: two-prints intro, promise strip, values, quote band (dark in both modes), "How to shop" steps
+- [ ] Promise strip under the hero on home (2 columns on mobile)
 - [ ] Dark mode on every page
 - [ ] Reduced-motion setting: content visible, no movement
 - [ ] Unknown URL shows the 404 page

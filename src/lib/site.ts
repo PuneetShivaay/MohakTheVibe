@@ -9,11 +9,11 @@ export const SITE_LINKS = {
   meeshoStore: "https://www.meesho.com/MohakTheVibe",
 } as const;
 
-// Home-page anchors; collection pages live at /collections/[slug], /our-story ships in phase 6
+// Home-page anchors plus the story page; collection pages live at /collections/[slug]
 export const PAGE_LINKS = {
   collections: "/#collections",
   signature: "/#catalog",
-  story: "/#brand-story",
+  story: "/our-story",
   contact: "/#contact",
 } as const;
 

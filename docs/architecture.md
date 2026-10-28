@@ -42,6 +42,7 @@ src/
       layout.tsx        Shared Navbar, <main>, Footer, WhatsAppCTA
       page.tsx          Home page: composes the section components
       collections/[slug]/page.tsx   Collection page (static params, per-page metadata)
+      our-story/page.tsx            Brand story page
     preview/            TEMPORARY redesign mock (noindex, outside (site) so it has its own chrome)
     globals.css         Tailwind layers, light/dark CSS variables, small utilities
   components/
@@ -50,6 +51,7 @@ src/
     ProductCard.tsx     ProductCard, ShopFullRange, imageUrl(), quietLink (shared by home and collection pages)
     CollectionTiles.tsx CollectionTiles (home section) and CollectionTile (one linked cover tile)
     LayeredImages.tsx   Two framed prints (large 4:5 + small square overlap), the "Our Essence" look
+    PromiseStrip.tsx    Handpicked · Anti-tarnish · Gift-ready · Pan-India delivery strip (BRAND_PROMISES)
     BrandLogo.tsx       SVG logo (`compact` = mark only)
     SectionHeading.tsx  SectionHeading and Eyebrow (shared section titles)
     Reveal.tsx          Fade-and-rise on scroll (Framer Motion, respects reduced motion)
@@ -72,9 +74,10 @@ docs/                   blueprint, redesign plan/progress, this file
 
 ## How pages are composed
 - `src/app/(site)/layout.tsx` wraps every public page with Navbar, Footer and WhatsAppCTA. New pages go inside `(site)/`.
-- `src/app/(site)/page.tsx` renders the home sections: Hero → CollectionTiles → JewelryCatalog → BrandStory → InstagramGrid → ContactSection.
+- `src/app/(site)/page.tsx` renders the home sections: Hero → PromiseStrip → CollectionTiles → JewelryCatalog → BrandStory → InstagramGrid → ContactSection.
+- `src/app/(site)/our-story/page.tsx`: intro beside `LayeredImages`, `PromiseStrip`, four values, Midnight pull-quote band, "How to shop" (3 steps) with links to collections and WhatsApp. Copy is placeholder.
 - `src/app/(site)/collections/[slug]/page.tsx`: one static page per entry in `collections` (`generateStaticParams`, `dynamicParams = false`, so unknown slugs 404). Sections: intro text beside `LayeredImages` (cover + another piece from the collection; single-piece collections show only the cover), the collection's products (small collections are centred), "Shop the full range", and tiles for the other collections. `generateMetadata` sets title, description, canonical and Open Graph/Twitter image per collection.
-- Navigation: `Navbar` reads `NAV_LINKS` and `MARKETPLACES` from `src/lib/site.ts`. Links point to home anchors via `PAGE_LINKS` (`/#collections`, `/#catalog`, `/#brand-story`, `/#contact`); collection tiles link to `/collections/[slug]`. The bar is transparent only at the top of `/` (`usePathname`), otherwise solid.
+- Navigation: `Navbar` reads `NAV_LINKS` and `MARKETPLACES` from `src/lib/site.ts`. Links come from `PAGE_LINKS`: `/#collections`, `/#catalog`, `/our-story`, `/#contact`; collection tiles link to `/collections/[slug]`. The home "Our Essence" section keeps its `#brand-story` id but is no longer a nav target. The bar is transparent only at the top of `/` (`usePathname`), otherwise solid.
 
 Sections are client components (`"use client"`) with named exports. Most could be server components; only interactive ones (Navbar scroll state, ThemeToggle, ContactSection form, carousels, `Reveal`) need the client.
 
@@ -127,6 +130,5 @@ Anything merged to `main` goes live immediately. Redesign work happens on the `r
 
 ## Planned architecture changes
 From `redesign-plan.md`:
-- Route: `/our-story` inside `(site)/` (phase 6), then `sitemap.ts` (phase 9).
-- `PAGE_LINKS.story` moves from `/#brand-story` to `/our-story` (phase 6).
+- `sitemap.ts` and `robots.ts` (phase 9).
 - Instagram feed: must respect static export (build-time fetch with scheduled rebuild, client widget, or a Cloud Function).
