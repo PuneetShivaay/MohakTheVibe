@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Instagram, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { collections } from "@/lib/products";
-import { CONTACT, MARKETPLACES, NAV_LINKS, SITE_LINKS } from "@/lib/site";
+import { CONTACT, LEGAL_LINKS, MARKETPLACES, NAV_LINKS, SITE_LINKS } from "@/lib/site";
 
 const columnTitle = "text-eyebrow uppercase text-brand-gold mb-6";
 const columnLink = "text-sm text-foreground/70 hover:text-brand-gold transition-colors";
@@ -23,6 +23,9 @@ export function Footer() {
             <a href={SITE_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Mohak on Instagram" className="text-brand-gold hover:opacity-70 transition-opacity">
               <Instagram className="w-5 h-5" strokeWidth={1.25} />
             </a>
+            <a href={SITE_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label="Mohak on YouTube" className="text-brand-gold hover:opacity-70 transition-opacity">
+              <Youtube className="w-5 h-5" strokeWidth={1.25} />
+            </a>
             <a href={SITE_LINKS.whatsappChat} target="_blank" rel="noopener noreferrer" aria-label="Chat with Mohak on WhatsApp" className="text-brand-gold hover:opacity-70 transition-opacity">
               <MessageCircle className="w-5 h-5" strokeWidth={1.25} />
             </a>
@@ -41,6 +44,13 @@ export function Footer() {
               </li>
             ))}
             {[...NAV_LINKS.left.slice(1), ...NAV_LINKS.right].map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className={columnLink}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            {LEGAL_LINKS.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className={columnLink}>
                   {link.label}
@@ -99,6 +109,17 @@ export function Footer() {
       </p>
       <p className="max-w-site mx-auto mt-4 text-center text-eyebrow uppercase text-foreground/50">
         © {year} Mohak – The Vibe. All rights reserved.
+      </p>
+      <p className="max-w-site mx-auto mt-2 text-center text-eyebrow uppercase text-foreground/50">
+        Designed &amp; developed by{" "}
+        <a
+          href={SITE_LINKS.developer}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-foreground/70 border-b border-transparent pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors"
+        >
+          Otical
+        </a>
       </p>
     </footer>
   );

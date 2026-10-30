@@ -10,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
 import { Mail, MapPin, MessageCircle, Send } from "lucide-react";
 import { CONTACT } from "@/lib/site";
+import { cn } from "@/lib/utils";
+import { FadeIn } from "./FadeIn";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
@@ -19,7 +21,10 @@ const formSchema = z.object({
   message: z.string().min(10, { message: "Message must be at least 10 characters." }),
 });
 
-export function ContactSection() {
+// Contact details plus a mailto form. `firstScreen` renders it as the top of the /contact page
+// (h1, CSS FadeIn so it is visible without JavaScript, room for the fixed navbar).
+export function ContactSection({ firstScreen = false }: { firstScreen?: boolean }) {
+  const Animate = firstScreen ? FadeIn : Reveal;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,11 +53,12 @@ export function ContactSection() {
   const fieldInput = "rounded-none border-brand-gold/25 bg-background focus-visible:ring-brand-gold";
 
   return (
-    <section id="contact" className="py-section px-6 md:px-12 bg-card">
+    <section id="contact" className={cn("pb-section px-6 md:px-12 bg-card", firstScreen ? "pt-28 md:pt-36" : "pt-section")}>
       <div className="max-w-site mx-auto grid md:grid-cols-2 gap-14 md:gap-20">
-        <Reveal>
+        <Animate>
           <SectionHeading
             align="left"
+            as={firstScreen ? "h1" : "h2"}
             eyebrow="Get in touch"
             title={
               <>
@@ -89,9 +95,9 @@ export function ContactSection() {
               </div>
             </li>
           </ul>
-        </Reveal>
+        </Animate>
 
-        <Reveal delay={150} className="border border-brand-gold/20 p-6 sm:p-10">
+        <Animate delay={150} className="border border-brand-gold/20 p-6 sm:p-10">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
@@ -141,7 +147,7 @@ export function ContactSection() {
               </Button>
             </form>
           </Form>
-        </Reveal>
+        </Animate>
       </div>
     </section>
   );

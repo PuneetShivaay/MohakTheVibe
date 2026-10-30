@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { BrandLogo } from "./BrandLogo";
 import { Reveal } from "./Reveal";
-import { CONTACT } from "@/lib/site";
+import { CONTACT, PAGE_LINKS } from "@/lib/site";
 
 // Midnight brand moment: gift-ready promise with a WhatsApp prompt
 export function GiftBand() {
@@ -22,6 +23,14 @@ export function GiftBand() {
         >
           Ask us on WhatsApp
         </a>
+        <p className="mt-6">
+          <Link
+            href={PAGE_LINKS.contact}
+            className="text-eyebrow uppercase text-brand-ivory/60 border-b border-brand-ivory/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
+          >
+            Contact &amp; FAQs
+          </Link>
+        </p>
       </Reveal>
     </section>
   );

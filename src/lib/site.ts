@@ -3,6 +3,8 @@ export const WHATSAPP_NUMBER = "916388498674";
 
 export const SITE_LINKS = {
   instagram: "https://www.instagram.com/mohakthevibe/",
+  youtube: "https://www.youtube.com/@Mohakthevibe",
+  developer: "https://otical.vercel.app/",
   whatsappChat: `https://wa.me/${WHATSAPP_NUMBER}`,
   whatsappCatalog: `https://wa.me/c/${WHATSAPP_NUMBER}`,
   flipkartStore: "https://www.flipkart.com/search?q=mohak+the+vibe",
@@ -23,8 +25,13 @@ export const PAGE_LINKS = {
   collections: "/#collections",
   signature: "/#catalog",
   story: "/our-story",
-  contact: "/#contact",
+  contact: "/contact",
 } as const;
+
+export const LEGAL_LINKS = [
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+] as const;
 
 export const NAV_LINKS = {
   left: [

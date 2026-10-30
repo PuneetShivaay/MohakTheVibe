@@ -8,4 +8,5 @@ export type ImagePlaceholder = {
 };
 
 // Access the nested array to match the JSON structure with a fallback
-export const PlaceHolderImages: ImagePlaceholder[] = (data as any)?.placeholderImages || [];
+export const PlaceHolderImages: ImagePlaceholder[] =
+  (data as { placeholderImages?: ImagePlaceholder[] })?.placeholderImages || [];

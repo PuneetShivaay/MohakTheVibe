@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Instagram, Menu, X } from "lucide-react";
+import { Instagram, Menu, X, Youtube } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
@@ -99,6 +99,15 @@ export function Navbar() {
               >
                 <Instagram className="w-4 h-4" strokeWidth={1.25} />
               </a>
+              <a
+                href={SITE_LINKS.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mohak on YouTube"
+                className="hover:text-brand-gold transition-colors"
+              >
+                <Youtube className="w-4 h-4" strokeWidth={1.25} />
+              </a>
             </div>
             <ThemeToggle />
           </div>
@@ -143,6 +152,9 @@ export function Navbar() {
               <div className="flex gap-6 text-sm">
                 <a href={SITE_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="border-b border-foreground/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors">
                   Instagram
+                </a>
+                <a href={SITE_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="border-b border-foreground/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors">
+                  YouTube
                 </a>
                 <a href={SITE_LINKS.whatsappChat} target="_blank" rel="noopener noreferrer" className="border-b border-foreground/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors">
                   WhatsApp
