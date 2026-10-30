@@ -40,7 +40,7 @@ Open http://localhost:9002.
 | `npm run lint` | Lint the code |
 | `npm run typecheck` | TypeScript check |
 
-On Windows PowerShell, `npm run build` may fail because the script sets `NODE_ENV=production` inline. Use `$env:NODE_ENV="production"; npx next build` instead.
+`npm run build` works on Windows, macOS and Linux (`next build` runs in production mode by default). If the build fails on `/404` with `Cannot find module ... [turbopack]_runtime.js`, delete the `.next` folder (left over from `npm run dev`) and build again.
 
 ## Project layout
 - `src/app/(site)/`: public pages and their shared layout (`page.tsx` is the home page; the folder name doesn't appear in URLs)

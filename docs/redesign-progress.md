@@ -150,7 +150,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [ ] Merge `redesign` into `main` (this deploys the live site)
 
 ## Final test checklist
-Run after all phases (user builds with `$env:NODE_ENV="production"; npx next build`, then `npx serve out`):
+Run after all phases (user builds with `npm run build`, then `npx serve out`):
 - [ ] Production build passes and exports `/`, `/collections/*`, `/our-story`, `/preview`, `404`
 - [ ] Home, desktop and mobile: hero crop and text, navbar transparent → solid on scroll, mobile menu
 - [ ] Collection pages: two-prints intro (small print from 1024px up), Kundan single-piece layout, "More collections" tiles
