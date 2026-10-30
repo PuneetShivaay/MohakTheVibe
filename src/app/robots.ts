@@ -5,8 +5,7 @@ export const dynamic = "force-static";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    // /preview is the temporary design mock; it is also marked noindex
-    rules: { userAgent: "*", allow: "/", disallow: "/preview" },
+    rules: { userAgent: "*", allow: "/" },
     sitemap: "https://mohak-the-vibe.web.app/sitemap.xml",
   };
 }

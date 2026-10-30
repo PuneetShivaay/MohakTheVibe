@@ -108,10 +108,8 @@ export function Footer() {
         MOHAK
       </p>
       <p className="max-w-site mx-auto mt-4 text-center text-eyebrow uppercase text-foreground/50">
-        © {year} Mohak – The Vibe. All rights reserved.
-      </p>
-      <p className="max-w-site mx-auto mt-2 text-center text-eyebrow uppercase text-foreground/50">
-        Designed &amp; developed by{" "}
+        © {year} Mohak – The Vibe. 
+        Developed by{" "}
         <a
           href={SITE_LINKS.developer}
           target="_blank"
