@@ -4,6 +4,8 @@ See Live: https://mohak-the-vibe.web.app/
 
 This is the official repository for **Mohak – The Vibe**, a premium artificial jewelry boutique.
 
+Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS. Local setup: [SETUP.md](SETUP.md). Architecture and tech stack: [docs/architecture.md](docs/architecture.md). Redesign plan and progress: [docs/](docs/).
+
 ## Managing Your App
 
 1.  **Development**: All edits are made within the Firebase Studio IDE. Changes are auto-saved to your development environment.
@@ -13,7 +15,7 @@ This is the official repository for **Mohak – The Vibe**, a premium artificial
 3.  **Deployment**:
     *   Click the **"Deploy"** button in the Firebase Studio UI to push your site live to Firebase Hosting.
 4.  **Images**:
-    *   Place all product images in `public/images/earring/`.
+    *   Place all product images in `public/images/earring/`, converted to WebP (max 1200px wide; see `docs/architecture.md`).
     *   Update image references in `src/lib/placeholder-images.json`.
 
 ## Troubleshooting

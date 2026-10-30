@@ -15,6 +15,22 @@ export default {
         headline: ['Playfair Display', 'serif'],
         code: ['monospace'],
       },
+      // Redesign type scale (see docs/redesign-plan.md)
+      fontSize: {
+        'display-xl': ['clamp(3.5rem, 9vw, 9rem)', { lineHeight: '0.9', letterSpacing: '-0.02em' }],
+        display: ['clamp(2.5rem, 5.5vw, 4.5rem)', { lineHeight: '1.05', letterSpacing: '-0.01em' }],
+        'display-sm': ['clamp(1.75rem, 3.5vw, 3rem)', { lineHeight: '1.25' }],
+        eyebrow: ['0.625rem', { lineHeight: '1', letterSpacing: '0.35em' }],
+      },
+      spacing: {
+        section: 'clamp(6rem, 12vw, 10rem)',
+      },
+      maxWidth: {
+        site: '1400px',
+      },
+      transitionTimingFunction: {
+        'out-soft': 'cubic-bezier(0.22, 1, 0.36, 1)',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -101,6 +117,8 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+        // CSS-only first-screen entrance (FadeIn); `both` keeps it hidden during its delay
+        reveal: 'fade-in-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both',
         'float': 'float 4s ease-in-out infinite',
       },
     },

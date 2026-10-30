@@ -1,142 +1,136 @@
 {
   "placeholderImages": [
     {
-      "id": "header-brand-logo",
-      "description": "Main Brand Logo Image",
-      "imageUrl": "/images/logo.png",
-      "imageHint": "brand logo"
-    },
-    {
-      "id": "header-flipkart-logo",
-      "description": "Flipkart Official Logo",
-      "imageUrl": "/images/flipkart-logo.png",
-      "imageHint": "flipkart logo"
-    },
-    {
-      "id": "header-meesho-logo",
-      "description": "Meesho Official Logo",
-      "imageUrl": "/images/meesho_logo.png",
-      "imageHint": "meesho logo"
-    },
-    {
       "id": "hero-main-bg",
       "description": "Model wearing spectacular statement artificial earrings",
-      "imageUrl": "/images/header.png",
+      "imageUrl": "/images/hero.webp",
       "imageHint": "earring model"
     },
     {
       "id": "festive-item-1",
       "description": "Festive Collection Item 1",
-      "imageUrl": "/images/earring/earring15.jpeg",
+      "imageUrl": "/images/earring/earring15.webp",
       "imageHint": "festive jewelry"
     },
     {
       "id": "festive-item-2",
       "description": "Festive Collection Item 2",
-      "imageUrl": "/images/earring/earring12.jpeg",
+      "imageUrl": "/images/earring/earring12.webp",
       "imageHint": "royal jewelry"
     },
     {
       "id": "festive-item-3",
       "description": "Festive Collection Item 3",
-      "imageUrl": "/images/earring/earring19.png",
+      "imageUrl": "/images/earring/earring19.webp",
       "imageHint": "traditional jewelry"
     },
     {
       "id": "festive-item-4",
       "description": "Festive Collection Item 4",
-      "imageUrl": "/images/earring/earring4.png",
+      "imageUrl": "/images/earring/earring4.webp",
       "imageHint": "elegant jewelry"
     },
     {
       "id": "festive-item-5",
       "description": "Festive Collection Item 5",
-      "imageUrl": "/images/earring/earring5.png",
+      "imageUrl": "/images/earring/earring5.webp",
       "imageHint": "bridal jewelry"
     },
     {
       "id": "catalog-jhumka-green",
       "description": "Minakari Half Green Jhumka",
-      "imageUrl": "/images/earring/earring11.png",
+      "imageUrl": "/images/earring/earring11.webp",
       "imageHint": "green jhumka"
     },
     {
       "id": "catalog-jhumka-red",
       "description": "Minakari Half Red Jhumka",
-      "imageUrl": "/images/earring/earring21.png",
+      "imageUrl": "/images/earring/earring21.webp",
       "imageHint": "red jhumka"
     },
     {
       "id": "catalog-lotus-firozi",
       "description": "Lotus Minakari Firozi Drop Earrings",
-      "imageUrl": "/images/earring/earring3.png",
+      "imageUrl": "/images/earring/earring3.webp",
       "imageHint": "firozi earrings"
     },
     {
       "id": "catalog-lotus-black",
       "description": "Lotus Minakari Black Drop Earrings",
-      "imageUrl": "/images/earring/earring4.png",
+      "imageUrl": "/images/earring/earring4.webp",
       "imageHint": "black earrings"
     },
     {
       "id": "catalog-lotus-wine",
       "description": "Lotus Minakari Wine Drop Earrings",
-      "imageUrl": "/images/earring/earring20.png",
+      "imageUrl": "/images/earring/earring20.webp",
       "imageHint": "wine earrings"
     },
     {
       "id": "catalog-kundan-green",
       "description": "Green Crystal Kundan Drops Earring",
-      "imageUrl": "/images/earring/earring6.png",
+      "imageUrl": "/images/earring/earring6.webp",
       "imageHint": "kundan earring"
     },
     {
       "id": "catalog-rect-gold",
       "description": "Gold Plated Rectangular Drop Earrings",
-      "imageUrl": "/images/earring/earring18.png",
+      "imageUrl": "/images/earring/earring18.webp",
       "imageHint": "gold earrings"
     },
     {
       "id": "catalog-rect-mirror",
       "description": "Rectangular Drop Mirror Rose Gold Plated",
-      "imageUrl": "/images/earring/earring8.png",
+      "imageUrl": "/images/earring/earring8.webp",
       "imageHint": "mirror earrings"
     },
     {
       "id": "brand-story-lifestyle",
       "description": "Brand story lifestyle image featuring earrings",
-      "imageUrl": "/images/earring/earring10.jpeg",
+      "imageUrl": "/images/earring/earring10.webp",
       "imageHint": "earring lifestyle"
     },
     {
       "id": "brand-story-detail",
       "description": "Macro detail of a handcrafted earring",
-      "imageUrl": "/images/earring/earring11.png",
+      "imageUrl": "/images/earring/earring11.webp",
       "imageHint": "earring detail"
     },
     {
       "id": "insta-post-1",
       "description": "Instagram feature: Statement Earrings",
-      "imageUrl": "/images/earring/earring12.jpeg",
+      "imageUrl": "/images/earring/earring12.webp",
       "imageHint": "statement earrings"
     },
     {
       "id": "insta-post-2",
       "description": "Instagram feature: Ethnic Jhumkas",
-      "imageUrl": "/images/earring/earring17.png",
+      "imageUrl": "/images/earring/earring17.webp",
       "imageHint": "ethnic earrings"
     },
     {
       "id": "insta-post-3",
       "description": "Instagram feature: Contemporary Studs",
-      "imageUrl": "/images/earring/earring14.png",
+      "imageUrl": "/images/earring/earring14.webp",
       "imageHint": "stud earrings"
     },
     {
       "id": "insta-post-4",
       "description": "Instagram feature: Pearl Drops",
-      "imageUrl": "/images/earring/earring16.png",
+      "imageUrl": "/images/earring/earring16.webp",
       "imageHint": "pearl earrings"
+    },
+    {
+      "id": "insta-post-5",
+      "description": "Pink kundan chandbali, styled",
+      "imageUrl": "/images/earring/earring5.webp",
+      "imageHint": "instagram post"
+    },
+    {
+      "id": "insta-post-6",
+      "description": "Black and gold chandbali, styled",
+      "imageUrl": "/images/earring/earring15.webp",
+      "imageHint": "instagram post"
     }
   ]
 }

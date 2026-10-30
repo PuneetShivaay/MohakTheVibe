@@ -1,226 +1,164 @@
-
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Instagram, Menu, X, Youtube } from "lucide-react";
+import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
-import { Menu, X, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { MARKETPLACES, NAV_LINKS, SITE_LINKS } from "@/lib/site";
 
-const navLinks = [
-  { name: "HOME", href: "/" },
-  { name: "EARRINGS", href: "#catalog" },
-  { name: "COLLECTIONS", href: "#festive" },
-  { name: "ABOUT US", href: "#brand-story" },
-];
+const allLinks = [...NAV_LINKS.left, ...NAV_LINKS.right];
+
+function NavLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link href={href} className="text-eyebrow uppercase hover:text-brand-gold transition-colors">
+      {label}
+    </Link>
+  );
+}
 
 export function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  
-  const flipkartStoreUrl = "https://www.flipkart.com/search?q=mohak+the+vibe";
-  const meeshoStoreUrl = "https://www.meesho.com/MohakTheVibe";
-  
-  const flipkartLogo = PlaceHolderImages.find(img => img.id === "header-flipkart-logo")?.imageUrl || "/images/flipkart-logo.png";
-  const meeshoLogo = PlaceHolderImages.find(img => img.id === "header-meesho-logo")?.imageUrl || "/images/meesho-logo.png";
-  const brandLogo = PlaceHolderImages.find(img => img.id === "header-brand-logo")?.imageUrl;
+
+  // Only the home page has a full-bleed hero to sit over; other pages get the solid bar
+  const overHero = pathname === "/" && !isScrolled && !mobileMenuOpen;
 
   React.useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent scrolling when mobile menu is open
+  // Lock page scroll and allow Escape to close while the mobile menu is open
   React.useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    if (!mobileMenuOpen) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMobileMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
   }, [mobileMenuOpen]);
 
   return (
     <>
-      <nav className={cn(
-        "fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-3 px-4 md:py-6 md:px-12",
-        isScrolled || mobileMenuOpen ? "bg-background/95 backdrop-blur-md border-b" : "bg-transparent"
-      )}>
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between h-10 md:h-12">
-          {/* Left: Brand Logo */}
-          <div className="flex items-center flex-shrink-0">
-            <a href="/" className="flex items-center">
-              {brandLogo ? (
-                <div className="relative h-6 w-20 sm:h-8 sm:w-28 md:h-10 md:w-40">
-                  <Image 
-                    src={brandLogo} 
-                    alt="Mohak" 
-                    fill
-                    className="object-contain"
-                    priority
-                    onError={(e) => {
-                      const target = e.target as any;
-                      target.style.display = 'none';
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = `<span class="font-headline text-base sm:text-lg md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase logo-shadow">MOHAK</span>`;
-                      }
-                    }}
-                  />
-                </div>
-              ) : (
-                <span className="font-headline text-base sm:text-lg md:text-2xl tracking-[0.3em] font-bold text-brand-gold uppercase logo-shadow">
-                  MOHAK
-                </span>
-              )}
-            </a>
+      <header
+        className={cn(
+          "fixed top-0 inset-x-0 z-[100] transition-all duration-500 ease-out-soft",
+          overHero
+            ? "bg-transparent text-white py-5 md:py-7"
+            : "bg-background/90 text-foreground backdrop-blur-md border-b border-brand-gold/20 py-3"
+        )}
+      >
+        <nav
+          aria-label="Main"
+          className="max-w-site mx-auto px-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center"
+        >
+          {/* Left: desktop links, mobile menu button */}
+          <div className="flex items-center gap-8">
+            <button
+              type="button"
+              className="lg:hidden -ml-2 p-2 hover:text-brand-gold transition-colors"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" strokeWidth={1.25} /> : <Menu className="h-5 w-5" strokeWidth={1.25} />}
+            </button>
+            <div className="hidden lg:flex items-center gap-8">
+              {NAV_LINKS.left.map((link) => (
+                <NavLink key={link.href} {...link} />
+              ))}
+            </div>
           </div>
 
-          {/* Center-Right: Navigation Menu (Desktop) */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8 ml-auto mr-8 xl:mr-12">
-            {navLinks.map((link) => (
-              <a 
-                key={link.name}
-                href={link.href} 
-                className="text-[9px] xl:text-[10px] tracking-[0.2em] font-medium hover:text-brand-gold transition-colors dashed-link"
+          {/* Centre: logo mark */}
+          <Link href="/" aria-label="Mohak – The Vibe, home" onClick={() => setMobileMenuOpen(false)}>
+            <BrandLogo compact />
+          </Link>
+
+          {/* Right: desktop links, Instagram, theme */}
+          <div className="flex items-center justify-end gap-8">
+            <div className="hidden lg:flex items-center gap-8">
+              {NAV_LINKS.right.map((link) => (
+                <NavLink key={link.href} {...link} />
+              ))}
+              <a
+                href={SITE_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mohak on Instagram"
+                className="hover:text-brand-gold transition-colors"
               >
-                {link.name}
+                <Instagram className="w-4 h-4" strokeWidth={1.25} />
               </a>
-            ))}
-          </div>
-
-          {/* Right: Icons & Actions */}
-          <div className="flex items-center gap-2 md:gap-4 lg:gap-6">
-            <div className="hidden md:flex items-center gap-4 lg:gap-6">
-              <button className="hover:text-brand-gold transition-colors">
-                <Search className="w-4 h-4" />
-              </button>
-              
-              <div className="flex items-center gap-3">
-                <a 
-                  href={flipkartStoreUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
-                  title="Shop on Flipkart"
-                >
-                  <Image 
-                    src={flipkartLogo}
-                    alt="Shop on Flipkart"
-                    width={28}
-                    height={28}
-                    className="object-contain h-7 md:h-8 w-auto"
-                  />
-                </a>
-                <a 
-                  href={meeshoStoreUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="hover:opacity-80 transition-all duration-300 transform hover:scale-110 flex items-center justify-center"
-                  title="Shop on Meesho"
-                >
-                  <Image 
-                    src={meeshoLogo}
-                    alt="Shop on Meesho"
-                    width={28}
-                    height={28}
-                    className="object-contain h-7 md:h-8 w-auto"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = '<span class="text-[10px] text-[#580A46] font-bold px-1">M</span>';
-                      }
-                    }}
-                  />
-                </a>
-              </div>
+              <a
+                href={SITE_LINKS.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Mohak on YouTube"
+                className="hover:text-brand-gold transition-colors"
+              >
+                <Youtube className="w-4 h-4" strokeWidth={1.25} />
+              </a>
             </div>
             <ThemeToggle />
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="lg:hidden h-9 w-9" 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
-      {/* Mobile Menu Overlay */}
-      <div className={cn(
-        "fixed inset-0 bg-background z-[99] lg:hidden transition-all duration-500 ease-in-out",
-        mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
-      )}>
-        <div className="flex flex-col h-full pt-20 pb-12 px-6 sm:px-12 overflow-y-auto">
-          <div className="flex flex-col gap-6 sm:gap-8">
-            {navLinks.map((link) => (
-              <a 
-                key={link.name}
-                href={link.href} 
+      {/* Mobile menu */}
+      <div
+        id="mobile-menu"
+        className={cn(
+          "fixed inset-0 z-[99] bg-background lg:hidden transition-all duration-500 ease-out-soft",
+          mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none invisible"
+        )}
+      >
+        <div className="flex flex-col h-full pt-28 pb-12 px-6 sm:px-12 overflow-y-auto">
+          <nav aria-label="Mobile" className="flex flex-col">
+            {allLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-headline text-xl sm:text-2xl tracking-tight border-b border-foreground/5 pb-4 hover:text-brand-gold transition-colors"
+                className="font-headline text-display-sm border-b border-brand-gold/15 py-5 hover:text-brand-gold transition-colors"
               >
-                {link.name}
-              </a>
+                {link.label}
+              </Link>
             ))}
-            
-            <div className="mt-4 space-y-4">
-              <a 
-                href={flipkartStoreUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-headline text-lg sm:text-xl tracking-tight text-[#2874f0] flex items-center justify-between group bg-blue-50/50 p-4 rounded-lg"
-              >
-                <span>SHOP ON FLIPKART</span>
-                <Image 
-                  src={flipkartLogo}
-                  alt="Flipkart"
-                  width={32}
-                  height={32}
-                  className="object-contain h-8 w-auto group-hover:scale-110 transition-transform"
-                />
-              </a>
+          </nav>
 
-              <a 
-                href={meeshoStoreUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-headline text-lg sm:text-xl tracking-tight text-[#580A46] flex items-center justify-between group bg-[#580A46]/5 p-4 rounded-lg"
-              >
-                <span>SHOP ON MEESHO</span>
-                <div className="group-hover:scale-110 transition-transform">
-                  <Image 
-                    src={meeshoLogo}
-                    alt="Meesho"
-                    width={32}
-                    height={32}
-                    className="object-contain h-8 w-auto"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = '<span class="text-xs text-[#580A46] font-bold">M</span>';
-                      }
-                    }}
-                  />
-                </div>
-              </a>
-              
-              <div className="pt-8 border-t border-foreground/5">
-                <p className="text-[8px] uppercase tracking-[0.4em] text-foreground/40 mb-4">Connect with us</p>
-                <div className="flex flex-wrap gap-6 sm:gap-8">
-                   <a href="https://www.instagram.com/mohakthevibe/" target="_blank" className="text-lg sm:text-xl font-headline hover:text-brand-gold transition-colors">Instagram</a>
-                   <a href="https://wa.me/916388498674" target="_blank" className="text-lg sm:text-xl font-headline hover:text-brand-gold transition-colors">WhatsApp</a>
-                </div>
+          <div className="mt-auto pt-12 space-y-8">
+            <div>
+              <p className="text-eyebrow uppercase text-brand-gold mb-4">Also available on</p>
+              <div className="flex gap-6 text-sm">
+                {MARKETPLACES.map((m) => (
+                  <a key={m.label} href={m.href} target="_blank" rel="noopener noreferrer" className="border-b border-foreground/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors">
+                    {m.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-eyebrow uppercase text-brand-gold mb-4">Connect</p>
+              <div className="flex gap-6 text-sm">
+                <a href={SITE_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="border-b border-foreground/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors">
+                  Instagram
+                </a>
+                <a href={SITE_LINKS.youtube} target="_blank" rel="noopener noreferrer" className="border-b border-foreground/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors">
+                  YouTube
+                </a>
+                <a href={SITE_LINKS.whatsappChat} target="_blank" rel="noopener noreferrer" className="border-b border-foreground/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors">
+                  WhatsApp
+                </a>
               </div>
             </div>
           </div>

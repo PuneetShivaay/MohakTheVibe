@@ -3,10 +3,11 @@
 
 import { cn } from "@/lib/utils";
 
-export function BrandLogo({ className }: { className?: string }) {
+// `compact` renders only the circular mark, sized for the navbar
+export function BrandLogo({ className, compact = false }: { className?: string; compact?: boolean }) {
   return (
     <div className={cn("flex flex-col items-center justify-center transition-all", className)}>
-      <div className="relative w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+      <div className={cn("relative flex items-center justify-center", compact ? "w-10 h-10 md:w-12 md:h-12" : "w-12 h-12 md:w-16 md:h-16")}>
         {/* Stylized SVG Logo inspired by the provided brand mark */}
         <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
           {/* Outer circle with sparkle texture */}
@@ -47,7 +48,9 @@ export function BrandLogo({ className }: { className?: string }) {
           <circle cx="85" cy="75" r="0.7" fill="#C9A14A" />
         </svg>
       </div>
-      <span className="text-[8px] uppercase tracking-[0.5em] font-light text-brand-gold/60 mt-0.5">The Vibe</span>
+      {!compact && (
+        <span className="text-[8px] uppercase tracking-[0.5em] font-light text-brand-gold/60 mt-0.5">The Vibe</span>
+      )}
     </div>
   );
 }

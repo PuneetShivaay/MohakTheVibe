@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -9,7 +8,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, MessageCircle, Send } from "lucide-react";
+import { CONTACT } from "@/lib/site";
+import { cn } from "@/lib/utils";
+import { FadeIn } from "./FadeIn";
+import { Reveal } from "./Reveal";
+import { SectionHeading } from "./SectionHeading";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -17,7 +21,10 @@ const formSchema = z.object({
   message: z.string().min(10, { message: "Message must be at least 10 characters." }),
 });
 
-export function ContactSection() {
+// Contact details plus a mailto form. `firstScreen` renders it as the top of the /contact page
+// (h1, CSS FadeIn so it is visible without JavaScript, room for the fixed navbar).
+export function ContactSection({ firstScreen = false }: { firstScreen?: boolean }) {
+  const Animate = firstScreen ? FadeIn : Reveal;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,65 +37,77 @@ export function ContactSection() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const subject = encodeURIComponent(`Inquiry from ${values.name}`);
     const body = encodeURIComponent(`Name: ${values.name}\nEmail: ${values.email}\n\nMessage:\n${values.message}`);
-    const mailtoUrl = `mailto:mohakthevibe@gmail.com?subject=${subject}&body=${body}`;
+    const mailtoUrl = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
     
     window.location.href = mailtoUrl;
     
     toast({
       title: "Opening Mail Client",
-      description: "Redirecting you to send your inquiry to mohakthevibe@gmail.com",
+      description: `Redirecting you to send your inquiry to ${CONTACT.email}`,
     });
 
     form.reset();
   }
 
+  const fieldLabel = "text-eyebrow uppercase text-brand-gold";
+  const fieldInput = "rounded-none border-brand-gold/25 bg-background focus-visible:ring-brand-gold";
+
   return (
-    <section id="contact" className="py-16 sm:py-24 px-6 md:px-12 bg-white">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 sm:gap-16">
-        <div className="space-y-6 sm:space-y-8">
-          <div>
-            <span className="text-brand-gold uppercase tracking-[0.4em] text-[10px] sm:text-xs font-semibold">Get In Touch</span>
-            <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl text-brand-midnight mt-4 mb-6 leading-tight">
-              Contact our <span className="italic">Mohak Team</span>
-            </h2>
-            <p className="text-muted-foreground font-light text-base sm:text-lg max-w-md">
-              Have questions about a specific piece or want a custom curation? Our team in Gomti Nagar is ready to assist you.
-            </p>
-          </div>
+    <section id="contact" className={cn("pb-section px-6 md:px-12 bg-card", firstScreen ? "pt-28 md:pt-36" : "pt-section")}>
+      <div className="max-w-site mx-auto grid md:grid-cols-2 gap-14 md:gap-20">
+        <Animate>
+          <SectionHeading
+            align="left"
+            as={firstScreen ? "h1" : "h2"}
+            eyebrow="Get in touch"
+            title={
+              <>
+                Talk to the <em>Mohak team</em>
+              </>
+            }
+            description="Questions about a piece, or looking for something for an occasion? Write to us, or message us on WhatsApp for the quickest reply."
+          />
 
-          <div className="space-y-4 sm:space-y-6">
-            <div className="flex items-start gap-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-gold/10 flex items-center justify-center shrink-0">
-                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold" />
-              </div>
+          <ul className="mt-10 space-y-6">
+            <li className="flex items-start gap-4">
+              <MapPin aria-hidden className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
               <div>
-                <h4 className="font-headline text-base sm:text-lg">Boutique Office</h4>
-                <p className="text-xs sm:text-sm text-muted-foreground font-light">Gomti Nagar Lucknow, Uttar Pradesh India</p>
+                <p className="font-headline text-lg">Boutique office</p>
+                <p className="text-sm text-foreground/70 font-light">{CONTACT.location}</p>
               </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-brand-gold/10 flex items-center justify-center shrink-0">
-                <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold" />
-              </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <Mail aria-hidden className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
               <div>
-                <h4 className="font-headline text-base sm:text-lg">Direct Email</h4>
-                <p className="text-xs sm:text-sm text-muted-foreground font-light">mohakthevibe@gmail.com</p>
+                <p className="font-headline text-lg">Email</p>
+                <a href={`mailto:${CONTACT.email}`} className="text-sm text-foreground/70 font-light hover:text-brand-gold transition-colors">
+                  {CONTACT.email}
+                </a>
               </div>
-            </div>
-          </div>
-        </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <MessageCircle aria-hidden className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
+              <div>
+                <p className="font-headline text-lg">WhatsApp</p>
+                <a href={CONTACT.whatsappHello} target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 font-light hover:text-brand-gold transition-colors">
+                  {CONTACT.phoneDisplay}
+                </a>
+              </div>
+            </li>
+          </ul>
+        </Animate>
 
-        <div className="bg-brand-ivory/30 p-6 sm:p-8 border border-brand-gold/10">
+        <Animate delay={150} className="border border-brand-gold/20 p-6 sm:p-10">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 sm:space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-[9px] sm:text-[10px] tracking-widest text-brand-gold">Full Name</FormLabel>
+                    <FormLabel className={fieldLabel}>Full name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your Name" className="rounded-none border-brand-gold/20 focus:border-brand-gold bg-white" {...field} />
+                      <Input placeholder="Your name" autoComplete="name" className={fieldInput} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,9 +118,9 @@ export function ContactSection() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-[9px] sm:text-[10px] tracking-widest text-brand-gold">Email Address</FormLabel>
+                    <FormLabel className={fieldLabel}>Email address</FormLabel>
                     <FormControl>
-                      <Input placeholder="your@email.com" className="rounded-none border-brand-gold/20 focus:border-brand-gold bg-white" {...field} />
+                      <Input type="email" placeholder="you@example.com" autoComplete="email" className={fieldInput} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -112,24 +131,23 @@ export function ContactSection() {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-[9px] sm:text-[10px] tracking-widest text-brand-gold">Your Message</FormLabel>
+                    <FormLabel className={fieldLabel}>Your message</FormLabel>
                     <FormControl>
-                      <Textarea 
-                        placeholder="Tell us what you're looking for..." 
-                        className="rounded-none border-brand-gold/20 focus:border-brand-gold bg-white min-h-[100px] sm:min-h-[120px] resize-none" 
-                        {...field} 
-                      />
+                      <Textarea placeholder="Tell us what you're looking for…" className={`${fieldInput} min-h-[140px] resize-none`} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full bg-brand-midnight text-white hover:bg-brand-gold rounded-none h-11 sm:h-12 uppercase tracking-widest text-[9px] sm:text-[10px] transition-all group">
-                Send Details <Send className="ml-2 w-3 h-3 group-hover:translate-x-1 transition-transform" />
+              <Button
+                type="submit"
+                className="group w-full h-12 rounded-none bg-brand-midnight text-brand-ivory hover:bg-brand-gold hover:text-brand-midnight dark:bg-brand-gold dark:text-brand-midnight dark:hover:bg-brand-beige text-eyebrow uppercase transition-colors"
+              >
+                Send message <Send aria-hidden className="ml-2 w-3 h-3 transition-transform group-hover:translate-x-1" />
               </Button>
             </form>
           </Form>
-        </div>
+        </Animate>
       </div>
     </section>
   );
