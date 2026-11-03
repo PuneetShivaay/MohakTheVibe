@@ -97,3 +97,6 @@ To switch the live feed on:
 
 ## Out of scope
 Cart/checkout, re-enabling the AI Stylist, per-product pages (`/products/[slug]`; revisit once each product has 3+ photos and its own marketplace links).
+
+## Next: catalog
+Categories (earrings, pendants, bracelets) and product management through a Google Sheet with Cloudinary photos are planned separately in `docs/catalog-plan.md`.

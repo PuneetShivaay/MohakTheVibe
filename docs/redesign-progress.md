@@ -54,6 +54,17 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 - [x] 7. InstagramGrid (live feed code ready; shows local photos until the token is set up)
 - [x] 8. Footer and WhatsAppCTA (plus gift band and contact section)
 - [x] 9. Polish (sitemap, robots, 404, first-screen visibility, dark-mode flash, skip link). Lighthouse and QA run in the final test
+- [x] Deployed: `redesign` merged to `main` (`f1177de`) on 2026-10-30
+
+## Catalog (next project)
+Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, categories (earrings, pendants, bracelets), 100–150 products.
+- [ ] C0. Setup (owner): Cloudinary account and folders, Google Sheet with header row, test products, publish as CSV
+- [ ] C1. Data layer (`catalog.ts`, fallback, validation, Cloudinary helper)
+- [ ] C2. Category pages (`/shop/[category]`)
+- [ ] C3. Navigation and home (Shop menu, category tiles, featured products)
+- [ ] C4. Large catalog UX (filters, load more, empty states)
+- [ ] C5. Scheduled refresh and docs
+- [ ] C6. Full data entry and QA, then merge
 
 ## Log
 - 2026-10-27: Plan and progress files created. No code changed yet.

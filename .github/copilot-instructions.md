@@ -1,6 +1,6 @@
 # Copilot Instructions – Mohak The Vibe
 
-Next.js 15 (App Router, React 19, TypeScript, Tailwind, shadcn/ui) jewelry brand site. Original spec in `docs/blueprint.md`; the active redesign (concept, decisions, phases) is in `docs/redesign-plan.md` and takes precedence. Log progress in `docs/redesign-progress.md`. Tech stack, structure and deploy details: `docs/architecture.md`.
+Next.js 15 (App Router, React 19, TypeScript, Tailwind, shadcn/ui) jewelry brand site. Original spec in `docs/blueprint.md`; the active redesign (concept, decisions, phases) is in `docs/redesign-plan.md` and takes precedence. The next project (categories, Google Sheet + Cloudinary catalog) is planned in `docs/catalog-plan.md`; follow its safety rules (build-time fetch, fallback to `products.ts`, never fail the build). Log progress in `docs/redesign-progress.md`. Tech stack, structure and deploy details: `docs/architecture.md`.
 
 **Static export** (`output: 'export'`): no API routes, server actions, `revalidate`/ISR or runtime secrets. Dynamic routes need `generateStaticParams`. `next/image` is unoptimized.
 
