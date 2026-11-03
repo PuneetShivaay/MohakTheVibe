@@ -21,7 +21,8 @@ export type Collection = {
   tagline: string;
   // Intro paragraph on the collection page; also used as its meta description
   description: string;
-  coverImageId: string;
+  // Local image id for the cover; when omitted, the cover is the first product's photo in the collection
+  coverImageId?: string;
 };
 
 export type Product = {
@@ -88,6 +89,13 @@ export const collections: Collection[] = [
     tagline: "Clean lines for every day",
     description: "Modern shapes and oxidised finishes for workdays, brunches and everything in between.",
     coverImageId: "festive-item-2",
+  },
+  {
+    // The sheet's `collection` value for studs is "stud"; cover comes from its first product
+    slug: "stud",
+    name: "Studs",
+    tagline: "Small, bright, every day",
+    description: "Small statements that sit close to the ear: patterned buttons, crystals and clean shapes for every day.",
   },
 ];
 

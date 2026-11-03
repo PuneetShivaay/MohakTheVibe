@@ -15,7 +15,7 @@ Work on branch **`catalog`**; merge to `main` (auto-deploys) only after review.
 | Product data | Google Sheet, published as CSV, read **at build time** (static export; no browser fetch, no server) |
 | Photos | Cloudinary (free tier), one folder per category. Sheet stores the image URL |
 | Categories | `earrings`, `pendants`, `bracelets` — defined in code (`src/lib/products.ts`), not in the sheet |
-| Collections | Stay in code (Minakari, Kundan, Contemporary). A product has one category and one collection |
+| Collections | Stay in code (Minakari, Kundan, Contemporary, Studs). A product has one category and one collection. Sheet values: `minakari`, `kundan`, `contemporary`, `stud`. A collection without a local `coverImageId` uses its first product's photo as the cover |
 | Home page | Stays curated: products with `featured = yes` (6–8), plus category tiles |
 | Updates | Scheduled rebuild every 3 hours + manual "Run workflow" button in GitHub Actions |
 | Fallback | Current hardcoded products in `products.ts` if the sheet is missing, unreachable or invalid |

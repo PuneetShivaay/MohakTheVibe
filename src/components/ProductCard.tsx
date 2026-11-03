@@ -1,11 +1,24 @@
 import Image from "next/image";
 import { cloudinaryUrl } from "@/lib/catalog";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { getCollection, type Product } from "@/lib/products";
+import { getCollection, getProductsByCollection, type Collection, type Product } from "@/lib/products";
 import { SITE_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const imageUrl = (id?: string) => (id ? PlaceHolderImages.find((img) => img.id === id)?.imageUrl : undefined);
+
+// Raw (untransformed) cover source: the collection's local cover image, else its first product's photo
+export function collectionCoverSource(collection: Collection, products: Product[]) {
+  return collection.coverImageId
+    ? imageUrl(collection.coverImageId)
+    : getProductsByCollection(products, collection.slug)[0]?.image;
+}
+
+// Ready-to-render cover URL (Cloudinary photos are resized; local images pass through)
+export function collectionCover(collection: Collection, products: Product[], width = 1200) {
+  const source = collectionCoverSource(collection, products);
+  return source ? cloudinaryUrl(source, width) : undefined;
+}
 
 export const quietLink =
   "border-b border-transparent pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors";

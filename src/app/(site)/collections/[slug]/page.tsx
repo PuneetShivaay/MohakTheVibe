@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 import { getProducts, cloudinaryUrl } from "@/lib/catalog";
 import { collections, getCollection, getProductsByCollection } from "@/lib/products";
 import { cn } from "@/lib/utils";
-import { CollectionTile } from "@/components/CollectionTiles";
+import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
 import { LayeredImages } from "@/components/LayeredImages";
-import { imageUrl, ProductCard, ShopFullRange } from "@/components/ProductCard";
+import { collectionCover, collectionCoverSource, ProductCard, ShopFullRange } from "@/components/ProductCard";
 import { FadeIn } from "@/components/FadeIn";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const collection = getCollection((await params).slug);
   if (!collection) return {};
   const title = `${collection.name} Collection | Mohak – The Vibe`;
-  const cover = imageUrl(collection.coverImageId);
+  const cover = collectionCover(collection, await getProducts());
   return {
     title,
     description: collection.description,
@@ -48,9 +48,10 @@ export default async function CollectionPage({ params }: Params) {
   const products = await getProducts();
   const items = getProductsByCollection(products, collection.slug);
   const others = collections.filter((c) => c.slug !== collection.slug);
-  const cover = imageUrl(collection.coverImageId);
+  const cover = collectionCover(collection, products);
   // Small print: another piece from the collection, so it never repeats the cover
-  const detailProduct = items.find((p) => p.image !== cover);
+  const coverSource = collectionCoverSource(collection, products);
+  const detailProduct = items.find((p) => p.image !== coverSource);
   const detail = detailProduct ? cloudinaryUrl(detailProduct.image, 600) : undefined;
 
   return (
@@ -114,11 +115,19 @@ export default async function CollectionPage({ params }: Params) {
               <SectionHeading align="left" eyebrow="Keep exploring" title={<>More <em>collections</em></>} />
             </Reveal>
             <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-              {others.map((c, i) => (
-                <Reveal key={c.slug} delay={i * 120}>
-                  <CollectionTile collection={c} count={getProductsByCollection(products, c.slug).length} />
-                </Reveal>
-              ))}
+              {others.map((c, i) => {
+                const wide = spansFullRow(i, others.length);
+                return (
+                  <Reveal key={c.slug} delay={i * 120} className={wide ? "md:col-span-2" : undefined}>
+                    <CollectionTile
+                      collection={c}
+                      count={getProductsByCollection(products, c.slug).length}
+                      cover={collectionCover(c, products)}
+                      wide={wide}
+                    />
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </section>
