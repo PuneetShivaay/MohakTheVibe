@@ -23,6 +23,7 @@ Work on branch **`catalog`**; merge to `main` (auto-deploys) only after review.
 
 ## Sheet layout
 One row per product. Header row exactly as below (lowercase). Columns can be in any order.
+Starter file: `docs/catalog-template.csv` (headers + 3 example rows). In Google Sheets: File → Import → Upload → "Replace current sheet". Then replace the example rows and placeholder links (`YOUR_CLOUD_NAME`, `REPLACE_WITH_PRODUCT_LINK`) with real data.
 
 | Column | Required | Example | Rules |
 |---|---|---|---|
@@ -90,6 +91,7 @@ Cloudinary ──(image URLs + size transforms)──► ProductCard <Image>
 | C6 | Full data and QA | Enter all 100–150 products; check every category on mobile and desktop, both themes; Lighthouse; merge | You + me |
 
 ## Open questions
+- [x] Published sheet CSV URL (2026-11-03): `https://docs.google.com/spreadsheets/d/e/2PACX-1vSRG9hD02yFLOypYc9qeki_r-io5zLRKiN5WFx9R4uwo6SNwHRSSvBESCiFDDiZrevnXsZTl9xHWrFc/pub?gid=0&single=true&output=csv`. Headers verified; rows are still template placeholders. Local builds read it from `.env.local`; add it as GitHub secret `CATALOG_SHEET_CSV_URL` in phase C5.
 - [ ] Cloudinary cloud name (needed for `remotePatterns`; not secret)
 - [ ] Final collection list: keep Minakari / Kundan / Contemporary, or add more for pendants and bracelets?
 - [ ] Spelling and URL for categories: `pendants` (recommended) vs `pendent`

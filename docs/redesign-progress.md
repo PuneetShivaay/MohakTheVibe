@@ -58,7 +58,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 
 ## Catalog (next project)
 Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, categories (earrings, pendants, bracelets), 100–150 products.
-- [ ] C0. Setup (owner): Cloudinary account and folders, Google Sheet with header row, test products, publish as CSV
+- [ ] C0. Setup (owner): Cloudinary account and folders, Google Sheet with header row, test products, publish as CSV. **Sheet created and published (headers OK, rows still placeholders); Cloudinary pending.**
 - [ ] C1. Data layer (`catalog.ts`, fallback, validation, Cloudinary helper)
 - [ ] C2. Category pages (`/shop/[category]`)
 - [ ] C3. Navigation and home (Shop menu, category tiles, featured products)
