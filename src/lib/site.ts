@@ -17,6 +17,8 @@ export const CONTACT = {
   location: "Gomti Nagar, Lucknow, Uttar Pradesh, India",
   phoneDisplay: "+91 63884 98674",
   phoneHref: `tel:+${WHATSAPP_NUMBER}`,
+  // GST registration number; shown in the footer when filled in (leave "" to hide)
+  gstin: "09IFMPP3041D1ZB",
   whatsappHello: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Mohak, I'd like to know more about a piece.")}`,
 } as const;
 
@@ -51,3 +53,6 @@ export const MARKETPLACES = [
   { label: "Flipkart", href: SITE_LINKS.flipkartStore },
   { label: "Meesho", href: SITE_LINKS.meeshoStore },
 ] as const;
+
+// Short reassurance row at the top of the footer (only list things that are true)
+export const TRUST_POINTS = ["Free shipping", "Easy returns", "Secure checkout on Flipkart & Meesho"] as const;
