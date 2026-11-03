@@ -32,9 +32,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Explore */}
-        <nav aria-label="Footer">
-          <p className={columnTitle}>Explore</p>
+        {/* Shop */}
+        <nav aria-label="Footer shop">
+          <p className={columnTitle}>Shop</p>
           <ul className="space-y-3">
             {SHOP_LINKS.map((link) => (
               <li key={link.href}>
@@ -43,6 +43,9 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+          </ul>
+          <p className={`${columnTitle} mt-10`}>Collections</p>
+          <ul className="space-y-3">
             {collections.map((c) => (
               <li key={c.slug}>
                 <Link href={`/collections/${c.slug}`} className={columnLink}>
@@ -50,14 +53,14 @@ export function Footer() {
                 </Link>
               </li>
             ))}
-            {NAV_LINKS.right.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className={columnLink}>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            {LEGAL_LINKS.map((link) => (
+          </ul>
+        </nav>
+
+        {/* Company */}
+        <nav aria-label="Footer company">
+          <p className={columnTitle}>Company</p>
+          <ul className="space-y-3">
+            {[...NAV_LINKS.right, ...LEGAL_LINKS].map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className={columnLink}>
                   {link.label}
@@ -65,11 +68,7 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </nav>
-
-        {/* Shop */}
-        <div>
-          <p className={columnTitle}>Also available on</p>
+          <p className={`${columnTitle} mt-10`}>Also available on</p>
           <ul className="space-y-3">
             {MARKETPLACES.map((m) => (
               <li key={m.label}>
@@ -84,7 +83,7 @@ export function Footer() {
               </a>
             </li>
           </ul>
-        </div>
+        </nav>
 
         {/* Contact */}
         <div>
