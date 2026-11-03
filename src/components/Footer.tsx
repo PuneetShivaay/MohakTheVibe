@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Instagram, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { collections } from "@/lib/products";
-import { CONTACT, LEGAL_LINKS, MARKETPLACES, NAV_LINKS, SITE_LINKS } from "@/lib/site";
+import { CONTACT, LEGAL_LINKS, MARKETPLACES, NAV_LINKS, SHOP_LINKS, SITE_LINKS } from "@/lib/site";
 
 const columnTitle = "text-eyebrow uppercase text-brand-gold mb-6";
 const columnLink = "text-sm text-foreground/70 hover:text-brand-gold transition-colors";
@@ -36,6 +36,13 @@ export function Footer() {
         <nav aria-label="Footer">
           <p className={columnTitle}>Explore</p>
           <ul className="space-y-3">
+            {SHOP_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className={columnLink}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
             {collections.map((c) => (
               <li key={c.slug}>
                 <Link href={`/collections/${c.slug}`} className={columnLink}>
@@ -43,7 +50,7 @@ export function Footer() {
                 </Link>
               </li>
             ))}
-            {[...NAV_LINKS.left.slice(1), ...NAV_LINKS.right].map((link) => (
+            {NAV_LINKS.right.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className={columnLink}>
                   {link.label}

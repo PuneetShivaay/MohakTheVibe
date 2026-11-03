@@ -33,11 +33,14 @@ export const LEGAL_LINKS = [
   { label: "Privacy Policy", href: "/privacy-policy" },
 ] as const;
 
+export const SHOP_LINKS = [
+  { label: "Earrings", href: "/shop/earrings" },
+  { label: "Pendants", href: "/shop/pendants" },
+  { label: "Bracelets", href: "/shop/bracelets" },
+] as const;
+
 export const NAV_LINKS = {
-  left: [
-    { label: "Collections", href: PAGE_LINKS.collections },
-    { label: "Signature", href: PAGE_LINKS.signature },
-  ],
+  left: [...SHOP_LINKS, { label: "Collections", href: PAGE_LINKS.collections }],
   right: [
     { label: "Our Story", href: PAGE_LINKS.story },
     { label: "Contact", href: PAGE_LINKS.contact },

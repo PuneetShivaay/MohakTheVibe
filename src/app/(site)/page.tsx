@@ -1,5 +1,6 @@
 import { Hero } from "@/components/Hero";
 import { CollectionTiles } from "@/components/CollectionTiles";
+import { CategoryTiles } from "@/components/CategoryTiles";
 import { PromiseStrip } from "@/components/PromiseStrip";
 import { GiftBand } from "@/components/GiftBand";
 import { JewelryCatalog } from "@/components/JewelryCatalog";
@@ -11,6 +12,7 @@ export default function Home() {
     <>
       <Hero />
       <PromiseStrip />
+      <CategoryTiles />
       <CollectionTiles />
       <JewelryCatalog />
       <BrandStory />
