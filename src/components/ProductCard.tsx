@@ -23,6 +23,14 @@ export function collectionCover(collection: Collection, products: Product[], wid
 export const quietLink =
   "border-b border-transparent pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors";
 
+// Keeps small product lists centred instead of leaving empty grid columns
+const gridBySize: Record<number, string> = {
+  1: "grid-cols-1 max-w-sm",
+  2: "grid-cols-2 max-w-2xl",
+  3: "grid-cols-2 lg:grid-cols-3 max-w-5xl",
+};
+export const productGridClass = (count: number) => gridBySize[count] ?? "grid-cols-2 lg:grid-cols-4";
+
 // Per-product listing where we have one, otherwise the store page
 function marketplaceLinks(product: Product) {
   const links = [

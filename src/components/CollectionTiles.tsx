@@ -11,26 +11,28 @@ import { SectionHeading } from "./SectionHeading";
 // A lone last tile spans both columns so an odd number of collections never leaves a gap
 export const spansFullRow = (index: number, total: number) => total > 1 && total % 2 === 1 && index === total - 1;
 
-// Editorial tile: cover photo with caption overlay, links to the collection page.
-// `count` is the number of products in the collection and `cover` the ready-to-render photo URL
-// (both derived from getProducts()). `wide` is the full-row variant.
+// Editorial tile: cover photo with caption overlay. Links to the collection page by default, or to
+// `href` (used for category tiles). `count` is the number of products and `cover` the ready-to-render
+// photo URL (both derived from getProducts()). `wide` is the full-row variant.
 export function CollectionTile({
   collection,
   count,
   cover,
+  href,
   tall = false,
   wide = false,
 }: {
-  collection: Collection;
+  collection: Pick<Collection, "slug" | "name" | "tagline">;
   count: number;
   cover?: string;
+  href?: string;
   tall?: boolean;
   wide?: boolean;
 }) {
   const img = cover;
 
   return (
-    <Link href={`/collections/${collection.slug}`} className="group relative block h-full overflow-hidden bg-muted">
+    <Link href={href ?? `/collections/${collection.slug}`} className="group relative block h-full overflow-hidden bg-muted">
       <div
         className={cn(
           "relative w-full",
@@ -40,7 +42,7 @@ export function CollectionTile({
         {img && (
           <Image
             src={img}
-            alt={`${collection.name} collection`}
+            alt={`${collection.name} ${href ? "category" : "collection"}`}
             fill
             sizes={wide ? "100vw" : "(min-width: 768px) 50vw, 100vw"}
             className="object-cover transition-transform [transition-duration:1200ms] ease-out-soft group-hover:scale-105"

@@ -6,7 +6,7 @@ import { collections, getCollection, getProductsByCollection } from "@/lib/produ
 import { cn } from "@/lib/utils";
 import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
 import { LayeredImages } from "@/components/LayeredImages";
-import { collectionCover, collectionCoverSource, ProductCard, ShopFullRange } from "@/components/ProductCard";
+import { collectionCover, collectionCoverSource, ProductCard, productGridClass, ShopFullRange } from "@/components/ProductCard";
 import { FadeIn } from "@/components/FadeIn";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
@@ -33,13 +33,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     twitter: { title, description: collection.description, images: cover ? [cover] : undefined },
   };
 }
-
-// Keep small collections centred instead of leaving empty grid columns
-const gridBySize: Record<number, string> = {
-  1: "grid-cols-1 max-w-sm",
-  2: "grid-cols-2 max-w-2xl",
-  3: "grid-cols-2 lg:grid-cols-3 max-w-5xl",
-};
 
 export default async function CollectionPage({ params }: Params) {
   const collection = getCollection((await params).slug);
@@ -94,7 +87,7 @@ export default async function CollectionPage({ params }: Params) {
           <Reveal className="mb-14 md:mb-16">
             <SectionHeading eyebrow={collection.name} title={<>The <em>pieces</em></>} />
           </Reveal>
-          <div className={cn("grid mx-auto gap-x-4 md:gap-x-8 gap-y-14", gridBySize[items.length] ?? "grid-cols-2 lg:grid-cols-4")}>
+          <div className={cn("grid mx-auto gap-x-4 md:gap-x-8 gap-y-14", productGridClass(items.length))}>
             {items.map((product, i) => (
               <Reveal key={product.id} delay={(i % 4) * 100}>
                 <ProductCard product={product} showCollection={false} />
