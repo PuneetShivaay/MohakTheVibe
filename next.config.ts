@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      // Marketplace product photos (Flipkart / Meesho CDNs)
+      { protocol: 'https', hostname: '*.flixcart.com', port: '', pathname: '/**' },
+      { protocol: 'https', hostname: 'images.meesho.com', port: '', pathname: '/**' },
     ],
   },
 };

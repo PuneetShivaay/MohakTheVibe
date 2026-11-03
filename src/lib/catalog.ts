@@ -16,6 +16,11 @@ const imageById = (id?: string) => (id ? PlaceHolderImages.find((img) => img.id 
 
 const isCloudinaryUrl = (url: string) => /^https:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\//.test(url);
 
+// Marketplace CDNs that host the same product photos (Flipkart: rukminim1/2.flixcart.com, Meesho)
+const isMarketplaceImage = (url: string) =>
+  /^https:\/\/(rukminim\d*\.flixcart\.com|images\.meesho\.com)\//.test(url);
+
+const isAllowedImage = (url: string) => isCloudinaryUrl(url) || isMarketplaceImage(url);
 // Adds automatic format/quality and a width cap to Cloudinary URLs (Next image optimisation is
 // off in static export). Other URLs are returned unchanged.
 export function cloudinaryUrl(url: string, width = 800) {
@@ -43,7 +48,7 @@ const rowSchema = z.object({
   price: cell
     .transform((v) => Number(v.replace(/[₹,\s]/g, "")))
     .pipe(z.number({ message: "price is not a number" }).positive("price must be above 0")),
-  image: cell.refine((v) => isCloudinaryUrl(v) && !isPlaceholder(v), "image must be a Cloudinary URL"),
+  image: cell.refine((v) => isAllowedImage(v) && !isPlaceholder(v), "image must be a Cloudinary, Flipkart or Meesho URL"),
   hover_image: optionalUrl,
   flipkart: optionalUrl,
   meesho: optionalUrl,
@@ -102,7 +107,7 @@ export function parseSheet(csv: string): Product[] {
         collection,
         price: formatPrice(r.price),
         image: r.image,
-        hoverImage: r.hover_image && isCloudinaryUrl(r.hover_image) ? r.hover_image : undefined,
+        hoverImage: r.hover_image && isAllowedImage(r.hover_image) ? r.hover_image : undefined,
         links: { flipkart: r.flipkart, meesho: r.meesho, amazon: r.amazon },
         featured: r.featured,
       },
