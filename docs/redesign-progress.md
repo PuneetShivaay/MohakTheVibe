@@ -58,13 +58,13 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 
 ## Catalog (next project)
 Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, categories (earrings, pendants, bracelets), 100–150 products.
-- [ ] C0. Setup (owner): Cloudinary account and folders, Google Sheet with header row, test products, publish as CSV. **Sheet created and published (headers OK, rows still placeholders); Cloudinary pending.**
+- [x] C0. Setup (owner): Cloudinary account, Google Sheet published as CSV with test products (12 valid rows on 2026-11-03). Still to do: real product data.
 - [x] C1. Data layer (`catalog.ts`, fallback, validation, Cloudinary helper)
-- [ ] C2. Category pages (`/shop/[category]`)
-- [ ] C3. Navigation and home (Shop menu, category tiles, featured products)
-- [ ] C4. Large catalog UX (filters, load more, empty states)
-- [ ] C5. Scheduled refresh and docs
-- [ ] C6. Full data entry and QA, then merge
+- [x] C2. Category pages (`/shop/[category]`, sitemap)
+- [x] C3. Navigation and home (Shop links in navbar/footer, home `CategoryTiles`). Featured products on home were done in C1.
+- [ ] C4. Large catalog UX (collection/type filter chips, search box on category pages, "Load more", optional `type` and `tags` sheet columns). Search discussed: not needed for ~12 products; do it here, add a navbar search only if the catalog passes ~50 products.
+- [ ] C5. Scheduled refresh and docs (workflow `schedule` + `workflow_dispatch`, `CATALOG_SHEET_CSV_URL` GitHub secret, "How to add a product" in `SETUP.md`)
+- [ ] C6. Full data entry and QA, then merge (never merge to `main` without approval: it deploys)
 
 ## Log
 - 2026-10-27: Plan and progress files created. No code changed yet.
@@ -121,6 +121,14 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - Real sheet note: row 5 has a name but no `id`.
 - 2026-11-03: Owner added the first real product to the sheet (`ear-002`, studs). Live-sheet check: 1 valid product, Cloudinary resizing applied, Flipkart and Meesho links used. **While the sheet has any valid row, it replaces the fallback list**, so the other collections show 0 pieces until their products are added to the sheet.
 - 2026-11-03: Added the **Studs** collection in code (`slug: "stud"`, matching the sheet value). `Collection.coverImageId` is now optional: without it the cover is the first product's photo (new `collectionCover`/`collectionCoverSource` in `ProductCard.tsx`, used by home tiles, collection page, metadata). `CollectionTile` takes `cover` and `wide` props; with an odd number of tiles the last one spans the full row (`spansFullRow`), on the home page and in "More collections". Build passes with `/collections/stud` (15 pages); footer, sitemap and other collection pages pick it up automatically.
+- 2026-11-03: **Catalog C2 + C3 done** on `catalog`:
+  - New `/shop/earrings`, `/shop/pendants`, `/shop/bracelets` (`(site)/shop/[category]/page.tsx`): intro with `LayeredImages`, product grid, "Coming soon" state when empty (noindex, not in sitemap), "More to shop" tiles. `sitemap.ts` is async and lists non-empty categories (priority 0.9). Shared `productGridClass()` in `ProductCard.tsx`; `CollectionTile` accepts `href`. Build: 18 pages.
+  - Home: new `CategoryTiles` ("Shop by category") above the collections. Navbar: Earrings / Pendants / Bracelets / Collections on the left (the "Signature" link was removed from nav and footer; the section is still on the home page). `SHOP_LINKS` added to `site.ts`.
+  - Images: Flipkart (`rukminim*.flixcart.com`) and Meesho (`images.meesho.com`) image URLs are now accepted in `image`/`hover_image` besides Cloudinary (not resized; hosts added to `next.config.ts`). Rows 6, 11, 16 of the sheet were previously skipped for this reason.
+  - Footer: "Explore" split into Shop (categories + collections) and Company (Our Story, Contact, legal, "Also available on"); trust line (`TRUST_POINTS`: free shipping, easy returns, secure checkout on Flipkart & Meesho: **owner to confirm these claims**); GSTIN (`CONTACT.gstin`) in the copyright line; two columns on phones.
+  - Sheet data notes: `id_04` "Studs Earrings" is under `pendants` (likely a typo); rows are repeated test data.
+  - Open: "Studs" is really an earring type, not a style. Option: add a `type` column and type filter chips on category pages in C4 (not decided).
+  - The dev-console hydration warning about `<head data-locator-hook-status-message>` comes from a browser extension, not the code.
 - 2026-10-28: **Phase 4 done** on `redesign`:
   - `JewelryCatalog` rewritten as "Signature Pieces / The ones she *keeps*" using `SectionHeading` and `Reveal`; now a server component (less client JS).
   - 3:4 cards with 1px gold hairline, collection label, Title Case name, single price; gentle zoom on hover, or crossfade when a product has `hoverImgId`.

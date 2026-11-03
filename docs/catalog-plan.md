@@ -32,8 +32,8 @@ Starter file: `docs/catalog-template.csv` (headers + 3 example rows). In Google 
 | `category` | yes | `earrings` | One of `earrings`, `pendants`, `bracelets` |
 | `collection` | no | `minakari` | A slug from `collections` in `products.ts`, or empty |
 | `price` | yes | `199` | Number only; the site adds `₹` |
-| `image` | yes | `https://res.cloudinary.com/<cloud>/image/upload/...` | Must be a Cloudinary URL (`res.cloudinary.com`) |
-| `hover_image` | no | Cloudinary URL | Second photo, ideally on-model; shown on hover |
+| `image` | yes | `https://res.cloudinary.com/<cloud>/image/upload/...` | Cloudinary URL (recommended: resized automatically), or a Flipkart (`rukminim*.flixcart.com`) / Meesho (`images.meesho.com`) image URL. These are not resized, so use small versions (e.g. `/512/512/` in the Flipkart URL); they may change or break if the listing is removed |
+| `hover_image` | no | Same host rules as `image` | Second photo, ideally on-model; shown on hover |
 | `flipkart` | no | Product URL | Falls back to the Flipkart store link |
 | `meesho` | no | Product URL | Falls back to the Meesho store link |
 | `amazon` | no | Product URL | Shown only if present |
@@ -73,7 +73,7 @@ Cloudinary ──(image URLs + size transforms)──► ProductCard <Image>
 
 ## Safety rules (nothing breaks)
 1. **Fallback always**: no sheet URL, a network error, an empty or malformed sheet → the current 8 products, exactly as today.
-2. **Bad rows are skipped, not fatal**: missing name/image, unknown category, non-Cloudinary image URL, duplicate `id` → row skipped and logged.
+2. **Bad rows are skipped, not fatal**: missing name/image, unknown category, image URL from a host other than Cloudinary/Flipkart/Meesho, duplicate `id` → row skipped and logged.
 3. **Existing URLs keep working**: `/`, `/collections/[slug]`, `/our-story`, `/contact`, legal pages and `/#catalog` anchors.
 4. **Unchanged by decision**: `BrandStory.tsx`, `ProductCard` look (single price, quiet marketplace links), "Our Essence".
 5. **Each phase ends green**: `npm run typecheck`, `npm run lint`, `npm run build`, plus a check that a build with **no** sheet URL renders the same home page as today.
@@ -84,8 +84,8 @@ Cloudinary ──(image URLs + size transforms)──► ProductCard <Image>
 |---|---|---|---|
 | C0 | Setup | Cloudinary account + folders; Google Sheet with the header row; 5–10 test products; sheet published as CSV | You |
 | C1 | Data layer | `catalog.ts`, fallback, validation, Cloudinary helper, `remotePatterns`. No visible change | Me |
-| C2 | Categories | `categories` in code, `/shop/[category]` pages, sitemap, metadata | Me |
-| C3 | Navigation and home | "Shop" menu, footer column, `CategoryTiles`, featured products | Me |
+| C2 | Categories | `categories` in code, `/shop/[category]` pages, sitemap, metadata | Me (done) |
+| C3 | Navigation and home | "Shop" menu, footer column, `CategoryTiles`, featured products | Me (done) |
 | C4 | Large catalog UX | Collection filter chips, "Load more", empty states | Me |
 | C5 | Refresh and docs | Workflow schedule + manual run, GitHub secret, "How to add a product" in `SETUP.md`, update `architecture.md` and Copilot instructions | Me (secret: you) |
 | C6 | Full data and QA | Enter all 100–150 products; check every category on mobile and desktop, both themes; Lighthouse; merge | You + me |

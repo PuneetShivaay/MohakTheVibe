@@ -42,6 +42,7 @@ src/
       layout.tsx        Shared Navbar, <main>, Footer, WhatsAppCTA
       page.tsx          Home page: composes the section components
       collections/[slug]/page.tsx   Collection page (static params, per-page metadata)
+      shop/[category]/page.tsx      Category page (earrings, pendants, bracelets; noindex while empty)
       our-story/page.tsx            Brand story page
     preview/            TEMPORARY redesign mock (noindex, outside (site) so it has its own chrome)
     globals.css         Tailwind layers, light/dark CSS variables, smooth scrolling
@@ -51,7 +52,8 @@ src/
     Navbar, Hero, CollectionTiles, JewelryCatalog, BrandStory,
     InstagramGrid, ContactSection, Footer, WhatsAppCTA   Page sections
     ProductCard.tsx     ProductCard, ShopFullRange, imageUrl(), quietLink (shared by home and collection pages)
-    CollectionTiles.tsx CollectionTiles (home section) and CollectionTile (one linked cover tile)
+    CollectionTiles.tsx CollectionTiles (home section) and CollectionTile (one linked cover tile; `href` makes it a category tile)
+    CategoryTiles.tsx   Home "Shop by category" tiles (non-empty categories only)
     LayeredImages.tsx   Two framed prints (large 4:5 + small square overlap), the "Our Essence" look
     PromiseStrip.tsx    Handpicked · Anti-tarnish · Gift-ready · Pan-India delivery strip (BRAND_PROMISES)
     GiftBand.tsx        Midnight "gift-ready" band with logo and WhatsApp prompt
@@ -65,8 +67,9 @@ src/
   hooks/                use-toast, use-mobile
   lib/
     utils.ts            cn() class merge helper (knows the custom text-display*/text-eyebrow sizes)
-    site.ts             WhatsApp number, Instagram and marketplace store links
-    products.ts         Products, collections, getProductsByCollection(), getCollection()
+    site.ts             WhatsApp number, Instagram/marketplace links, CONTACT (incl. GSTIN), NAV_LINKS, SHOP_LINKS, LEGAL_LINKS, TRUST_POINTS
+    products.ts         Types, categories, collections, fallbackProducts, getProductsByCollection/Category()
+    catalog.ts          getProducts(): Google Sheet CSV at build time (zod-validated, fallback to products.ts), cloudinaryUrl()
     instagram.ts        Build-time Instagram feed (getInstagramPosts), null when unavailable
     placeholder-images.ts / .json   Image registry (id → URL)
   ai/                   Genkit leftovers; all files are stubs ("Feature removed")
@@ -79,7 +82,9 @@ docs/                   blueprint, redesign plan/progress, this file
 
 ## How pages are composed
 - `src/app/(site)/layout.tsx` wraps every public page with Navbar, Footer and WhatsAppCTA. New pages go inside `(site)/`.
-- `src/app/(site)/page.tsx` renders the home sections: Hero → PromiseStrip → CollectionTiles → JewelryCatalog → BrandStory → InstagramGrid → GiftBand → ContactSection.
+- `src/app/(site)/page.tsx` renders the home sections: Hero → PromiseStrip → CategoryTiles → CollectionTiles → JewelryCatalog → BrandStory → InstagramGrid → GiftBand.
+- `src/app/(site)/shop/[category]/page.tsx`: one static page per entry in `categories` (`generateStaticParams`). Intro beside `LayeredImages`, product grid (`ProductCard`, `productGridClass`), "Coming soon" state when empty (page is `noindex` and left out of `sitemap.xml`), and tiles for the other non-empty categories.
+- Footer: trust line (`TRUST_POINTS`), columns Brand / Shop (categories + collections) / Company (Our Story, Contact, legal, "Also available on") / Get in touch; two columns on phones. Bottom line shows the copyright, `CONTACT.gstin` and the developer credit.
 - `src/app/(site)/our-story/page.tsx`: intro beside `LayeredImages`, `PromiseStrip`, four values, Midnight pull-quote band, "How to shop" (3 steps) with links to collections and WhatsApp. Copy is placeholder.
 - `src/app/(site)/collections/[slug]/page.tsx`: one static page per entry in `collections` (`generateStaticParams`, `dynamicParams = false`, so unknown slugs 404). Sections: intro text beside `LayeredImages` (cover + another piece from the collection; single-piece collections show only the cover), the collection's products (small collections are centred), "Shop the full range", and tiles for the other collections. `generateMetadata` sets title, description, canonical and Open Graph/Twitter image per collection.
 - Navigation: `Navbar` reads `NAV_LINKS` and `MARKETPLACES` from `src/lib/site.ts`. Links come from `PAGE_LINKS`: `/#collections`, `/#catalog`, `/our-story`, `/#contact`; collection tiles link to `/collections/[slug]`. The home "Our Essence" section keeps its `#brand-story` id but is no longer a nav target. The bar is transparent only at the top of `/` (`usePathname`), otherwise solid.
@@ -87,7 +92,8 @@ docs/                   blueprint, redesign plan/progress, this file
 Sections are client components (`"use client"`) with named exports. Most could be server components; only interactive ones (Navbar scroll state, ThemeToggle, ContactSection form, carousels, `Reveal`) need the client.
 
 ## Data
-- **Products and collections**: `src/lib/products.ts`. Each product has `name`, `imgId`, `collection` slug, a single `price` (no sale/compare-at price), optional `hoverImgId` (second photo for the hover crossfade) and optional per-product `links` (Flipkart/Meesho/Amazon); components fall back to the store links. Collection names are a draft, and several product names don't match their photos yet (see progress doc).
+- **Products and collections**: the product list comes from `getProducts()` in `src/lib/catalog.ts` (Google Sheet published as CSV, read at build time with `CATALOG_SHEET_CSV_URL`; falls back to `fallbackProducts` in `products.ts`; never fails the build). `image`/`hoverImage` may be Cloudinary, Flipkart (`rukminim*.flixcart.com`) or Meesho (`images.meesho.com`) URLs; render through `cloudinaryUrl()`. Sheet columns: `id,name,category,collection,price,image,hover_image,flipkart,meesho,amazon,featured,active,sort` (see `docs/catalog-plan.md`). Product `category` is earrings/pendants/bracelets; `collection` is a style slug (minakari, kundan, contemporary, stud). Older notes below about `imgId` describe the fallback list.
+- **Products (fallback shape)**: `src/lib/products.ts`. Each product has `name`, `imgId`, `collection` slug, a single `price` (no sale/compare-at price), optional `hoverImgId` (second photo for the hover crossfade) and optional per-product `links` (Flipkart/Meesho/Amazon); components fall back to the store links. Collection names are a draft, and several product names don't match their photos yet (see progress doc).
 - **Server components**: `JewelryCatalog`, `ProductCard`, `CollectionTiles`, `LayeredImages` and the collection page render on the server; only the `Reveal` wrappers run on the client.
 - **Contact details**: `src/lib/site.ts`: `WHATSAPP_NUMBER`, `SITE_LINKS` (Instagram, WhatsApp, marketplaces), `CONTACT` (email, location, phone, WhatsApp link with a prefilled hello). Import from there; don't hardcode links or contact details in components (only `site.ts` and the temporary preview contain them).
 - **Images**: components look up `PlaceHolderImages.find(img => img.id === "...")` and must handle a missing result. Files live in `public/images/`.
