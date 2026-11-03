@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getProducts, cloudinaryUrl } from "@/lib/catalog";
 import { collections, getCollection, getProductsByCollection } from "@/lib/products";
 import { cn } from "@/lib/utils";
 import { CollectionTile } from "@/components/CollectionTiles";
@@ -44,12 +45,13 @@ export default async function CollectionPage({ params }: Params) {
   const collection = getCollection((await params).slug);
   if (!collection) notFound();
 
-  const items = getProductsByCollection(collection.slug);
+  const products = await getProducts();
+  const items = getProductsByCollection(products, collection.slug);
   const others = collections.filter((c) => c.slug !== collection.slug);
   const cover = imageUrl(collection.coverImageId);
   // Small print: another piece from the collection, so it never repeats the cover
-  const detailProduct = items.find((p) => p.imgId !== collection.coverImageId);
-  const detail = imageUrl(detailProduct?.imgId);
+  const detailProduct = items.find((p) => p.image !== cover);
+  const detail = detailProduct ? cloudinaryUrl(detailProduct.image, 600) : undefined;
 
   return (
     <>
@@ -114,7 +116,7 @@ export default async function CollectionPage({ params }: Params) {
             <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               {others.map((c, i) => (
                 <Reveal key={c.slug} delay={i * 120}>
-                  <CollectionTile collection={c} />
+                  <CollectionTile collection={c} count={getProductsByCollection(products, c.slug).length} />
                 </Reveal>
               ))}
             </div>

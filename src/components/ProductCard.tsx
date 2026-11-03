@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { cloudinaryUrl } from "@/lib/catalog";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { getCollection, type Product } from "@/lib/products";
 import { SITE_LINKS } from "@/lib/site";
@@ -20,8 +21,9 @@ function marketplaceLinks(product: Product) {
 }
 
 export function ProductCard({ product, showCollection = true }: { product: Product; showCollection?: boolean }) {
-  const img = imageUrl(product.imgId);
-  const hoverImg = imageUrl(product.hoverImgId);
+  // Cards are at most ~25vw wide; 800px covers 2x screens. Local images pass through unchanged.
+  const img = product.image ? cloudinaryUrl(product.image, 800) : undefined;
+  const hoverImg = product.hoverImage ? cloudinaryUrl(product.hoverImage, 800) : undefined;
   const collection = getCollection(product.collection);
 
   return (

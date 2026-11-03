@@ -13,6 +13,13 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      // Product photos from the Google Sheet catalog (see docs/catalog-plan.md)
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

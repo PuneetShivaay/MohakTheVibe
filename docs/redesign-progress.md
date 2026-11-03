@@ -59,7 +59,7 @@ Update this file after each task. Plan: `docs/redesign-plan.md`.
 ## Catalog (next project)
 Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, categories (earrings, pendants, bracelets), 100–150 products.
 - [ ] C0. Setup (owner): Cloudinary account and folders, Google Sheet with header row, test products, publish as CSV. **Sheet created and published (headers OK, rows still placeholders); Cloudinary pending.**
-- [ ] C1. Data layer (`catalog.ts`, fallback, validation, Cloudinary helper)
+- [x] C1. Data layer (`catalog.ts`, fallback, validation, Cloudinary helper)
 - [ ] C2. Category pages (`/shop/[category]`)
 - [ ] C3. Navigation and home (Shop menu, category tiles, featured products)
 - [ ] C4. Large catalog UX (filters, load more, empty states)
@@ -111,6 +111,14 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
 - Note: `next lint` is deprecated in Next 16; migrate to the ESLint CLI when upgrading.
 - 2026-10-30: Owner checked the home page in the browser: all content visible. Footer credit shortened to "Developed by Otical" on the copyright line.
 - 2026-10-30: **Pre-deploy cleanup**: deleted `src/app/preview/` (temporary design mock), removed its `disallow` from `robots.ts` and its note from the Copilot instructions. `npm run build` passes: 14 static pages.
+- 2026-11-03: Catalog plan written (`docs/catalog-plan.md`), sheet template (`docs/catalog-template.csv`), sheet published; URL in `.env.local` (git-ignored).
+- 2026-11-03: **Catalog C1 done** on `catalog` (no visible change):
+  - New `src/lib/catalog.ts`: `getProducts()` reads the published CSV at build time (10 s timeout, one fetch per build worker), parses with `papaparse`, validates rows with zod, skips bad rows with the row number and reason in the build log, ignores rows with no id and no name, drops `active = no`, sorts by `sort` then `id`, formats price as `₹1,299`. No URL, HTTP error, network error or 0 valid rows → `fallbackProducts`. Never throws.
+  - Images must be Cloudinary URLs (`res.cloudinary.com/<cloud>/image/upload/`); template placeholders (`YOUR_…`, `REPLACE_WITH…`) count as empty. `cloudinaryUrl(url, width)` adds `f_auto,q_auto,c_limit,w_<n>`; local `/images/...` pass through. `res.cloudinary.com` added to `next.config.ts` `remotePatterns`.
+  - `products.ts`: new `Category` type and `categories` (earrings, pendants, bracelets); `Product` now has `category`, optional `collection`, `image`/`hoverImage` URLs and `featured`; old `products` renamed `fallbackProducts` (all earrings, images by id). Helpers take the product list as an argument; added `getCategory`, `getProductsByCategory`.
+  - `JewelryCatalog` (featured products, else first 8), `CollectionTiles` (counts) and `/collections/[slug]` are now async server components using `getProducts()`. `CollectionTile` takes a `count` prop. `ProductCard` renders `product.image` through `cloudinaryUrl`.
+  - Verified: parser check with valid rows, quotes and commas in names, `₹1,299`, duplicate id, unknown category, bad price, Drive URL, missing id, hidden row, unknown collection; real sheet (placeholder rows skipped → fallback). Typecheck, lint (0 errors), build: 14 pages, home first-load JS unchanged (171 kB). Exported home and collection pages show the same 8 products and counts as before.
+  - Real sheet note: row 5 has a name but no `id`.
 - 2026-10-28: **Phase 4 done** on `redesign`:
   - `JewelryCatalog` rewritten as "Signature Pieces / The ones she *keeps*" using `SectionHeading` and `Reveal`; now a server component (less client JS).
   - 3:4 cards with 1px gold hairline, collection label, Title Case name, single price; gentle zoom on hover, or crossfade when a product has `hoverImgId`.

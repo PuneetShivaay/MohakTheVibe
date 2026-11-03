@@ -1,16 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getProducts } from "@/lib/catalog";
 import { collections, getProductsByCollection, type Collection } from "@/lib/products";
 import { cn } from "@/lib/utils";
 import { imageUrl } from "./ProductCard";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
-// Editorial tile: cover photo with caption overlay, links to the collection page
-export function CollectionTile({ collection, tall = false }: { collection: Collection; tall?: boolean }) {
+// Editorial tile: cover photo with caption overlay, links to the collection page.
+// `count` is the number of products in the collection (from getProducts()).
+export function CollectionTile({ collection, count, tall = false }: { collection: Collection; count: number; tall?: boolean }) {
   const img = imageUrl(collection.coverImageId);
-  const count = getProductsByCollection(collection.slug).length;
 
   return (
     <Link href={`/collections/${collection.slug}`} className="group relative block h-full overflow-hidden bg-muted">
@@ -44,7 +45,9 @@ export function CollectionTile({ collection, tall = false }: { collection: Colle
   );
 }
 
-export function CollectionTiles() {
+export async function CollectionTiles() {
+  const products = await getProducts();
+  const countOf = (slug: string) => getProductsByCollection(products, slug).length;
   const [first, ...rest] = collections;
 
   return (
@@ -65,12 +68,12 @@ export function CollectionTiles() {
         <div className="grid md:grid-cols-2 gap-4 md:gap-6">
           {first && (
             <Reveal className="md:row-span-2">
-              <CollectionTile collection={first} tall />
+              <CollectionTile collection={first} count={countOf(first.slug)} tall />
             </Reveal>
           )}
           {rest.map((collection, i) => (
             <Reveal key={collection.slug} delay={(i + 1) * 120}>
-              <CollectionTile collection={collection} />
+              <CollectionTile collection={collection} count={countOf(collection.slug)} />
             </Reveal>
           ))}
         </div>
