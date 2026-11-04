@@ -62,7 +62,7 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
 - [x] C1. Data layer (`catalog.ts`, fallback, validation, Cloudinary helper)
 - [x] C2. Category pages (`/shop/[category]`, sitemap)
 - [x] C3. Navigation and home (Shop links in navbar/footer, home `CategoryTiles`). Featured products on home were done in C1.
-- [ ] C4. Large catalog UX (collection/type filter chips, search box on category pages, "Load more", optional `type` and `tags` sheet columns). Search discussed: not needed for ~12 products; do it here, add a navbar search only if the catalog passes ~50 products.
+- [x] C4. Large catalog UX: type filter chips and "Load more" (24 per page) on category pages (`CategoryProducts.tsx`); new optional `type` sheet column. No search box yet (discussed: only needed past ~50 products; would reuse this component). Optional `tags` column not added.
 - [ ] C5. Scheduled refresh and docs (workflow `schedule` + `workflow_dispatch`, `CATALOG_SHEET_CSV_URL` GitHub secret, "How to add a product" in `SETUP.md`)
 - [ ] C6. Full data entry and QA, then merge (never merge to `main` without approval: it deploys)
 
@@ -129,6 +129,7 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - Sheet data notes: `id_04` "Studs Earrings" is under `pendants` (likely a typo); rows are repeated test data.
   - Open: "Studs" is really an earring type, not a style. Option: add a `type` column and type filter chips on category pages in C4 (not decided).
   - The dev-console hydration warning about `<head data-locator-hook-status-message>` comes from a browser extension, not the code.
+- 2026-11-05: Sheet grew to 44 products; the build reads all of them (published CSV updates by itself, no republish needed; restart `npm run dev` after sheet edits). **C4 done**: types vs collections decided (option 2). New optional `type` column (stud, hoop, jhumka, chandbali, korean...); category pages show filter chips (when 2+ types) and "Load more" via client component `CategoryProducts`. Backwards compatible: an unknown value in `collection` is used as the product's `type`, and the `stud` collection also counts as type "stud", so the current sheet works without edits (move types into a `type` column when convenient). `typeLabel()` in `products.ts` names the chips. Image helpers moved to `src/lib/images.ts` (client-safe; `catalog.ts` re-exports `cloudinaryUrl`). Build: 18 pages, `/shop/[category]` 4 kB.
 - 2026-10-28: **Phase 4 done** on `redesign`:
   - `JewelryCatalog` rewritten as "Signature Pieces / The ones she *keeps*" using `SectionHeading` and `Reveal`; now a server component (less client JS).
   - 3:4 cards with 1px gold hairline, collection label, Title Case name, single price; gentle zoom on hover, or crossfade when a product has `hoverImgId`.

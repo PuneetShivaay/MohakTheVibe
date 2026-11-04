@@ -30,7 +30,8 @@ Starter file: `docs/catalog-template.csv` (headers + 3 example rows). In Google 
 | `id` | yes | `ear-001` | Unique, never reuse or change (used as React key and for stable ordering) |
 | `name` | yes | `Minakari Half Green Jhumka` | Title case |
 | `category` | yes | `earrings` | One of `earrings`, `pendants`, `bracelets` |
-| `collection` | no | `minakari` | A slug from `collections` in `products.ts`, or empty |
+| `collection` | no | `minakari` | A style slug from `collections` in `products.ts`, or empty |
+| `type` | no | `hoop` | Kind of piece (stud, hoop, jhumka, chandbali, korean...). Drives the filter chips on category pages. If empty, an unknown `collection` value is used as the type |
 | `price` | yes | `199` | Number only; the site adds `₹` |
 | `image` | yes | `https://res.cloudinary.com/<cloud>/image/upload/...` | Cloudinary URL (recommended: resized automatically), or a Flipkart (`rukminim*.flixcart.com`) / Meesho (`images.meesho.com`) image URL. These are not resized, so use small versions (e.g. `/512/512/` in the Flipkart URL); they may change or break if the listing is removed |
 | `hover_image` | no | Same host rules as `image` | Second photo, ideally on-model; shown on hover |

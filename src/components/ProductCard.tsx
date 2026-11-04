@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { cloudinaryUrl } from "@/lib/catalog";
+import { cloudinaryUrl } from "@/lib/images";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { getCollection, getProductsByCollection, type Collection, type Product } from "@/lib/products";
 import { SITE_LINKS } from "@/lib/site";

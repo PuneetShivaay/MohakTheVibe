@@ -4,10 +4,11 @@ import { notFound } from "next/navigation";
 import { cloudinaryUrl, getProducts } from "@/lib/catalog";
 import { categories, getCategory, getProductsByCategory } from "@/lib/products";
 import { cn } from "@/lib/utils";
+import { CategoryProducts } from "@/components/CategoryProducts";
 import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
 import { FadeIn } from "@/components/FadeIn";
 import { LayeredImages } from "@/components/LayeredImages";
-import { ProductCard, productGridClass, ShopFullRange } from "@/components/ProductCard";
+import { ShopFullRange } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 
@@ -94,13 +95,7 @@ export default async function CategoryPage({ params }: Params) {
               <Reveal className="mb-14 md:mb-16">
                 <SectionHeading eyebrow={category.name} title={<>The <em>pieces</em></>} />
               </Reveal>
-              <div className={cn("grid mx-auto gap-x-4 md:gap-x-8 gap-y-14", productGridClass(items.length))}>
-                {items.map((product, i) => (
-                  <Reveal key={product.id} delay={(i % 4) * 100}>
-                    <ProductCard product={product} />
-                  </Reveal>
-                ))}
-              </div>
+              <CategoryProducts products={items} />
             </>
           ) : (
             <Reveal className="text-center">

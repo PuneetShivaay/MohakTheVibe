@@ -5,6 +5,7 @@
 import Papa from "papaparse";
 import { z } from "zod";
 import { PlaceHolderImages } from "./placeholder-images";
+import { cloudinaryUrl, isAllowedImage } from "./images";
 import { categories, collections, fallbackProducts, type Product } from "./products";
 
 const CATEGORY_SLUGS = categories.map((c) => c.slug) as [Product["category"], ...Product["category"][]];
@@ -14,19 +15,8 @@ const COLLECTION_SLUGS = new Set(collections.map((c) => c.slug));
 
 const imageById = (id?: string) => (id ? PlaceHolderImages.find((img) => img.id === id)?.imageUrl : undefined);
 
-const isCloudinaryUrl = (url: string) => /^https:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\//.test(url);
-
-// Marketplace CDNs that host the same product photos (Flipkart: rukminim1/2.flixcart.com, Meesho)
-const isMarketplaceImage = (url: string) =>
-  /^https:\/\/(rukminim\d*\.flixcart\.com|images\.meesho\.com)\//.test(url);
-
-const isAllowedImage = (url: string) => isCloudinaryUrl(url) || isMarketplaceImage(url);
-// Adds automatic format/quality and a width cap to Cloudinary URLs (Next image optimisation is
-// off in static export). Other URLs are returned unchanged.
-export function cloudinaryUrl(url: string, width = 800) {
-  if (!isCloudinaryUrl(url)) return url;
-  return url.replace("/image/upload/", `/image/upload/f_auto,q_auto,c_limit,w_${width}/`);
-}
+// cloudinaryUrl lives in images.ts (client-safe); re-exported so existing imports keep working
+export { cloudinaryUrl };
 
 // --- Sheet rows ---------------------------------------------------------------------------------
 
@@ -45,6 +35,8 @@ const rowSchema = z.object({
   name: cell.pipe(z.string().min(1, "missing name")),
   category: cell.transform((v) => v.toLowerCase()).pipe(z.enum(CATEGORY_SLUGS, { message: "unknown category" })),
   collection: cell.transform((v) => v.toLowerCase()),
+  // Optional: what kind of piece it is (stud, hoop, jhumka...); drives the filter chips on category pages
+  type: cell.transform((v) => v.toLowerCase().replace(/\s+/g, "-")),
   price: cell
     .transform((v) => Number(v.replace(/[₹,\s]/g, "")))
     .pipe(z.number({ message: "price is not a number" }).positive("price must be above 0")),
@@ -93,10 +85,14 @@ export function parseSheet(csv: string): Product[] {
     seen.add(r.id);
 
     let collection: string | undefined = r.collection || undefined;
+    let type: string | undefined = r.type || undefined;
     if (collection && !COLLECTION_SLUGS.has(collection)) {
-      console.warn(`Catalog: row ${rowNumber} has unknown collection "${collection}"; shown without a collection`);
+      // Older sheets put types (hoop, jhumka...) in the collection column: use them as the type
+      type ??= collection;
       collection = undefined;
     }
+    // "Studs" is both a collection page and a type of earring
+    if (!type && collection === "stud") type = "stud";
 
     rows.push({
       sort: r.sort,
@@ -105,6 +101,7 @@ export function parseSheet(csv: string): Product[] {
         name: r.name,
         category: r.category,
         collection,
+        type,
         price: formatPrice(r.price),
         image: r.image,
         hoverImage: r.hover_image && isAllowedImage(r.hover_image) ? r.hover_image : undefined,

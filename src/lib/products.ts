@@ -31,6 +31,8 @@ export type Product = {
   category: Category["slug"];
   // Collection slug, or undefined when the product belongs to none
   collection?: Collection["slug"];
+  // Kind of piece within its category (stud, hoop, jhumka...), lower-case slug; used for filter chips
+  type?: string;
   // Display price including ₹, single price only (no compare-at or sale prices)
   price: string;
   // Absolute or site-relative image URLs (Cloudinary for sheet products, /images/... for fallback)
@@ -128,3 +130,15 @@ export function getProductsByCollection(products: Product[], slug: string) {
 export function getProductsByCategory(products: Product[], slug: string) {
   return products.filter((p) => p.category === slug);
 }
+
+// Display names for product types (filter chips); unknown types fall back to a Title Case slug
+const typeLabels: Record<string, string> = {
+  stud: "Studs",
+  hoop: "Hoops",
+  jhumka: "Jhumkas",
+  chandbali: "Chandbalis",
+  korean: "Korean",
+};
+
+export const typeLabel = (slug: string) =>
+  typeLabels[slug] ?? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
