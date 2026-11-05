@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { getProducts } from "@/lib/catalog";
 import { categories, collections, getProductsByCategory } from "@/lib/products";
+import { SITE_URL } from "@/lib/site";
 
 // Static export: generated once at build time as /sitemap.xml
 export const dynamic = "force-static";
 
-const BASE_URL = "https://mohak-the-vibe.web.app";
+const BASE_URL = SITE_URL;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await getProducts();

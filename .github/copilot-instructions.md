@@ -25,4 +25,4 @@ Next.js 15 (App Router, React 19, TypeScript, Tailwind, shadcn/ui) jewelry brand
 
 ## Workflows
 - `npm run dev` (Turbopack, port **9002**), `npm run build`, `npm run lint`, `npm run typecheck`.
-- Every push to `main` auto-deploys to Firebase Hosting (`.github/workflows/firebase-deploy.yml` builds to `out/`). Use a branch for unfinished work. `apphosting.yaml` is not used.
+- Hosted on **Vercel** (https://mohakthevibe.vercel.app, `SITE_URL` in `src/lib/site.ts`); every push to `main` auto-deploys, other branches get previews. Env vars (`CATALOG_SHEET_CSV_URL`, Instagram) are set in the Vercel dashboard. `.github/workflows/vercel-rebuild.yml` calls a Vercel Deploy Hook every 3 hours so sheet edits go live. Firebase was removed. Use a branch for unfinished work.

@@ -1,4 +1,6 @@
 // Single source for brand contact and marketplace links
+// Public site address (Vercel). Change here when a custom domain is added.
+export const SITE_URL = "https://mohakthevibe.vercel.app";
 export const WHATSAPP_NUMBER = "916388498674";
 
 export const SITE_LINKS = {

@@ -68,7 +68,7 @@ Cloudinary ──(image URLs + size transforms)──► ProductCard <Image>
 - Empty states: a category with no products shows a short note and links to the marketplaces instead of an empty grid.
 
 ## Deploy and refresh
-- `.github/workflows/firebase-deploy.yml`: add `schedule` (every 3 hours) and `workflow_dispatch` (manual button); pass `CATALOG_SHEET_CSV_URL` from a GitHub secret.
+- Hosting changed to Vercel (2026-11-05): `.github/workflows/vercel-rebuild.yml` calls a Vercel Deploy Hook every 3 hours and on "Run workflow" (secret `VERCEL_DEPLOY_HOOK_URL`); `CATALOG_SHEET_CSV_URL` is set as a Vercel environment variable. (Originally planned as a Firebase workflow.)
 - Local development: optional `CATALOG_SHEET_CSV_URL` in `.env.local`; without it the site uses the fallback products.
 - Each refresh rebuilds and redeploys the whole site (~3–5 min). Changes are **not instant**.
 

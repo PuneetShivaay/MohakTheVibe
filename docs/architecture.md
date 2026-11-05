@@ -3,7 +3,7 @@
 How the code is built, structured and deployed. For design direction see `redesign-plan.md`; for local setup see `../SETUP.md`.
 
 ## Summary
-A static brand website built with Next.js and React. There is no backend, database or checkout: every page is pre-rendered to HTML at build time and served from Firebase Hosting. Buying happens on the marketplaces (Flipkart, Meesho, Amazon) or over WhatsApp/Instagram.
+A static brand website built with Next.js and React. There is no backend, database or checkout: every page is pre-rendered to HTML at build time and served from Vercel. Buying happens on the marketplaces (Flipkart, Meesho, Amazon) or over WhatsApp/Instagram.
 
 ## Tech stack
 | Area | Technology | Version | Notes |
@@ -18,8 +18,8 @@ A static brand website built with Next.js and React. There is no backend, databa
 | Forms | react-hook-form + zod | 7 / 3 | Used by `ContactSection` |
 | Carousel | embla-carousel-react | 8 | Via shadcn `carousel` |
 | Fonts | Google Fonts: Playfair Display, Inter | – | Loaded with `<link>` in `src/app/layout.tsx` |
-| Hosting | Firebase Hosting | – | Serves the `out/` folder |
-| CI/CD | GitHub Actions | – | `.github/workflows/firebase-deploy.yml` |
+| Hosting | Vercel | – | Builds the Next.js static export on every push to `main` |
+| CI/CD | GitHub Actions | – | `.github/workflows/vercel-rebuild.yml` (scheduled Deploy Hook call) |
 
 Installed but unused: `firebase` (client SDK), `recharts`, `date-fns`, `react-day-picker` (its `calendar.tsx` was removed), `dotenv`, `patch-package`, and most shadcn components.
 
@@ -30,7 +30,7 @@ Installed but unused: `firebase` (client SDK), `recharts`, `date-fns`, `react-da
   - No API routes, server actions, ISR/`revalidate`, or runtime environment secrets.
   - Dynamic routes (e.g. `/collections/[slug]`) need `generateStaticParams`.
   - Live data (e.g. Instagram) must be fetched at build time, by a client-side widget, or by a separate service (e.g. a Firebase Cloud Function).
-- `firebase.json` uses `cleanUrls` (`/our-story` serves `our-story.html`) with no catch-all rewrite, so unknown URLs get `404.html`. Hashed `/_next/static/**` files are cached for a year; images for one day, so replaced photos show up quickly.
+- Clean URLs (`/our-story`) and the 404 page are handled by Vercel for static exports. (The old `firebase.json` rules were removed with Firebase.)
 - `apphosting.yaml` exists but is not used by the current deploy.
 
 ## Folder structure
@@ -121,11 +121,11 @@ Sections are client components (`"use client"`) with named exports. Most could b
 | Accessibility | "Skip to content" link (root layout) to `#main`; descriptive `aria-label`s on external links; reduced motion respected by `Reveal`, `FadeIn`, hero parallax and smooth scrolling |
 
 ## Build and deploy
-1. Push to `main` triggers `.github/workflows/firebase-deploy.yml`.
-2. The workflow runs `npm ci` and `npm run build` (type check, lint, static export to `out/`). A type error anywhere fails the deploy.
-3. `FirebaseExtended/action-hosting-deploy` publishes to the live channel of project `mohak-the-vibe`, using the `FIREBASE_SERVICE_ACCOUNT` repository secret.
+1. Push to `main`: Vercel runs `npm install` and `npm run build` (type check, lint, static export) and publishes https://mohakthevibe.vercel.app. A type error fails that deploy; the previous version stays live.
+2. Branches and pull requests get preview deployments.
+3. Sheet edits: `.github/workflows/vercel-rebuild.yml` (every 3 hours, or "Run workflow") calls the Vercel Deploy Hook (`VERCEL_DEPLOY_HOOK_URL` secret) to rebuild with fresh data.
 
-Anything merged to `main` goes live immediately. Redesign work happens on the `redesign` branch. Manual deploy is also possible with `firebase deploy` (see `SETUP.md`).
+Anything merged to `main` goes live immediately. Environment variables live in the Vercel dashboard (see `SETUP.md`).
 
 ## Known issues and tech debt
 - **Build on `main`**: `main` still contains `src/components/ui/calendar.tsx`, which fails the type check, so `npm run build` (and likely the deploy workflow) fails there. Fixed on `redesign` by deleting the unused file.

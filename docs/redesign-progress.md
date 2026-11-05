@@ -63,7 +63,7 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
 - [x] C2. Category pages (`/shop/[category]`, sitemap)
 - [x] C3. Navigation and home (Shop links in navbar/footer, home `CategoryTiles`). Featured products on home were done in C1.
 - [x] C4. Large catalog UX: type filter chips and "Load more" (24 per page) on category pages (`CategoryProducts.tsx`); new optional `type` sheet column. No search box yet (discussed: only needed past ~50 products; would reuse this component). Optional `tags` column not added.
-- [x] C5. Scheduled refresh and docs: workflow runs every 3 hours (`schedule`) and on demand (`workflow_dispatch`), passes `CATALOG_SHEET_CSV_URL` from a GitHub secret; `SETUP.md` has "Product catalog" (how to add a product). **Owner: add the GitHub secret** (the schedule only runs from `main`, so it starts after the merge).
+- [x] C5. Scheduled refresh and docs. **Hosting moved from Firebase to Vercel** (one URL: https://mohakthevibe.vercel.app, `SITE_URL` in `site.ts` used by sitemap, robots and metadata). Firebase workflow and config removed; `vercel-rebuild.yml` triggers a Vercel Deploy Hook every 3 hours / on demand; `SETUP.md` has "Product catalog" and the Vercel settings. **Owner: in Vercel add env var `CATALOG_SHEET_CSV_URL`; create a Deploy Hook and add GitHub secret `VERCEL_DEPLOY_HOOK_URL`.**
 - [ ] C6. Full data entry and QA, then merge (never merge to `main` without approval: it deploys)
 
 ## Log

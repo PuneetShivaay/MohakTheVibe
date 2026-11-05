@@ -1,6 +1,6 @@
 # Mohak – The Vibe
 
-See Live: https://mohak-the-vibe.web.app/
+See Live: https://mohakthevibe.vercel.app/
 
 This is the official repository for **Mohak – The Vibe**, a premium artificial jewelry boutique.
 

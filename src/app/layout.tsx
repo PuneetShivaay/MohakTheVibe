@@ -1,20 +1,21 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   // Resolves relative Open Graph image and canonical URLs on sub-pages
-  metadataBase: new URL('https://mohak-the-vibe.web.app'),
+  metadataBase: new URL(SITE_URL),
   title: 'Mohak – The Vibe | Premium Artificial Jewelry',
   description: 'Premium artificial jewelry for the modern woman. Handpicked Minakari, Kundan and contemporary earrings, gift-ready.',
   openGraph: {
     title: 'Mohak – The Vibe | Premium Artificial Jewelry',
     description: 'Discover your vibe with our curated jewelry collections.',
-    url: 'https://mohak-the-vibe.web.app',
+    url: SITE_URL,
     siteName: 'Mohak – The Vibe',
     images: [
       {
-        url: 'https://mohak-the-vibe.web.app/mohak.png',
+        url: `${SITE_URL}/mohak.png`,
         width: 1200,
         height: 630,
         alt: 'Mohak The Vibe Logo',
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Mohak – The Vibe | Premium Artificial Jewelry',
     description: 'Discover your vibe with our curated jewelry collections.',
-    images: ['https://mohak-the-vibe.web.app/mohak.png'],
+    images: [`${SITE_URL}/mohak.png`],
   },
 };
 

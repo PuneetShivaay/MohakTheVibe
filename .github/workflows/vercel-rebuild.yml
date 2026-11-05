@@ -1,0 +1,23 @@
+name: Rebuild site (Vercel)
+
+# Vercel builds on every push to main by itself. This job only covers sheet edits:
+# it calls a Vercel Deploy Hook so the site rebuilds with the latest Google Sheet data.
+on:
+  schedule:
+    - cron: "15 */3 * * *"
+  # "Run workflow" button in the GitHub Actions tab: publish sheet changes right away
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL secret is not set; nothing to do."
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"
