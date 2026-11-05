@@ -19,12 +19,13 @@ npm install
 This step is required. Without it, `npm run dev` fails with `'next' is not recognized as an internal or external command`.
 
 ## 3. Environment variables
-None needed. Optional, for the live Instagram feed (read only at build time):
+Optional, read only at build time. Put them in `.env.local` (git-ignored), never in `.env` or any committed file:
 ```
-INSTAGRAM_ACCESS_TOKEN=...
+CATALOG_SHEET_CSV_URL=...      # published Google Sheet CSV (product catalog)
+INSTAGRAM_ACCESS_TOKEN=...     # live Instagram feed
 INSTAGRAM_USER_ID=...
 ```
-Put them in `.env.local` (git-ignored), never in `.env` or any committed file. Without them the Instagram section shows local photos. In CI they come from GitHub repository secrets (see `docs/redesign-plan.md`, Instagram feed).
+Without `CATALOG_SHEET_CSV_URL` the site uses the built-in sample products; without the Instagram values it shows local photos. In CI they come from GitHub repository secrets (see "Product catalog" below and `docs/redesign-plan.md`, Instagram feed). Restart `npm run dev` after changing `.env.local` or the sheet.
 
 ## 4. Run the dev server
 ```bash
@@ -57,6 +58,20 @@ Full tech stack and structure: [docs/architecture.md](docs/architecture.md).
 **Automatic:** every push to `main` builds and deploys to Firebase Hosting via GitHub Actions (`.github/workflows/firebase-deploy.yml`). Work on a branch until changes are ready to go live.
 
 **Manual:** install the Firebase CLI (`npm i -g firebase-tools`), run `firebase login`, build, then `firebase deploy --only hosting`.
+
+## Product catalog (Google Sheet)
+Products live in the Google Sheet "Mohak Catalog" (published as CSV). Details: `docs/catalog-plan.md`.
+
+**One-time setup (GitHub):** repository → Settings → Secrets and variables → Actions → New repository secret. Name `CATALOG_SHEET_CSV_URL`, value the published CSV link (Sheet → File → Share → Publish to web → the sheet tab → CSV). Without this secret the live site shows only the built-in sample products.
+
+**Add or change a product**
+1. Add a row (or edit one) in the sheet. Required: `id` (unique, never reuse), `name`, `category` (earrings / pendants / bracelets), `price` (number), `image`.
+2. Optional: `collection` (minakari, kundan, contemporary, stud), `type` (stud, hoop, jhumka, chandbali, korean...), `hover_image`, `flipkart`, `meesho`, `amazon` (product links), `featured` (yes = home "Signature Pieces"), `active` (no = hide), `sort` (lower first).
+3. Images: Cloudinary URL (best, resized automatically) or a Flipkart/Meesho image URL (not resized; prefer small versions). Other hosts are skipped.
+4. No need to re-publish: Google updates the CSV itself (can take a few minutes).
+5. Go live: wait for the automatic rebuild (every 3 hours), or run it now: GitHub → Actions → "Deploy to Firebase Hosting" → Run workflow (about 3–5 minutes).
+
+Rows with problems are skipped, not fatal. See the Actions run log for lines like `Catalog: skipped sheet row 12 (...)`. If the sheet is unreachable the build keeps working with the built-in products.
 
 ## Troubleshooting
 - **`next` is not recognized**: run `npm install`.

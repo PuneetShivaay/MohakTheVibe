@@ -63,7 +63,7 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
 - [x] C2. Category pages (`/shop/[category]`, sitemap)
 - [x] C3. Navigation and home (Shop links in navbar/footer, home `CategoryTiles`). Featured products on home were done in C1.
 - [x] C4. Large catalog UX: type filter chips and "Load more" (24 per page) on category pages (`CategoryProducts.tsx`); new optional `type` sheet column. No search box yet (discussed: only needed past ~50 products; would reuse this component). Optional `tags` column not added.
-- [ ] C5. Scheduled refresh and docs (workflow `schedule` + `workflow_dispatch`, `CATALOG_SHEET_CSV_URL` GitHub secret, "How to add a product" in `SETUP.md`)
+- [x] C5. Scheduled refresh and docs: workflow runs every 3 hours (`schedule`) and on demand (`workflow_dispatch`), passes `CATALOG_SHEET_CSV_URL` from a GitHub secret; `SETUP.md` has "Product catalog" (how to add a product). **Owner: add the GitHub secret** (the schedule only runs from `main`, so it starts after the merge).
 - [ ] C6. Full data entry and QA, then merge (never merge to `main` without approval: it deploys)
 
 ## Log
