@@ -13,6 +13,11 @@ export type Category = {
   name: string;
   tagline: string;
   description: string;
+  // Search results title and description (keyword-rich); the page shows `name` and `description`
+  seoTitle: string;
+  seoDescription: string;
+  // Short paragraphs shown at the bottom of the category page (also useful text for search engines)
+  about: string[];
 };
 
 export type Collection = {
@@ -54,18 +59,39 @@ export const categories: Category[] = [
     name: "Earrings",
     tagline: "Jhumkas, drops and studs",
     description: "Handpicked earrings, from Minakari jhumkas to everyday drops, each one ready to wear and ready to gift.",
+    seoTitle: "Artificial Earrings Online India: Jhumka, Studs, Hoops | Mohak The Vibe",
+    seoDescription:
+      "Shop artificial earrings online from Mohak The Vibe, Lucknow: Minakari jhumkas, Kundan, Korean and gold-plated earrings, studs, hoops and chandbalis. Gift-ready, delivered across India.",
+    about: [
+      "Mohak The Vibe earrings are handpicked in Lucknow for everyday wear and for celebrations. The range covers Minakari jhumkas, chandbalis, studs, hoops and Korean-style earrings, in gold-tone and oxidised finishes.",
+      "Every pair arrives gift-ready. You can order on Flipkart or Meesho, or message us on WhatsApp for help choosing.",
+    ],
   },
   {
     slug: "pendants",
     name: "Pendants",
     tagline: "A quiet statement at the neckline",
     description: "Pendants that sit close to the heart, from Kundan teardrops to clean contemporary charms.",
+    seoTitle: "Artificial Pendants for Women Online India | Mohak The Vibe",
+    seoDescription:
+      "Shop artificial pendants online from Mohak The Vibe, Lucknow: Kundan teardrops and contemporary charm pendants, gold-tone and gift-ready. Delivered across India.",
+    about: [
+      "Our pendants range from Kundan teardrops to simple contemporary charms. They are made to sit close to the neckline and pair easily with the earrings in our range.",
+      "Every pendant arrives gift-ready. Order on Flipkart or Meesho, or message us on WhatsApp.",
+    ],
   },
   {
     slug: "bracelets",
     name: "Bracelets",
     tagline: "Gold-tone and oxidised, made to stack",
     description: "Bracelets to wear alone or stacked, finished to last and boxed to gift.",
+    seoTitle: "Artificial Bracelets for Women Online India | Mohak The Vibe",
+    seoDescription:
+      "Shop artificial bracelets online from Mohak The Vibe, Lucknow: gold-tone and oxidised charm bracelets to wear alone or stacked. Gift-ready, delivered across India.",
+    about: [
+      "Our bracelets come in gold-tone and oxidised finishes, made to be worn alone or stacked. Charm bracelets and simple everyday styles sit side by side.",
+      "Every bracelet arrives gift-ready. Order on Flipkart or Meesho, or message us on WhatsApp.",
+    ],
   },
 ];
 

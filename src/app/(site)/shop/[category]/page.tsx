@@ -3,10 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cloudinaryUrl, getProducts } from "@/lib/catalog";
 import { categories, getCategory, getProductsByCategory } from "@/lib/products";
+import { breadcrumbJsonLd, categoryJsonLd } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { CategoryProducts } from "@/components/CategoryProducts";
 import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
 import { FadeIn } from "@/components/FadeIn";
+import { JsonLd } from "@/components/JsonLd";
 import { LayeredImages } from "@/components/LayeredImages";
 import { ShopFullRange } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
@@ -25,14 +27,15 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const category = getCategory((await params).category);
   if (!category) return {};
   const items = getProductsByCategory(await getProducts(), category.slug);
-  const title = `${category.name} | Mohak – The Vibe`;
+  const title = category.seoTitle;
+  const description = category.seoDescription;
   const cover = items[0] ? cloudinaryUrl(items[0].image, 1200) : undefined;
   return {
     title,
-    description: category.description,
+    description,
     alternates: { canonical: `/shop/${category.slug}` },
-    openGraph: { title, description: category.description, images: cover ? [cover] : undefined },
-    twitter: { title, description: category.description, images: cover ? [cover] : undefined },
+    openGraph: { title, description, images: cover ? [cover] : undefined },
+    twitter: { title, description, images: cover ? [cover] : undefined },
     // A category with no products yet should not appear in search results
     robots: items.length === 0 ? { index: false, follow: true } : undefined,
   };
@@ -55,6 +58,13 @@ export default async function CategoryPage({ params }: Params) {
 
   return (
     <>
+      {items.length > 0 && <JsonLd data={categoryJsonLd(category, items)} />}
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: category.name, path: `/shop/${category.slug}` },
+        ])}
+      />
       {/* Intro: text beside the cover photo (or text only while the category is empty) */}
       <section className="pt-28 md:pt-36 pb-section px-6 md:px-12">
         <div className={cn("max-w-site mx-auto grid gap-10 md:gap-20 items-center", cover && "md:grid-cols-2")}>
@@ -113,6 +123,18 @@ export default async function CategoryPage({ params }: Params) {
           <Reveal className="mt-16 md:mt-20 text-center">
             <ShopFullRange />
           </Reveal>
+          {items.length > 0 && (
+            <Reveal className="mt-20 md:mt-24 mx-auto max-w-2xl text-center">
+              <h2 className="font-headline text-display-sm">
+                About our <em>{category.name.toLowerCase()}</em>
+              </h2>
+              <div className="mt-6 space-y-4 text-foreground/70 font-light leading-relaxed">
+                {category.about.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </Reveal>
+          )}
         </div>
       </section>
 

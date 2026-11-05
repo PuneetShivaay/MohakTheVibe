@@ -8,6 +8,8 @@ import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
 import { LayeredImages } from "@/components/LayeredImages";
 import { collectionCover, collectionCoverSource, ProductCard, productGridClass, ShopFullRange } from "@/components/ProductCard";
 import { FadeIn } from "@/components/FadeIn";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/seo";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 
@@ -23,7 +25,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const collection = getCollection((await params).slug);
   if (!collection) return {};
-  const title = `${collection.name} Collection | Mohak – The Vibe`;
+  const title = `${collection.name} Earrings & Jewellery Collection | Mohak The Vibe`;
   const cover = collectionCover(collection, await getProducts());
   return {
     title,
@@ -49,6 +51,13 @@ export default async function CollectionPage({ params }: Params) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Collections", path: "/#collections" },
+          { name: collection.name, path: `/collections/${collection.slug}` },
+        ])}
+      />
       {/* Intro: text beside the cover photo */}
       <section className="pt-28 md:pt-36 pb-section px-6 md:px-12">
         <div className="max-w-site mx-auto grid md:grid-cols-2 gap-10 md:gap-20 items-center">

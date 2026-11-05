@@ -22,6 +22,7 @@ This step is required. Without it, `npm run dev` fails with `'next' is not recog
 Optional, read only at build time. Put them in `.env.local` (git-ignored), never in `.env` or any committed file:
 ```
 CATALOG_SHEET_CSV_URL=...      # published Google Sheet CSV (product catalog)
+GOOGLE_SITE_VERIFICATION=...   # Search Console "HTML tag" content value (SEO, optional)
 INSTAGRAM_ACCESS_TOKEN=...     # live Instagram feed
 INSTAGRAM_USER_ID=...
 ```
