@@ -1,26 +1,50 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getProducts } from "@/lib/catalog";
 import { collections, getProductsByCollection, type Collection } from "@/lib/products";
 import { cn } from "@/lib/utils";
-import { imageUrl } from "./ProductCard";
+import { collectionCover } from "./ProductCard";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
-// Editorial tile: cover photo with caption overlay, links to the collection page
-export function CollectionTile({ collection, tall = false }: { collection: Collection; tall?: boolean }) {
-  const img = imageUrl(collection.coverImageId);
-  const count = getProductsByCollection(collection.slug).length;
+// A lone last tile spans both columns so an odd number of collections never leaves a gap
+export const spansFullRow = (index: number, total: number) => total > 1 && total % 2 === 1 && index === total - 1;
+
+// Editorial tile: cover photo with caption overlay. Links to the collection page by default, or to
+// `href` (used for category tiles). `count` is the number of products and `cover` the ready-to-render
+// photo URL (both derived from getProducts()). `wide` is the full-row variant.
+export function CollectionTile({
+  collection,
+  count,
+  cover,
+  href,
+  tall = false,
+  wide = false,
+}: {
+  collection: Pick<Collection, "slug" | "name" | "tagline">;
+  count: number;
+  cover?: string;
+  href?: string;
+  tall?: boolean;
+  wide?: boolean;
+}) {
+  const img = cover;
 
   return (
-    <Link href={`/collections/${collection.slug}`} className="group relative block h-full overflow-hidden bg-muted">
-      <div className={cn("relative w-full", tall ? "aspect-[3/4] md:aspect-auto md:h-full md:min-h-[640px]" : "aspect-[4/3]")}>
+    <Link href={href ?? `/collections/${collection.slug}`} className="group relative block h-full overflow-hidden bg-muted">
+      <div
+        className={cn(
+          "relative w-full",
+          tall ? "aspect-[3/4] md:aspect-auto md:h-full md:min-h-[640px]" : wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]"
+        )}
+      >
         {img && (
           <Image
             src={img}
-            alt={`${collection.name} collection`}
+            alt={`${collection.name} ${href ? "category" : "collection"}`}
             fill
-            sizes="(min-width: 768px) 50vw, 100vw"
+            sizes={wide ? "100vw" : "(min-width: 768px) 50vw, 100vw"}
             className="object-cover transition-transform [transition-duration:1200ms] ease-out-soft group-hover:scale-105"
           />
         )}
@@ -44,7 +68,9 @@ export function CollectionTile({ collection, tall = false }: { collection: Colle
   );
 }
 
-export function CollectionTiles() {
+export async function CollectionTiles() {
+  const products = await getProducts();
+  const countOf = (slug: string) => getProductsByCollection(products, slug).length;
   const [first, ...rest] = collections;
 
   return (
@@ -65,14 +91,22 @@ export function CollectionTiles() {
         <div className="grid md:grid-cols-2 gap-4 md:gap-6">
           {first && (
             <Reveal className="md:row-span-2">
-              <CollectionTile collection={first} tall />
+              <CollectionTile collection={first} count={countOf(first.slug)} cover={collectionCover(first, products)} tall />
             </Reveal>
           )}
-          {rest.map((collection, i) => (
-            <Reveal key={collection.slug} delay={(i + 1) * 120}>
-              <CollectionTile collection={collection} />
-            </Reveal>
-          ))}
+          {rest.map((collection, i) => {
+            const wide = spansFullRow(i, rest.length);
+            return (
+              <Reveal key={collection.slug} delay={(i + 1) * 120} className={wide ? "md:col-span-2" : undefined}>
+                <CollectionTile
+                  collection={collection}
+                  count={countOf(collection.slug)}
+                  cover={collectionCover(collection, products)}
+                  wide={wide}
+                />
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,4 +1,6 @@
 // Single source for brand contact and marketplace links
+// Public site address (Vercel). Change here when a custom domain is added.
+export const SITE_URL = "https://mohakthevibe.vercel.app";
 export const WHATSAPP_NUMBER = "916388498674";
 
 export const SITE_LINKS = {
@@ -17,6 +19,8 @@ export const CONTACT = {
   location: "Gomti Nagar, Lucknow, Uttar Pradesh, India",
   phoneDisplay: "+91 63884 98674",
   phoneHref: `tel:+${WHATSAPP_NUMBER}`,
+  // GST registration number; shown in the footer when filled in (leave "" to hide)
+  gstin: "09IFMPP3041D1ZB",
   whatsappHello: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Mohak, I'd like to know more about a piece.")}`,
 } as const;
 
@@ -33,11 +37,14 @@ export const LEGAL_LINKS = [
   { label: "Privacy Policy", href: "/privacy-policy" },
 ] as const;
 
+export const SHOP_LINKS = [
+  { label: "Earrings", href: "/shop/earrings" },
+  { label: "Pendants", href: "/shop/pendants" },
+  { label: "Bracelets", href: "/shop/bracelets" },
+] as const;
+
 export const NAV_LINKS = {
-  left: [
-    { label: "Collections", href: PAGE_LINKS.collections },
-    { label: "Signature", href: PAGE_LINKS.signature },
-  ],
+  left: [...SHOP_LINKS, { label: "Collections", href: PAGE_LINKS.collections }],
   right: [
     { label: "Our Story", href: PAGE_LINKS.story },
     { label: "Contact", href: PAGE_LINKS.contact },
@@ -48,3 +55,6 @@ export const MARKETPLACES = [
   { label: "Flipkart", href: SITE_LINKS.flipkartStore },
   { label: "Meesho", href: SITE_LINKS.meeshoStore },
 ] as const;
+
+// Short reassurance row at the top of the footer (only list things that are true)
+export const TRUST_POINTS = ["Free shipping", "Easy returns", "Secure checkout on Flipkart & Meesho"] as const;

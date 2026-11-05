@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      // Product photos from the Google Sheet catalog (see docs/catalog-plan.md)
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
+      },
+      // Marketplace product photos (Flipkart / Meesho CDNs)
+      { protocol: 'https', hostname: '*.flixcart.com', port: '', pathname: '/**' },
+      { protocol: 'https', hostname: 'images.meesho.com', port: '', pathname: '/**' },
     ],
   },
 };

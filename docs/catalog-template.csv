@@ -1,0 +1,4 @@
+id,name,category,collection,price,image,hover_image,flipkart,meesho,amazon,featured,active,sort
+ear-001,Minakari Half Green Jhumka,earrings,minakari,199,https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/mohak/earrings/ear-001.jpg,,https://www.flipkart.com/REPLACE_WITH_PRODUCT_LINK,https://www.meesho.com/REPLACE_WITH_PRODUCT_LINK,,yes,,10
+pen-001,Kundan Teardrop Pendant,pendants,kundan,349,https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/mohak/pendants/pen-001.jpg,https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/mohak/pendants/pen-001-model.jpg,,https://www.meesho.com/REPLACE_WITH_PRODUCT_LINK,,,,10
+bra-001,Oxidised Charm Bracelet,bracelets,contemporary,249,https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/mohak/bracelets/bra-001.jpg,,https://www.flipkart.com/REPLACE_WITH_PRODUCT_LINK,,,,no,20

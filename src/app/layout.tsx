@@ -1,33 +1,42 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { JsonLd } from "@/components/JsonLd";
 import { Toaster } from "@/components/ui/toaster";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
+
+const SITE_TITLE = 'Mohak The Vibe | Artificial Earrings, Pendants & Bracelets Online India';
+const SITE_DESCRIPTION =
+  'Mohak The Vibe, Lucknow: handpicked artificial earrings, pendants and bracelets in Minakari, Kundan, Korean and gold-plated styles. Gift-ready, delivered across India.';
+const OG_IMAGE = { url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: 'Mohak The Vibe jewellery' };
 
 export const metadata: Metadata = {
   // Resolves relative Open Graph image and canonical URLs on sub-pages
-  metadataBase: new URL('https://mohak-the-vibe.web.app'),
-  title: 'Mohak – The Vibe | Premium Artificial Jewelry',
-  description: 'Premium artificial jewelry for the modern woman. Handpicked Minakari, Kundan and contemporary earrings, gift-ready.',
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  applicationName: 'Mohak The Vibe',
+  keywords: [
+    'Mohak The Vibe', 'mohakthevibe', 'Mohak jewellery', 'artificial earrings online', 'jhumka earrings',
+    'minakari earrings', 'kundan pendant', 'korean earrings', 'gold plated hoop earrings', 'bracelets for women',
+    'artificial jewellery Lucknow',
+  ],
+  // Set GOOGLE_SITE_VERIFICATION (the content value of Search Console's HTML tag) in the build environment
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
   openGraph: {
-    title: 'Mohak – The Vibe | Premium Artificial Jewelry',
-    description: 'Discover your vibe with our curated jewelry collections.',
-    url: 'https://mohak-the-vibe.web.app',
-    siteName: 'Mohak – The Vibe',
-    images: [
-      {
-        url: 'https://mohak-the-vibe.web.app/mohak.png',
-        width: 1200,
-        height: 630,
-        alt: 'Mohak The Vibe Logo',
-      },
-    ],
-    locale: 'en_US',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: 'Mohak The Vibe',
+    images: [OG_IMAGE],
+    locale: 'en_IN',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mohak – The Vibe | Premium Artificial Jewelry',
-    description: 'Discover your vibe with our curated jewelry collections.',
-    images: ['https://mohak-the-vibe.web.app/mohak.png'],
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -58,6 +67,8 @@ export default function RootLayout({
         </a>
         {children}
         <Toaster />
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
       </body>
     </html>
   );
