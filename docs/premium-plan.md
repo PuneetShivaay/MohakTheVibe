@@ -6,7 +6,7 @@ Google Sheet at build time or stored in the visitor's browser. `tsc` per phase; 
 ## Status
 - [x] 1. Homepage cleanup
 - [x] 2. Product detail pages (`/product/[id]`) + sheet columns `description`, `image2`/`image3`/`image4`... (main photo column renamed `main_image`)
-- [ ] 3. Mobile gallery: swipe on product pages, tap/swipe to the on-model photo on cards
+- [x] 3. Mobile gallery: swipe on product pages, tap/swipe to the on-model photo on cards
 - [ ] 4. Wishlist (browser storage) with "Send my wishlist on WhatsApp"
 - [ ] 5. Recently viewed strip
 - [ ] 6. Gift finder (occasion, budget, style); may add an `occasion` column
@@ -34,6 +34,13 @@ Google Sheet at build time or stored in the visitor's browser. `tsc` per phase; 
 - Cards: photo and name open the product page; marketplace links still go straight to the store
 - Known risk (accepted): if the sheet can't be read at build time the fallback products (`p1`–`p8`) are used and
   `mohak0XX` pages 404 until the next good build
+
+## Phase 3: Swipe and zoom (done)
+- `ProductGallery`: photos in a scroll-snap strip (native swipe, arrow keys when focused); thumbnails scroll to a
+  photo and highlight the one in view; with a mouse, hover zooms 2x around the cursor
+- `CardPhotos`: cards with a `hover_image` crossfade on mouse hover; on touch screens the two photos swipe, with dots
+- New Tailwind variant `can-hover:` (real mouse only), so taps on phones no longer trigger hover effects on cards;
+  `.scrollbar-none` utility in `globals.css`
 
 ## Extra: more collections (done)
 - Added `korean`, `jhumka`, `chandbali`, `hoop` (matching the sheet's dropdown); copy is placeholder

@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { cloudinaryUrl } from "@/lib/images";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { getCollection, getProductsByCollection, productPath, type Collection, type Product } from "@/lib/products";
 import { SITE_LINKS } from "@/lib/site";
-import { cn } from "@/lib/utils";
+import { CardPhotos } from "./CardPhotos";
 
 export const imageUrl = (id?: string) => (id ? PlaceHolderImages.find((img) => img.id === id)?.imageUrl : undefined);
 
@@ -59,27 +58,7 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
         aria-hidden
         className="relative block aspect-[3/4] overflow-hidden bg-muted border border-brand-gold/15"
       >
-        {img && (
-          <Image
-            src={img}
-            alt={product.name}
-            fill
-            sizes="(min-width: 1024px) 25vw, 50vw"
-            className={cn(
-              "object-cover transition-all duration-700 ease-out-soft",
-              hoverImg ? "group-hover:opacity-0" : "group-hover:scale-[1.03]"
-            )}
-          />
-        )}
-        {hoverImg && (
-          <Image
-            src={hoverImg}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 25vw, 50vw"
-            className="object-cover opacity-0 transition-opacity duration-700 ease-out-soft group-hover:opacity-100"
-          />
-        )}
+        {img && <CardPhotos main={img} second={hoverImg} alt={product.name} />}
       </Link>
 
       <div className="pt-5 text-center">

@@ -123,5 +123,11 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    // `can-hover:` applies only with a real mouse, so taps on phones never trigger hover effects
+    ({ addVariant }: { addVariant: (name: string, definition: string) => void }) => {
+      addVariant('can-hover', '@media (hover: hover) and (pointer: fine)');
+    },
+  ],
 } satisfies Config;

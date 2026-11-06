@@ -52,7 +52,8 @@ src/
     Navbar, Hero, CollectionTiles, JewelryCatalog, BrandStory,
     InstagramGrid, ContactSection, Footer, WhatsAppCTA   Page sections
     ProductCard.tsx     ProductCard (photo + name link to /product/<id>), marketplaceLinks(), ShopFullRange, imageUrl(), quietLink
-    ProductGallery.tsx  Product page photos: large image + thumbnail strip (client)
+    ProductGallery.tsx  Product page photos: swipeable scroll-snap strip, thumbnails, hover zoom (client)
+    CardPhotos.tsx      Card photos: hover crossfade with a mouse, swipe + dots on touch screens (client)
     CollectionTiles.tsx CollectionTiles (home section, four-across `compact` tiles) and CollectionTile (one linked cover tile; `href` makes it a category tile)
     CategoryTiles.tsx   Home "Shop by category" three 4:5 photos with name and count (non-empty categories only)
     LayeredImages.tsx   Two framed prints (large 4:5 + small square overlap), the "Our Essence" look
