@@ -44,7 +44,11 @@ export type Product = {
   image: string;
   // Optional second photo (ideally on-model) shown on hover
   hoverImage?: string;
-  // Per-product listings; components fall back to the store links in site.ts
+  // Extra photos for the product page gallery (sheet columns image2, image3, ...)
+  moreImages?: string[];
+  // Free text for the product page (materials, size, styling)
+  description?: string;
+  // Per-product listings; a card with none shows an "Ask on WhatsApp" link instead
   links?: MarketplaceLinks;
   // Shown in Signature Pieces on the home page
   featured?: boolean;
@@ -156,6 +160,25 @@ export function getProductsByCollection(products: Product[], slug: string) {
 export function getProductsByCategory(products: Product[], slug: string) {
   return products.filter((p) => p.category === slug);
 }
+
+// Product page URL. Uses only the id, so moving a product to another category keeps its link.
+export const productPath = (id: string) => `/product/${id}`;
+
+export function getProduct(products: Product[], id: string) {
+  return products.find((p) => p.id === id);
+}
+
+// "You may also like": same collection first, then same category, never the product itself
+export function getRelatedProducts(products: Product[], product: Product, count = 4) {
+  const others = products.filter((p) => p.id !== product.id);
+  const sameCollection = product.collection ? others.filter((p) => p.collection === product.collection) : [];
+  const sameCategory = others.filter((p) => p.category === product.category && !sameCollection.includes(p));
+  return [...sameCollection, ...sameCategory].slice(0, count);
+}
+
+// Every photo of a product in gallery order: main, hover (on-model), then the extras
+export const productImages = (product: Product) =>
+  [product.image, product.hoverImage, ...(product.moreImages ?? [])].filter((src): src is string => Boolean(src));
 
 // Display names for product types (filter chips); unknown types fall back to a Title Case slug
 const typeLabels: Record<string, string> = {

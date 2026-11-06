@@ -1,11 +1,12 @@
+import Image from "next/image";
+import Link from "next/link";
 import { getProducts } from "@/lib/catalog";
 import { cloudinaryUrl } from "@/lib/catalog";
 import { categories, getProductsByCategory } from "@/lib/products";
-import { CollectionTile } from "./CollectionTiles";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
-// Home page: "Shop by category" tiles linking to /shop/<category>. Empty categories are hidden.
+// Home page: compact "Shop by category" row linking to /shop/<category>. Empty categories are hidden.
 export async function CategoryTiles() {
   const products = await getProducts();
   const shown = categories
@@ -19,7 +20,6 @@ export async function CategoryTiles() {
       <div className="max-w-site mx-auto">
         <Reveal className="mb-12 md:mb-16">
           <SectionHeading
-            align="left"
             eyebrow="Shop"
             title={
               <>
@@ -29,18 +29,31 @@ export async function CategoryTiles() {
           />
         </Reveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <ul className="grid grid-cols-3 gap-3 md:gap-6">
           {shown.map(({ category, items }, i) => (
-            <Reveal key={category.slug} delay={i * 120}>
-              <CollectionTile
-                collection={category}
-                href={`/shop/${category.slug}`}
-                count={items.length}
-                cover={cloudinaryUrl(items[0].image, 900)}
-              />
-            </Reveal>
+            <li key={category.slug}>
+              <Reveal delay={i * 100}>
+                <Link href={`/shop/${category.slug}`} className="group block text-center">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-muted border border-brand-gold/15">
+                    <Image
+                      src={cloudinaryUrl(items[0].image, 900)}
+                      alt={`${category.name} category`}
+                      fill
+                      sizes="33vw"
+                      className="object-cover transition-transform duration-700 ease-out-soft group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="mt-4 md:mt-5 font-headline text-lg md:text-2xl group-hover:text-brand-gold transition-colors">
+                    {category.name}
+                  </h3>
+                  <p className="mt-1 text-eyebrow uppercase text-foreground/60">
+                    {items.length} {items.length === 1 ? "piece" : "pieces"}
+                  </p>
+                </Link>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

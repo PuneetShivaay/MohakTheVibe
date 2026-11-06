@@ -66,8 +66,8 @@ Products live in the Google Sheet "Mohak Catalog" (published as CSV). Details: `
 **One-time setup:** (1) In Vercel add the `CATALOG_SHEET_CSV_URL` environment variable (the published CSV link: Sheet → File → Share → Publish to web → the sheet tab → CSV). Without it the live site shows only the built-in sample products. (2) For automatic sheet refresh: Vercel → Settings → Git → Deploy Hooks → create a hook for `main`; then in GitHub → Settings → Secrets and variables → Actions add a secret `VERCEL_DEPLOY_HOOK_URL` with that URL. The workflow `.github/workflows/vercel-rebuild.yml` then rebuilds every 3 hours.
 
 **Add or change a product**
-1. Add a row (or edit one) in the sheet. Required: `id` (unique, never reuse), `name`, `category` (earrings / pendants / bracelets), `price` (number), `image`.
-2. Optional: `collection` (minakari, kundan, contemporary, stud), `type` (stud, hoop, jhumka, chandbali, korean...), `hover_image`, `flipkart`, `meesho`, `amazon` (product links), `featured` (yes = home "Signature Pieces"), `active` (no = hide), `sort` (lower first).
+1. Add a row (or edit one) in the sheet. Required: `id` (unique, never reuse), `name`, `category` (earrings / pendants / bracelets), `price` (number), `main_image`.
+2. Optional: `collection` (minakari, kundan, contemporary, stud), `type` (stud, hoop, jhumka, chandbali, korean...), `description`, `hover_image`, `image2`/`image3`/`image4`... (extra product page photos, one link per cell), `flipkart`, `meesho`, `amazon` (product links), `featured` (yes = home "Signature Pieces"), `active` (no = hide), `sort` (lower first).
 3. Images: Cloudinary URL (best, resized automatically) or a Flipkart/Meesho image URL (not resized; prefer small versions). Other hosts are skipped.
 4. No need to re-publish: Google updates the CSV itself (can take a few minutes).
 5. Go live: wait for the automatic rebuild (every 3 hours), run it now from GitHub → Actions → "Rebuild site (Vercel)" → Run workflow, or press Redeploy in Vercel (about 1–3 minutes).

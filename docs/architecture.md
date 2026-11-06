@@ -51,24 +51,26 @@ src/
   components/
     Navbar, Hero, CollectionTiles, JewelryCatalog, BrandStory,
     InstagramGrid, ContactSection, Footer, WhatsAppCTA   Page sections
-    ProductCard.tsx     ProductCard, ShopFullRange, imageUrl(), quietLink (shared by home and collection pages)
-    CollectionTiles.tsx CollectionTiles (home section) and CollectionTile (one linked cover tile; `href` makes it a category tile)
-    CategoryTiles.tsx   Home "Shop by category" tiles (non-empty categories only)
+    ProductCard.tsx     ProductCard (photo + name link to /product/<id>), marketplaceLinks(), ShopFullRange, imageUrl(), quietLink
+    ProductGallery.tsx  Product page photos: large image + thumbnail strip (client)
+    CollectionTiles.tsx CollectionTiles (home section, four-across `compact` tiles) and CollectionTile (one linked cover tile; `href` makes it a category tile)
+    CategoryTiles.tsx   Home "Shop by category" three 4:5 photos with name and count (non-empty categories only)
     LayeredImages.tsx   Two framed prints (large 4:5 + small square overlap), the "Our Essence" look
-    PromiseStrip.tsx    Handpicked · Anti-tarnish · Gift-ready · Pan-India delivery strip (BRAND_PROMISES)
+    PromiseStrip.tsx    Handpicked · Anti-tarnish · Gift-ready · Pan-India delivery strip (BRAND_PROMISES in site.ts)
     GiftBand.tsx        Midnight "gift-ready" band with logo and WhatsApp prompt
     BrandLogo.tsx       SVG logo (`compact` = mark only)
     SectionHeading.tsx  SectionHeading and Eyebrow (shared section titles)
     Reveal.tsx          Fade-and-rise on scroll (Framer Motion, respects reduced motion); below the first screen only
     FadeIn.tsx          CSS-only entrance for first-screen content (visible without JavaScript)
     ThemeToggle.tsx     Light/dark "Mohak Mode" switch
-    AIStylist.tsx       Stub (feature removed)
+    TeamSection.tsx     Our Story team block (data in lib/team.ts)
     ui/                 Generated shadcn/ui components
   hooks/                use-toast, use-mobile
   lib/
     utils.ts            cn() class merge helper (knows the custom text-display*/text-eyebrow sizes)
-    site.ts             WhatsApp number, Instagram/marketplace links, CONTACT (incl. GSTIN), NAV_LINKS, SHOP_LINKS, LEGAL_LINKS, TRUST_POINTS
-    products.ts         Types, categories, collections, fallbackProducts, getProductsByCollection/Category()
+    site.ts             WhatsApp number, Instagram/marketplace links, CONTACT (incl. GSTIN), NAV_LINKS, SHOP_LINKS, LEGAL_LINKS, BRAND_PROMISES, TRUST_POINTS
+    team.ts             TEAM_LEAD and TEAM (Our Story team section; founder also feeds the Organization JSON-LD)
+    products.ts         Types, categories, collections, fallbackProducts, getProductsByCollection/Category(), productPath(), getProduct(), getRelatedProducts(), productImages()
     catalog.ts          getProducts(): Google Sheet CSV at build time (zod-validated, fallback to products.ts), cloudinaryUrl()
     instagram.ts        Build-time Instagram feed (getInstagramPosts), null when unavailable
     placeholder-images.ts / .json   Image registry (id → URL)
@@ -82,10 +84,11 @@ docs/                   blueprint, redesign plan/progress, this file
 
 ## How pages are composed
 - `src/app/(site)/layout.tsx` wraps every public page with Navbar, Footer and WhatsAppCTA. New pages go inside `(site)/`.
-- `src/app/(site)/page.tsx` renders the home sections: Hero → PromiseStrip → CategoryTiles → CollectionTiles → JewelryCatalog → BrandStory → InstagramGrid → GiftBand.
+- `src/app/(site)/page.tsx` renders the home sections: Hero → PromiseStrip → JewelryCatalog → CategoryTiles → CollectionTiles → BrandStory (with a "Read our story" link) → InstagramGrid → GiftBand.
 - `src/app/(site)/shop/[category]/page.tsx`: one static page per entry in `categories` (`generateStaticParams`). Intro beside `LayeredImages`, product grid (`ProductCard`, `productGridClass`), "Coming soon" state when empty (page is `noindex` and left out of `sitemap.xml`), and tiles for the other non-empty categories.
+- `src/app/(site)/product/[id]/page.tsx`: one static page per active sheet product (`generateStaticParams` from `getProducts()`, `dynamicParams = false`). Gallery beside sticky details (breadcrumb, collection, price, description, buy buttons or WhatsApp, promises), then "You may also like". `Product` + breadcrumb JSON-LD, per-product metadata, listed in `sitemap.xml`.
 - Footer: trust line (`TRUST_POINTS`), columns Brand / Shop (categories + collections) / Company (Our Story, Contact, legal, "Also available on") / Get in touch; two columns on phones. Bottom line shows the copyright, `CONTACT.gstin` and the developer credit.
-- `src/app/(site)/our-story/page.tsx`: intro beside `LayeredImages`, `PromiseStrip`, four values, Midnight pull-quote band, "How to shop" (3 steps) with links to collections and WhatsApp. Copy is placeholder.
+- `src/app/(site)/our-story/page.tsx`: intro beside `LayeredImages`, `PromiseStrip`, four values, `TeamSection`, Midnight pull-quote band, "How to shop" (3 steps) with links to collections and WhatsApp. Copy is placeholder.
 - `src/app/(site)/collections/[slug]/page.tsx`: one static page per entry in `collections` (`generateStaticParams`, `dynamicParams = false`, so unknown slugs 404). Sections: intro text beside `LayeredImages` (cover + another piece from the collection; single-piece collections show only the cover), the collection's products (small collections are centred), "Shop the full range", and tiles for the other collections. `generateMetadata` sets title, description, canonical and Open Graph/Twitter image per collection.
 - Navigation: `Navbar` reads `NAV_LINKS` and `MARKETPLACES` from `src/lib/site.ts`. Links come from `PAGE_LINKS`: `/#collections`, `/#catalog`, `/our-story`, `/#contact`; collection tiles link to `/collections/[slug]`. The home "Our Essence" section keeps its `#brand-story` id but is no longer a nav target. The bar is transparent only at the top of `/` (`usePathname`), otherwise solid.
 
@@ -133,7 +136,7 @@ Anything merged to `main` goes live immediately. Environment variables live in t
 - **No ESLint config**: `next lint` opens an interactive setup prompt and `next build` skips linting. Add an `eslint.config.mjs` (Next.js "Strict") when convenient.
 - **Original images in the repo**: the source PNG/JPEG files (~27 MB) are still committed next to their `.webp` versions and are no longer served by the site. Move them out of `public/` (or delete) once the WebP versions are confirmed.
 - **Unused marketplace logos**: `flipkart-logo.png` and `meesho_logo.png` files are no longer used (their registry entries were removed in phase 9).
-- **Unused code**: Genkit stubs in `src/ai/`, `AIStylist.tsx`, unused dependencies listed above, `public/images/INSTRUCTIONS.txt` lists file names that no longer match.
+- **Unused code**: Genkit stubs in `src/ai/`, unused dependencies listed above, `public/images/INSTRUCTIONS.txt` lists file names that no longer match.
 - **Windows build**: `npm run build` is plain `next build` (no inline `NODE_ENV`), so it works in PowerShell. Delete `.next` if a dev-server leftover breaks the `/404` export.
 - **Bundle size**: Framer Motion raised home first-load JS to ~208 KB. Revisit with `LazyMotion` if Lighthouse flags it in the final test.
 - **`Reveal` hides content until JavaScript runs**: it server-renders with `opacity: 0`. Fixed for first-screen content in phase 9 by using `FadeIn` (CSS) in the hero and page intros; keep `Reveal` for content below the fold.

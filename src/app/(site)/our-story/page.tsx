@@ -6,6 +6,7 @@ import { imageUrl } from "@/components/ProductCard";
 import { FadeIn } from "@/components/FadeIn";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
+import { TeamSection } from "@/components/TeamSection";
 import { PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
 const title = "Our Story | Mohak – The Vibe";
@@ -94,6 +95,8 @@ export default function OurStoryPage() {
           </div>
         </div>
       </section>
+
+      <TeamSection />
 
       {/* Pull quote */}
       <section className="py-section px-6 md:px-12 bg-brand-midnight text-brand-ivory">

@@ -56,5 +56,8 @@ export const MARKETPLACES = [
   { label: "Meesho", href: SITE_LINKS.meeshoStore },
 ] as const;
 
+// Brand promises: the strip under the hero and on the Our Story page (only list things that are true)
+export const BRAND_PROMISES = ["Handpicked", "Anti-tarnish", "Gift-ready", "Pan-India delivery"] as const;
+
 // Short reassurance row at the top of the footer (only list things that are true)
 export const TRUST_POINTS = ["Free shipping", "Easy returns", "Secure checkout on Flipkart & Meesho"] as const;

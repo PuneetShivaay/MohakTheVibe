@@ -1,7 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { cloudinaryUrl } from "@/lib/images";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { getCollection, getProductsByCollection, type Collection, type Product } from "@/lib/products";
+import { getCollection, getProductsByCollection, productPath, type Collection, type Product } from "@/lib/products";
 import { SITE_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -31,14 +32,16 @@ const gridBySize: Record<number, string> = {
 };
 export const productGridClass = (count: number) => gridBySize[count] ?? "grid-cols-2 lg:grid-cols-4";
 
-// Per-product listing where we have one, otherwise the store page
-function marketplaceLinks(product: Product) {
+// Only the product's own listings; with none, a WhatsApp message asking about the piece
+export function marketplaceLinks(product: Product) {
   const links = [
-    { label: "Flipkart", href: product.links?.flipkart ?? SITE_LINKS.flipkartStore },
-    { label: "Meesho", href: product.links?.meesho ?? SITE_LINKS.meeshoStore },
-  ];
-  if (product.links?.amazon) links.push({ label: "Amazon", href: product.links.amazon });
-  return links;
+    { label: "Flipkart", href: product.links?.flipkart },
+    { label: "Meesho", href: product.links?.meesho },
+    { label: "Amazon", href: product.links?.amazon },
+  ].filter((link): link is { label: string; href: string } => Boolean(link.href));
+  if (links.length > 0) return links;
+  const text = encodeURIComponent(`Hi Mohak, I'd like to buy "${product.name}".`);
+  return [{ label: "Ask on WhatsApp", href: `${SITE_LINKS.whatsappChat}?text=${text}` }];
 }
 
 export function ProductCard({ product, showCollection = true }: { product: Product; showCollection?: boolean }) {
@@ -49,7 +52,13 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
 
   return (
     <article className="group">
-      <div className="relative aspect-[3/4] overflow-hidden bg-muted border border-brand-gold/15">
+      {/* Photo and name open the product page; the marketplace links below go straight to the store */}
+      <Link
+        href={productPath(product.id)}
+        tabIndex={-1}
+        aria-hidden
+        className="relative block aspect-[3/4] overflow-hidden bg-muted border border-brand-gold/15"
+      >
         {img && (
           <Image
             src={img}
@@ -71,11 +80,15 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
             className="object-cover opacity-0 transition-opacity duration-700 ease-out-soft group-hover:opacity-100"
           />
         )}
-      </div>
+      </Link>
 
       <div className="pt-5 text-center">
         {showCollection && collection && <p className="text-eyebrow uppercase text-brand-gold mb-2">{collection.name}</p>}
-        <h3 className="font-headline text-base md:text-lg leading-snug">{product.name}</h3>
+        <h3 className="font-headline text-base md:text-lg leading-snug">
+          <Link href={productPath(product.id)} className="hover:text-brand-gold transition-colors">
+            {product.name}
+          </Link>
+        </h3>
         <p className="mt-1 text-sm text-foreground/60">{product.price}</p>
         <div className="mt-4 flex justify-center gap-5 text-eyebrow uppercase text-foreground/60">
           {marketplaceLinks(product).map((link) => (

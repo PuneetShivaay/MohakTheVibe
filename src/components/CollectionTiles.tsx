@@ -13,21 +13,22 @@ export const spansFullRow = (index: number, total: number) => total > 1 && total
 
 // Editorial tile: cover photo with caption overlay. Links to the collection page by default, or to
 // `href` (used for category tiles). `count` is the number of products and `cover` the ready-to-render
-// photo URL (both derived from getProducts()). `wide` is the full-row variant.
+// photo URL (both derived from getProducts()). `wide` is the full-row variant; `compact` is the small
+// portrait tile used in the four-across home grid.
 export function CollectionTile({
   collection,
   count,
   cover,
   href,
-  tall = false,
   wide = false,
+  compact = false,
 }: {
   collection: Pick<Collection, "slug" | "name" | "tagline">;
   count: number;
   cover?: string;
   href?: string;
-  tall?: boolean;
   wide?: boolean;
+  compact?: boolean;
 }) {
   const img = cover;
 
@@ -36,7 +37,7 @@ export function CollectionTile({
       <div
         className={cn(
           "relative w-full",
-          tall ? "aspect-[3/4] md:aspect-auto md:h-full md:min-h-[640px]" : wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]"
+          compact ? "aspect-[3/4]" : wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]"
         )}
       >
         {img && (
@@ -44,15 +45,17 @@ export function CollectionTile({
             src={img}
             alt={`${collection.name} ${href ? "category" : "collection"}`}
             fill
-            sizes={wide ? "100vw" : "(min-width: 768px) 50vw, 100vw"}
+            sizes={compact ? "(min-width: 1024px) 25vw, 50vw" : wide ? "100vw" : "(min-width: 768px) 50vw, 100vw"}
             className="object-cover transition-transform [transition-duration:1200ms] ease-out-soft group-hover:scale-105"
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
       </div>
-      <div className="absolute bottom-0 inset-x-0 p-6 md:p-10 text-white">
-        <p className="text-eyebrow uppercase text-brand-beige mb-3">{collection.tagline}</p>
-        <h3 className="font-headline text-display-sm flex items-center gap-4">
+      <div className={cn("absolute bottom-0 inset-x-0 text-white", compact ? "p-4 md:p-6" : "p-6 md:p-10")}>
+        <p className={cn("text-eyebrow uppercase text-brand-beige", compact ? "mb-2 hidden sm:block" : "mb-3")}>
+          {collection.tagline}
+        </p>
+        <h3 className={cn("font-headline flex items-center gap-4", compact ? "text-xl md:text-2xl" : "text-display-sm")}>
           {collection.name}
           <ArrowRight
             aria-hidden
@@ -71,7 +74,6 @@ export function CollectionTile({
 export async function CollectionTiles() {
   const products = await getProducts();
   const countOf = (slug: string) => getProductsByCollection(products, slug).length;
-  const [first, ...rest] = collections;
 
   return (
     <section id="collections" className="py-section px-6 md:px-12">
@@ -88,25 +90,17 @@ export async function CollectionTiles() {
           />
         </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-          {first && (
-            <Reveal className="md:row-span-2">
-              <CollectionTile collection={first} count={countOf(first.slug)} cover={collectionCover(first, products)} tall />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+          {collections.map((collection, i) => (
+            <Reveal key={collection.slug} delay={(i % 4) * 100}>
+              <CollectionTile
+                collection={collection}
+                count={countOf(collection.slug)}
+                cover={collectionCover(collection, products, 800)}
+                compact
+              />
             </Reveal>
-          )}
-          {rest.map((collection, i) => {
-            const wide = spansFullRow(i, rest.length);
-            return (
-              <Reveal key={collection.slug} delay={(i + 1) * 120} className={wide ? "md:col-span-2" : undefined}>
-                <CollectionTile
-                  collection={collection}
-                  count={countOf(collection.slug)}
-                  cover={collectionCover(collection, products)}
-                  wide={wide}
-                />
-              </Reveal>
-            );
-          })}
+          ))}
         </div>
       </div>
     </section>

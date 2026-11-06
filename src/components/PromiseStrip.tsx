@@ -1,8 +1,7 @@
+import { BRAND_PROMISES } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 // Brand promises shown as a quiet trust strip (see redesign plan, "Trust signals")
-export const BRAND_PROMISES = ["Handpicked", "Anti-tarnish", "Gift-ready", "Pan-India delivery"] as const;
-
 export function PromiseStrip({ className }: { className?: string }) {
   return (
     <section aria-label="Our promises" className={cn("border-y border-brand-gold/20", className)}>

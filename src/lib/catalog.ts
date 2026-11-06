@@ -31,8 +31,15 @@ const yesNo = (fallback: boolean) =>
   cell.transform((v) => (v ? ["yes", "y", "true", "1"].includes(v.toLowerCase()) : fallback));
 
 const rowSchema = z.object({
-  id: cell.pipe(z.string().min(1, "missing id")),
+  // Part of the product page URL (/product/<id>), so letters, digits, - and _ only
+  id: cell.pipe(
+    z
+      .string()
+      .min(1, "missing id")
+      .regex(/^[A-Za-z0-9_-]+$/, "id may only contain letters, digits, - and _")
+  ),
   name: cell.pipe(z.string().min(1, "missing name")),
+  description: cell,
   category: cell.transform((v) => v.toLowerCase()).pipe(z.enum(CATEGORY_SLUGS, { message: "unknown category" })),
   collection: cell.transform((v) => v.toLowerCase()),
   // Optional: what kind of piece it is (stud, hoop, jhumka...); drives the filter chips on category pages
@@ -40,7 +47,10 @@ const rowSchema = z.object({
   price: cell
     .transform((v) => Number(v.replace(/[₹,\s]/g, "")))
     .pipe(z.number({ message: "price is not a number" }).positive("price must be above 0")),
-  image: cell.refine((v) => isAllowedImage(v) && !isPlaceholder(v), "image must be a Cloudinary, Flipkart or Meesho URL"),
+  main_image: cell.refine(
+    (v) => isAllowedImage(v) && !isPlaceholder(v),
+    "main_image must be a Cloudinary, Flipkart or Meesho URL"
+  ),
   hover_image: optionalUrl,
   flipkart: optionalUrl,
   meesho: optionalUrl,
@@ -51,6 +61,18 @@ const rowSchema = z.object({
 });
 
 const formatPrice = (n: number) => `₹${n.toLocaleString("en-IN")}`;
+
+// Extra gallery photos: every column named image2, image3, ... (any number), in number order, empty cells skipped
+const EXTRA_IMAGE_COLUMN = /^image(\d+)$/;
+const extraImageCells = (raw: Record<string, string>) =>
+  Object.keys(raw)
+    .flatMap((key) => {
+      const match = EXTRA_IMAGE_COLUMN.exec(key);
+      return match ? [{ n: Number(match[1]), value: (raw[key] ?? "").trim() }] : [];
+    })
+    .sort((a, b) => a.n - b.n)
+    .map((c) => c.value)
+    .filter((v) => v && !isPlaceholder(v));
 
 // Exported for testing; pages use getProducts()
 export function parseSheet(csv: string): Product[] {
@@ -94,6 +116,14 @@ export function parseSheet(csv: string): Product[] {
     // "Studs" is both a collection page and a type of earring
     if (!type && collection === "stud") type = "stud";
 
+    const extras = extraImageCells(raw);
+    const moreImages = extras.filter((v) => /^https:\/\//.test(v) && isAllowedImage(v));
+    if (moreImages.length < extras.length) {
+      console.warn(
+        `Catalog: row ${rowNumber} ("${r.id}") ignored ${extras.length - moreImages.length} image2/image3... link(s) not on Cloudinary, Flipkart or Meesho`
+      );
+    }
+
     rows.push({
       sort: r.sort,
       product: {
@@ -103,8 +133,10 @@ export function parseSheet(csv: string): Product[] {
         collection,
         type,
         price: formatPrice(r.price),
-        image: r.image,
+        image: r.main_image,
         hoverImage: r.hover_image && isAllowedImage(r.hover_image) ? r.hover_image : undefined,
+        moreImages: moreImages.length > 0 ? moreImages : undefined,
+        description: r.description || undefined,
         links: { flipkart: r.flipkart, meesho: r.meesho, amazon: r.amazon },
         featured: r.featured,
       },
