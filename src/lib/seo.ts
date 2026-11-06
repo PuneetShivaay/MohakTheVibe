@@ -1,5 +1,5 @@
 // Structured data (schema.org JSON-LD) builders. Pure functions: pages render them with <JsonLd />.
-import type { Category, Product } from "./products";
+import { productImages, productPath, type Category, type Product } from "./products";
 import { CONTACT, MARKETPLACES, SITE_LINKS, SITE_URL } from "./site";
 import { TEAM } from "./team";
 
@@ -83,12 +83,13 @@ export function categoryJsonLd(category: Pick<Category, "slug" | "name" | "descr
         item: {
           "@type": "Product",
           name: p.name,
+          url: absoluteUrl(productPath(p.id)),
           image: p.image,
           category: category.name,
           brand: { "@type": "Brand", name: BRAND_NAME },
           offers: {
             "@type": "Offer",
-            url,
+            url: absoluteUrl(productPath(p.id)),
             priceCurrency: "INR",
             price: priceNumber(p.price),
             availability: "https://schema.org/InStock",
@@ -97,5 +98,40 @@ export function categoryJsonLd(category: Pick<Category, "slug" | "name" | "descr
         },
       })),
     },
+  };
+}
+
+// Short meta/JSON-LD description: the sheet description when present, otherwise a generated line
+export function productDescription(product: Product, categoryName: string) {
+  const text =
+    product.description ||
+    `${product.name}, handpicked ${categoryName.toLowerCase()} by ${BRAND_NAME}. ${product.price}, gift-ready, delivered across India.`;
+  return text.length > 160 ? `${text.slice(0, 157).trimEnd()}...` : text;
+}
+
+// Product page: one Offer per marketplace listing, or a single Offer on our own page when there are none
+export function productJsonLd(product: Product, categoryName: string) {
+  const url = absoluteUrl(productPath(product.id));
+  const listings = Object.values(product.links ?? {}).filter((href): href is string => Boolean(href));
+  const offer = (offerUrl: string) => ({
+    "@type": "Offer",
+    url: offerUrl,
+    priceCurrency: "INR",
+    price: priceNumber(product.price),
+    availability: "https://schema.org/InStock",
+    seller: { "@id": `${SITE_URL}/#organization` },
+  });
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${url}#product`,
+    sku: product.id,
+    name: product.name,
+    url,
+    image: productImages(product).map((src) => (src.startsWith("/") ? absoluteUrl(src) : src)),
+    description: productDescription(product, categoryName),
+    category: categoryName,
+    brand: { "@type": "Brand", name: BRAND_NAME },
+    offers: listings.length > 0 ? listings.map(offer) : offer(url),
   };
 }

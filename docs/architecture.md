@@ -51,7 +51,8 @@ src/
   components/
     Navbar, Hero, CollectionTiles, JewelryCatalog, BrandStory,
     InstagramGrid, ContactSection, Footer, WhatsAppCTA   Page sections
-    ProductCard.tsx     ProductCard, ShopFullRange, imageUrl(), quietLink (shared by home and collection pages)
+    ProductCard.tsx     ProductCard (photo + name link to /product/<id>), marketplaceLinks(), ShopFullRange, imageUrl(), quietLink
+    ProductGallery.tsx  Product page photos: large image + thumbnail strip (client)
     CollectionTiles.tsx CollectionTiles (home section, four-across `compact` tiles) and CollectionTile (one linked cover tile; `href` makes it a category tile)
     CategoryTiles.tsx   Home "Shop by category" three 4:5 photos with name and count (non-empty categories only)
     LayeredImages.tsx   Two framed prints (large 4:5 + small square overlap), the "Our Essence" look
@@ -69,7 +70,7 @@ src/
     utils.ts            cn() class merge helper (knows the custom text-display*/text-eyebrow sizes)
     site.ts             WhatsApp number, Instagram/marketplace links, CONTACT (incl. GSTIN), NAV_LINKS, SHOP_LINKS, LEGAL_LINKS, BRAND_PROMISES, TRUST_POINTS
     team.ts             TEAM_LEAD and TEAM (Our Story team section; founder also feeds the Organization JSON-LD)
-    products.ts         Types, categories, collections, fallbackProducts, getProductsByCollection/Category()
+    products.ts         Types, categories, collections, fallbackProducts, getProductsByCollection/Category(), productPath(), getProduct(), getRelatedProducts(), productImages()
     catalog.ts          getProducts(): Google Sheet CSV at build time (zod-validated, fallback to products.ts), cloudinaryUrl()
     instagram.ts        Build-time Instagram feed (getInstagramPosts), null when unavailable
     placeholder-images.ts / .json   Image registry (id → URL)
@@ -85,6 +86,7 @@ docs/                   blueprint, redesign plan/progress, this file
 - `src/app/(site)/layout.tsx` wraps every public page with Navbar, Footer and WhatsAppCTA. New pages go inside `(site)/`.
 - `src/app/(site)/page.tsx` renders the home sections: Hero → PromiseStrip → JewelryCatalog → CategoryTiles → CollectionTiles → BrandStory (with a "Read our story" link) → InstagramGrid → GiftBand.
 - `src/app/(site)/shop/[category]/page.tsx`: one static page per entry in `categories` (`generateStaticParams`). Intro beside `LayeredImages`, product grid (`ProductCard`, `productGridClass`), "Coming soon" state when empty (page is `noindex` and left out of `sitemap.xml`), and tiles for the other non-empty categories.
+- `src/app/(site)/product/[id]/page.tsx`: one static page per active sheet product (`generateStaticParams` from `getProducts()`, `dynamicParams = false`). Gallery beside sticky details (breadcrumb, collection, price, description, buy buttons or WhatsApp, promises), then "You may also like". `Product` + breadcrumb JSON-LD, per-product metadata, listed in `sitemap.xml`.
 - Footer: trust line (`TRUST_POINTS`), columns Brand / Shop (categories + collections) / Company (Our Story, Contact, legal, "Also available on") / Get in touch; two columns on phones. Bottom line shows the copyright, `CONTACT.gstin` and the developer credit.
 - `src/app/(site)/our-story/page.tsx`: intro beside `LayeredImages`, `PromiseStrip`, four values, `TeamSection`, Midnight pull-quote band, "How to shop" (3 steps) with links to collections and WhatsApp. Copy is placeholder.
 - `src/app/(site)/collections/[slug]/page.tsx`: one static page per entry in `collections` (`generateStaticParams`, `dynamicParams = false`, so unknown slugs 404). Sections: intro text beside `LayeredImages` (cover + another piece from the collection; single-piece collections show only the cover), the collection's products (small collections are centred), "Shop the full range", and tiles for the other collections. `generateMetadata` sets title, description, canonical and Open Graph/Twitter image per collection.

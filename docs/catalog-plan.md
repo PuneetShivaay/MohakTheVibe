@@ -27,16 +27,18 @@ Starter file: `docs/catalog-template.csv` (headers + 3 example rows). In Google 
 
 | Column | Required | Example | Rules |
 |---|---|---|---|
-| `id` | yes | `ear-001` | Unique, never reuse or change (used as React key and for stable ordering) |
+| `id` | yes | `mohak001` | Unique, never reuse or change. Letters, digits, `-` and `_` only: it is the product page URL (`/product/mohak001`), so changing it breaks links already shared or indexed |
 | `name` | yes | `Minakari Half Green Jhumka` | Title case |
+| `description` | no | `Hand-painted Minakari jhumka with pearl drops. Brass, gold plated. 5 cm drop.` | Shown on the product page and used for its search description (first 160 characters). Line breaks are kept. Mention material and size here |
 | `category` | yes | `earrings` | One of `earrings`, `pendants`, `bracelets` |
 | `collection` | no | `minakari` | A style slug from `collections` in `products.ts`, or empty |
 | `type` | no | `hoop` | Kind of piece (stud, hoop, jhumka, chandbali, korean...). Drives the filter chips on category pages. If empty, an unknown `collection` value is used as the type |
 | `price` | yes | `199` | Number only; the site adds `₹` |
-| `image` | yes | `https://res.cloudinary.com/<cloud>/image/upload/...` | Cloudinary URL (recommended: resized automatically), or a Flipkart (`rukminim*.flixcart.com`) / Meesho (`images.meesho.com`) image URL. These are not resized, so use small versions (e.g. `/512/512/` in the Flipkart URL); they may change or break if the listing is removed |
-| `hover_image` | no | Same host rules as `image` | Second photo, ideally on-model; shown on hover |
-| `flipkart` | no | Product URL | Falls back to the Flipkart store link |
-| `meesho` | no | Product URL | Falls back to the Meesho store link |
+| `main_image` | yes | `https://res.cloudinary.com/<cloud>/image/upload/...` | Cloudinary URL (recommended: resized automatically), or a Flipkart (`rukminim*.flixcart.com`) / Meesho (`images.meesho.com`) image URL. These are not resized, so use small versions (e.g. `/512/512/` in the Flipkart URL); they may change or break if the listing is removed |
+| `hover_image` | no | Same host rules as `main_image` | Second photo, ideally on-model; shown on hover and as the second photo on the product page |
+| `image2`, `image3`, `image4`... | no | One link per cell | Extra product page photos, shown after `main_image` and `hover_image` in number order. Add more columns (`image5`, `image6`...) any time; empty cells are skipped. Same host rules as `main_image`; other links are skipped with a warning |
+| `flipkart` | no | Product URL | Shown only if present |
+| `meesho` | no | Product URL | Shown only if present. A product with no marketplace link shows "Ask on WhatsApp" instead |
 | `amazon` | no | Product URL | Shown only if present |
 | `featured` | no | `yes` | `yes` = shown in Signature Pieces on the home page |
 | `active` | no | `no` | `no` hides the product without deleting the row (default `yes`) |
@@ -74,7 +76,7 @@ Cloudinary ──(image URLs + size transforms)──► ProductCard <Image>
 
 ## Safety rules (nothing breaks)
 1. **Fallback always**: no sheet URL, a network error, an empty or malformed sheet → the current 8 products, exactly as today.
-2. **Bad rows are skipped, not fatal**: missing name/image, unknown category, image URL from a host other than Cloudinary/Flipkart/Meesho, duplicate `id` → row skipped and logged.
+2. **Bad rows are skipped, not fatal**: missing name/main_image, unknown category, image URL from a host other than Cloudinary/Flipkart/Meesho, duplicate `id` → row skipped and logged.
 3. **Existing URLs keep working**: `/`, `/collections/[slug]`, `/our-story`, `/contact`, legal pages and `/#catalog` anchors.
 4. **Unchanged by decision**: `BrandStory.tsx`, `ProductCard` look (single price, quiet marketplace links), "Our Essence".
 5. **Each phase ends green**: `npm run typecheck`, `npm run lint`, `npm run build`, plus a check that a build with **no** sheet URL renders the same home page as today.
