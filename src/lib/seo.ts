@@ -1,6 +1,7 @@
 // Structured data (schema.org JSON-LD) builders. Pure functions: pages render them with <JsonLd />.
 import type { Category, Product } from "./products";
 import { CONTACT, MARKETPLACES, SITE_LINKS, SITE_URL } from "./site";
+import { TEAM } from "./team";
 
 export const BRAND_NAME = "Mohak – The Vibe";
 // Spellings people actually type; helps brand searches ("mohak", "mohakthevibe") map to this site
@@ -32,6 +33,7 @@ export function organizationJsonLd() {
       addressCountry: "IN",
     },
     areaServed: "IN",
+    founder: TEAM.filter((m) => m.founder).map((m) => ({ "@type": "Person", name: m.name })),
     sameAs: [SITE_LINKS.instagram, SITE_LINKS.youtube, ...MARKETPLACES.map((m) => m.href)],
   };
 }

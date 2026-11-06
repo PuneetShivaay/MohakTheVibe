@@ -44,7 +44,7 @@ export type Product = {
   image: string;
   // Optional second photo (ideally on-model) shown on hover
   hoverImage?: string;
-  // Per-product listings; components fall back to the store links in site.ts
+  // Per-product listings; a card with none shows an "Ask on WhatsApp" link instead
   links?: MarketplaceLinks;
   // Shown in Signature Pieces on the home page
   featured?: boolean;

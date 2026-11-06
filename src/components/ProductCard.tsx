@@ -31,14 +31,16 @@ const gridBySize: Record<number, string> = {
 };
 export const productGridClass = (count: number) => gridBySize[count] ?? "grid-cols-2 lg:grid-cols-4";
 
-// Per-product listing where we have one, otherwise the store page
+// Only the product's own listings; with none, a WhatsApp message asking about the piece
 function marketplaceLinks(product: Product) {
   const links = [
-    { label: "Flipkart", href: product.links?.flipkart ?? SITE_LINKS.flipkartStore },
-    { label: "Meesho", href: product.links?.meesho ?? SITE_LINKS.meeshoStore },
-  ];
-  if (product.links?.amazon) links.push({ label: "Amazon", href: product.links.amazon });
-  return links;
+    { label: "Flipkart", href: product.links?.flipkart },
+    { label: "Meesho", href: product.links?.meesho },
+    { label: "Amazon", href: product.links?.amazon },
+  ].filter((link): link is { label: string; href: string } => Boolean(link.href));
+  if (links.length > 0) return links;
+  const text = encodeURIComponent(`Hi Mohak, I'd like to buy "${product.name}".`);
+  return [{ label: "Ask on WhatsApp", href: `${SITE_LINKS.whatsappChat}?text=${text}` }];
 }
 
 export function ProductCard({ product, showCollection = true }: { product: Product; showCollection?: boolean }) {
