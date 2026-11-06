@@ -19,6 +19,7 @@ import { ProductCard, marketplaceLinks, productGridClass, quietLink } from "@/co
 import { ProductGallery } from "@/components/ProductGallery";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
+import { WishlistButton } from "@/components/WishlistButton";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -126,6 +127,12 @@ export default async function ProductPage({ params }: Params) {
                   {hasListings ? `Buy on ${link.label}` : link.label}
                 </a>
               ))}
+              <WishlistButton
+                id={product.id}
+                name={product.name}
+                withLabel
+                className="text-eyebrow uppercase px-8 py-4 border border-brand-gold/50 hover:border-brand-gold hover:text-brand-gold"
+              />
             </div>
             {hasListings && (
               <p className="mt-6 text-sm text-foreground/60 font-light">

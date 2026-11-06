@@ -7,7 +7,7 @@ Google Sheet at build time or stored in the visitor's browser. `tsc` per phase; 
 - [x] 1. Homepage cleanup
 - [x] 2. Product detail pages (`/product/[id]`) + sheet columns `description`, `image2`/`image3`/`image4`... (main photo column renamed `main_image`)
 - [x] 3. Mobile gallery: swipe on product pages, tap/swipe to the on-model photo on cards
-- [ ] 4. Wishlist (browser storage) with "Send my wishlist on WhatsApp"
+- [x] 4. Wishlist (browser storage) with "Send my wishlist on WhatsApp"
 - [ ] 5. Recently viewed strip
 - [ ] 6. Gift finder (occasion, budget, style); may add an `occasion` column
 - [ ] 7. Later: lookbook (needs a shoot), reviews tab in the sheet
@@ -41,6 +41,14 @@ Google Sheet at build time or stored in the visitor's browser. `tsc` per phase; 
 - `CardPhotos`: cards with a `hover_image` crossfade on mouse hover; on touch screens the two photos swipe, with dots
 - New Tailwind variant `can-hover:` (real mouse only), so taps on phones no longer trigger hover effects on cards;
   `.scrollbar-none` utility in `globals.css`
+
+## Phase 4: Wishlist (done)
+- `useWishlist` (`src/hooks/use-wishlist.ts`): product ids in `localStorage` (`mohak-wishlist`), synced across
+  components and tabs. Per browser/device; no account
+- `WishlistButton`: heart on every card (top-right of the photo) and "Save to wishlist" on product pages
+- Navbar heart with a count, linking to `/wishlist` (noindex, not in the sitemap)
+- `/wishlist`: saved pieces as cards, "Send my wishlist on WhatsApp" (numbered name, price and product link per
+  piece), empty state with shop links. Ids missing from the current catalog are skipped but not deleted
 
 ## Extra: more collections (done)
 - Added `korean`, `jhumka`, `chandbali`, `hoop` (matching the sheet's dropdown); copy is placeholder

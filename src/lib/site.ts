@@ -30,6 +30,7 @@ export const PAGE_LINKS = {
   signature: "/#catalog",
   story: "/our-story",
   contact: "/contact",
+  wishlist: "/wishlist",
 } as const;
 
 export const LEGAL_LINKS = [
