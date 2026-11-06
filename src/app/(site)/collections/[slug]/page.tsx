@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProducts, cloudinaryUrl } from "@/lib/catalog";
-import { collections, getCollection, getProductsByCollection } from "@/lib/products";
+import { collections, getCollection, getProductsByCollection, nonEmptyCollections } from "@/lib/products";
 import { cn } from "@/lib/utils";
 import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
 import { LayeredImages } from "@/components/LayeredImages";
@@ -26,13 +26,17 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const collection = getCollection((await params).slug);
   if (!collection) return {};
   const title = `${collection.name} Earrings & Jewellery Collection | Mohak The Vibe`;
-  const cover = collectionCover(collection, await getProducts());
+  const products = await getProducts();
+  const cover = collectionCover(collection, products);
+  const empty = getProductsByCollection(products, collection.slug).length === 0;
   return {
     title,
     description: collection.description,
     alternates: { canonical: `/collections/${collection.slug}` },
     openGraph: { title, description: collection.description, images: cover ? [cover] : undefined },
     twitter: { title, description: collection.description, images: cover ? [cover] : undefined },
+    // A collection with no products yet should not appear in search results
+    robots: empty ? { index: false, follow: true } : undefined,
   };
 }
 
@@ -42,7 +46,7 @@ export default async function CollectionPage({ params }: Params) {
 
   const products = await getProducts();
   const items = getProductsByCollection(products, collection.slug);
-  const others = collections.filter((c) => c.slug !== collection.slug);
+  const others = nonEmptyCollections(products).filter((c) => c.slug !== collection.slug);
   const cover = collectionCover(collection, products);
   // Small print: another piece from the collection, so it never repeats the cover
   const coverSource = collectionCoverSource(collection, products);
@@ -93,16 +97,32 @@ export default async function CollectionPage({ params }: Params) {
       {/* Pieces */}
       <section className="py-section px-6 md:px-12 bg-card">
         <div className="max-w-site mx-auto">
-          <Reveal className="mb-14 md:mb-16">
-            <SectionHeading eyebrow={collection.name} title={<>The <em>pieces</em></>} />
-          </Reveal>
-          <div className={cn("grid mx-auto gap-x-4 md:gap-x-8 gap-y-14", productGridClass(items.length))}>
-            {items.map((product, i) => (
-              <Reveal key={product.id} delay={(i % 4) * 100}>
-                <ProductCard product={product} showCollection={false} />
+          {items.length > 0 ? (
+            <>
+              <Reveal className="mb-14 md:mb-16">
+                <SectionHeading eyebrow={collection.name} title={<>The <em>pieces</em></>} />
               </Reveal>
-            ))}
-          </div>
+              <div className={cn("grid mx-auto gap-x-4 md:gap-x-8 gap-y-14", productGridClass(items.length))}>
+                {items.map((product, i) => (
+                  <Reveal key={product.id} delay={(i % 4) * 100}>
+                    <ProductCard product={product} showCollection={false} />
+                  </Reveal>
+                ))}
+              </div>
+            </>
+          ) : (
+            <Reveal className="text-center">
+              <SectionHeading
+                eyebrow="Coming soon"
+                title={
+                  <>
+                    New <em>{collection.name.toLowerCase()}</em> are on their way
+                  </>
+                }
+                description="We are adding pieces to this collection. Meanwhile, see everything we have on Flipkart and Meesho."
+              />
+            </Reveal>
+          )}
           <Reveal className="mt-16 md:mt-20 text-center">
             <ShopFullRange />
           </Reveal>

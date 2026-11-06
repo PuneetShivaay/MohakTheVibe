@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { Instagram, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
-import { collections } from "@/lib/products";
+import { getProducts } from "@/lib/catalog";
+import { nonEmptyCollections } from "@/lib/products";
 import { CONTACT, LEGAL_LINKS, MARKETPLACES, NAV_LINKS, SHOP_LINKS, SITE_LINKS, TRUST_POINTS } from "@/lib/site";
 
 const columnTitle = "text-eyebrow uppercase text-brand-gold mb-6";
 const columnLink = "text-sm text-foreground/70 hover:text-brand-gold transition-colors";
 
-export function Footer() {
+export async function Footer() {
   const year = new Date().getFullYear();
+  const collections = nonEmptyCollections(await getProducts());
 
   return (
     <footer className="bg-background border-t border-brand-gold/20 pt-12 md:pt-16 pb-10 px-6 md:px-12 overflow-hidden">

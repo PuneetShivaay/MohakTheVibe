@@ -28,6 +28,8 @@ export type Collection = {
   description: string;
   // Local image id for the cover; when omitted, the cover is the first product's photo in the collection
   coverImageId?: string;
+  // The slug is also a kind of piece (hoop, jhumka...): products in it get it as their `type` for the filter chips
+  isType?: boolean;
 };
 
 export type Product = {
@@ -123,11 +125,40 @@ export const collections: Collection[] = [
     coverImageId: "festive-item-2",
   },
   {
+    slug: "korean",
+    name: "Korean",
+    tagline: "Light, playful, on trend",
+    description: "Lightweight Korean-style pieces: pearls, bows, hearts and minimal shapes made for everyday wear.",
+    isType: true,
+  },
+  {
+    slug: "jhumka",
+    name: "Jhumkas",
+    tagline: "Bells that dance as you move",
+    description: "Bell-shaped jhumkas in enamel, kundan and oxidised finishes, from everyday drops to festive statements.",
+    isType: true,
+  },
+  {
+    slug: "chandbali",
+    name: "Chandbalis",
+    tagline: "Crescent moons, festive glow",
+    description: "The crescent-shaped chandbali, rooted in Indian tradition and made for weddings, festivals and celebrations.",
+    isType: true,
+  },
+  {
+    slug: "hoop",
+    name: "Hoops",
+    tagline: "Classic circles, modern finish",
+    description: "Hoops in every size, from slim everyday circles to bold statement pairs in gold tone.",
+    isType: true,
+  },
+  {
     // The sheet's `collection` value for studs is "stud"; cover comes from its first product
     slug: "stud",
     name: "Studs",
     tagline: "Small, bright, every day",
     description: "Small statements that sit close to the ear: patterned buttons, crystals and clean shapes for every day.",
+    isType: true,
   },
 ];
 
@@ -155,6 +186,11 @@ export function getCategory(slug?: string) {
 // Helpers take the product list (from getProducts()) so they work for sheet and fallback data alike
 export function getProductsByCollection(products: Product[], slug: string) {
   return products.filter((p) => p.collection === slug);
+}
+
+// Collections that have at least one product; empty ones are hidden from tiles, the footer and the sitemap
+export function nonEmptyCollections(products: Product[]) {
+  return collections.filter((c) => products.some((p) => p.collection === c.slug));
 }
 
 export function getProductsByCategory(products: Product[], slug: string) {

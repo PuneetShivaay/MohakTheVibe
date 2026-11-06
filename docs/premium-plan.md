@@ -35,6 +35,12 @@ Google Sheet at build time or stored in the visitor's browser. `tsc` per phase; 
 - Known risk (accepted): if the sheet can't be read at build time the fallback products (`p1`–`p8`) are used and
   `mohak0XX` pages 404 until the next good build
 
+## Extra: more collections (done)
+- Added `korean`, `jhumka`, `chandbali`, `hoop` (matching the sheet's dropdown); copy is placeholder
+- Empty collections are hidden from home tiles, footer, "More collections" and the sitemap; their page shows
+  "Coming soon" and is `noindex`
+- `isType` collections (korean, jhumka, chandbali, hoop, stud) also fill `type` when it is empty, so filter chips keep working
+
 ## Open questions
 - [ ] Our Essence copy says "Each pair of earrings" and "jewelry" (site uses "jewellery"); update now that pendants
       and bracelets exist?

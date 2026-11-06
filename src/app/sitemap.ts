@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getProducts } from "@/lib/catalog";
-import { categories, collections, getProductsByCategory, productPath } from "@/lib/products";
+import { categories, getProductsByCategory, nonEmptyCollections, productPath } from "@/lib/products";
 import { SITE_URL } from "@/lib/site";
 
 // Static export: generated once at build time as /sitemap.xml
@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/contact`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/terms-and-conditions`, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/privacy-policy`, changeFrequency: "yearly", priority: 0.2 },
-    ...collections.map((c) => ({
+    ...nonEmptyCollections(products).map((c) => ({
       url: `${BASE_URL}/collections/${c.slug}`,
       changeFrequency: "weekly" as const,
       priority: 0.8,
