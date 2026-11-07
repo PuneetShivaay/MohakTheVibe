@@ -8,12 +8,83 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import { Mail, MapPin, MessageCircle, Send } from "lucide-react";
-import { CONTACT } from "@/lib/site";
+import { ArrowUpRight, Instagram, Linkedin, Mail, MapPin, MessageCircle, Send, Youtube } from "lucide-react";
+import { CONTACT, MARKETPLACES, SITE_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "./FadeIn";
 import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
+import { Eyebrow, SectionHeading } from "./SectionHeading";
+
+const socials = [
+  { label: "Instagram", href: SITE_LINKS.instagram, Icon: Instagram },
+  { label: "YouTube", href: SITE_LINKS.youtube, Icon: Youtube },
+  { label: "LinkedIn", href: SITE_LINKS.linkedin, Icon: Linkedin },
+  { label: "WhatsApp", href: SITE_LINKS.whatsappChat, Icon: MessageCircle },
+];
+
+// The three ways to reach us, shown as cards under the heading. `href` is omitted for the address.
+const channels = [
+  {
+    label: "WhatsApp",
+    value: CONTACT.phoneDisplay,
+    note: "The quickest way to reach us.",
+    cta: "Chat on WhatsApp",
+    href: CONTACT.whatsappHello,
+    external: true,
+    Icon: MessageCircle,
+  },
+  {
+    label: "Email",
+    value: CONTACT.email,
+    note: "For questions, orders and gifting.",
+    cta: "Write to us",
+    href: `mailto:${CONTACT.email}`,
+    external: false,
+    Icon: Mail,
+  },
+  {
+    label: "Based in",
+    value: CONTACT.location,
+    note: "Delivered across India.",
+    cta: undefined,
+    href: undefined,
+    external: false,
+    Icon: MapPin,
+  },
+];
+
+function ChannelCard({ channel }: { channel: (typeof channels)[number] }) {
+  const { label, value, note, cta, href, external, Icon } = channel;
+  const body = (
+    <>
+      <span className="flex h-12 w-12 items-center justify-center rounded-full border border-brand-gold/40 text-brand-gold">
+        <Icon aria-hidden className="w-5 h-5" strokeWidth={1.25} />
+      </span>
+      <p className="mt-8 text-eyebrow uppercase text-brand-gold">{label}</p>
+      <p className="mt-3 font-headline text-xl md:text-2xl leading-snug break-words">{value}</p>
+      <p className="mt-2 text-sm text-foreground/60 font-light">{note}</p>
+      {cta && (
+        <span className="mt-8 inline-flex items-center gap-2 text-eyebrow uppercase text-foreground/80 group-hover:text-brand-gold transition-colors">
+          {cta}
+          <ArrowUpRight aria-hidden className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.25} />
+        </span>
+      )}
+    </>
+  );
+  const box = "group flex h-full flex-col border border-brand-gold/25 p-8 md:p-10 transition-colors";
+
+  return href ? (
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={cn(box, "hover:border-brand-gold hover:bg-card")}
+    >
+      {body}
+    </a>
+  ) : (
+    <div className={box}>{body}</div>
+  );
+}
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -53,51 +124,97 @@ export function ContactSection({ firstScreen = false }: { firstScreen?: boolean 
   const fieldInput = "rounded-none border-brand-gold/25 bg-background focus-visible:ring-brand-gold";
 
   return (
-    <section id="contact" className={cn("pb-section px-6 md:px-12 bg-card", firstScreen ? "pt-28 md:pt-36" : "pt-section")}>
-      <div className="max-w-site mx-auto grid md:grid-cols-2 gap-14 md:gap-20">
-        <Animate>
-          <SectionHeading
-            align="left"
-            as={firstScreen ? "h1" : "h2"}
-            eyebrow="Get in touch"
-            title={
-              <>
-                Talk to the <em>Mohak team</em>
-              </>
-            }
-            description="Questions about a piece, or looking for something for an occasion? Write to us, or message us on WhatsApp for the quickest reply."
-          />
+    <>
+      <section id="contact" className={cn("pb-section px-6 md:px-12", firstScreen ? "pt-28 md:pt-36" : "pt-section")}>
+        <div className="max-w-site mx-auto">
+          <Animate>
+            {firstScreen ? (
+              // Same hero treatment as /our-story: left-aligned eyebrow, extra-large serif h1, gold italic ending
+              <div className="max-w-3xl">
+                <Eyebrow className="mb-6">Get in touch</Eyebrow>
+                <h1 className="font-headline text-display-xl">
+                  Talk to the <em className="text-brand-gold">Mohak team.</em>
+                </h1>
+                <p className="mt-8 max-w-md text-foreground/70 font-light leading-relaxed">
+                  Questions about a piece, or looking for something for an occasion? Message us on WhatsApp for the
+                  quickest reply, or write to us by email.
+                </p>
+              </div>
+            ) : (
+              <SectionHeading
+                eyebrow="Get in touch"
+                title={
+                  <>
+                    Talk to the <em>Mohak team</em>
+                  </>
+                }
+                description="Questions about a piece, or looking for something for an occasion? Message us on WhatsApp for the quickest reply, or write to us by email."
+              />
+            )}
+          </Animate>
 
-          <ul className="mt-10 space-y-6">
-            <li className="flex items-start gap-4">
-              <MapPin aria-hidden className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
-              <div>
-                <p className="font-headline text-lg">Boutique office</p>
-                <p className="text-sm text-foreground/70 font-light">{CONTACT.location}</p>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <Mail aria-hidden className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
-              <div>
-                <p className="font-headline text-lg">Email</p>
-                <a href={`mailto:${CONTACT.email}`} className="text-sm text-foreground/70 font-light hover:text-brand-gold transition-colors">
-                  {CONTACT.email}
-                </a>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <MessageCircle aria-hidden className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
-              <div>
-                <p className="font-headline text-lg">WhatsApp</p>
-                <a href={CONTACT.whatsappHello} target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 font-light hover:text-brand-gold transition-colors">
-                  {CONTACT.phoneDisplay}
-                </a>
-              </div>
-            </li>
-          </ul>
-        </Animate>
+          <Animate delay={150}>
+            <ul className="mt-14 md:mt-20 grid gap-4 md:grid-cols-3 md:gap-6">
+              {channels.map((channel) => (
+                <li key={channel.label}>
+                  <ChannelCard channel={channel} />
+                </li>
+              ))}
+            </ul>
+          </Animate>
+        </div>
+      </section>
 
-        <Animate delay={150} className="border border-brand-gold/20 p-6 sm:p-10">
+      <section aria-labelledby="contact-form-heading" className="pb-section px-6 md:px-12">
+        <div className="max-w-site mx-auto grid lg:grid-cols-[5fr_7fr] border border-brand-gold/20">
+          {/* Dark panel: invitation, social links, marketplaces */}
+          <Animate className="flex flex-col bg-brand-midnight text-brand-ivory p-8 sm:p-12 lg:p-14">
+            <p className="text-eyebrow uppercase text-brand-gold">Prefer to write?</p>
+            <h2 id="contact-form-heading" className="mt-4 font-headline text-display-sm">
+              Send us <em>a message</em>
+            </h2>
+            <p className="mt-6 max-w-sm text-sm text-brand-ivory/70 font-light leading-relaxed">
+              Tell us what you are looking for: a piece, an occasion or a gift. Your message opens in your email app, addressed to our team.
+            </p>
+
+            <div className="mt-auto pt-14">
+              <p className="text-eyebrow uppercase text-brand-gold">Follow us</p>
+              <ul className="mt-4 flex items-center gap-3">
+                {socials.map(({ label, href, Icon }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Mohak on ${label}`}
+                      title={label}
+                      className="flex h-11 w-11 items-center justify-center border border-brand-ivory/25 text-brand-ivory hover:border-brand-gold hover:bg-brand-gold hover:text-brand-midnight transition-colors"
+                    >
+                      <Icon className="w-5 h-5" strokeWidth={1.25} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-8 text-eyebrow uppercase text-brand-gold">Also available on</p>
+              <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                {MARKETPLACES.map((m) => (
+                  <li key={m.label}>
+                    <a
+                      href={m.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border-b border-brand-ivory/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors"
+                    >
+                      {m.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Animate>
+
+          <Animate delay={150} className="bg-card p-8 sm:p-12 lg:p-14">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
@@ -147,8 +264,9 @@ export function ContactSection({ firstScreen = false }: { firstScreen?: boolean 
               </Button>
             </form>
           </Form>
-        </Animate>
-      </div>
-    </section>
+          </Animate>
+        </div>
+      </section>
+    </>
   );
 }

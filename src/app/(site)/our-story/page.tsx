@@ -11,7 +11,7 @@ import { PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
 const title = "Our Story | Mohak – The Vibe";
 const description =
-  "Mohak – The Vibe is a boutique jewellery label: handpicked Indian earrings, finished to last and packed to be gifted.";
+  "The story of Mohak – The Vibe: started by Ashi and Puneet with a love of earrings, first sold at small events, now on Flipkart and Meesho and led by Pratibha.";
 
 export const metadata: Metadata = {
   title,
@@ -49,6 +49,40 @@ const howToShop = [
 
 const ctaLink = "text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors";
 
+// The brand journey, in order. Draft wording from the owners; no dates are claimed.
+const journey = [
+  {
+    label: "The spark",
+    title: "A small interest in earrings",
+    text: "Mohak began with Ashi and Puneet and a simple love of earrings: finding pieces worth wearing, and sharing them.",
+  },
+  {
+    label: "First, offline",
+    title: "Small events and friends",
+    text: "We started the old way, selling in person at small events and to our friends, and learning what people really love.",
+  },
+  {
+    label: "Then, online",
+    title: "Taking Mohak to a wider circle",
+    text: "Word spread, so we came online and opened the doors to customers beyond our city.",
+  },
+  {
+    label: "On marketplaces",
+    title: "Flipkart and Meesho",
+    text: "Today you can shop Mohak on Flipkart and Meesho, with the same care in every pair.",
+  },
+  {
+    label: "Next",
+    title: "Myntra and more",
+    text: "We are getting ready to join Myntra and other platforms soon.",
+  },
+  {
+    label: "Today",
+    title: "Led by Pratibha",
+    text: "Pratibha began Mohak afresh and now manages everything, from each collection to every order that goes out.",
+  },
+];
+
 export default function OurStoryPage() {
   const mainImg = imageUrl("brand-story-lifestyle");
   const detailImg = imageUrl("festive-item-3");
@@ -78,6 +112,36 @@ export default function OurStoryPage() {
       </section>
 
       <PromiseStrip />
+
+      {/* Journey */}
+      <section className="py-section px-6 md:px-12 bg-card">
+        <div className="max-w-3xl mx-auto">
+          <Reveal className="mb-14 md:mb-20">
+            <SectionHeading
+              eyebrow="Our journey"
+              title={<>From a small interest to <em>your jewellery box</em></>}
+              description="Mohak started small and grew one step at a time."
+            />
+          </Reveal>
+          <ol className="relative border-l border-brand-gold/40 ml-3 md:ml-0 md:mx-auto space-y-12">
+            {journey.map((step, i) => (
+              <li key={step.label} className="relative pl-8 md:pl-12">
+                <span aria-hidden className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-brand-gold" />
+                <Reveal delay={(i % 3) * 80}>
+                  <p className="text-eyebrow uppercase text-brand-gold">{step.label}</p>
+                  <h3 className="mt-2 font-headline text-2xl">{step.title}</h3>
+                  <p className="mt-3 text-foreground/70 font-light leading-relaxed">{step.text}</p>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+          <Reveal className="mt-20 text-center">
+            <p className="font-headline italic text-display-sm">
+              Inspired by women. <span className="text-brand-gold">Led by a woman.</span>
+            </p>
+          </Reveal>
+        </div>
+      </section>
 
       {/* Values */}
       <section className="py-section px-6 md:px-12">

@@ -34,7 +34,7 @@ export function organizationJsonLd() {
     },
     areaServed: "IN",
     founder: TEAM.filter((m) => m.founder).map((m) => ({ "@type": "Person", name: m.name })),
-    sameAs: [SITE_LINKS.instagram, SITE_LINKS.youtube, ...MARKETPLACES.map((m) => m.href)],
+    sameAs: [SITE_LINKS.instagram, SITE_LINKS.youtube, SITE_LINKS.linkedin, ...MARKETPLACES.map((m) => m.href)],
   };
 }
 
