@@ -33,7 +33,7 @@ export function FooterWordmark() {
     <p
       ref={ref}
       aria-hidden
-      className="font-headline text-[22vw] md:text-[16vw] leading-none tracking-[0.08em] text-center text-foreground/[0.08] select-none pt-10 whitespace-nowrap"
+      className="font-headline text-[22vw] md:text-[16vw] leading-none tracking-[0.08em] text-center text-foreground/[0.08] select-none pointer-events-none pt-10 whitespace-nowrap"
     >
       {WORD.split("").map((char, i) => (
         <Letter key={i} char={char} index={i} progress={scrollYProgress} still={still} />

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Instagram, Menu, X, Youtube } from "lucide-react";
+import { Heart, Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
 import { useWishlist } from "@/hooks/use-wishlist";
@@ -86,30 +86,12 @@ export function Navbar() {
             <BrandLogo compact />
           </Link>
 
-          {/* Right: desktop links, Instagram, theme */}
+          {/* Right: desktop links, wishlist, theme */}
           <div className="flex items-center justify-end gap-8">
             <div className="hidden lg:flex items-center gap-8">
               {NAV_LINKS.right.map((link) => (
                 <NavLink key={link.href} {...link} />
               ))}
-              <a
-                href={SITE_LINKS.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Mohak on Instagram"
-                className="hover:text-brand-gold transition-colors"
-              >
-                <Instagram className="w-4 h-4" strokeWidth={1.25} />
-              </a>
-              <a
-                href={SITE_LINKS.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Mohak on YouTube"
-                className="hover:text-brand-gold transition-colors"
-              >
-                <Youtube className="w-4 h-4" strokeWidth={1.25} />
-              </a>
             </div>
             <Link
               href={PAGE_LINKS.wishlist}

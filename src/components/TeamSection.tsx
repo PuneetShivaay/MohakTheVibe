@@ -22,7 +22,7 @@ function Portrait({ member, sizes, className }: { member: TeamMember; sizes: str
 // Compact team block: the managing director highlighted, everyone else in one row
 export function TeamSection() {
   return (
-    <section className="py-section px-6 md:px-12">
+    <section className="py-section px-6 md:px-12 bg-card">
       <div className="max-w-site mx-auto">
         <Reveal className="mb-12 md:mb-16">
           <SectionHeading eyebrow="Our team" title={<>The people <em>behind Mohak</em></>} />

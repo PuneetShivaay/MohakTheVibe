@@ -127,7 +127,7 @@ export async function Footer() {
 
       {/* Oversized faded wordmark, animated on scroll */}
       <FooterWordmark />
-      <p className="max-w-site mx-auto mt-4 text-center text-eyebrow uppercase text-foreground/50">
+      <p className="relative z-10 max-w-site mx-auto mt-4 text-center text-eyebrow uppercase text-foreground/50">
         © {year} Mohak – The Vibe.
         {CONTACT.gstin && <span className="block sm:inline sm:ml-3">GSTIN {CONTACT.gstin}.</span>}{" "}
         Developed by{" "}
@@ -135,7 +135,7 @@ export async function Footer() {
           href={SITE_LINKS.developer}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-foreground/70 border-b border-transparent pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors"
+          className="text-foreground/70 no-underline px-1 hover:text-brand-gold transition-colors"
         >
           Otical
         </a>
