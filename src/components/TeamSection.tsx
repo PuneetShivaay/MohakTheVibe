@@ -37,9 +37,10 @@ export function TeamSection() {
           </div>
         </Reveal>
 
-        <ul className="mt-14 md:mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-10">
+        {/* Centred wrapping row: any team size stays balanced (a short last row is centred, not left-aligned) */}
+        <ul className="mt-14 md:mt-16 flex flex-wrap justify-center gap-x-6 gap-y-10">
           {TEAM.map((member, i) => (
-            <li key={member.name} className="text-center">
+            <li key={member.name} className="w-[calc(50%-0.75rem)] sm:w-40 text-center">
               <Reveal delay={i * 75}>
                 <Portrait member={member} sizes="96px" className="size-24 rounded-full mx-auto" />
                 <h3 className="mt-4 font-headline text-lg">{member.name}</h3>
