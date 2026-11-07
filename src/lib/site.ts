@@ -6,6 +6,7 @@ export const WHATSAPP_NUMBER = "916388498674";
 export const SITE_LINKS = {
   instagram: "https://www.instagram.com/mohakthevibe/",
   youtube: "https://www.youtube.com/@Mohakthevibe",
+  linkedin: "https://www.linkedin.com/company/mohakthevibe",
   developer: "https://otical.vercel.app/",
   whatsappChat: `https://wa.me/${WHATSAPP_NUMBER}`,
   whatsappCatalog: `https://wa.me/c/${WHATSAPP_NUMBER}`,

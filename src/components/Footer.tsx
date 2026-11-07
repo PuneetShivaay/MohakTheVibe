@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
+import { Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { FooterWordmark } from "./FooterWordmark";
 import { getProducts } from "@/lib/catalog";
@@ -38,6 +38,9 @@ export async function Footer() {
             </a>
             <a href={SITE_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label="Mohak on YouTube" className="text-brand-gold hover:opacity-70 transition-opacity">
               <Youtube className="w-5 h-5" strokeWidth={1.25} />
+            </a>
+            <a href={SITE_LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Mohak on LinkedIn" className="text-brand-gold hover:opacity-70 transition-opacity">
+              <Linkedin className="w-5 h-5" strokeWidth={1.25} />
             </a>
             <a href={SITE_LINKS.whatsappChat} target="_blank" rel="noopener noreferrer" aria-label="Chat with Mohak on WhatsApp" className="text-brand-gold hover:opacity-70 transition-opacity">
               <MessageCircle className="w-5 h-5" strokeWidth={1.25} />

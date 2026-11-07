@@ -8,8 +8,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import { Mail, MapPin, MessageCircle, Send } from "lucide-react";
-import { CONTACT } from "@/lib/site";
+import { Linkedin, Mail, MapPin, MessageCircle, Send } from "lucide-react";
+import { CONTACT, SITE_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "./FadeIn";
 import { Reveal } from "./Reveal";
@@ -91,6 +91,15 @@ export function ContactSection({ firstScreen = false }: { firstScreen?: boolean 
                 <p className="font-headline text-lg">WhatsApp</p>
                 <a href={CONTACT.whatsappHello} target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 font-light hover:text-brand-gold transition-colors">
                   {CONTACT.phoneDisplay}
+                </a>
+              </div>
+            </li>
+            <li className="flex items-start gap-4">
+              <Linkedin aria-hidden className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
+              <div>
+                <p className="font-headline text-lg">LinkedIn</p>
+                <a href={SITE_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/70 font-light hover:text-brand-gold transition-colors">
+                  Mohak – The Vibe
                 </a>
               </div>
             </li>
