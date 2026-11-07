@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Instagram, Mail, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
+import { FooterWordmark } from "./FooterWordmark";
 import { getProducts } from "@/lib/catalog";
 import { nonEmptyCollections } from "@/lib/products";
 import { CONTACT, LEGAL_LINKS, MARKETPLACES, NAV_LINKS, SHOP_LINKS, SITE_LINKS, TRUST_POINTS } from "@/lib/site";
@@ -121,10 +122,8 @@ export async function Footer() {
         </div>
       </div>
 
-      {/* Oversized faded wordmark */}
-      <p aria-hidden className="font-headline text-[22vw] md:text-[16vw] leading-none tracking-[0.08em] text-center text-foreground/[0.05] select-none pt-10">
-        MOHAK
-      </p>
+      {/* Oversized faded wordmark, animated on scroll */}
+      <FooterWordmark />
       <p className="max-w-site mx-auto mt-4 text-center text-eyebrow uppercase text-foreground/50">
         © {year} Mohak – The Vibe.
         {CONTACT.gstin && <span className="block sm:inline sm:ml-3">GSTIN {CONTACT.gstin}.</span>}{" "}
