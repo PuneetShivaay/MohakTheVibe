@@ -12,7 +12,7 @@ export type TeamMember = {
 
 // Shown large, above the rest of the team
 export const TEAM_LEAD: TeamMember & { note: string } = {
-  name: "Pratibha Kanaujiya",
+  name: "Pratibha",
   role: "Managing Director",
   photo: "/images/pratibha2.png",
   note: "Pratibha runs Mohak day to day, from choosing each collection to making sure every order leaves the way it should.",
@@ -20,12 +20,13 @@ export const TEAM_LEAD: TeamMember & { note: string } = {
 
 // Shown in this order in the small grid
 export const TEAM: TeamMember[] = [
-  { name: "Ashi Singh", role: "Founder", founder: true },
+  { name: "Ashi Singh", role: "Co-Founder", founder: true },
+  { name: "Puneet Kumar", role: "Co-Founder", founder: true },
   { name: "Ritu Chaudhary", role: "Lead Designer" },
   { name: "Shekhar Sharma", role: "Head of Operations" },
+  { name: "Akanksha Singh", role: "Finance & Compliance" },
   { name: "Madhu Prabha", role: "Brand & Marketing Lead" },
   { name: "Astha Tripathi", role: "Brand Ambassador" },
-  { name: "Puneet Kumar", role: "Head of Technology" },
 ];
 
 export const initials = (name: string) =>

@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { cloudinaryUrl } from "@/lib/images";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { getCollection, getProductsByCollection, productPath, type Collection, type Product } from "@/lib/products";
 import { SITE_LINKS } from "@/lib/site";
-import { cn } from "@/lib/utils";
+import { CardPhotos } from "./CardPhotos";
+import { WishlistButton } from "./WishlistButton";
 
 export const imageUrl = (id?: string) => (id ? PlaceHolderImages.find((img) => img.id === id)?.imageUrl : undefined);
 
@@ -53,34 +53,21 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
   return (
     <article className="group">
       {/* Photo and name open the product page; the marketplace links below go straight to the store */}
-      <Link
-        href={productPath(product.id)}
-        tabIndex={-1}
-        aria-hidden
-        className="relative block aspect-[3/4] overflow-hidden bg-muted border border-brand-gold/15"
-      >
-        {img && (
-          <Image
-            src={img}
-            alt={product.name}
-            fill
-            sizes="(min-width: 1024px) 25vw, 50vw"
-            className={cn(
-              "object-cover transition-all duration-700 ease-out-soft",
-              hoverImg ? "group-hover:opacity-0" : "group-hover:scale-[1.03]"
-            )}
-          />
-        )}
-        {hoverImg && (
-          <Image
-            src={hoverImg}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 25vw, 50vw"
-            className="object-cover opacity-0 transition-opacity duration-700 ease-out-soft group-hover:opacity-100"
-          />
-        )}
-      </Link>
+      <div className="relative">
+        <Link
+          href={productPath(product.id)}
+          tabIndex={-1}
+          aria-hidden
+          className="relative block aspect-[3/4] overflow-hidden bg-muted border border-brand-gold/15"
+        >
+          {img && <CardPhotos main={img} second={hoverImg} alt={product.name} />}
+        </Link>
+        <WishlistButton
+          id={product.id}
+          name={product.name}
+          className="absolute top-2 right-2 h-9 w-9 rounded-full bg-background/85 backdrop-blur-sm text-foreground/70 hover:text-brand-copper shadow-sm"
+        />
+      </div>
 
       <div className="pt-5 text-center">
         {showCollection && collection && <p className="text-eyebrow uppercase text-brand-gold mb-2">{collection.name}</p>}
@@ -98,7 +85,8 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Buy ${product.name} on ${link.label} (opens in a new tab)`}
-              className={quietLink}
+              // Invisible ::after enlarges the touch area to ~44px tall without changing the look
+              className={`relative after:absolute after:-inset-x-2 after:-inset-y-4 after:content-[''] ${quietLink}`}
             >
               {link.label}
             </a>

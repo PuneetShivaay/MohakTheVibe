@@ -67,7 +67,7 @@ Products live in the Google Sheet "Mohak Catalog" (published as CSV). Details: `
 
 **Add or change a product**
 1. Add a row (or edit one) in the sheet. Required: `id` (unique, never reuse), `name`, `category` (earrings / pendants / bracelets), `price` (number), `main_image`.
-2. Optional: `collection` (minakari, kundan, contemporary, stud), `type` (stud, hoop, jhumka, chandbali, korean...), `description`, `hover_image`, `image2`/`image3`/`image4`... (extra product page photos, one link per cell), `flipkart`, `meesho`, `amazon` (product links), `featured` (yes = home "Signature Pieces"), `active` (no = hide), `sort` (lower first).
+2. Optional: `collection` (minakari, kundan, contemporary, korean, jhumka, chandbali, hoop, stud), `type` (stud, hoop, jhumka, chandbali, korean...), `description`, `hover_image`, `image2`/`image3`/`image4`... (extra product page photos, one link per cell), `flipkart`, `meesho`, `amazon` (product links), `featured` (yes = home "Signature Pieces"), `active` (no = hide), `sort` (lower first).
 3. Images: Cloudinary URL (best, resized automatically) or a Flipkart/Meesho image URL (not resized; prefer small versions). Other hosts are skipped.
 4. No need to re-publish: Google updates the CSV itself (can take a few minutes).
 5. Go live: wait for the automatic rebuild (every 3 hours), run it now from GitHub → Actions → "Rebuild site (Vercel)" → Run workflow, or press Redeploy in Vercel (about 1–3 minutes).

@@ -15,10 +15,12 @@ import { BRAND_PROMISES, SITE_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "@/components/FadeIn";
 import { JsonLd } from "@/components/JsonLd";
+import { MobileBuyBar } from "@/components/MobileBuyBar";
 import { ProductCard, marketplaceLinks, productGridClass, quietLink } from "@/components/ProductCard";
 import { ProductGallery } from "@/components/ProductGallery";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
+import { WishlistButton } from "@/components/WishlistButton";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -98,7 +100,7 @@ export default async function ProductPage({ params }: Params) {
                 {collection.name}
               </Link>
             )}
-            <h1 className="font-headline text-display">{product.name}</h1>
+            <h1 className="font-headline text-display-sm md:text-display">{product.name}</h1>
             <p className="mt-4 font-headline text-2xl">{product.price}</p>
 
             {product.description && (
@@ -107,8 +109,9 @@ export default async function ProductPage({ params }: Params) {
               </p>
             )}
 
-            {/* First listing is the main button, the rest are outlined */}
-            <div className="mt-10 flex flex-col sm:flex-row flex-wrap gap-3">
+            {/* First listing is the main button, the rest are outlined. On phones MobileBuyBar takes over when
+                these scroll out of view. */}
+            <div id="buy-buttons" className="mt-10 flex flex-col sm:flex-row flex-wrap gap-3">
               {links.map((link, i) => (
                 <a
                   key={link.label}
@@ -126,6 +129,12 @@ export default async function ProductPage({ params }: Params) {
                   {hasListings ? `Buy on ${link.label}` : link.label}
                 </a>
               ))}
+              <WishlistButton
+                id={product.id}
+                name={product.name}
+                withLabel
+                className="text-eyebrow uppercase px-8 py-4 border border-brand-gold/50 hover:border-brand-gold hover:text-brand-gold"
+              />
             </div>
             {hasListings && (
               <p className="mt-6 text-sm text-foreground/60 font-light">
@@ -152,6 +161,14 @@ export default async function ProductPage({ params }: Params) {
           </FadeIn>
         </div>
       </section>
+
+      <MobileBuyBar
+        targetId="buy-buttons"
+        id={product.id}
+        name={product.name}
+        price={product.price}
+        action={{ label: hasListings ? `Buy on ${links[0].label}` : links[0].label, href: links[0].href }}
+      />
 
       {related.length > 0 && (
         <section className="py-section px-6 md:px-12 bg-card">

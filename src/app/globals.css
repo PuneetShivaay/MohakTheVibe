@@ -65,3 +65,30 @@
     @apply font-headline;
   }
 }
+@layer utilities {
+  /* Swipeable photo strips: scroll without a visible scrollbar */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Phones: small uppercase labels one step larger so they stay readable (10px → 11px) */
+@media (max-width: 767px) {
+  .text-eyebrow {
+    font-size: 0.6875rem;
+  }
+}
+
+/* Product page buy bar (MobileBuyBar) on phones: keep the footer clear of it and hide the floating
+   WhatsApp button, which would sit on top of it */
+@media (max-width: 767px) {
+  html[data-buy-bar] body {
+    padding-bottom: 5rem;
+  }
+  html[data-buy-bar] .whatsapp-cta {
+    display: none;
+  }
+}

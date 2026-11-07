@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getProducts } from "@/lib/catalog";
-import { collections, getProductsByCollection, type Collection } from "@/lib/products";
+import { getProductsByCollection, nonEmptyCollections, type Collection } from "@/lib/products";
 import { cn } from "@/lib/utils";
 import { collectionCover } from "./ProductCard";
 import { Reveal } from "./Reveal";
@@ -74,6 +74,8 @@ export function CollectionTile({
 export async function CollectionTiles() {
   const products = await getProducts();
   const countOf = (slug: string) => getProductsByCollection(products, slug).length;
+  const shown = nonEmptyCollections(products);
+  if (shown.length === 0) return null;
 
   return (
     <section id="collections" className="py-section px-6 md:px-12">
@@ -91,7 +93,7 @@ export async function CollectionTiles() {
         </Reveal>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-          {collections.map((collection, i) => (
+          {shown.map((collection, i) => (
             <Reveal key={collection.slug} delay={(i % 4) * 100}>
               <CollectionTile
                 collection={collection}

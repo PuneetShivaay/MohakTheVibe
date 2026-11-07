@@ -31,7 +31,7 @@ Starter file: `docs/catalog-template.csv` (headers + 3 example rows). In Google 
 | `name` | yes | `Minakari Half Green Jhumka` | Title case |
 | `description` | no | `Hand-painted Minakari jhumka with pearl drops. Brass, gold plated. 5 cm drop.` | Shown on the product page and used for its search description (first 160 characters). Line breaks are kept. Mention material and size here |
 | `category` | yes | `earrings` | One of `earrings`, `pendants`, `bracelets` |
-| `collection` | no | `minakari` | A style slug from `collections` in `products.ts`, or empty |
+| `collection` | no | `minakari` | One of `minakari`, `kundan`, `contemporary`, `korean`, `jhumka`, `chandbali`, `hoop`, `stud` (from `collections` in `products.ts`), or empty. Each has its own page; collections with no products are hidden. The last five also set `type` when `type` is empty |
 | `type` | no | `hoop` | Kind of piece (stud, hoop, jhumka, chandbali, korean...). Drives the filter chips on category pages. If empty, an unknown `collection` value is used as the type |
 | `price` | yes | `199` | Number only; the site adds `₹` |
 | `main_image` | yes | `https://res.cloudinary.com/<cloud>/image/upload/...` | Cloudinary URL (recommended: resized automatically), or a Flipkart (`rukminim*.flixcart.com`) / Meesho (`images.meesho.com`) image URL. These are not resized, so use small versions (e.g. `/512/512/` in the Flipkart URL); they may change or break if the listing is removed |

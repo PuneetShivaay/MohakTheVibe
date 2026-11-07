@@ -23,7 +23,8 @@ export default {
         eyebrow: ['0.625rem', { lineHeight: '1', letterSpacing: '0.35em' }],
       },
       spacing: {
-        section: 'clamp(6rem, 12vw, 10rem)',
+        // 4rem on phones (less empty scrolling), unchanged from ~800px wide up
+        section: 'clamp(4rem, 12vw, 10rem)',
       },
       maxWidth: {
         site: '1400px',
@@ -123,5 +124,11 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    // `can-hover:` applies only with a real mouse, so taps on phones never trigger hover effects
+    ({ addVariant }: { addVariant: (name: string, definition: string) => void }) => {
+      addVariant('can-hover', '@media (hover: hover) and (pointer: fine)');
+    },
+  ],
 } satisfies Config;

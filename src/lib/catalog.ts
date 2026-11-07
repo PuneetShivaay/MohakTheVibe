@@ -10,6 +10,7 @@ import { categories, collections, fallbackProducts, type Product } from "./produ
 
 const CATEGORY_SLUGS = categories.map((c) => c.slug) as [Product["category"], ...Product["category"][]];
 const COLLECTION_SLUGS = new Set(collections.map((c) => c.slug));
+const TYPE_COLLECTIONS = new Set(collections.filter((c) => c.isType).map((c) => c.slug));
 
 // --- Images -------------------------------------------------------------------------------------
 
@@ -113,8 +114,8 @@ export function parseSheet(csv: string): Product[] {
       type ??= collection;
       collection = undefined;
     }
-    // "Studs" is both a collection page and a type of earring
-    if (!type && collection === "stud") type = "stud";
+    // Collections like hoop or jhumka are also a kind of piece: use them as the type for the filter chips
+    if (!type && collection && TYPE_COLLECTIONS.has(collection)) type = collection;
 
     const extras = extraImageCells(raw);
     const moreImages = extras.filter((v) => /^https:\/\//.test(v) && isAllowedImage(v));

@@ -3,11 +3,12 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Instagram, Menu, X, Youtube } from "lucide-react";
+import { Heart, Instagram, Menu, X, Youtube } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
+import { useWishlist } from "@/hooks/use-wishlist";
 import { cn } from "@/lib/utils";
-import { MARKETPLACES, NAV_LINKS, SITE_LINKS } from "@/lib/site";
+import { MARKETPLACES, NAV_LINKS, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
 const allLinks = [...NAV_LINKS.left, ...NAV_LINKS.right];
 
@@ -23,6 +24,7 @@ export function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const wishlist = useWishlist();
 
   // Only the home page has a full-bleed hero to sit over; other pages get the solid bar
   const overHero = pathname === "/" && !isScrolled && !mobileMenuOpen;
@@ -109,6 +111,23 @@ export function Navbar() {
                 <Youtube className="w-4 h-4" strokeWidth={1.25} />
               </a>
             </div>
+            <Link
+              href={PAGE_LINKS.wishlist}
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label={`Wishlist${wishlist.ids.length ? `, ${wishlist.ids.length} saved` : ""}`}
+              // Invisible ::after gives the 16px icon a ~44px touch area
+              className="relative hover:text-brand-gold transition-colors after:absolute after:-inset-3.5 after:content-['']"
+            >
+              <Heart className="w-4 h-4" strokeWidth={1.25} />
+              {wishlist.ids.length > 0 && (
+                <span
+                  aria-hidden
+                  className="absolute -top-2 -right-2.5 min-w-4 h-4 px-1 rounded-full bg-brand-copper text-white text-[0.6rem] leading-4 text-center"
+                >
+                  {wishlist.ids.length}
+                </span>
+              )}
+            </Link>
             <ThemeToggle />
           </div>
         </nav>

@@ -6,8 +6,8 @@ Google Sheet at build time or stored in the visitor's browser. `tsc` per phase; 
 ## Status
 - [x] 1. Homepage cleanup
 - [x] 2. Product detail pages (`/product/[id]`) + sheet columns `description`, `image2`/`image3`/`image4`... (main photo column renamed `main_image`)
-- [ ] 3. Mobile gallery: swipe on product pages, tap/swipe to the on-model photo on cards
-- [ ] 4. Wishlist (browser storage) with "Send my wishlist on WhatsApp"
+- [x] 3. Mobile gallery: swipe on product pages, tap/swipe to the on-model photo on cards
+- [x] 4. Wishlist (browser storage) with "Send my wishlist on WhatsApp"
 - [ ] 5. Recently viewed strip
 - [ ] 6. Gift finder (occasion, budget, style); may add an `occasion` column
 - [ ] 7. Later: lookbook (needs a shoot), reviews tab in the sheet
@@ -34,6 +34,39 @@ Google Sheet at build time or stored in the visitor's browser. `tsc` per phase; 
 - Cards: photo and name open the product page; marketplace links still go straight to the store
 - Known risk (accepted): if the sheet can't be read at build time the fallback products (`p1`–`p8`) are used and
   `mohak0XX` pages 404 until the next good build
+
+## Phase 3: Swipe and zoom (done)
+- `ProductGallery`: photos in a scroll-snap strip (native swipe, arrow keys when focused); thumbnails scroll to a
+  photo and highlight the one in view; with a mouse, hover zooms 2x around the cursor
+- `CardPhotos`: cards with a `hover_image` crossfade on mouse hover; on touch screens the two photos swipe, with dots
+- New Tailwind variant `can-hover:` (real mouse only), so taps on phones no longer trigger hover effects on cards;
+  `.scrollbar-none` utility in `globals.css`
+
+## Phase 4: Wishlist (done)
+- `useWishlist` (`src/hooks/use-wishlist.ts`): product ids in `localStorage` (`mohak-wishlist`), synced across
+  components and tabs. Per browser/device; no account
+- `WishlistButton`: heart on every card (top-right of the photo) and "Save to wishlist" on product pages
+- Navbar heart with a count, linking to `/wishlist` (noindex, not in the sitemap)
+- `/wishlist`: saved pieces as cards, "Send my wishlist on WhatsApp" (numbered name, price and product link per
+  piece), empty state with shop links. Ids missing from the current catalog are skipped but not deleted
+
+## Mobile pass (done)
+Most buyers are on phones. Phone-only changes unless noted; desktop unchanged.
+- M1 Product title `text-display-sm` on phones (long names no longer fill the screen)
+- M2 `MobileBuyBar`: name, price, heart and the main buy button pinned to the bottom while the page's own buy
+  buttons (`#buy-buttons`) are out of view; marks `<html data-buy-bar>` so the page bottom is padded and the
+  floating WhatsApp button (`.whatsapp-cta`) is hidden (globals.css)
+- M4 Larger invisible touch areas (::after) on card marketplace links and the navbar heart
+- M5 `section` spacing min 4rem (was 6rem); same from ~800px wide up
+- M6 Category filter chips: one sideways-swiping row on phones
+- M7 `.text-eyebrow` 11px on phones (was 10px), globals.css
+- Skipped by decision: M3 responsive Cloudinary images (custom next/image loader); revisit if pages feel slow
+
+## Extra: more collections (done)
+- Added `korean`, `jhumka`, `chandbali`, `hoop` (matching the sheet's dropdown); copy is placeholder
+- Empty collections are hidden from home tiles, footer, "More collections" and the sitemap; their page shows
+  "Coming soon" and is `noindex`
+- `isType` collections (korean, jhumka, chandbali, hoop, stud) also fill `type` when it is empty, so filter chips keep working
 
 ## Open questions
 - [ ] Our Essence copy says "Each pair of earrings" and "jewelry" (site uses "jewellery"); update now that pendants
