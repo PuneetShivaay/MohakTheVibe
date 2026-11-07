@@ -50,6 +50,18 @@ Google Sheet at build time or stored in the visitor's browser. `tsc` per phase; 
 - `/wishlist`: saved pieces as cards, "Send my wishlist on WhatsApp" (numbered name, price and product link per
   piece), empty state with shop links. Ids missing from the current catalog are skipped but not deleted
 
+## Mobile pass (done)
+Most buyers are on phones. Phone-only changes unless noted; desktop unchanged.
+- M1 Product title `text-display-sm` on phones (long names no longer fill the screen)
+- M2 `MobileBuyBar`: name, price, heart and the main buy button pinned to the bottom while the page's own buy
+  buttons (`#buy-buttons`) are out of view; marks `<html data-buy-bar>` so the page bottom is padded and the
+  floating WhatsApp button (`.whatsapp-cta`) is hidden (globals.css)
+- M4 Larger invisible touch areas (::after) on card marketplace links and the navbar heart
+- M5 `section` spacing min 4rem (was 6rem); same from ~800px wide up
+- M6 Category filter chips: one sideways-swiping row on phones
+- M7 `.text-eyebrow` 11px on phones (was 10px), globals.css
+- Skipped by decision: M3 responsive Cloudinary images (custom next/image loader); revisit if pages feel slow
+
 ## Extra: more collections (done)
 - Added `korean`, `jhumka`, `chandbali`, `hoop` (matching the sheet's dropdown); copy is placeholder
 - Empty collections are hidden from home tiles, footer, "More collections" and the sitemap; their page shows

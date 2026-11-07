@@ -31,7 +31,7 @@ export function CategoryProducts({ products }: { products: Product[] }) {
 
   const chip = (active: boolean) =>
     cn(
-      "px-4 py-2 border text-eyebrow uppercase transition-colors",
+      "shrink-0 whitespace-nowrap px-4 py-2.5 border text-eyebrow uppercase transition-colors",
       active
         ? "border-brand-gold bg-brand-gold text-brand-midnight"
         : "border-brand-gold/30 text-foreground/70 hover:border-brand-gold hover:text-brand-gold"
@@ -40,7 +40,12 @@ export function CategoryProducts({ products }: { products: Product[] }) {
   return (
     <div>
       {types.length >= 2 && (
-        <div role="group" aria-label="Filter by type" className="mb-12 flex flex-wrap justify-center gap-2 md:gap-3">
+        // Phones: one row that swipes sideways, running to the screen edges; wraps and centres from md up
+        <div
+          role="group"
+          aria-label="Filter by type"
+          className="mb-12 -mx-6 px-6 flex gap-2 overflow-x-auto scrollbar-none md:mx-0 md:px-0 md:flex-wrap md:justify-center md:gap-3 md:overflow-visible"
+        >
           <button type="button" aria-pressed={type === null} onClick={() => choose(null)} className={chip(type === null)}>
             All <span className="opacity-60">({products.length})</span>
           </button>

@@ -85,7 +85,8 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Buy ${product.name} on ${link.label} (opens in a new tab)`}
-              className={quietLink}
+              // Invisible ::after enlarges the touch area to ~44px tall without changing the look
+              className={`relative after:absolute after:-inset-x-2 after:-inset-y-4 after:content-[''] ${quietLink}`}
             >
               {link.label}
             </a>

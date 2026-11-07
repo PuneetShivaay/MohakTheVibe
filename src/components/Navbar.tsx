@@ -115,7 +115,8 @@ export function Navbar() {
               href={PAGE_LINKS.wishlist}
               onClick={() => setMobileMenuOpen(false)}
               aria-label={`Wishlist${wishlist.ids.length ? `, ${wishlist.ids.length} saved` : ""}`}
-              className="relative hover:text-brand-gold transition-colors"
+              // Invisible ::after gives the 16px icon a ~44px touch area
+              className="relative hover:text-brand-gold transition-colors after:absolute after:-inset-3.5 after:content-['']"
             >
               <Heart className="w-4 h-4" strokeWidth={1.25} />
               {wishlist.ids.length > 0 && (

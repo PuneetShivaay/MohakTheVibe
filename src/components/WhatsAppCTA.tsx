@@ -26,7 +26,8 @@ export function WhatsAppCTA() {
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}
       className={cn(
-        "fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full",
+        // `whatsapp-cta`: hidden on phones while the product page buy bar is shown (globals.css)
+        "whatsapp-cta fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full",
         "bg-brand-midnight text-brand-gold border border-brand-gold/40 shadow-lg",
         "transition-all duration-500 ease-out-soft hover:bg-brand-gold hover:text-brand-midnight",
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
