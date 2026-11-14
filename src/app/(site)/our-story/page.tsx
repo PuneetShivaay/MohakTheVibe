@@ -151,7 +151,7 @@ export default function OurStoryPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
             {values.map((value, i) => (
-              <Reveal key={value.name} delay={i * 100} className="border-t border-brand-gold/30 pt-6">
+              <Reveal key={value.name} delay={i * 100} className="border-t border-border pt-6">
                 <h3 className="font-headline text-xl mb-3">{value.name}</h3>
                 <p className="text-sm text-foreground/70 font-light leading-relaxed">{value.text}</p>
               </Reveal>

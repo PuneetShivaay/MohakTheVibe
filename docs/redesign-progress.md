@@ -276,6 +276,22 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - A full build was not possible at that moment: the running Turbopack dev server shares the `.next` folder and
     the build failed with `Cannot find module '../chunks/ssr/[turbopack]_runtime.js'` (the known `.next` clash in
     architecture.md). Stop the dev server before running `npm run build`.
+- 2026-11-14: **SEO & premium phase 7 done: cards, gold, buttons** (typecheck only; not seen in a browser).
+  Grid stays four across by the user's decision (the plan's three-across idea was dropped).
+  - **Cards:** photo, name and price only. The "Flipkart · Meesho" links are gone from the card (they are on the
+    product page and the phone buy bar). A product with no listing keeps a quiet "Ask on WhatsApp" link, so it
+    still has a way to buy. New `hasListings()` helper in `ProductCard.tsx`.
+  - **Gold:** 23 faint gold hairlines (`border-brand-gold/10` to `/30`: footer, navbar, cards, gallery, FAQ, contact,
+    journal, promise strip) became the neutral warm `border-border`. Gold stays on labels, icons, hover and active
+    states and the journal quote rule. `BrandStory.tsx` untouched (kept as is by decision).
+  - **Buttons:** new `cta` colour token (`globals.css` + `tailwind.config.ts`): Midnight with Ivory text in light
+    mode, flipped in dark mode. Used by the product-page buy button, `MobileBuyBar` and the wishlist CTA. The hero
+    button is Ivory with Midnight text because it sits on a dark photo (a Midnight button would vanish there).
+    Copper stays only on the wishlist heart and count badge. **Colour is my recommendation, not confirmed by the
+    user.** To revert: set `--cta` to `21 45% 49%` and `--cta-foreground` to `0 0% 100%` in both themes.
+  - Also in the footer commit, which carries both the hairline swap and the layout rework: four columns, Get in
+    touch under the logo, Collections in its own column, "Also available on" under Shop as three lines (the user
+    edited the WhatsApp label to "WhatsApp").
 
 ## Before merging to main
 - [ ] Final test checklist below passes

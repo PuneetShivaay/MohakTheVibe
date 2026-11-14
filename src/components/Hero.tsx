@@ -54,7 +54,7 @@ export function Hero() {
           <FadeIn delay={450} className="mt-10 flex flex-wrap items-center gap-8">
             <Link
               href={PAGE_LINKS.collections}
-              className="bg-brand-copper hover:bg-brand-copper/90 text-white text-eyebrow uppercase px-8 py-4 transition-colors"
+              className="bg-brand-ivory hover:bg-white text-brand-midnight text-eyebrow uppercase px-8 py-4 transition-colors"
             >
               Explore the Collection
             </Link>

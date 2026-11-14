@@ -34,7 +34,7 @@ export async function CategoryTiles() {
             <li key={category.slug}>
               <Reveal delay={i * 100}>
                 <Link href={`/shop/${category.slug}`} className="group block text-center">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-muted border border-brand-gold/15">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-muted border border-border">
                     <Image
                       src={cloudinaryUrl(items[0].image, 900)}
                       alt={`${category.name} category`}

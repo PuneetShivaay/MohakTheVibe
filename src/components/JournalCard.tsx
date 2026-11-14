@@ -12,7 +12,7 @@ export function JournalCard({ post }: { post: Post }) {
   return (
     <article className="group">
       <Link href={`/journal/${post.slug}`} className="block">
-        <div className="relative aspect-[4/3] overflow-hidden bg-muted border border-brand-gold/15">
+        <div className="relative aspect-[4/3] overflow-hidden bg-muted border border-border">
           {post.image && (
             <Image
               src={cloudinaryUrl(post.image, 900)}

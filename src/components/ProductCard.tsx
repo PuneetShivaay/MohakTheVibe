@@ -32,6 +32,9 @@ const gridBySize: Record<number, string> = {
 };
 export const productGridClass = (count: number) => gridBySize[count] ?? "grid-cols-2 lg:grid-cols-4";
 
+// True when the sheet gives the product at least one marketplace listing
+export const hasListings = (product: Product) => Object.values(product.links ?? {}).some(Boolean);
+
 // Only the product's own listings; with none, a WhatsApp message asking about the piece
 export function marketplaceLinks(product: Product) {
   const links = [
@@ -58,7 +61,7 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
           href={productPath(product.id)}
           tabIndex={-1}
           aria-hidden
-          className="relative block aspect-[3/4] overflow-hidden bg-muted border border-brand-gold/15"
+          className="relative block aspect-[3/4] overflow-hidden bg-muted border border-border"
         >
           {img && <CardPhotos main={img} second={hoverImg} alt={product.name} />}
         </Link>
@@ -77,21 +80,22 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
           </Link>
         </h3>
         <p className="mt-1 text-sm text-foreground/60">{product.price}</p>
-        <div className="mt-4 flex justify-center gap-5 text-eyebrow uppercase text-foreground/60">
-          {marketplaceLinks(product).map((link) => (
+        {/* Marketplace links live on the product page. A piece with no listing still needs a way to buy,
+            so it keeps a quiet WhatsApp link here. */}
+        {!hasListings(product) && (
+          <div className="mt-4 flex justify-center text-eyebrow uppercase text-foreground/60">
             <a
-              key={link.label}
-              href={link.href}
+              href={marketplaceLinks(product)[0].href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Buy ${product.name} on ${link.label} (opens in a new tab)`}
+              aria-label={`Ask about ${product.name} on WhatsApp (opens in a new tab)`}
               // Invisible ::after enlarges the touch area to ~44px tall without changing the look
               className={`relative after:absolute after:-inset-x-2 after:-inset-y-4 after:content-[''] ${quietLink}`}
             >
-              {link.label}
+              Ask on WhatsApp
             </a>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </article>
   );

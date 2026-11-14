@@ -23,6 +23,10 @@
     --border: 38 30% 87%; /* Warm hairline */
     --input: 38 30% 87%;
     --ring: 41 54% 54%;
+    /* Primary call-to-action button (buy buttons, wishlist CTA). Solid Midnight on Ivory. To go back to
+       the copper button, set --cta to 21 45% 49% (#B76E48) and --cta-foreground to 0 0% 100% here and in .dark. */
+    --cta: 0 0% 7%;
+    --cta-foreground: 37 44% 96%;
     --radius: 0rem; /* Sharp edges for a high-fashion feel */
   }
   .dark {
@@ -43,6 +47,9 @@
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 41 54% 54%;
+    /* Dark mode flips the button: Ivory with Midnight text */
+    --cta: 37 44% 96%;
+    --cta-foreground: 0 0% 7%;
   }
 }
 

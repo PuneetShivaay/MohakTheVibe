@@ -34,7 +34,7 @@ export function CategoryProducts({ products }: { products: Product[] }) {
       "shrink-0 whitespace-nowrap px-4 py-2.5 border text-eyebrow uppercase transition-colors",
       active
         ? "border-brand-gold bg-brand-gold text-brand-midnight"
-        : "border-brand-gold/30 text-foreground/70 hover:border-brand-gold hover:text-brand-gold"
+        : "border-border text-foreground/70 hover:border-brand-gold hover:text-brand-gold"
     );
 
   return (

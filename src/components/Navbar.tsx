@@ -56,7 +56,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
           "fixed top-0 inset-x-0 z-[100] transition-all duration-500 ease-out-soft",
           overHero
             ? "bg-transparent text-white py-5 md:py-7"
-            : "bg-background/90 text-foreground backdrop-blur-md border-b border-brand-gold/20 py-3"
+            : "bg-background/90 text-foreground backdrop-blur-md border-b border-border py-3"
         )}
       >
         <nav
@@ -131,7 +131,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-headline text-display-sm border-b border-brand-gold/15 py-5 hover:text-brand-gold transition-colors"
+                className="font-headline text-display-sm border-b border-border py-5 hover:text-brand-gold transition-colors"
               >
                 {link.label}
               </Link>

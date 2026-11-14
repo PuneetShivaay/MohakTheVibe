@@ -153,7 +153,7 @@ export default async function ProductPage({ params }: Params) {
                   className={cn(
                     "text-center text-eyebrow uppercase px-8 py-4 transition-colors",
                     i === 0
-                      ? "bg-brand-copper hover:bg-brand-copper/90 text-white"
+                      ? "bg-cta hover:bg-cta/90 text-cta-foreground"
                       : "border border-brand-gold/50 hover:border-brand-gold hover:text-brand-gold"
                   )}
                 >
@@ -181,7 +181,7 @@ export default async function ProductPage({ params }: Params) {
               </p>
             )}
 
-            <ul className="mt-10 pt-8 border-t border-brand-gold/20 grid grid-cols-2 gap-4">
+            <ul className="mt-10 pt-8 border-t border-border grid grid-cols-2 gap-4">
               {BRAND_PROMISES.map((promise) => (
                 <li key={promise} className="flex items-center gap-3 text-eyebrow uppercase text-foreground/70">
                   <span aria-hidden className="w-1 h-1 rotate-45 bg-brand-gold" />

@@ -86,7 +86,7 @@ export function FaqSection({
               <h3 className="text-eyebrow uppercase text-brand-gold mb-2">{group.group}</h3>
               <Accordion type="single" collapsible>
                 {group.items.map((faq) => (
-                  <AccordionItem key={faq.question} value={faq.question} className="border-brand-gold/20">
+                  <AccordionItem key={faq.question} value={faq.question} className="border-border">
                     <AccordionTrigger className="font-headline text-left text-base md:text-lg font-normal py-5 hover:no-underline hover:text-brand-gold">
                       {faq.question}
                     </AccordionTrigger>

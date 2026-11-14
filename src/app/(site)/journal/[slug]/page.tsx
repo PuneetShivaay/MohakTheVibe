@@ -116,7 +116,7 @@ export default async function JournalPostPage({ params }: Params) {
 
           {post.image && (
             <FadeIn delay={150} className="max-w-5xl mx-auto mt-12 md:mt-16">
-              <div className="relative aspect-[16/9] overflow-hidden bg-muted border border-brand-gold/15">
+              <div className="relative aspect-[16/9] overflow-hidden bg-muted border border-border">
                 <Image src={cloudinaryUrl(post.image, 1600)} alt="" fill priority sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" />
               </div>
             </FadeIn>
@@ -128,7 +128,7 @@ export default async function JournalPostPage({ params }: Params) {
             <JournalBody source={post.body} />
 
             {category && (
-              <div className="mt-16 pt-10 border-t border-brand-gold/20 text-center">
+              <div className="mt-16 pt-10 border-t border-border text-center">
                 <Link
                   href={`/shop/${category.slug}`}
                   className="inline-block text-eyebrow uppercase px-8 py-4 border border-brand-gold/50 hover:border-brand-gold hover:text-brand-gold transition-colors"

@@ -28,7 +28,7 @@ const components = {
       {...props}
     />
   ),
-  hr: () => <hr className="my-14 border-brand-gold/30" />,
+  hr: () => <hr className="my-14 border-border" />,
   a: ({ href = "", children, ...rest }: React.ComponentProps<"a">) =>
     href.startsWith("/") || href.startsWith("#") ? (
       <Link href={href} className={linkClass}>
@@ -42,7 +42,7 @@ const components = {
   // Plain <img>: article photos have no fixed size, and the static export does not optimise images anyway
   img: ({ alt = "", ...rest }: React.ComponentProps<"img">) => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img alt={alt} loading="lazy" decoding="async" className="my-10 h-auto w-full border border-brand-gold/15" {...rest} />
+    <img alt={alt} loading="lazy" decoding="async" className="my-10 h-auto w-full border border-border" {...rest} />
   ),
 };
 
