@@ -40,6 +40,8 @@ Starter file: `docs/catalog-template.csv` (headers + 3 example rows). In Google 
 | `flipkart` | no | Product URL | Shown only if present |
 | `meesho` | no | Product URL | Shown only if present. A product with no marketplace link shows "Ask on WhatsApp" instead |
 | `amazon` | no | Product URL | Shown only if present |
+| `rating` | no | `4.3` | Average rating, 1 to 5. **Copy the real figure from the product's Flipkart or Meesho listing; never estimate or invent one** (fake review markup risks a manual action from Google). Needs `review_count` too |
+| `review_count` | no | `128` | Number of ratings behind that average, whole number of at least 1. With both filled, the product page shows the rating and search results can show stars. A missing, half-filled or out-of-range value just means no rating (logged in the build output); it never hides the product |
 | `featured` | no | `yes` | `yes` = shown in Signature Pieces on the home page |
 | `active` | no | `no` | `no` hides the product without deleting the row (default `yes`) |
 | `sort` | no | `10` | Lower numbers first; ties ordered by `id` |

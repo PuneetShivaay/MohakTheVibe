@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Star } from "lucide-react";
 import { cloudinaryUrl, getProducts } from "@/lib/catalog";
 import {
   getCategory,
@@ -101,6 +102,20 @@ export default async function ProductPage({ params }: Params) {
             )}
             <h1 className="font-headline text-display-sm md:text-display">{product.name}</h1>
             <p className="mt-4 font-headline text-2xl">{product.price}</p>
+            {/* Same numbers as the aggregateRating structured data, which Google requires to be visible */}
+            {product.rating && (
+              <p
+                className="mt-3 flex items-center gap-2 text-sm text-foreground/60"
+                aria-label={`Rated ${product.rating.value} out of 5 from ${product.rating.count} ratings`}
+              >
+                <Star aria-hidden className="h-3.5 w-3.5 fill-brand-gold text-brand-gold" strokeWidth={1.25} />
+                <span className="text-foreground">{product.rating.value.toFixed(1)}</span>
+                <span aria-hidden>·</span>
+                <span>
+                  {product.rating.count.toLocaleString("en-IN")} {product.rating.count === 1 ? "rating" : "ratings"}
+                </span>
+              </p>
+            )}
 
             {product.description && (
               <p className="mt-8 max-w-md text-foreground/70 font-light leading-relaxed whitespace-pre-line">

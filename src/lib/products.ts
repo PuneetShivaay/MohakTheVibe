@@ -34,6 +34,13 @@ export type Collection = {
   isType?: boolean;
 };
 
+export type ProductRating = {
+  // 1 to 5, one decimal
+  value: number;
+  // Number of ratings behind the average, at least 1
+  count: number;
+};
+
 export type Product = {
   id: string;
   name: string;
@@ -54,6 +61,9 @@ export type Product = {
   description?: string;
   // Per-product listings; a card with none shows an "Ask on WhatsApp" link instead
   links?: MarketplaceLinks;
+  // Real marketplace rating copied from the sheet (never invented). Shown on the page and sent as
+  // aggregateRating structured data, so both always come from the same numbers.
+  rating?: ProductRating;
   // Shown in Signature Pieces on the home page
   featured?: boolean;
 };

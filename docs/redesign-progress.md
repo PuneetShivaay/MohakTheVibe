@@ -204,7 +204,17 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - **Phase 2c not done** (needs a build to measure): framer-motion is used by `Reveal` (every page),
     `Hero` and `FooterWordmark`, so dropping it means converting all three. Measure first — see the
     ~208 KB first-load note under Known issues in `architecture.md`.
-  - Phase 4 (ratings) is the next one, and is blocked on real marketplace rating figures.
+- 2026-11-14: **SEO & premium phase 4 done** (typecheck only). Branch `seo-premium`.
+  - New optional sheet columns `rating` and `review_count` (documented in `catalog-plan.md`, added to
+    `catalog-template.csv`). `parseRating()` in `catalog.ts` needs both, a rating from 1 to 5 and a whole
+    count of at least 1; anything else gives the product no rating and logs a warning. It never skips the
+    row, so a typo in optional data cannot remove a product. Checked with a throwaway script: valid,
+    empty, half-filled, out-of-range, zero and fractional cells all behave, 0 rows skipped.
+  - `Product.rating` drives both the small star line under the price on the product page and
+    `aggregateRating` in `productJsonLd()`, so the markup and the visible numbers cannot disagree (Google
+    requires them to match). Cards deliberately show no stars, to keep the grid quiet.
+  - **To use:** copy the real average and count from each product's Flipkart or Meesho listing into the
+    sheet. Never estimate. Ratings are rounded to one decimal.
 
 ## Before merging to main
 - [ ] Final test checklist below passes

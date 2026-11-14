@@ -11,7 +11,7 @@ Follow `.github/copilot-instructions.md` and the conventions in `docs/redesign-p
 - [x] 1. Metadata fixes (Open Graph inheritance, title template, brand name, `lang`)
 - [x] 2. Performance pass (`next/font`, image cleanup) — except 2c, which needs a build to measure
 - [x] 3. Product structured data completeness — shipping/returns built but off, pending confirmation
-- [ ] 4. Ratings and reviews from the sheet
+- [x] 4. Ratings and reviews from the sheet — code done; no product shows stars until real figures are entered
 - [ ] 5. Content depth (category copy, `material`/`size`, internal links)
 - [ ] 6. Journal (`/journal`)
 - [ ] 7. Premium pass A: cards, colour, CTA, price

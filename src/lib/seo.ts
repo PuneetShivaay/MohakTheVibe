@@ -238,6 +238,18 @@ export function productJsonLd(product: Product, categoryName: string) {
     description: productDescription(product, categoryName),
     category: categoryName,
     brand: { "@type": "Brand", name: BRAND_NAME },
+    // Only real figures from the sheet, and the product page shows the same numbers (Google requires it)
+    ...(product.rating
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: product.rating.value,
+            reviewCount: product.rating.count,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
     offers: listings.length > 0 ? listings.map(offer) : offer(url),
   };
 }
