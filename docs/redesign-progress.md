@@ -268,6 +268,14 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
     Facts to confirm: Jaipur as a well-known Minakari centre, and Kundan's traditional gold-foil setting.
   - Dated 3, 6, 10 and 12 November 2026 so they are live immediately; change `date` or add `draft: true` to hold one.
   - README title guidance corrected: the site adds 18 characters to every title, so keep the title under about 42.
+- 2026-11-14: **Two more journal articles** (drafts for brand review): `studs-vs-hoops-which-earrings-suit-you`
+  (13 Nov) and `earrings-for-a-wedding-guest-outfit` (14 Nov), same rules as the first four (no material or finish
+  claims, generic advice). Six articles total, 520-614 words each. Checked without a build: front matter validates,
+  MDX compiles, every internal link resolves, titles are at most 59 characters with the suffix. A bad link slug
+  (title wording instead of the real slug) was caught and fixed before commit.
+  - A full build was not possible at that moment: the running Turbopack dev server shares the `.next` folder and
+    the build failed with `Cannot find module '../chunks/ssr/[turbopack]_runtime.js'` (the known `.next` clash in
+    architecture.md). Stop the dev server before running `npm run build`.
 
 ## Before merging to main
 - [ ] Final test checklist below passes
