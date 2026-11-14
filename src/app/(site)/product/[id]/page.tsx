@@ -123,6 +123,23 @@ export default async function ProductPage({ params }: Params) {
               </p>
             )}
 
+            {(product.material || product.size) && (
+              <dl className="mt-8 max-w-md grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 text-sm">
+                {product.material && (
+                  <>
+                    <dt className="text-eyebrow uppercase text-brand-gold self-center">Material</dt>
+                    <dd className="text-foreground/70 font-light">{product.material}</dd>
+                  </>
+                )}
+                {product.size && (
+                  <>
+                    <dt className="text-eyebrow uppercase text-brand-gold self-center">Size</dt>
+                    <dd className="text-foreground/70 font-light">{product.size}</dd>
+                  </>
+                )}
+              </dl>
+            )}
+
             {/* First listing is the main button, the rest are outlined. On phones MobileBuyBar takes over when
                 these scroll out of view. */}
             <div id="buy-buttons" className="mt-10 flex flex-col sm:flex-row flex-wrap gap-3">

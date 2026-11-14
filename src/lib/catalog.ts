@@ -56,6 +56,9 @@ const rowSchema = z.object({
   flipkart: optionalUrl,
   meesho: optionalUrl,
   amazon: optionalUrl,
+  // Optional free text, e.g. "Brass, gold plated" and "5 cm drop"
+  material: cell,
+  size: cell,
   // Optional and never row-breaking: see parseRating(). Kept as raw text here.
   rating: cell,
   review_count: cell,
@@ -157,6 +160,8 @@ export function parseSheet(csv: string): Product[] {
         hoverImage: r.hover_image && isAllowedImage(r.hover_image) ? r.hover_image : undefined,
         moreImages: moreImages.length > 0 ? moreImages : undefined,
         description: r.description || undefined,
+        material: r.material || undefined,
+        size: r.size || undefined,
         links: { flipkart: r.flipkart, meesho: r.meesho, amazon: r.amazon },
         rating: parseRating(r.id, rowNumber, r.rating, r.review_count),
         featured: r.featured,

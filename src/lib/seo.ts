@@ -216,9 +216,12 @@ export function categoryJsonLd(category: Pick<Category, "slug" | "name" | "descr
 
 // Short meta/JSON-LD description: the sheet description when present, otherwise a generated line
 export function productDescription(product: Product, categoryName: string) {
+  // Without sheet copy, build the line from what we do know, so it is specific to the piece
+  // (material and size when filled in) rather than one sentence stamped on every product
+  const specs = [product.material, product.size].filter(Boolean).join(", ");
   const text =
     product.description ||
-    `${product.name}, handpicked ${categoryName.toLowerCase()} by ${BRAND_NAME}. ${product.price}, gift-ready, delivered across India.`;
+    `${product.name}, handpicked ${categoryName.toLowerCase()} by ${BRAND_NAME}.${specs ? ` ${specs}.` : ""} ${product.price}, gift-ready, delivered across India.`;
   return text.length > 160 ? `${text.slice(0, 157).trimEnd()}...` : text;
 }
 
@@ -238,6 +241,8 @@ export function productJsonLd(product: Product, categoryName: string) {
     description: productDescription(product, categoryName),
     category: categoryName,
     brand: { "@type": "Brand", name: BRAND_NAME },
+    ...(product.material ? { material: product.material } : {}),
+    ...(product.size ? { size: product.size } : {}),
     // Only real figures from the sheet, and the product page shows the same numbers (Google requires it)
     ...(product.rating
       ? {

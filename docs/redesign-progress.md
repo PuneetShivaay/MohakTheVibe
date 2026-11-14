@@ -215,6 +215,28 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
     requires them to match). Cards deliberately show no stars, to keep the grid quiet.
   - **To use:** copy the real average and count from each product's Flipkart or Meesho listing into the
     sheet. Never estimate. Ratings are rounded to one decimal.
+- 2026-11-14: **SEO & premium phase 5 done** (typecheck only). Branch `seo-premium`.
+  - **5a, category copy.** `Category.about` is now sections (`{heading, paragraphs}`) rendered as real `<h2>`s
+    in their own section, plus per-category `faqs` shown through `FaqSection` (now takes a `groups` prop).
+    Page order alternates backgrounds: pieces, copy, FAQ, other categories. Body is 243-265 words per
+    category, 330-370 with the FAQ. **These are drafts: the brand must read and correct them before merging.**
+  - Copy states only what is true of every piece: "gold-tone", with no base-metal, plating, anti-tarnish or
+    oxidised claims (the answer on claims was ambiguous, so the cautious reading was used). Pendants and
+    bracelets have only 2 products each, so their copy says "small, considered selection"; revisit when the
+    range grows. FAQ answers avoid delivery times and return terms, which the marketplaces decide.
+  - **5b, material and size.** New optional free-text sheet columns `material` and `size` (documented in
+    `catalog-plan.md`, added to the CSV template). Shown as a small spec list on the product page and sent as
+    `material` / `size` in the Product JSON-LD.
+  - **5c, descriptions.** Audit of the live sheet: 23 of 34 products have no `description`. The fallback meta
+    description now includes material and size when they are filled in. The real fix is writing those 23
+    descriptions in the sheet.
+  - **5d, internal links.** New `InlineLinks` renders `[label](/path)` in data-file copy as links. The three
+    category pages now link into collections and sister categories (13 links). Our Story not touched yet.
+  - Not changed: the existing `description` / `seoDescription` text on categories and collections still
+    mentions "oxidised" and "gold-plated"; confirm those are true or reword.
+- 2026-11-14: Collection pages: "More collections" is now three across from 768px up (6-column grid, tiles
+  span 2; a leftover single tile spans the row, a leftover pair spans half each). `threeAcross()` in
+  `CollectionTiles.tsx`. Category pages keep two across (they only ever show 2 others).
 
 ## Before merging to main
 - [ ] Final test checklist below passes

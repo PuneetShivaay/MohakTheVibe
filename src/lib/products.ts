@@ -18,9 +18,15 @@ export type Category = {
   // characters so the whole title survives Google's truncation.
   seoTitle: string;
   seoDescription: string;
-  // Short paragraphs shown at the bottom of the category page (also useful text for search engines)
-  about: string[];
+  // Editorial copy at the bottom of the category page: real text for search engines and for buyers
+  // choosing between styles. Paragraphs may contain [label](/path) links to other pages.
+  // Only state what is true of every piece: per-product materials and sizes come from the sheet.
+  about: AboutSection[];
+  // Questions shown under the pieces; answers must not promise policies the marketplaces decide
+  faqs: { question: string; answer: string }[];
 };
+
+export type AboutSection = { heading: string; paragraphs: string[] };
 
 export type Collection = {
   slug: string;
@@ -61,6 +67,10 @@ export type Product = {
   description?: string;
   // Per-product listings; a card with none shows an "Ask on WhatsApp" link instead
   links?: MarketplaceLinks;
+  // Free text from the sheet, e.g. "Brass, gold plated" and "5 cm drop". Shown as a spec list on the
+  // product page and sent as `material` / `size` in the structured data.
+  material?: string;
+  size?: string;
   // Real marketplace rating copied from the sheet (never invented). Shown on the page and sent as
   // aggregateRating structured data, so both always come from the same numbers.
   rating?: ProductRating;
@@ -81,8 +91,49 @@ export const categories: Category[] = [
     seoDescription:
       "Shop artificial earrings online from Mohak The Vibe, Lucknow: Minakari jhumkas, Kundan, Korean and gold-plated earrings, studs, hoops and chandbalis. Gift-ready, delivered across India.",
     about: [
-      "Mohak The Vibe earrings are handpicked in Lucknow for everyday wear and for celebrations. The range covers Minakari jhumkas, chandbalis, studs, hoops and Korean-style earrings, in gold-tone and oxidised finishes.",
-      "Every pair arrives gift-ready. You can order on Flipkart or Meesho, or message us on WhatsApp for help choosing.",
+      {
+        heading: "Earring styles at Mohak",
+        paragraphs: [
+          "Earrings are the heart of Mohak The Vibe, handpicked in Lucknow for everyday wear and for celebrations. The range runs from [jhumkas](/collections/jhumka), the bell-shaped drops that move with you, to [chandbalis](/collections/chandbali), the crescent shapes made for weddings and festivals.",
+          "For quieter days there are [studs](/collections/stud) and [hoops](/collections/hoop), and a lighter, playful side in our [Korean-style earrings](/collections/korean). If you love colour and craft, browse the [Minakari](/collections/minakari) and [Kundan](/collections/kundan) collections, inspired by enamel work and royal-court jewellery.",
+        ],
+      },
+      {
+        heading: "How to choose a pair",
+        paragraphs: [
+          "Start with the occasion. Studs or small hoops go from desk to dinner without a second thought. A jhumka or chandbali is the natural partner for a kurta, saree or lehenga, and is often the only jewellery you need with it.",
+          "Then think about your neckline and hair. Bold drops sit best with an open neck or hair tied back, while a simple stud lets a statement [pendant](/shop/pendants) take the lead. Size and drop length are listed on a product page wherever we have them, so check before you order.",
+        ],
+      },
+      {
+        heading: "Caring for your earrings",
+        paragraphs: [
+          "Put earrings on after perfume, lotion and hairspray, and take them off before you shower or swim. Wipe them with a soft dry cloth and store each pair separately in a pouch or box so they do not scratch one another. Fashion jewellery lasts longest when it stays dry.",
+        ],
+      },
+      {
+        heading: "Where to buy",
+        paragraphs: [
+          "Choose a pair here, then order it on Flipkart or Meesho, wherever you already shop. Not sure which to pick, or looking for a gift? Message us on WhatsApp and we will help you choose.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Which earrings are best for everyday wear?",
+        answer:
+          "Studs, small hoops and light Korean-style pieces are the easiest to wear all day. Look for smaller drop lengths if you wear earrings to work.",
+      },
+      {
+        question: "What should I wear with a saree or lehenga?",
+        answer:
+          "Jhumkas and chandbalis are the classic choice, and Minakari or Kundan pieces add colour and shine. Let the earrings be the statement and keep other jewellery simple.",
+      },
+      {
+        question: "How do I buy a pair?",
+        answer:
+          "Open the piece you like and use its Flipkart or Meesho button. If a piece has no marketplace listing yet, message us on WhatsApp and we will sort it out.",
+      },
     ],
   },
   {
@@ -94,8 +145,50 @@ export const categories: Category[] = [
     seoDescription:
       "Shop artificial pendants online from Mohak The Vibe, Lucknow: Kundan teardrops and contemporary charm pendants, gold-tone and gift-ready. Delivered across India.",
     about: [
-      "Our pendants range from Kundan teardrops to simple contemporary charms. They are made to sit close to the neckline and pair easily with the earrings in our range.",
-      "Every pendant arrives gift-ready. Order on Flipkart or Meesho, or message us on WhatsApp.",
+      {
+        heading: "Pendants at Mohak",
+        paragraphs: [
+          "Our pendants are made to sit close to the neckline, from [Kundan](/collections/kundan)-style teardrops to clean, contemporary charms. They are handpicked in Lucknow to pair easily with our [earrings](/shop/earrings), so a matching look takes one extra click.",
+          "A pendant is worn close to the face, so we look closely at the shape, the way the piece is set and how it hangs before it joins the range. We keep it a small, considered selection rather than a long list.",
+        ],
+      },
+      {
+        heading: "How to style a pendant",
+        paragraphs: [
+          "With a high neckline or a collared shirt, a short pendant sits neatly above the fabric. With a scoop or V neckline, a slightly longer drop fills the space. With a saree or kurta, a Kundan-style pendant brings festive weight without needing a full set.",
+          "When the pendant is the statement, keep earrings small: [studs](/collections/stud) work well. When the earrings are the statement, choose a simple charm and let it stay quiet.",
+        ],
+      },
+      {
+        heading: "Layering and care",
+        paragraphs: [
+          "Two pendants of different lengths layer into a modern, deliberate look. Keep the tones matching and let one piece lead.",
+          "Put your pendant on after perfume and lotion, take it off before you shower or swim, and store it flat or hanging so the chain does not tangle. A soft dry cloth is all it needs.",
+        ],
+      },
+      {
+        heading: "Where to buy",
+        paragraphs: [
+          "Choose a pendant here, then order it on Flipkart or Meesho. If you would like help choosing, or want it as a gift, message us on WhatsApp.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "What pendant length suits which neckline?",
+        answer:
+          "Short pendants suit high and round necklines, longer drops suit scoop and V necklines. Check the size on the product page where it is listed.",
+      },
+      {
+        question: "Can I wear a pendant and earrings together?",
+        answer:
+          "Yes. Let one of them lead: a statement pendant with small studs, or bold earrings with a simple charm.",
+      },
+      {
+        question: "How do I buy a pendant?",
+        answer:
+          "Open the piece you like and use its Flipkart or Meesho button. If it has no marketplace listing yet, message us on WhatsApp.",
+      },
     ],
   },
   {
@@ -107,8 +200,50 @@ export const categories: Category[] = [
     seoDescription:
       "Shop artificial bracelets online from Mohak The Vibe, Lucknow: gold-tone and oxidised charm bracelets to wear alone or stacked. Gift-ready, delivered across India.",
     about: [
-      "Our bracelets come in gold-tone and oxidised finishes, made to be worn alone or stacked. Charm bracelets and simple everyday styles sit side by side.",
-      "Every bracelet arrives gift-ready. Order on Flipkart or Meesho, or message us on WhatsApp.",
+      {
+        heading: "Bracelets at Mohak",
+        paragraphs: [
+          "Our bracelets are made to be worn alone or stacked. Charm bracelets and simple everyday styles sit side by side, handpicked in Lucknow to go with the [earrings](/shop/earrings) and [pendants](/shop/pendants) in our range.",
+          "It is a small, considered selection: pieces that are easy to wear every day and easy to gift.",
+        ],
+      },
+      {
+        heading: "Finding your size",
+        paragraphs: [
+          "Wrap a soft tape measure around your wrist, just above the wrist bone, and note the number. Add about 1.5 cm for a snug fit or 2 cm for a looser one, then compare it with the size on the product page wherever we list it.",
+          "If you are between sizes, go larger for a bracelet you will wear with a watch or stack with others, and smaller for one you want to stay in place.",
+        ],
+      },
+      {
+        heading: "How to wear and stack",
+        paragraphs: [
+          "One bracelet is a quiet detail. Two or three of different widths make a stack: keep the tones the same, and let one piece be the wider, bolder one. A charm bracelet works well on its own, so give it room.",
+          "Keep bracelets away from perfume, lotion and water, take them off before you cook or exercise, and wipe them with a soft dry cloth before storing them in a pouch or box.",
+        ],
+      },
+      {
+        heading: "Where to buy",
+        paragraphs: [
+          "Choose a bracelet here, then order it on Flipkart or Meesho. If you would like help choosing a size, or want it as a gift, message us on WhatsApp.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "How do I find my bracelet size?",
+        answer:
+          "Measure around your wrist with a soft tape, add about 1.5 cm for a snug fit or 2 cm for a looser one, and compare it with the size on the product page where it is listed.",
+      },
+      {
+        question: "Can I stack bracelets?",
+        answer:
+          "Yes. Keep the tones matching, mix one or two widths, and let a single piece lead. Charm bracelets look best with plenty of space around them.",
+      },
+      {
+        question: "How do I buy a bracelet?",
+        answer:
+          "Open the piece you like and use its Flipkart or Meesho button. If it has no marketplace listing yet, message us on WhatsApp.",
+      },
     ],
   },
 ];
