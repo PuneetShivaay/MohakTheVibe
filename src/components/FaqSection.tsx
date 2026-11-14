@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
@@ -57,9 +58,16 @@ export const FAQS: { group: string; items: Faq[] }[] = [
   },
 ];
 
-export function FaqSection() {
+// `groups` defaults to the site-wide FAQs; category pages pass their own
+export function FaqSection({
+  groups = FAQS,
+  className,
+}: {
+  groups?: { group: string; items: Faq[] }[];
+  className?: string;
+}) {
   return (
-    <section id="faq" className="py-section px-6 md:px-12">
+    <section id="faq" className={cn("py-section px-6 md:px-12", className)}>
       <div className="max-w-3xl mx-auto">
         <Reveal className="mb-14">
           <SectionHeading
@@ -73,12 +81,12 @@ export function FaqSection() {
         </Reveal>
 
         <div className="space-y-12">
-          {FAQS.map((group) => (
+          {groups.map((group) => (
             <Reveal key={group.group}>
               <h3 className="text-eyebrow uppercase text-brand-gold mb-2">{group.group}</h3>
               <Accordion type="single" collapsible>
                 {group.items.map((faq) => (
-                  <AccordionItem key={faq.question} value={faq.question} className="border-brand-gold/20">
+                  <AccordionItem key={faq.question} value={faq.question} className="border-border">
                     <AccordionTrigger className="font-headline text-left text-base md:text-lg font-normal py-5 hover:no-underline hover:text-brand-gold">
                       {faq.question}
                     </AccordionTrigger>

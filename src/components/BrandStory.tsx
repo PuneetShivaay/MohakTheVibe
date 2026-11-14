@@ -58,7 +58,7 @@ export function BrandStory() {
             <p className="font-headline text-xl sm:text-2xl italic">
               &ldquo;Femininity isn&apos;t just a trait, it&apos;s a celebration. We&apos;re here to provide the crown.&rdquo;
             </p>
-            <p className="mt-4 text-eyebrow uppercase text-brand-gold">— The Mohak – The Vibe Collective</p>
+            <p className="mt-4 text-eyebrow uppercase text-brand-gold">— Mohak – The Vibe Collective</p>
           </div>
 
           <Link

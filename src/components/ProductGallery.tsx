@@ -38,7 +38,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
         tabIndex={0}
         role="region"
         aria-label={`${alt} photos${images.length > 1 ? ", swipe or use arrow keys for more" : ""}`}
-        className="flex aspect-[4/5] overflow-x-auto snap-x snap-mandatory scrollbar-none bg-muted border border-brand-gold/15 focus-visible:outline focus-visible:outline-brand-gold"
+        className="flex aspect-[4/5] overflow-x-auto snap-x snap-mandatory scrollbar-none bg-muted border border-border focus-visible:outline focus-visible:outline-brand-gold"
       >
         {images.map((src, i) => (
           <div
@@ -69,7 +69,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
                 aria-pressed={i === active}
                 className={cn(
                   "relative block w-full aspect-square overflow-hidden bg-muted border transition-colors",
-                  i === active ? "border-brand-gold" : "border-brand-gold/15 hover:border-brand-gold/60"
+                  i === active ? "border-brand-gold" : "border-border hover:border-brand-gold/60"
                 )}
               >
                 <Image src={cloudinaryUrl(src, 200)} alt="" fill sizes="120px" className="object-cover" />

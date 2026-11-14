@@ -172,12 +172,151 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - "Skip to content" link; `main#main` on all pages.
   - Cleanup: removed the dead logo entries from `placeholder-images.json` and unused CSS (`dashed-link`, `font-serif-italic`, `animate-fade-in`).
   - Not done by design: `loading.tsx` (pages are pre-built HTML, no loading state needed); Lighthouse (part of the final test).
+- 2026-11-14: **SEO & premium phases 1–3 done** (typecheck and lint only; not built or visually tested).
+  Plan: `docs/seo-premium-plan.md`.
+  - **Phase 1, metadata.** New `socialMeta()` in `seo.ts` is the single source of Open Graph and Twitter
+    tags. Next merges `metadata` shallowly, so every page that wrote its own `openGraph` was silently
+    dropping the image, site name, locale and type — confirmed in the old `out/our-story.html`, which had
+    only `og:title` and `og:description`. All eight sub-pages now spread `socialMeta()`.
+  - Root layout uses a title template (`%s | Mohak The Vibe`); pages set a bare title. Brand suffix is now
+    one consistent form (the en-dash `BRAND_NAME` stays for JSON-LD only). Category `seoTitle` values
+    shortened so the suffix fits inside Google's truncation.
+  - `lang="en-IN"`; `sitemap.ts` gained `lastModified` — build date for catalogue pages (they really do
+    change per build), fixed dates for editorial and legal pages, since a build-date lastmod on unchanged
+    pages is what makes search engines ignore lastmod everywhere.
+  - FAQ JSON-LD moved out of an inline `<script>` in the contact page into `faqJsonLd()` + `<JsonLd />`.
+  - **Phase 2, performance.** Fonts now self-hosted via `next/font/local` (files in `src/app/fonts/`,
+    variable-weight latin WOFF2) as CSS variables (`--font-body`, `--font-headline`), read by
+    `tailwind.config.ts`. First tried `next/font/google`, which failed the build on the user's network
+    (the loader crashed parsing Google's response), so don't switch back. Removed the render-blocking
+    `fonts.googleapis.com` stylesheet and two preconnects. `BrandLogo` had `'Playfair Display'` hardcoded
+    in an inline style — next/font renames the family, so it now points at `var(--font-headline)`.
+  - `public/images/` 38 MB → 8.3 MB: deleted 17 PNG/JPEG originals that each had a `.webp` sibling (26 MB,
+    nothing unique lost), converted `pratibha2.png` 2.06 MB → `pratibha2.webp` 97 KB (same 924×1152).
+    Rewrote the stale `README.txt`, deleted the duplicate `INSTRUCTIONS.txt`.
+  - **Phase 3, product structured data.** One shared `productOffer()` feeds both `productJsonLd()` and
+    `categoryJsonLd()` so they cannot drift. Added `priceValidUntil` (build + 1 year; its absence warns on
+    every product in Search Console) and `itemCondition: NewCondition`.
+  - Shipping and returns markup is **built but switched off**: `MERCHANT_TERMS` in `site.ts` is `null`
+    until the real Flipkart/Meesho terms are confirmed. `TRUST_POINTS` says "Free shipping, Easy returns",
+    but marketplaces fulfil the orders under their own policies, so it cannot be copied across. Set both
+    fields to turn the markup on.
+  - **Phase 2c not done** (needs a build to measure): framer-motion is used by `Reveal` (every page),
+    `Hero` and `FooterWordmark`, so dropping it means converting all three. Measure first — see the
+    ~208 KB first-load note under Known issues in `architecture.md`.
+- 2026-11-14: **SEO & premium phase 4 done** (typecheck only). Branch `seo-premium`.
+  - New optional sheet columns `rating` and `review_count` (documented in `catalog-plan.md`, added to
+    `catalog-template.csv`). `parseRating()` in `catalog.ts` needs both, a rating from 1 to 5 and a whole
+    count of at least 1; anything else gives the product no rating and logs a warning. It never skips the
+    row, so a typo in optional data cannot remove a product. Checked with a throwaway script: valid,
+    empty, half-filled, out-of-range, zero and fractional cells all behave, 0 rows skipped.
+  - `Product.rating` drives both the small star line under the price on the product page and
+    `aggregateRating` in `productJsonLd()`, so the markup and the visible numbers cannot disagree (Google
+    requires them to match). Cards deliberately show no stars, to keep the grid quiet.
+  - **To use:** copy the real average and count from each product's Flipkart or Meesho listing into the
+    sheet. Never estimate. Ratings are rounded to one decimal.
+- 2026-11-14: **SEO & premium phase 5 done** (typecheck only). Branch `seo-premium`.
+  - **5a, category copy.** `Category.about` is now sections (`{heading, paragraphs}`) rendered as real `<h2>`s
+    in their own section, plus per-category `faqs` shown through `FaqSection` (now takes a `groups` prop).
+    Page order alternates backgrounds: pieces, copy, FAQ, other categories. Body is 243-265 words per
+    category, 330-370 with the FAQ. **These are drafts: the brand must read and correct them before merging.**
+  - Copy states only what is true of every piece: "gold-tone", with no base-metal, plating, anti-tarnish or
+    oxidised claims (the answer on claims was ambiguous, so the cautious reading was used). Pendants and
+    bracelets have only 2 products each, so their copy says "small, considered selection"; revisit when the
+    range grows. FAQ answers avoid delivery times and return terms, which the marketplaces decide.
+  - **5b, material and size.** New optional free-text sheet columns `material` and `size` (documented in
+    `catalog-plan.md`, added to the CSV template). Shown as a small spec list on the product page and sent as
+    `material` / `size` in the Product JSON-LD.
+  - **5c, descriptions.** Audit of the live sheet: 23 of 34 products have no `description`. The fallback meta
+    description now includes material and size when they are filled in. The real fix is writing those 23
+    descriptions in the sheet.
+  - **5d, internal links.** New `InlineLinks` renders `[label](/path)` in data-file copy as links. The three
+    category pages now link into collections and sister categories (13 links). Our Story not touched yet.
+  - Not changed: the existing `description` / `seoDescription` text on categories and collections still
+    mentions "oxidised" and "gold-plated"; confirm those are true or reword.
+- 2026-11-14: Collection pages: "More collections" is now three across from 768px up (6-column grid, tiles
+  span 2; a leftover single tile spans the row, a leftover pair spans half each). `threeAcross()` in
+  `CollectionTiles.tsx`. Category pages keep two across (they only ever show 2 others).
+
+- 2026-11-14: **SEO & premium phase 6 done: Journal** (typecheck, plus two real builds, see below). Branch
+  `seo-premium`. Articles are `.mdx` files in `content/journal/`; how to write one is in
+  `content/journal/README.md`, and `_template.mdx` is a copy-me starting file (files starting `_` never publish).
+  - New dependency `next-mdx-remote` (compiles MDX at build time inside server components). Chosen over
+    `@next/mdx`, whose loader config is fragile with the Turbopack dev server.
+  - `src/lib/journal.ts` reads and validates the files (zod) like the sheet catalog does: a file with bad front
+    matter is skipped and logged, never fails the build. `draft: true` hides an article; a future `date`
+    schedules it (the 3-hourly rebuild publishes it). Own tiny front-matter parser (CRLF-safe), no extra dependency.
+  - Pages `/journal` and `/journal/[slug]`, `JournalCard`, `JournalBody` (maps MDX elements to the site's
+    type scale), `BlogPosting` JSON-LD, `og:type=article` with published time, sitemap entries, "Shop <category>"
+    button and "More from the journal" row. `socialMeta()` gained an `article` option.
+  - The **Journal link in the navbar, mobile menu and footer only appears once an article is published**
+    (`hasJournal()`, `navLinksRight()` in `site.ts`). With none: no nav link, no sitemap entry, `/journal` is noindex.
+  - **Found by building, fixed:** with zero published articles `generateStaticParams()` was empty and static export
+    refuses that (`missing "generateStaticParams()"`), which would have broken the deploy. With none, the route now
+    generates one placeholder page (`/journal/no-articles-yet`, noindex, "Coming soon") that disappears once an
+    article exists. Verified with two builds: with 1 valid + 1 bad + 1 draft + 1 future article (only the valid one
+    published, bad one logged), and with 0 articles (clean build, no nav link, no sitemap entry).
+  - Deviation from the no-build-per-phase rule: made on purpose, because a new dependency and an empty default state
+    could have broken the user's deploy.
+  - MDX can run code, so only commit text from the team (noted in the README).
+- 2026-11-14: **First four journal articles written** (drafts for the brand to read and correct before merging):
+  `minakari-vs-kundan-how-to-tell-the-difference`, `how-to-care-for-artificial-jewellery`, `how-to-style-jhumkas`,
+  `how-to-choose-earrings-as-a-gift`. Covers are existing site photos. Build passes with 4 articles; every internal
+  link in them resolves; titles are at most 60 characters including the " | Mohak The Vibe" suffix.
+  - They make no material, plating, finish or anti-tarnish claim about the brand's pieces. Traditional crafts are
+    described as the crafts the pieces are "inspired by", matching the collection pages. Care advice is generic.
+    Facts to confirm: Jaipur as a well-known Minakari centre, and Kundan's traditional gold-foil setting.
+  - Dated 3, 6, 10 and 12 November 2026 so they are live immediately; change `date` or add `draft: true` to hold one.
+  - README title guidance corrected: the site adds 18 characters to every title, so keep the title under about 42.
+- 2026-11-14: **Two more journal articles** (drafts for brand review): `studs-vs-hoops-which-earrings-suit-you`
+  (13 Nov) and `earrings-for-a-wedding-guest-outfit` (14 Nov), same rules as the first four (no material or finish
+  claims, generic advice). Six articles total, 520-614 words each. Checked without a build: front matter validates,
+  MDX compiles, every internal link resolves, titles are at most 59 characters with the suffix. A bad link slug
+  (title wording instead of the real slug) was caught and fixed before commit.
+  - A full build was not possible at that moment: the running Turbopack dev server shares the `.next` folder and
+    the build failed with `Cannot find module '../chunks/ssr/[turbopack]_runtime.js'` (the known `.next` clash in
+    architecture.md). Stop the dev server before running `npm run build`.
+- 2026-11-14: **SEO & premium phase 7 done: cards, gold, buttons** (typecheck only; not seen in a browser).
+  Grid stays four across by the user's decision (the plan's three-across idea was dropped).
+  - **Cards:** photo, name and price only. The "Flipkart · Meesho" links are gone from the card (they are on the
+    product page and the phone buy bar). A product with no listing keeps a quiet "Ask on WhatsApp" link, so it
+    still has a way to buy. New `hasListings()` helper in `ProductCard.tsx`.
+  - **Gold:** 23 faint gold hairlines (`border-brand-gold/10` to `/30`: footer, navbar, cards, gallery, FAQ, contact,
+    journal, promise strip) became the neutral warm `border-border`. Gold stays on labels, icons, hover and active
+    states and the journal quote rule. `BrandStory.tsx` untouched (kept as is by decision).
+  - **Buttons:** new `cta` colour token (`globals.css` + `tailwind.config.ts`): Midnight with Ivory text in light
+    mode, flipped in dark mode. Used by the product-page buy button, `MobileBuyBar` and the wishlist CTA. The hero
+    button is Ivory with Midnight text because it sits on a dark photo (a Midnight button would vanish there).
+    Copper stays only on the wishlist heart and count badge. **Colour is my recommendation, not confirmed by the
+    user.** To revert: set `--cta` to `21 45% 49%` and `--cta-foreground` to `0 0% 100%` in both themes.
+  - Also in the footer commit, which carries both the hairline swap and the layout rework: four columns, Get in
+    touch under the logo, Collections in its own column, "Also available on" under Shop as three lines (the user
+    edited the WhatsApp label to "WhatsApp").
+- 2026-11-14: **SEO & premium phase 8 done: typography and motion** (typecheck and lint only; motion not seen).
+  - **Typeface decision:** compared Playfair Display with Cormorant Garamond side by side (throwaway page, since
+    deleted); the user chose to **stay on Playfair**. No font change.
+  - **Eyebrow labels:** `text-eyebrow` is 11px everywhere (was 10px, 11px on phones only), tracking trimmed from
+    0.35em to 0.28em so each label stays about as wide (the navbar is tight at laptop widths). The phone-only override in
+    `globals.css` was removed.
+  - **Image reveal:** new `ImageReveal` (client): product photos wipe open from the top while settling from a 1.12
+    zoom, once, on scroll into view. Used in `ProductCard`. Reduced-motion visitors get plain images via a CSS
+    override (`.image-reveal`), not a hook, so server and client markup match. Like `Reveal`, it is hidden until
+    JavaScript runs, so it is not for first-screen images.
+  - **Hero:** the photo does a slow one-time push-in (22s, scale 1 to 1.07, toward the earring); `motion-safe:` only.
+  - **Staggers:** left alone. Card grids already stagger by position in the row (`i % 4`); only short lists use a
+    plain `i * n`, so the flat-stagger problem the plan feared does not exist.
+  - **Not done, on purpose:** the line-by-line headline mask reveal. 18 of the 22 `SectionHeading`s already fade and
+    rise inside a `Reveal`, so a second headline animation would layer two movements. Revisit only if the headings
+    feel flat once seen.
 
 ## Before merging to main
 - [ ] Final test checklist below passes
 - [ ] Delete `src/app/preview/` (and its `robots.ts` rule)
 - [ ] Resolve the `.env` question (see open questions)
-- [ ] Decide on the original PNG/JPEG images in `public/images/` (~27 MB, no longer used by the site)
+- [x] ~~Decide on the original PNG/JPEG images in `public/images/` (~27 MB, no longer used by the site)~~ — done
+      2026-11-14, folder is 8.3 MB. Still to confirm: `earring1/2/7/9.png` and `header.png` are unreferenced
+      but have no WebP version, so they were left in place rather than deleted
+- [ ] Decide whether `MERCHANT_TERMS` in `site.ts` can be filled in (real shipping and returns terms)
 - [ ] Confirm or replace placeholder copy: hero subline, collection descriptions, `/our-story`, product names
 - [ ] Merge `redesign` into `main` (this deploys the live site)
 

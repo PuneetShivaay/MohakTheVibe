@@ -3,11 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cloudinaryUrl, getProducts } from "@/lib/catalog";
 import { categories, getCategory, getProductsByCategory } from "@/lib/products";
-import { breadcrumbJsonLd, categoryJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, categoryJsonLd, socialMeta } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { CategoryProducts } from "@/components/CategoryProducts";
 import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
 import { FadeIn } from "@/components/FadeIn";
+import { FaqSection } from "@/components/FaqSection";
+import { InlineLinks } from "@/components/InlineLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { LayeredImages } from "@/components/LayeredImages";
 import { ShopFullRange } from "@/components/ProductCard";
@@ -29,13 +31,17 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const items = getProductsByCategory(await getProducts(), category.slug);
   const title = category.seoTitle;
   const description = category.seoDescription;
-  const cover = items[0] ? cloudinaryUrl(items[0].image, 1200) : undefined;
+  const path = `/shop/${category.slug}`;
   return {
     title,
     description,
-    alternates: { canonical: `/shop/${category.slug}` },
-    openGraph: { title, description, images: cover ? [cover] : undefined },
-    twitter: { title, description, images: cover ? [cover] : undefined },
+    alternates: { canonical: path },
+    ...socialMeta({
+      title,
+      description,
+      path,
+      image: items[0] ? cloudinaryUrl(items[0].image, 1200) : undefined,
+    }),
     // A category with no products yet should not appear in search results
     robots: items.length === 0 ? { index: false, follow: true } : undefined,
   };
@@ -123,20 +129,32 @@ export default async function CategoryPage({ params }: Params) {
           <Reveal className="mt-16 md:mt-20 text-center">
             <ShopFullRange />
           </Reveal>
-          {items.length > 0 && (
-            <Reveal className="mt-20 md:mt-24 mx-auto max-w-2xl text-center">
-              <h2 className="font-headline text-display-sm">
-                About our <em>{category.name.toLowerCase()}</em>
-              </h2>
-              <div className="mt-6 space-y-4 text-foreground/70 font-light leading-relaxed">
-                {category.about.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            </Reveal>
-          )}
         </div>
       </section>
+
+      {/* Editorial copy: real text about the range, with links into collections and sister categories */}
+      {items.length > 0 && (
+        <section className="py-section px-6 md:px-12">
+          <div className="max-w-2xl mx-auto space-y-14 md:space-y-16">
+            {category.about.map((section) => (
+              <Reveal key={section.heading}>
+                <h2 className="font-headline text-display-sm">{section.heading}</h2>
+                <div className="mt-6 space-y-4 text-foreground/70 font-light leading-relaxed">
+                  {section.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>
+                      <InlineLinks text={paragraph} />
+                    </p>
+                  ))}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {items.length > 0 && (
+        <FaqSection className="bg-card" groups={[{ group: `About our ${category.name.toLowerCase()}`, items: category.faqs }]} />
+      )}
 
       {/* Other categories */}
       {others.length > 0 && (

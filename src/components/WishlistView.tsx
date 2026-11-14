@@ -73,7 +73,7 @@ export function WishlistView({ products }: { products: Product[] }) {
           href={`${SITE_LINKS.whatsappChat}?text=${encodeURIComponent(wishlistMessage(items))}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-10 inline-flex items-center gap-3 bg-brand-copper hover:bg-brand-copper/90 text-white text-eyebrow uppercase px-8 py-4 transition-colors"
+          className="mt-10 inline-flex items-center gap-3 bg-cta hover:bg-cta/90 text-cta-foreground text-eyebrow uppercase px-8 py-4 transition-colors"
         >
           <MessageCircle aria-hidden className="h-4 w-4" strokeWidth={1.5} />
           Send my wishlist on WhatsApp

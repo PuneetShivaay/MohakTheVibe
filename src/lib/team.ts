@@ -14,7 +14,7 @@ export type TeamMember = {
 export const TEAM_LEAD: TeamMember & { note: string } = {
   name: "Pratibha",
   role: "Managing Director",
-  photo: "/images/pratibha2.png",
+  photo: "/images/pratibha2.webp",
   note: "Pratibha runs Mohak day to day, from choosing each collection to making sure every order leaves the way it should.",
 };
 

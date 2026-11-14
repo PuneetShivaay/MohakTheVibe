@@ -41,7 +41,7 @@ export function MobileBuyBar({
       aria-hidden={!visible}
       inert={!visible}
       className={cn(
-        "md:hidden fixed bottom-0 inset-x-0 z-50 bg-background/95 backdrop-blur-md border-t border-brand-gold/20",
+        "md:hidden fixed bottom-0 inset-x-0 z-50 bg-background/95 backdrop-blur-md border-t border-border",
         "px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-transform duration-300 ease-out-soft",
         visible ? "translate-y-0" : "translate-y-full"
       )}
@@ -56,7 +56,7 @@ export function MobileBuyBar({
           href={action.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 bg-brand-copper hover:bg-brand-copper/90 text-white text-eyebrow uppercase px-5 h-11 inline-flex items-center"
+          className="shrink-0 bg-cta hover:bg-cta/90 text-cta-foreground text-eyebrow uppercase px-5 h-11 inline-flex items-center"
         >
           {action.label}
         </a>

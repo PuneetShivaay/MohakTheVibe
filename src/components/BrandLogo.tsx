@@ -25,7 +25,8 @@ export function BrandLogo({ className, compact = false }: { className?: string; 
             textAnchor="middle" 
             fill="#C9A14A" 
             className="text-5xl italic font-headline select-none"
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            // next/font renames the family to a generated string, so name the variable, not "Playfair Display"
+            style={{ fontFamily: "var(--font-headline), serif" }}
           >
             m
           </text>

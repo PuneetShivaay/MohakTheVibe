@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import { getProducts } from "@/lib/catalog";
+import { socialMeta } from "@/lib/seo";
 import { WishlistView } from "@/components/WishlistView";
 
-// Personal page (contents live in the visitor's browser), so kept out of search results and the sitemap
+const title = "Your Wishlist";
+
+// Personal page (contents live in the visitor's browser), so kept out of search results and the sitemap.
+// Social tags still matter: the WhatsApp share link points here.
 export const metadata: Metadata = {
-  title: "Your Wishlist | Mohak – The Vibe",
+  title,
   alternates: { canonical: "/wishlist" },
   robots: { index: false, follow: true },
+  ...socialMeta({ title, path: "/wishlist" }),
 };
 
 export default async function WishlistPage() {

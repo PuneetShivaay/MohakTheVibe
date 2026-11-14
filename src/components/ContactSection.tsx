@@ -71,7 +71,7 @@ function ChannelCard({ channel }: { channel: (typeof channels)[number] }) {
       )}
     </>
   );
-  const box = "group flex h-full flex-col border border-brand-gold/25 p-8 md:p-10 transition-colors";
+  const box = "group flex h-full flex-col border border-border p-8 md:p-10 transition-colors";
 
   return href ? (
     <a
@@ -121,7 +121,7 @@ export function ContactSection({ firstScreen = false }: { firstScreen?: boolean 
   }
 
   const fieldLabel = "text-eyebrow uppercase text-brand-gold";
-  const fieldInput = "rounded-none border-brand-gold/25 bg-background focus-visible:ring-brand-gold";
+  const fieldInput = "rounded-none border-border bg-background focus-visible:ring-brand-gold";
 
   return (
     <>
@@ -166,7 +166,7 @@ export function ContactSection({ firstScreen = false }: { firstScreen?: boolean 
       </section>
 
       <section aria-labelledby="contact-form-heading" className="pb-section px-6 md:px-12">
-        <div className="max-w-site mx-auto grid lg:grid-cols-[5fr_7fr] border border-brand-gold/20">
+        <div className="max-w-site mx-auto grid lg:grid-cols-[5fr_7fr] border border-border">
           {/* Dark panel: invitation, social links, marketplaces */}
           <Animate className="flex flex-col bg-brand-midnight text-brand-ivory p-8 sm:p-12 lg:p-14">
             <p className="text-eyebrow uppercase text-brand-gold">Prefer to write?</p>

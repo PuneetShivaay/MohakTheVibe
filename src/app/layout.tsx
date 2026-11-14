@@ -1,19 +1,43 @@
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import './globals.css';
 import { JsonLd } from "@/components/JsonLd";
 import { Toaster } from "@/components/ui/toaster";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import {
+  OG_IMAGE,
+  organizationJsonLd,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  TITLE_TEMPLATE,
+  websiteJsonLd,
+} from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 
-const SITE_TITLE = 'Mohak The Vibe | Artificial Earrings, Pendants & Bracelets Online India';
-const SITE_DESCRIPTION =
-  'Mohak The Vibe, Lucknow: handpicked artificial earrings, pendants and bracelets in Minakari, Kundan, Korean and gold-plated styles. Gift-ready, delivered across India.';
-const OG_IMAGE = { url: `${SITE_URL}/og-image.jpg`, width: 1200, height: 630, alt: 'Mohak The Vibe jewellery' };
+// Self-hosted files in ./fonts (variable-weight, latin subset, downloaded from Google Fonts): no
+// render-blocking request to fonts.googleapis.com, no flash of unstyled text, and the build needs no
+// network. (next/font/google failed to build behind a proxy, so don't switch back.) Exposed as CSS
+// variables that tailwind.config.ts reads.
+const inter = localFont({
+  src: './fonts/inter-latin.woff2',
+  weight: '300 600',
+  style: 'normal',
+  variable: '--font-body',
+  display: 'swap',
+});
+const playfair = localFont({
+  src: [
+    { path: './fonts/playfair-display-latin.woff2', weight: '400 700', style: 'normal' },
+    { path: './fonts/playfair-display-latin-italic.woff2', weight: '400 700', style: 'italic' },
+  ],
+  variable: '--font-headline',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   // Resolves relative Open Graph image and canonical URLs on sub-pages
   metadataBase: new URL(SITE_URL),
-  title: SITE_TITLE,
+  // Pages set a bare title ("Our Story") and the template adds the brand suffix
+  title: { default: SITE_TITLE, template: TITLE_TEMPLATE },
   description: SITE_DESCRIPTION,
   applicationName: 'Mohak The Vibe',
   keywords: [
@@ -46,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-IN" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
         {/* Apply the saved Mohak Mode before first paint, so dark-mode visitors don't see a light flash */}
         <script
@@ -54,9 +78,6 @@ export default function RootLayout({
             __html: "try{if(localStorage.getItem('mohak-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}",
           }}
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased selection:bg-brand-gold/30">
         <a

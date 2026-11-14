@@ -56,6 +56,12 @@ const rowSchema = z.object({
   flipkart: optionalUrl,
   meesho: optionalUrl,
   amazon: optionalUrl,
+  // Optional free text, e.g. "Brass, gold plated" and "5 cm drop"
+  material: cell,
+  size: cell,
+  // Optional and never row-breaking: see parseRating(). Kept as raw text here.
+  rating: cell,
+  review_count: cell,
   featured: yesNo(false),
   active: yesNo(true),
   sort: cell.transform((v) => (v && Number.isFinite(Number(v)) ? Number(v) : Number.MAX_SAFE_INTEGER)),
@@ -74,6 +80,22 @@ const extraImageCells = (raw: Record<string, string>) =>
     .sort((a, b) => a.n - b.n)
     .map((c) => c.value)
     .filter((v) => v && !isPlaceholder(v));
+
+// A rating needs both cells and sane values, otherwise the product simply has none. It never skips
+// the row: a typo in optional data must not remove a product from the site. Half-filled or invalid
+// cells are logged so they get fixed instead of silently showing no stars.
+function parseRating(id: string, rowNumber: number, ratingCell: string, countCell: string) {
+  if (!ratingCell && !countCell) return undefined;
+  const value = Number(ratingCell);
+  const count = Number(countCell.replace(/,/g, ""));
+  if (!(value >= 1 && value <= 5) || !Number.isInteger(count) || count < 1) {
+    console.warn(
+      `Catalog: row ${rowNumber} ("${id}") ignored rating "${ratingCell}" / review_count "${countCell}" (need a rating from 1 to 5 and a whole review count of at least 1)`
+    );
+    return undefined;
+  }
+  return { value: Math.round(value * 10) / 10, count };
+}
 
 // Exported for testing; pages use getProducts()
 export function parseSheet(csv: string): Product[] {
@@ -138,7 +160,10 @@ export function parseSheet(csv: string): Product[] {
         hoverImage: r.hover_image && isAllowedImage(r.hover_image) ? r.hover_image : undefined,
         moreImages: moreImages.length > 0 ? moreImages : undefined,
         description: r.description || undefined,
+        material: r.material || undefined,
+        size: r.size || undefined,
         links: { flipkart: r.flipkart, meesho: r.meesho, amazon: r.amazon },
+        rating: parseRating(r.id, rowNumber, r.rating, r.review_count),
         featured: r.featured,
       },
     });

@@ -11,7 +11,7 @@ Indian craft (minakari, kundan, lotus motifs) presented with quiet, typographic 
 - Direction: light / Ivory-led (decided). Dark Mohak Mode must still work.
 - Instagram: official Graph API for https://www.instagram.com/mohakthevibe/ (decided; see open question on starting with a widget).
 - Site structure: hybrid multipage (decided; see "Site structure").
-- Gold is an accent only (hairlines, icons, hover). Copper only for the main CTA, at most once per screen.
+- Gold is an accent only (labels, icons, hover and active states; structural hairlines are neutral `border-border` since the SEO and premium pass). The main CTA was copper, at most once per screen; it is now the `cta` token (Midnight, Ivory in dark mode), see `docs/seo-premium-plan.md` phase 7. Copper remains only on small accents (wishlist heart, count badge).
 - Headings: Playfair Display, very large (96–160px desktop), tight tracking, italic for emphasis. Labels: small uppercase Inter, about 0.3em tracking. Prices: Inter, regular weight.
 - Section padding: about 120–160px desktop. Max content width constrained.
 - Animation: Framer Motion (to be installed in phase 1; not currently in `package.json`). Fade and rise or bottom-up image reveal, 600–800ms ease-out. No bouncy or floating effects.

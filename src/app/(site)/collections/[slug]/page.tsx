@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 import { getProducts, cloudinaryUrl } from "@/lib/catalog";
 import { collections, getCollection, getProductsByCollection, nonEmptyCollections } from "@/lib/products";
 import { cn } from "@/lib/utils";
-import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
+import { CollectionTile, threeAcross } from "@/components/CollectionTiles";
 import { LayeredImages } from "@/components/LayeredImages";
 import { collectionCover, collectionCoverSource, ProductCard, productGridClass, ShopFullRange } from "@/components/ProductCard";
 import { FadeIn } from "@/components/FadeIn";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, socialMeta } from "@/lib/seo";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 
@@ -25,16 +25,16 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const collection = getCollection((await params).slug);
   if (!collection) return {};
-  const title = `${collection.name} Earrings & Jewellery Collection | Mohak The Vibe`;
+  const title = `${collection.name} Earrings & Jewellery Collection`;
+  const description = collection.description;
+  const path = `/collections/${collection.slug}`;
   const products = await getProducts();
-  const cover = collectionCover(collection, products);
   const empty = getProductsByCollection(products, collection.slug).length === 0;
   return {
     title,
-    description: collection.description,
-    alternates: { canonical: `/collections/${collection.slug}` },
-    openGraph: { title, description: collection.description, images: cover ? [cover] : undefined },
-    twitter: { title, description: collection.description, images: cover ? [cover] : undefined },
+    description,
+    alternates: { canonical: path },
+    ...socialMeta({ title, description, path, image: collectionCover(collection, products) }),
     // A collection with no products yet should not appear in search results
     robots: empty ? { index: false, follow: true } : undefined,
   };
@@ -136,11 +136,11 @@ export default async function CollectionPage({ params }: Params) {
             <Reveal className="mb-12">
               <SectionHeading align="left" eyebrow="Keep exploring" title={<>More <em>collections</em></>} />
             </Reveal>
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+            <div className="grid md:grid-cols-6 gap-4 md:gap-6">
               {others.map((c, i) => {
-                const wide = spansFullRow(i, others.length);
+                const { span, wide } = threeAcross(i, others.length);
                 return (
-                  <Reveal key={c.slug} delay={i * 120} className={wide ? "md:col-span-2" : undefined}>
+                  <Reveal key={c.slug} delay={(i % 3) * 120} className={span}>
                     <CollectionTile
                       collection={c}
                       count={getProductsByCollection(products, c.slug).length}

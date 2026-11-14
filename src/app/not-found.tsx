@@ -3,10 +3,11 @@ import Link from "next/link";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Eyebrow } from "@/components/SectionHeading";
+import { hasJournal } from "@/lib/journal";
 import { PAGE_LINKS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Page not found | Mohak – The Vibe",
+  title: "Page not found",
   robots: { index: false },
 };
 
@@ -16,7 +17,7 @@ const ctaLink = "text-eyebrow uppercase border-b border-foreground/30 pb-1 hover
 export default function NotFound() {
   return (
     <>
-      <Navbar />
+      <Navbar journal={hasJournal()} />
       <main id="main" className="min-h-[80vh] flex items-center justify-center px-6 pt-28 pb-section text-center">
         <div className="max-w-xl">
           <Eyebrow className="mb-6">Error 404</Eyebrow>

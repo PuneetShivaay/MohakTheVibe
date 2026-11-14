@@ -53,6 +53,13 @@ export const NAV_LINKS = {
   ],
 } as const;
 
+// Shown in the navbar and footer only once there is a published article (see hasJournal() in journal.ts)
+export const JOURNAL_LINK = { label: "Journal", href: "/journal" } as const;
+
+// Right-hand navigation links, with the journal slotted in after Our Story when it has articles
+export const navLinksRight = (journal: boolean) =>
+  journal ? [NAV_LINKS.right[0], JOURNAL_LINK, ...NAV_LINKS.right.slice(1)] : [...NAV_LINKS.right];
+
 export const MARKETPLACES = [
   { label: "Flipkart", href: SITE_LINKS.flipkartStore },
   { label: "Meesho", href: SITE_LINKS.meeshoStore },
@@ -63,3 +70,12 @@ export const BRAND_PROMISES = ["Handpicked", "Anti-tarnish", "Gift-ready", "Pan-
 
 // Short reassurance row at the top of the footer (only list things that are true)
 export const TRUST_POINTS = ["Free shipping", "Easy returns", "Secure checkout on Flipkart & Meesho"] as const;
+
+// Delivery and returns as declared to search engines in Product structured data, which enables the
+// "Free delivery" / "Free returns" lines under a search result.
+// Deliberately null: orders are fulfilled by Flipkart and Meesho under THEIR policies, so these
+// cannot be filled in from TRUST_POINTS above without confirming the real terms first. Declaring
+// terms a buyer does not actually get is a Merchant Center problem, not just a wrong label.
+// To switch on, set both fields; `seo.ts` picks them up automatically.
+// See docs/seo-premium-plan.md, open questions.
+export const MERCHANT_TERMS: { freeShippingAcrossIndia: boolean; returnDays: number } | null = null;

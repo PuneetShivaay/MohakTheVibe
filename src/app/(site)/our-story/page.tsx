@@ -7,18 +7,18 @@ import { FadeIn } from "@/components/FadeIn";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 import { TeamSection } from "@/components/TeamSection";
+import { socialMeta } from "@/lib/seo";
 import { PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
-const title = "Our Story | Mohak – The Vibe";
+const title = "Our Story";
 const description =
-  "The story of Mohak – The Vibe: started by Ashi and Puneet with a love of earrings, first sold at small events, now on Flipkart and Meesho and led by Pratibha.";
+  "The story of Mohak The Vibe: started by Ashi and Puneet with a love of earrings, first sold at small events, now on Flipkart and Meesho and led by Pratibha.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/our-story" },
-  openGraph: { title, description },
-  twitter: { title, description },
+  ...socialMeta({ title, description, path: "/our-story" }),
 };
 
 // Placeholder copy drawn from the Our Essence section; replace with the founder's own words (see progress doc)
@@ -151,7 +151,7 @@ export default function OurStoryPage() {
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
             {values.map((value, i) => (
-              <Reveal key={value.name} delay={i * 100} className="border-t border-brand-gold/30 pt-6">
+              <Reveal key={value.name} delay={i * 100} className="border-t border-border pt-6">
                 <h3 className="font-headline text-xl mb-3">{value.name}</h3>
                 <p className="text-sm text-foreground/70 font-light leading-relaxed">{value.text}</p>
               </Reveal>
@@ -168,7 +168,7 @@ export default function OurStoryPage() {
           <blockquote className="font-headline italic text-display-sm">
             “Femininity isn&apos;t just a trait, it&apos;s a celebration. We&apos;re here to provide the crown.”
           </blockquote>
-          <p className="mt-8 text-eyebrow uppercase text-brand-gold">The Mohak – The Vibe Collective</p>
+          <p className="mt-8 text-eyebrow uppercase text-brand-gold">Mohak – The Vibe Collective</p>
         </Reveal>
       </section>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Star } from "lucide-react";
 import { cloudinaryUrl, getProducts } from "@/lib/catalog";
 import {
   getCategory,
@@ -10,7 +11,7 @@ import {
   productImages,
   productPath,
 } from "@/lib/products";
-import { BRAND_NAME, breadcrumbJsonLd, productDescription, productJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, productDescription, productJsonLd, socialMeta } from "@/lib/seo";
 import { BRAND_PROMISES, SITE_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "@/components/FadeIn";
@@ -35,15 +36,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const product = getProduct(await getProducts(), (await params).id);
   if (!product) return {};
   const category = getCategory(product.category);
-  const title = `${product.name} | ${BRAND_NAME}`;
+  const title = product.name;
   const description = productDescription(product, category?.name ?? "jewellery");
-  const image = cloudinaryUrl(product.image, 1200);
+  const path = productPath(product.id);
   return {
     title,
     description,
-    alternates: { canonical: productPath(product.id) },
-    openGraph: { title, description, images: [image] },
-    twitter: { title, description, images: [image] },
+    alternates: { canonical: path },
+    ...socialMeta({ title, description, path, image: cloudinaryUrl(product.image, 1200) }),
   };
 }
 
@@ -102,11 +102,42 @@ export default async function ProductPage({ params }: Params) {
             )}
             <h1 className="font-headline text-display-sm md:text-display">{product.name}</h1>
             <p className="mt-4 font-headline text-2xl">{product.price}</p>
+            {/* Same numbers as the aggregateRating structured data, which Google requires to be visible */}
+            {product.rating && (
+              <p
+                className="mt-3 flex items-center gap-2 text-sm text-foreground/60"
+                aria-label={`Rated ${product.rating.value} out of 5 from ${product.rating.count} ratings`}
+              >
+                <Star aria-hidden className="h-3.5 w-3.5 fill-brand-gold text-brand-gold" strokeWidth={1.25} />
+                <span className="text-foreground">{product.rating.value.toFixed(1)}</span>
+                <span aria-hidden>·</span>
+                <span>
+                  {product.rating.count.toLocaleString("en-IN")} {product.rating.count === 1 ? "rating" : "ratings"}
+                </span>
+              </p>
+            )}
 
             {product.description && (
               <p className="mt-8 max-w-md text-foreground/70 font-light leading-relaxed whitespace-pre-line">
                 {product.description}
               </p>
+            )}
+
+            {(product.material || product.size) && (
+              <dl className="mt-8 max-w-md grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 text-sm">
+                {product.material && (
+                  <>
+                    <dt className="text-eyebrow uppercase text-brand-gold self-center">Material</dt>
+                    <dd className="text-foreground/70 font-light">{product.material}</dd>
+                  </>
+                )}
+                {product.size && (
+                  <>
+                    <dt className="text-eyebrow uppercase text-brand-gold self-center">Size</dt>
+                    <dd className="text-foreground/70 font-light">{product.size}</dd>
+                  </>
+                )}
+              </dl>
             )}
 
             {/* First listing is the main button, the rest are outlined. On phones MobileBuyBar takes over when
@@ -122,7 +153,7 @@ export default async function ProductPage({ params }: Params) {
                   className={cn(
                     "text-center text-eyebrow uppercase px-8 py-4 transition-colors",
                     i === 0
-                      ? "bg-brand-copper hover:bg-brand-copper/90 text-white"
+                      ? "bg-cta hover:bg-cta/90 text-cta-foreground"
                       : "border border-brand-gold/50 hover:border-brand-gold hover:text-brand-gold"
                   )}
                 >
@@ -150,7 +181,7 @@ export default async function ProductPage({ params }: Params) {
               </p>
             )}
 
-            <ul className="mt-10 pt-8 border-t border-brand-gold/20 grid grid-cols-2 gap-4">
+            <ul className="mt-10 pt-8 border-t border-border grid grid-cols-2 gap-4">
               {BRAND_PROMISES.map((promise) => (
                 <li key={promise} className="flex items-center gap-3 text-eyebrow uppercase text-foreground/70">
                   <span aria-hidden className="w-1 h-1 rotate-45 bg-brand-gold" />

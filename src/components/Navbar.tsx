@@ -8,9 +8,7 @@ import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { cn } from "@/lib/utils";
-import { MARKETPLACES, NAV_LINKS, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
-
-const allLinks = [...NAV_LINKS.left, ...NAV_LINKS.right];
+import { MARKETPLACES, NAV_LINKS, navLinksRight, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
 function NavLink({ href, label }: { href: string; label: string }) {
   return (
@@ -20,7 +18,10 @@ function NavLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-export function Navbar() {
+// `journal`: show the Journal link (the layout passes true once an article is published)
+export function Navbar({ journal = false }: { journal?: boolean }) {
+  const rightLinks = navLinksRight(journal);
+  const allLinks = [...NAV_LINKS.left, ...rightLinks];
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -55,7 +56,7 @@ export function Navbar() {
           "fixed top-0 inset-x-0 z-[100] transition-all duration-500 ease-out-soft",
           overHero
             ? "bg-transparent text-white py-5 md:py-7"
-            : "bg-background/90 text-foreground backdrop-blur-md border-b border-brand-gold/20 py-3"
+            : "bg-background/90 text-foreground backdrop-blur-md border-b border-border py-3"
         )}
       >
         <nav
@@ -89,7 +90,7 @@ export function Navbar() {
           {/* Right: desktop links, wishlist, theme */}
           <div className="flex items-center justify-end gap-8">
             <div className="hidden lg:flex items-center gap-8">
-              {NAV_LINKS.right.map((link) => (
+              {rightLinks.map((link) => (
                 <NavLink key={link.href} {...link} />
               ))}
             </div>
@@ -130,7 +131,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-headline text-display-sm border-b border-brand-gold/15 py-5 hover:text-brand-gold transition-colors"
+                className="font-headline text-display-sm border-b border-border py-5 hover:text-brand-gold transition-colors"
               >
                 {link.label}
               </Link>
