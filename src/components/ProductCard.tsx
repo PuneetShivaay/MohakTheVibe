@@ -23,7 +23,7 @@ export function collectionCover(collection: Collection, products: Product[], wid
 }
 
 export const quietLink =
-  "border-b border-transparent pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors";
+  "tap-area border-b border-transparent pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors";
 
 // Keeps small product lists centred instead of leaving empty grid columns
 const gridBySize: Record<number, string> = {

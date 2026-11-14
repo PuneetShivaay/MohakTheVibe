@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Menu, X } from "lucide-react";
+import { Gift, Heart, Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
 import { useGiftBox } from "@/hooks/use-gift-box";
@@ -11,25 +11,24 @@ import { useWishlist } from "@/hooks/use-wishlist";
 import { cn } from "@/lib/utils";
 import { GIFTING_LINK, MARKETPLACES, NAV_LINKS, navLinksRight, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
-// `count` (gift box pieces) shows as a small gold number after the label
-function NavLink({ href, label, count = 0 }: { href: string; label: string; count?: number }) {
+function NavLink({ href, label }: { href: string; label: string }) {
   return (
     <Link href={href} className="text-eyebrow uppercase hover:text-brand-gold transition-colors">
       {label}
-      {count > 0 && (
-        <span className="ml-1.5 text-brand-gold" aria-label={`, ${count} in your gift box`}>
-          {count}
-        </span>
-      )}
     </Link>
   );
 }
 
+// Count badge shared by the wishlist heart and the gift box icon
+const badgeClass =
+  "absolute -top-2 -right-2.5 min-w-4 h-4 px-1 rounded-full bg-brand-copper text-white text-[0.6875rem] leading-4 text-center";
+
 // `journal`: show the Journal link (the layout passes true once an article is published).
+// Gifting is the gift icon beside the heart on the bar; in the mobile menu it is a text entry.
 // The full link row needs about 1280px, so below that the menu button is used (laptops included).
 export function Navbar({ journal = false }: { journal?: boolean }) {
-  const rightLinks = [GIFTING_LINK, ...navLinksRight(journal)];
-  const allLinks = [...NAV_LINKS.left, ...rightLinks];
+  const rightLinks = navLinksRight(journal);
+  const allLinks = [...NAV_LINKS.left, GIFTING_LINK, ...rightLinks];
   const giftBox = useGiftBox();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -96,13 +95,28 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
             <BrandLogo compact />
           </Link>
 
-          {/* Right: desktop links, wishlist, theme */}
+          {/* Right: desktop links, gift box, wishlist, theme */}
           <div className="flex items-center justify-end gap-8">
             <div className="hidden xl:flex items-center gap-8">
               {rightLinks.map((link) => (
-                <NavLink key={link.href} {...link} count={link.href === GIFTING_LINK.href ? giftBox.count : 0} />
+                <NavLink key={link.href} {...link} />
               ))}
             </div>
+            <Link
+              href={GIFTING_LINK.href}
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label={`Gifting${giftBox.count ? `, ${giftBox.count} in your gift box` : ""}`}
+              title="Gifting"
+              // Invisible ::after gives the 16px icon a ~44px touch area
+              className="relative hover:text-brand-gold transition-colors after:absolute after:-inset-3.5 after:content-['']"
+            >
+              <Gift className="w-4 h-4" strokeWidth={1.25} />
+              {giftBox.count > 0 && (
+                <span aria-hidden className={badgeClass}>
+                  {giftBox.count}
+                </span>
+              )}
+            </Link>
             <Link
               href={PAGE_LINKS.wishlist}
               onClick={() => setMobileMenuOpen(false)}
@@ -112,10 +126,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
             >
               <Heart className="w-4 h-4" strokeWidth={1.25} />
               {wishlist.ids.length > 0 && (
-                <span
-                  aria-hidden
-                  className="absolute -top-2 -right-2.5 min-w-4 h-4 px-1 rounded-full bg-brand-copper text-white text-[0.6rem] leading-4 text-center"
-                >
+                <span aria-hidden className={badgeClass}>
                   {wishlist.ids.length}
                 </span>
               )}

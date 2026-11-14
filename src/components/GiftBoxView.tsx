@@ -9,8 +9,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useGiftBox } from "@/hooks/use-gift-box";
 import { cloudinaryUrl } from "@/lib/images";
 import { formatINR, priceValue, productPath, type Product } from "@/lib/products";
-import { BULK_HINT_FROM, SHOP_LINKS, SITE_LINKS, SITE_URL } from "@/lib/site";
+import { BULK_HINT_FROM, SITE_LINKS, SITE_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { SeeAllCategories } from "./SeeAllCategories";
 
 const OCCASIONS = ["Birthday", "Anniversary", "Wedding", "Festival", "Thank you", "Corporate gift", "Just because", "Other"];
 const MESSAGE_MAX = 200;
@@ -168,12 +169,16 @@ export function GiftBoxView({ products, picks }: { products: Product[]; picks: P
                         className="object-cover"
                       />
                     </Link>
-                    <p className="mt-3 text-sm leading-snug line-clamp-2">{p.name}</p>
+                    <p className="mt-3 text-sm leading-snug line-clamp-2">
+                      <Link href={productPath(p.id)} className="hover:text-brand-gold transition-colors">
+                        {p.name}
+                      </Link>
+                    </p>
                     <p className="mt-1 text-sm text-foreground/60">{p.price}</p>
                     <button
                       type="button"
                       onClick={() => box.add(p.id)}
-                      className="mt-3 inline-flex items-center gap-2 text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
+                      className="tap-area mt-3 inline-flex items-center gap-2 text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
                     >
                       {ready && qty > 0 ? (
                         <>
@@ -191,17 +196,7 @@ export function GiftBoxView({ products, picks }: { products: Product[]; picks: P
                 );
               })}
             </ul>
-            <p className="mt-10 text-eyebrow uppercase text-foreground/60">
-              See all:{" "}
-              {SHOP_LINKS.map((link, i) => (
-                <React.Fragment key={link.href}>
-                  {i > 0 && " · "}
-                  <Link href={link.href} className="text-foreground hover:text-brand-gold transition-colors">
-                    {link.label}
-                  </Link>
-                </React.Fragment>
-              ))}
-            </p>
+            <SeeAllCategories className="mt-10" />
           </div>
         )}
       </div>

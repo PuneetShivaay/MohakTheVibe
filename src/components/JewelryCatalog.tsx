@@ -1,7 +1,8 @@
 import { getProducts } from "@/lib/catalog";
-import { ProductCard, ShopFullRange } from "./ProductCard";
+import { ProductCard } from "./ProductCard";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
+import { SeeAllCategories } from "./SeeAllCategories";
 
 const SIGNATURE_COUNT = 8;
 
@@ -35,7 +36,7 @@ export async function JewelryCatalog() {
         </div>
 
         <Reveal className="mt-16 md:mt-20 text-center">
-          <ShopFullRange />
+          <SeeAllCategories prominent />
         </Reveal>
       </div>
     </section>

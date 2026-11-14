@@ -73,6 +73,15 @@
   }
 }
 @layer utilities {
+  /* Invisible enlarged hit area for small text links (WCAG 2.2 asks for 24px targets) without moving anything */
+  .tap-area {
+    position: relative;
+  }
+  .tap-area::after {
+    content: "";
+    position: absolute;
+    inset: -0.5rem -0.25rem;
+  }
   /* Swipeable photo strips: scroll without a visible scrollbar */
   .scrollbar-none {
     scrollbar-width: none;

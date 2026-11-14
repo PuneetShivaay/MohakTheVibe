@@ -67,7 +67,7 @@ export default async function CollectionPage({ params }: Params) {
         <div className="max-w-site mx-auto grid md:grid-cols-2 gap-10 md:gap-20 items-center">
           <FadeIn>
             <nav aria-label="Breadcrumb" className="mb-8 text-eyebrow uppercase text-foreground/60">
-              <Link href="/#collections" className="hover:text-brand-gold transition-colors">
+              <Link href="/#collections" className="tap-area hover:text-brand-gold transition-colors">
                 Collections
               </Link>
               <span className="mx-3 text-brand-gold">/</span>

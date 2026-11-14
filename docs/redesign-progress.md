@@ -318,6 +318,24 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - Open: real bulk threshold (`BULK_HINT_FROM` = 5 assumed), gift card decision, CA advice on the GST invoice,
     return and cancellation rules, gift-wrap photos.
 
+- 2026-11-14: **Mobile audit and fixes** (branch `gifting`; headless Chrome at 320, 360 and 390px against the dev
+  server, 17 pages, with a wishlist and gift box filled in; no real devices, no tablet, no dark mode, no Safari).
+  - Found: 1 sideways overflow (`/contact` at 320px: the email address was one unbreakable word wider than its card),
+    cramped wrapped small labels everywhere (the label style fixed line-height at 1), about 450 undersized tap
+    targets per width (footer links 17px, underlined text links 14-16px, 20px social icons), count badges at 9.6px.
+  - No broken images, no JavaScript errors.
+  - Fixed: `text-eyebrow` line-height 1 to 1.5 (tailwind.config.ts) which also makes every label button about 5px
+    taller; new `.tap-area` utility (invisible enlarged hit area) on small text links and breadcrumbs; footer links
+    and contact links padded (same visual rhythm), social icons given a 36px hit area; contact card value wraps
+    anywhere; badge digits 11px. A footer-copyright `leading-loose` I added earlier **did not work** (a plain
+    leading class loses to the label style's own line-height); replaced by the global fix plus `!leading-[1.9]`.
+  - Result: overflow 0, cramped text 0, tap-target offenders about 450 to 78, tiny text 87 to 53 (the rest is the
+    8px "MOHAK" and "The Vibe" inside the logo SVG, left as is).
+  - Left alone on purpose: "Read our story" link in `BrandStory.tsx` (kept as is by decision), product-name links in
+    cards (21px; the photo is also a link), the logo text.
+  - Dev-server oddity: `/journal`, `/privacy-policy` and `/terms-and-conditions` kept serving the old footer markup in
+    the dev server (same shared component, so the code is right); restart the dev server and re-check them.
+
 ## Before merging to main
 - [ ] Final test checklist below passes
 - [ ] Delete `src/app/preview/` (and its `robots.ts` rule)

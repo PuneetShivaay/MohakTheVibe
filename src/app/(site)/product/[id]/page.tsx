@@ -80,13 +80,13 @@ export default async function ProductPage({ params }: Params) {
 
           <FadeIn delay={150} className="md:sticky md:top-28">
             <nav aria-label="Breadcrumb" className="mb-8 text-eyebrow uppercase text-foreground/60">
-              <Link href="/" className="hover:text-brand-gold transition-colors">
+              <Link href="/" className="tap-area hover:text-brand-gold transition-colors">
                 Home
               </Link>
               {category && (
                 <>
                   <span className="mx-3 text-brand-gold">/</span>
-                  <Link href={`/shop/${category.slug}`} className="hover:text-brand-gold transition-colors">
+                  <Link href={`/shop/${category.slug}`} className="tap-area hover:text-brand-gold transition-colors">
                     {category.name}
                   </Link>
                 </>
@@ -96,7 +96,7 @@ export default async function ProductPage({ params }: Params) {
             {collection && (
               <Link
                 href={`/collections/${collection.slug}`}
-                className="inline-block mb-4 text-eyebrow uppercase text-brand-gold hover:text-foreground transition-colors"
+                className="tap-area inline-block mb-4 text-eyebrow uppercase text-brand-gold hover:text-foreground transition-colors"
               >
                 {collection.name}
               </Link>

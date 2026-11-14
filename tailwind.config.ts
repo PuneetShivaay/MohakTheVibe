@@ -23,7 +23,7 @@ export default {
         'display-sm': ['clamp(1.75rem, 3.5vw, 3rem)', { lineHeight: '1.25' }],
         // 11px (was 10px, which was at the edge of readable). Tracking trimmed from 0.35em so each label stays
         // about as wide as before: the navbar is already tight at laptop widths.
-        eyebrow: ['0.6875rem', { lineHeight: '1', letterSpacing: '0.28em' }],
+        eyebrow: ['0.6875rem', { lineHeight: '1.5', letterSpacing: '0.28em' }],
       },
       spacing: {
         // 4rem on phones (less empty scrolling), unchanged from ~800px wide up

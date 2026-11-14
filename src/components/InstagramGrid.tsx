@@ -92,7 +92,7 @@ export async function InstagramGrid() {
           href={SITE_LINKS.instagram}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
+          className="tap-area text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
         >
           Follow us on Instagram
         </a>

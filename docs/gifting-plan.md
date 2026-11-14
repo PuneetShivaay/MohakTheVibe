@@ -66,7 +66,9 @@ marketplaces don't: **no price on the parcel, our gift wrap, and any mix of piec
       `public/images/giftbox/gift-box-small.webp`, a stock render that still carries a **pngtree watermark** (free
       licences of such images normally require attribution, and the watermark usually only goes with a paid or
       verified download). It is also glossy clipart rather than the real Mohak wrapping. Swap it, and the large print,
-      for real photos of a wrapped Mohak gift: change the `gifting-giftbox` entry in `placeholder-images.json`.
+      for real photos of a wrapped Mohak gift: the two intro photos are the `gifting-main` (large) and
+      `gifting-giftbox` (small) entries in `placeholder-images.json`; change an entry's `imageUrl` (and alt text in
+      `gifting/page.tsx`) to swap a photo, no component change needed.
 - [x] Privacy page said the site is hosted on Firebase; now says Vercel.
 - [ ] **Bulk threshold:** `BULK_HINT_FROM` in `site.ts` is 5 (assumed). From that many pieces the WhatsApp message
       asks for the bulk price. Change it to the real number.

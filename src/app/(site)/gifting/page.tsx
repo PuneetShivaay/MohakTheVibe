@@ -74,9 +74,10 @@ export default async function GiftingPage() {
   // Suggestions to add without leaving the page: the featured pieces, or the first few when none are marked
   const featured = products.filter((p) => p.featured);
   const picks = (featured.length > 0 ? featured : products).slice(0, 6);
-  // Intro prints: a styled photo, and the gift box as the small print. The gift box is a stock image with a
-  // pngtree watermark: replace both with real Mohak gift-wrap photos before relying on this page.
-  const mainImg = imageUrl("insta-post-5");
+  // Intro prints, each its own entry in placeholder-images.json so a photo is swapped by changing its imageUrl
+  // there. The gift box is a stock image with a pngtree watermark: replace both with real Mohak gift-wrap photos
+  // before relying on this page.
+  const mainImg = imageUrl("gifting-main");
   const detailImg = imageUrl("gifting-giftbox");
 
   return (
@@ -104,7 +105,7 @@ export default async function GiftingPage() {
               </p>
               <a
                 href="#gift-box"
-                className="mt-10 inline-block text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
+                className="tap-area mt-10 inline-block text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
               >
                 Start your gift box
               </a>
@@ -113,7 +114,7 @@ export default async function GiftingPage() {
               <FadeIn delay={150} className="lg:mr-8 lg:mb-8">
                 <LayeredImages
                   main={mainImg}
-                  mainAlt="Mohak kundan chandbali earrings, styled"
+                  mainAlt="Black and plum crystal tassel earrings from Mohak, hanging in soft window light"
                   detail={detailImg}
                   detailAlt="A gift box tied with a gold ribbon"
                   priority

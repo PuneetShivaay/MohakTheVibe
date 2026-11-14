@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-const ctaLink = "text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors";
+const ctaLink = "tap-area text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors";
 
 // Rendered for unknown URLs (exported as 404.html). Outside (site), so it adds the navbar and footer itself.
 export default function NotFound() {

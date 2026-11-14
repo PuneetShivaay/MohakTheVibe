@@ -60,7 +60,7 @@ export function Hero() {
             </Link>
             <Link
               href={PAGE_LINKS.story}
-              className="text-eyebrow uppercase border-b border-white/40 pb-1 hover:border-white transition-colors"
+              className="tap-area text-eyebrow uppercase border-b border-white/40 pb-1 hover:border-white transition-colors"
             >
               Our Story
             </Link>

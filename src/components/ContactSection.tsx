@@ -61,7 +61,7 @@ function ChannelCard({ channel }: { channel: (typeof channels)[number] }) {
         <Icon aria-hidden className="w-5 h-5" strokeWidth={1.25} />
       </span>
       <p className="mt-8 text-eyebrow uppercase text-brand-gold">{label}</p>
-      <p className="mt-3 font-headline text-xl md:text-2xl leading-snug break-words">{value}</p>
+      <p className="mt-3 font-headline text-lg sm:text-xl md:text-2xl leading-snug [overflow-wrap:anywhere]">{value}</p>
       <p className="mt-2 text-sm text-foreground/60 font-light">{note}</p>
       {cta && (
         <span className="mt-8 inline-flex items-center gap-2 text-eyebrow uppercase text-foreground/80 group-hover:text-brand-gold transition-colors">
@@ -156,7 +156,7 @@ export function ContactSection({ firstScreen = false }: { firstScreen?: boolean 
           <Animate delay={150}>
             <ul className="mt-14 md:mt-20 grid gap-4 md:grid-cols-3 md:gap-6">
               {channels.map((channel) => (
-                <li key={channel.label}>
+                <li key={channel.label} className="min-w-0">
                   <ChannelCard channel={channel} />
                 </li>
               ))}
@@ -204,7 +204,7 @@ export function ContactSection({ firstScreen = false }: { firstScreen?: boolean 
                       href={m.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="border-b border-brand-ivory/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors"
+                      className="tap-area border-b border-brand-ivory/30 pb-0.5 hover:text-brand-gold hover:border-brand-gold transition-colors"
                     >
                       {m.label}
                     </a>

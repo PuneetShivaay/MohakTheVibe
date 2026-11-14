@@ -46,7 +46,7 @@ export function WishlistView({ products }: { products: Product[] }) {
             <Link
               key={link.href}
               href={link.href}
-              className="text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
+              className="tap-area text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
             >
               Shop {link.label}
             </Link>
