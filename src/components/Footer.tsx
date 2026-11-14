@@ -5,10 +5,10 @@ import { FooterWordmark } from "./FooterWordmark";
 import { getProducts } from "@/lib/catalog";
 import { hasJournal } from "@/lib/journal";
 import { nonEmptyCollections } from "@/lib/products";
-import { CONTACT, LEGAL_LINKS, MARKETPLACES, navLinksRight, SHOP_LINKS, SITE_LINKS, TRUST_POINTS } from "@/lib/site";
+import { CONTACT, GIFTING_LINK, LEGAL_LINKS, MARKETPLACES, navLinksRight, SHOP_LINKS, SITE_LINKS, TRUST_POINTS } from "@/lib/site";
 
 const columnTitle = "text-eyebrow uppercase text-brand-gold mb-5";
-const columnLink = "text-sm text-foreground/70 hover:text-brand-gold transition-colors";
+const columnLink = "inline-block py-1 text-sm text-foreground/70 hover:text-brand-gold transition-colors";
 
 export async function Footer() {
   const year = new Date().getFullYear();
@@ -36,35 +36,35 @@ export async function Footer() {
             Handpicked jewellery for the woman who wears her vibe with confidence.
           </p>
           <div className="mt-5 flex gap-5">
-            <a href={SITE_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Mohak on Instagram" className="text-brand-gold hover:opacity-70 transition-opacity">
+            <a href={SITE_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Mohak on Instagram" className="-m-2 p-2 text-brand-gold hover:opacity-70 transition-opacity">
               <Instagram className="w-5 h-5" strokeWidth={1.25} />
             </a>
-            <a href={SITE_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label="Mohak on YouTube" className="text-brand-gold hover:opacity-70 transition-opacity">
+            <a href={SITE_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label="Mohak on YouTube" className="-m-2 p-2 text-brand-gold hover:opacity-70 transition-opacity">
               <Youtube className="w-5 h-5" strokeWidth={1.25} />
             </a>
-            <a href={SITE_LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Mohak on LinkedIn" className="text-brand-gold hover:opacity-70 transition-opacity">
+            <a href={SITE_LINKS.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Mohak on LinkedIn" className="-m-2 p-2 text-brand-gold hover:opacity-70 transition-opacity">
               <Linkedin className="w-5 h-5" strokeWidth={1.25} />
             </a>
-            <a href={SITE_LINKS.whatsappChat} target="_blank" rel="noopener noreferrer" aria-label="Chat with Mohak on WhatsApp" className="text-brand-gold hover:opacity-70 transition-opacity">
+            <a href={SITE_LINKS.whatsappChat} target="_blank" rel="noopener noreferrer" aria-label="Chat with Mohak on WhatsApp" className="-m-2 p-2 text-brand-gold hover:opacity-70 transition-opacity">
               <MessageCircle className="w-5 h-5" strokeWidth={1.25} />
             </a>
           </div>
 
           <p className={`${columnTitle} mt-8`}>Get in touch</p>
-          <ul className="space-y-3 text-sm text-foreground/70">
+          <ul className="space-y-2 text-sm text-foreground/70">
             <li className="flex items-start gap-3">
               <MapPin aria-hidden className="w-4 h-4 text-brand-gold shrink-0 mt-0.5" strokeWidth={1.25} />
               <span>{CONTACT.location}</span>
             </li>
             <li className="flex items-center gap-3">
               <Phone aria-hidden className="w-4 h-4 text-brand-gold shrink-0" strokeWidth={1.25} />
-              <a href={CONTACT.phoneHref} className="hover:text-brand-gold transition-colors">
+              <a href={CONTACT.phoneHref} className="inline-block py-1 hover:text-brand-gold transition-colors">
                 {CONTACT.phoneDisplay}
               </a>
             </li>
             <li className="flex items-center gap-3">
               <Mail aria-hidden className="w-4 h-4 text-brand-gold shrink-0" strokeWidth={1.25} />
-              <a href={`mailto:${CONTACT.email}`} className="hover:text-brand-gold transition-colors break-all">
+              <a href={`mailto:${CONTACT.email}`} className="inline-block py-1 hover:text-brand-gold transition-colors break-all">
                 {CONTACT.email}
               </a>
             </li>
@@ -74,8 +74,8 @@ export async function Footer() {
         {/* Shop */}
         <nav aria-label="Footer shop">
           <p className={columnTitle}>Shop</p>
-          <ul className="space-y-2.5">
-            {SHOP_LINKS.map((link) => (
+          <ul className="space-y-0.5">
+            {[...SHOP_LINKS, GIFTING_LINK].map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className={columnLink}>
                   {link.label}
@@ -86,7 +86,7 @@ export async function Footer() {
 
           {/* Marketplaces: one link per line, same rhythm as the other columns */}
           <p className={`${columnTitle} mt-8`}>Also available on</p>
-          <ul className="space-y-2.5">
+          <ul className="space-y-0.5">
             {MARKETPLACES.map((m) => (
               <li key={m.label}>
                 <a href={m.href} target="_blank" rel="noopener noreferrer" className={columnLink}>
@@ -105,7 +105,7 @@ export async function Footer() {
         {/* Collections */}
         <nav aria-label="Footer collections">
           <p className={columnTitle}>Collections</p>
-          <ul className="space-y-2.5">
+          <ul className="space-y-0.5">
             {collections.map((c) => (
               <li key={c.slug}>
                 <Link href={`/collections/${c.slug}`} className={columnLink}>
@@ -119,7 +119,7 @@ export async function Footer() {
         {/* Company */}
         <nav aria-label="Footer company" className="col-span-2 md:col-span-3 lg:col-span-1">
           <p className={columnTitle}>Company</p>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-2.5 lg:block lg:space-y-2.5">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-0.5 lg:block lg:space-y-0.5">
             {[...navLinksRight(hasJournal()), ...LEGAL_LINKS].map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className={columnLink}>
@@ -133,7 +133,8 @@ export async function Footer() {
 
       {/* Oversized faded wordmark, animated on scroll */}
       <FooterWordmark />
-      <p className="relative z-10 max-w-site mx-auto mt-4 text-center text-eyebrow uppercase text-foreground/50">
+      {/* !leading: a plain leading-* class loses to the label style's own line height */}
+      <p className="relative z-10 max-w-site mx-auto mt-4 text-center text-eyebrow !leading-[1.9] uppercase text-foreground/50">
         © {year} Mohak – The Vibe.
         {CONTACT.gstin && <span className="block sm:inline sm:ml-3">GSTIN {CONTACT.gstin}.</span>}{" "}
         Developed by{" "}

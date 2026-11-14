@@ -32,9 +32,9 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          This site does not have accounts, a cart or online payments, and it does not store anything you type. The form on
-          our contact page only opens your own email app with your message filled in; nothing is sent until you press send
-          there.
+          This site does not have accounts or online payments, and it does not send anything you type to us. The form on
+          our contact page only opens your own email app with your message filled in, and the form on our gifting page only
+          writes a WhatsApp message for you. Nothing is sent until you press send there.
         </p>
         <p>
           If you message us on WhatsApp or Instagram, or email us, we receive the information you choose to share, such as
@@ -47,11 +47,18 @@ const sections: LegalSection[] = [
   {
     heading: "Orders and payments",
     body: (
-      <p>
-        Purchases are completed on Flipkart, Meesho or other marketplaces we link to. Those platforms collect and process
-        your order, address and payment details under their own privacy policies. We do not receive your card or UPI
-        details.
-      </p>
+      <>
+        <p>
+          Marketplace purchases are completed on Flipkart, Meesho or other marketplaces we link to. Those platforms collect
+          and process your order, address and payment details under their own privacy policies.
+        </p>
+        <p>
+          For gift orders placed with us on WhatsApp, you share your name and phone number, the recipient&apos;s name and
+          delivery address, and your gift message. We use them only to confirm, pack and deliver the order, and we share
+          the recipient&apos;s name, address and phone number with the courier only as needed for delivery. You pay by UPI
+          through your own UPI app: we see that the payment arrived, never your UPI PIN, card or bank login.
+        </p>
+      </>
     ),
   },
   {
@@ -70,8 +77,8 @@ const sections: LegalSection[] = [
           , WhatsApp, Flipkart and Meesho. When you open them, their own privacy policies apply.
         </p>
         <p>
-          The website is hosted on Firebase Hosting (Google), which may log standard technical data such as IP address and
-          browser type to deliver and secure the site.
+          The website is hosted on Vercel, which may log standard technical data such as IP address and browser type to
+          deliver and secure the site.
         </p>
       </>
     ),
@@ -80,8 +87,9 @@ const sections: LegalSection[] = [
     heading: "Cookies and local storage",
     body: (
       <p>
-        We store your light or dark display choice in your browser so the site remembers it. This is not used to identify
-        you.
+        We store your light or dark display choice, your wishlist and your gift box (product ids and quantities) in your
+        browser so the site remembers them. They stay on your device, are not sent to us unless you choose to send your
+        list or order on WhatsApp, and are not used to identify you.
       </p>
     ),
   },
@@ -104,7 +112,7 @@ export default function PrivacyPolicyPage() {
   return (
     <LegalPage
       title="Privacy Policy"
-      updated="28 October 2026"
+      updated="14 November 2026"
       intro="Your privacy matters to us. This page explains what information we handle when you visit this website or get in touch."
       sections={sections}
     />

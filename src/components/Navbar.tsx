@@ -3,12 +3,13 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Menu, X } from "lucide-react";
+import { Gift, Heart, Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
+import { useGiftBox } from "@/hooks/use-gift-box";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { cn } from "@/lib/utils";
-import { MARKETPLACES, NAV_LINKS, navLinksRight, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
+import { GIFTING_LINK, MARKETPLACES, NAV_LINKS, navLinksRight, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
 function NavLink({ href, label }: { href: string; label: string }) {
   return (
@@ -18,10 +19,17 @@ function NavLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-// `journal`: show the Journal link (the layout passes true once an article is published)
+// Count badge shared by the wishlist heart and the gift box icon
+const badgeClass =
+  "absolute -top-2 -right-2.5 min-w-4 h-4 px-1 rounded-full bg-brand-copper text-white text-[0.6875rem] leading-4 text-center";
+
+// `journal`: show the Journal link (the layout passes true once an article is published).
+// Gifting is the gift icon beside the heart on the bar; in the mobile menu it is a text entry.
+// The full link row needs about 1280px, so below that the menu button is used (laptops included).
 export function Navbar({ journal = false }: { journal?: boolean }) {
   const rightLinks = navLinksRight(journal);
-  const allLinks = [...NAV_LINKS.left, ...rightLinks];
+  const allLinks = [...NAV_LINKS.left, GIFTING_LINK, ...rightLinks];
+  const giftBox = useGiftBox();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -67,7 +75,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
           <div className="flex items-center gap-8">
             <button
               type="button"
-              className="lg:hidden -ml-2 p-2 hover:text-brand-gold transition-colors"
+              className="xl:hidden -ml-2 p-2 hover:text-brand-gold transition-colors"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -75,7 +83,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
             >
               {mobileMenuOpen ? <X className="h-5 w-5" strokeWidth={1.25} /> : <Menu className="h-5 w-5" strokeWidth={1.25} />}
             </button>
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden xl:flex items-center gap-8">
               {NAV_LINKS.left.map((link) => (
                 <NavLink key={link.href} {...link} />
               ))}
@@ -87,13 +95,28 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
             <BrandLogo compact />
           </Link>
 
-          {/* Right: desktop links, wishlist, theme */}
+          {/* Right: desktop links, gift box, wishlist, theme */}
           <div className="flex items-center justify-end gap-8">
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden xl:flex items-center gap-8">
               {rightLinks.map((link) => (
                 <NavLink key={link.href} {...link} />
               ))}
             </div>
+            <Link
+              href={GIFTING_LINK.href}
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label={`Gifting${giftBox.count ? `, ${giftBox.count} in your gift box` : ""}`}
+              title="Gifting"
+              // Invisible ::after gives the 16px icon a ~44px touch area
+              className="relative hover:text-brand-gold transition-colors after:absolute after:-inset-3.5 after:content-['']"
+            >
+              <Gift className="w-4 h-4" strokeWidth={1.25} />
+              {giftBox.count > 0 && (
+                <span aria-hidden className={badgeClass}>
+                  {giftBox.count}
+                </span>
+              )}
+            </Link>
             <Link
               href={PAGE_LINKS.wishlist}
               onClick={() => setMobileMenuOpen(false)}
@@ -103,10 +126,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
             >
               <Heart className="w-4 h-4" strokeWidth={1.25} />
               {wishlist.ids.length > 0 && (
-                <span
-                  aria-hidden
-                  className="absolute -top-2 -right-2.5 min-w-4 h-4 px-1 rounded-full bg-brand-copper text-white text-[0.6rem] leading-4 text-center"
-                >
+                <span aria-hidden className={badgeClass}>
                   {wishlist.ids.length}
                 </span>
               )}
@@ -120,7 +140,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
       <div
         id="mobile-menu"
         className={cn(
-          "fixed inset-0 z-[99] bg-background lg:hidden transition-all duration-500 ease-out-soft",
+          "fixed inset-0 z-[99] bg-background xl:hidden transition-all duration-500 ease-out-soft",
           mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none invisible"
         )}
       >
@@ -134,6 +154,9 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
                 className="font-headline text-display-sm border-b border-border py-5 hover:text-brand-gold transition-colors"
               >
                 {link.label}
+                {link.href === GIFTING_LINK.href && giftBox.count > 0 && (
+                  <span className="ml-3 align-middle font-body text-sm text-brand-gold">{giftBox.count} in your box</span>
+                )}
               </Link>
             ))}
           </nav>

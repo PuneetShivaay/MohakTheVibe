@@ -131,6 +131,18 @@
       "description": "Black and gold chandbali, styled",
       "imageUrl": "/images/earring/earring15.webp",
       "imageHint": "instagram post"
+    },
+    {
+      "id": "gifting-main",
+      "description": "Black and plum crystal tassel earrings in soft window light (main print on /gifting; change imageUrl to swap the photo)",
+      "imageUrl": "/images/earring/earring16.webp",
+      "imageHint": "gifting main"
+    },
+    {
+      "id": "gifting-giftbox",
+      "description": "Gold gift box with ribbon (stock image, carries a pngtree watermark: replace with a real Mohak gift-wrap photo)",
+      "imageUrl": "/images/giftbox/gift-box-small.webp",
+      "imageHint": "gift box"
     }
   ]
 }

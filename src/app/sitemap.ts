@@ -11,8 +11,10 @@ const BASE_URL = SITE_URL;
 
 // Bump when the copy on these pages actually changes
 const PAGE_UPDATED = new Date("2026-11-07");
+// Bump when the gifting page copy changes
+const GIFTING_UPDATED = new Date("2026-11-14");
 // Matches the "updated" date shown on both legal pages
-const LEGAL_UPDATED = new Date("2026-10-28");
+const LEGAL_UPDATED = new Date("2026-11-14");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await getProducts();
@@ -33,6 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "weekly" as const,
         priority: 0.9,
       })),
+    { url: `${BASE_URL}/gifting`, lastModified: GIFTING_UPDATED, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/our-story`, lastModified: PAGE_UPDATED, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/contact`, lastModified: PAGE_UPDATED, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/terms-and-conditions`, lastModified: LEGAL_UPDATED, changeFrequency: "yearly", priority: 0.2 },

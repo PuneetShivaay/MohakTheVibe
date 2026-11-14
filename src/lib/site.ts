@@ -53,6 +53,13 @@ export const NAV_LINKS = {
   ],
 } as const;
 
+// Gift orders: built in the gift box (browser only), sent to us on WhatsApp, delivered with no price on the
+// parcel. See docs/gifting-plan.md.
+export const GIFTING_LINK = { label: "Gifting", href: "/gifting" } as const;
+// From this many pieces in one gift order, the WhatsApp message asks for our bulk price. Assumption until the
+// brand sets a real threshold; the page itself names no number.
+export const BULK_HINT_FROM = 5;
+
 // Shown in the navbar and footer only once there is a published article (see hasJournal() in journal.ts)
 export const JOURNAL_LINK = { label: "Journal", href: "/journal" } as const;
 

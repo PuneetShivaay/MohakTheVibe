@@ -47,7 +47,7 @@ const howToShop = [
   { step: "Ask us anything", text: "Need styling advice or a gift note? We reply on WhatsApp." },
 ];
 
-const ctaLink = "text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors";
+const ctaLink = "tap-area text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors";
 
 // The brand journey, in order. Draft wording from the owners; no dates are claimed.
 const journey = [

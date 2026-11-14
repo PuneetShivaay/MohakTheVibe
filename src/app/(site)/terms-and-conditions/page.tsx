@@ -27,11 +27,37 @@ const sections: LegalSection[] = [
   {
     heading: "How to buy",
     body: (
-      <p>
-        We do not sell directly on this website. Product buttons take you to marketplaces such as Flipkart and Meesho, or
-        to WhatsApp and Instagram so you can ask us questions. Your purchase is a contract between you and that
-        marketplace, and its own terms, payment, delivery, return and refund policies apply.
-      </p>
+      <>
+        <p>
+          There are two ways to buy. Product buttons take you to marketplaces such as Flipkart and Meesho. A purchase there
+          is a contract between you and that marketplace, and its own terms, payment, delivery, return and refund policies
+          apply.
+        </p>
+        <p>
+          Gift orders are placed with us directly on WhatsApp (see &quot;Gift orders&quot; below). For those, these terms
+          and what we confirm with you in the chat apply.
+        </p>
+      </>
+    ),
+  },
+  {
+    heading: "Gift orders",
+    body: (
+      <>
+        <p>
+          You can build a gift box on our gifting page and send it to us on WhatsApp. An order is accepted only when we
+          confirm it in the chat, together with the price, any bulk price and the delivery charge.
+        </p>
+        <p>
+          Payment is by UPI, after we confirm the order and before we dispatch it. We deliver by courier to addresses in
+          India; delivery times depend on the address and the courier and are estimates, not guarantees. We gift-wrap the
+          order and do not put a price on the parcel or in the box.
+        </p>
+        <p>
+          If a gift order arrives damaged or is not what you ordered, message us on WhatsApp with photos as soon as it
+          arrives and we will work with you to put it right.
+        </p>
+      </>
     ),
   },
   {
@@ -39,8 +65,8 @@ const sections: LegalSection[] = [
     body: (
       <p>
         We take care to show our jewellery accurately, but colours may look slightly different on your screen. Prices and
-        availability on this site are indicative and can change. The price shown on the marketplace at checkout is the
-        one that applies.
+        availability on this site are indicative and can change. For marketplace orders, the price shown on the
+        marketplace at checkout applies; for gift orders, the price we confirm with you on WhatsApp applies.
       </p>
     ),
   },
@@ -102,7 +128,7 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Terms & Conditions"
-      updated="28 October 2026"
+      updated="14 November 2026"
       intro="Please read these terms before using our website or buying our jewellery through our partner stores."
       sections={sections}
     />

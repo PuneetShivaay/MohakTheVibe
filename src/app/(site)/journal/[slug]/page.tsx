@@ -70,7 +70,7 @@ export default async function JournalPostPage({ params }: Params) {
             }
             description="The first articles are on their way."
           />
-          <Link href="/journal" className="mt-10 inline-block text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors">
+          <Link href="/journal" className="tap-area mt-10 inline-block text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors">
             Back to the journal
           </Link>
         </div>
@@ -98,11 +98,11 @@ export default async function JournalPostPage({ params }: Params) {
         <header className="pt-28 md:pt-36 px-6 md:px-12">
           <FadeIn className="max-w-3xl mx-auto">
             <nav aria-label="Breadcrumb" className="mb-8 text-eyebrow uppercase text-foreground/60">
-              <Link href="/" className="hover:text-brand-gold transition-colors">
+              <Link href="/" className="tap-area hover:text-brand-gold transition-colors">
                 Home
               </Link>
               <span className="mx-3 text-brand-gold">/</span>
-              <Link href="/journal" className="hover:text-brand-gold transition-colors">
+              <Link href="/journal" className="tap-area hover:text-brand-gold transition-colors">
                 Journal
               </Link>
             </nav>
