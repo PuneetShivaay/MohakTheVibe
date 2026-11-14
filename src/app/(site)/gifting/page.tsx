@@ -5,7 +5,9 @@ import { FadeIn } from "@/components/FadeIn";
 import { FaqSection } from "@/components/FaqSection";
 import { GiftBoxView } from "@/components/GiftBoxView";
 import { JsonLd } from "@/components/JsonLd";
-import { ShopFullRange } from "@/components/ProductCard";
+import { LayeredImages } from "@/components/LayeredImages";
+import { imageUrl, ShopFullRange } from "@/components/ProductCard";
+import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 
@@ -72,6 +74,9 @@ export default async function GiftingPage() {
   // Suggestions to add without leaving the page: the featured pieces, or the first few when none are marked
   const featured = products.filter((p) => p.featured);
   const picks = (featured.length > 0 ? featured : products).slice(0, 6);
+  // Intro prints: two styled photos not used by the other page intros
+  const mainImg = imageUrl("insta-post-5");
+  const detailImg = imageUrl("insta-post-4");
 
   return (
     <>
@@ -82,20 +87,40 @@ export default async function GiftingPage() {
         ])}
       />
 
-      {/* Intro */}
+      {/* Intro: text beside the two framed prints, like the other page intros. Styled product photos for now;
+          swap the large print for a real gift-wrap photo when there is one (docs/gifting-plan.md). */}
       <section className="pt-28 md:pt-36 pb-section px-6 md:px-12">
         <div className="max-w-site mx-auto">
-          <FadeIn className="max-w-3xl">
-            <Eyebrow className="mb-6">Gifting</Eyebrow>
-            <h1 className="font-headline text-display-xl">
-              Gift your <em className="text-brand-gold">loved ones.</em>
-            </h1>
-            <p className="mt-8 max-w-md text-foreground/70 font-light leading-relaxed">
-              Choose one piece or a whole box of them. We gift-wrap it and send it by courier anywhere in India, with no
-              price on the parcel.
-            </p>
-          </FadeIn>
-          <FadeIn delay={150}>
+          <div className={cn("grid gap-10 md:gap-20 items-center", mainImg && "md:grid-cols-2")}>
+            <FadeIn>
+              <Eyebrow className="mb-6">Gifting</Eyebrow>
+              <h1 className="font-headline text-display-xl">
+                Gift your <em className="text-brand-gold">loved ones.</em>
+              </h1>
+              <p className="mt-8 max-w-md text-foreground/70 font-light leading-relaxed">
+                Choose one piece or a whole box of them. We gift-wrap it and send it by courier anywhere in India, with no
+                price on the parcel.
+              </p>
+              <a
+                href="#gift-box"
+                className="mt-10 inline-block text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
+              >
+                Start your gift box
+              </a>
+            </FadeIn>
+            {mainImg && (
+              <FadeIn delay={150} className="lg:mr-8 lg:mb-8">
+                <LayeredImages
+                  main={mainImg}
+                  mainAlt="Mohak kundan chandbali earrings, styled"
+                  detail={detailImg}
+                  detailAlt="Mohak pearl drop earrings"
+                  priority
+                />
+              </FadeIn>
+            )}
+          </div>
+          <FadeIn delay={300}>
             <ul className="mt-12 pt-8 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-4">
               {PROMISES.map((promise) => (
                 <li key={promise} className="flex items-center gap-3 text-eyebrow uppercase text-foreground/70">
