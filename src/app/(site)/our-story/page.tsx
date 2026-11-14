@@ -168,7 +168,7 @@ export default function OurStoryPage() {
           <blockquote className="font-headline italic text-display-sm">
             “Femininity isn&apos;t just a trait, it&apos;s a celebration. We&apos;re here to provide the crown.”
           </blockquote>
-          <p className="mt-8 text-eyebrow uppercase text-brand-gold">The Mohak – The Vibe Collective</p>
+          <p className="mt-8 text-eyebrow uppercase text-brand-gold">Mohak – The Vibe Collective</p>
         </Reveal>
       </section>
 
