@@ -14,7 +14,7 @@ const PAGE_UPDATED = new Date("2026-11-07");
 // Bump when the gifting page copy changes
 const GIFTING_UPDATED = new Date("2026-11-14");
 // Matches the "updated" date shown on both legal pages
-const LEGAL_UPDATED = new Date("2026-10-28");
+const LEGAL_UPDATED = new Date("2026-11-14");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await getProducts();

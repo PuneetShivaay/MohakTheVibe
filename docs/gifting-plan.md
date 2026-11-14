@@ -52,17 +52,29 @@ marketplaces don't: **no price on the parcel, our gift wrap, and any mix of piec
 - WhatsApp message is plain text, readable on a phone, one piece per line.
 
 ## Before going live (not code)
-- [ ] **Terms & Privacy:** both say all purchases happen on Flipkart and Meesho. Add a direct gift orders section
-      (payment by UPI, delivery, returns/exchanges for gifts, cancellations). I draft, the brand reviews.
+- [ ] **Terms & Privacy: drafted, brand to review.** Terms gained "Gift orders" (accepted only when confirmed on
+      WhatsApp, UPI before dispatch, courier in India with estimated times, gift wrap and no price on the parcel, a
+      minimal damaged/wrong-item line) and "How to buy" now names both routes. Privacy covers gift-order data (incl.
+      the recipient's address shared with the courier), the gifting form, and wishlist/gift box in local storage.
+      Cancellations and a fuller return rule are **not** written, because they are not decided.
 - [ ] **GST invoice:** ask the CA how to issue the invoice to the buyer (for example by email or WhatsApp) instead
       of in the parcel.
 - [ ] **Return rule for gifts** (damaged in transit at least).
 - [ ] **Bulk pricing:** decide whether to publish tiers later; until then "ask on WhatsApp".
 - [ ] **Gift wrap photos** for the page and the product-page line.
-- [ ] Privacy page also still says the site is hosted on Firebase; it is on Vercel.
+- [x] Privacy page said the site is hosted on Firebase; now says Vercel.
+- [ ] **Bulk threshold:** `BULK_HINT_FROM` in `site.ts` is 5 (assumed). From that many pieces the WhatsApp message
+      asks for the bulk price. Change it to the real number.
+- [ ] **Gift message:** the form sends it to us; the page does not promise a printed card. Decide whether to include one.
 
 ## Status
 - [x] Plan agreed
-- [ ] 1. Gift box hook + "Send as a gift" button + navbar/footer link and badge
-- [ ] 2. `/gifting` page: box, form, WhatsApp message, FAQ, SEO
-- [ ] 3. Policy section drafts (Terms, Privacy) for review
+- [x] 1. Gift box hook + "Send as a gift" button + navbar/footer link and count
+- [x] 2. `/gifting` page: box, form, WhatsApp message, FAQ, SEO
+- [x] 3. Policy section drafts (Terms, Privacy) for review
+
+## Notes from building
+- The navbar link row now starts at 1280px (it was 1024px). With Gifting added the row needs about 1280px, so laptops
+  between 1024 and 1279px use the menu button, like tablets.
+- `/gifting` is indexable: the intro, steps and FAQ are server-rendered; only the box and form need JavaScript.
+- Typecheck and lint only; not built or seen in a browser yet.

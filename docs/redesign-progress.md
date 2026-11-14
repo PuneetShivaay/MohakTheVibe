@@ -309,6 +309,15 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
     rise inside a `Reveal`, so a second headline animation would layer two movements. Revisit only if the headings
     feel flat once seen.
 
+- 2026-11-14: **Gifting** (branch `gifting`, plan in `docs/gifting-plan.md`; typecheck and lint only, not built or seen).
+  - Gift box (`useGiftBox`, localStorage `mohak-gift-box`), "Send as a gift" on product pages, Gifting in the navbar
+    (with piece count) and footer Shop column. `/gifting`: intro, how it works, the box with quantities and totals,
+    gift details, a WhatsApp order asking for gift wrap and no price on the parcel, a marketplace note and an FAQ.
+  - Navbar link row moved from 1024px to 1280px: with Gifting it no longer fit; laptops below 1280px use the menu button.
+  - Terms and Privacy drafts for direct gift orders (brand to review); Privacy hosting line corrected to Vercel.
+  - Open: real bulk threshold (`BULK_HINT_FROM` = 5 assumed), gift card decision, CA advice on the GST invoice,
+    return and cancellation rules, gift-wrap photos.
+
 ## Before merging to main
 - [ ] Final test checklist below passes
 - [ ] Delete `src/app/preview/` (and its `robots.ts` rule)
