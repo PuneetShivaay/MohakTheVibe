@@ -21,7 +21,9 @@ export default {
         'display-xl': ['clamp(3.5rem, 9vw, 9rem)', { lineHeight: '0.9', letterSpacing: '-0.02em' }],
         display: ['clamp(2.5rem, 5.5vw, 4.5rem)', { lineHeight: '1.05', letterSpacing: '-0.01em' }],
         'display-sm': ['clamp(1.75rem, 3.5vw, 3rem)', { lineHeight: '1.25' }],
-        eyebrow: ['0.625rem', { lineHeight: '1', letterSpacing: '0.35em' }],
+        // 11px (was 10px, which was at the edge of readable). Tracking trimmed from 0.35em so each label stays
+        // about as wide as before: the navbar is already tight at laptop widths.
+        eyebrow: ['0.6875rem', { lineHeight: '1', letterSpacing: '0.28em' }],
       },
       spacing: {
         // 4rem on phones (less empty scrolling), unchanged from ~800px wide up
@@ -118,6 +120,11 @@ export default {
         'float': {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        // Hero photo: a very slow push-in, once (not a loop)
+        'hero-drift': {
+          from: { transform: 'scale(1)' },
+          to: { transform: 'scale(1.07)' },
         }
       },
       animation: {
@@ -127,6 +134,7 @@ export default {
         // CSS-only first-screen entrance (FadeIn); `both` keeps it hidden during its delay
         reveal: 'fade-in-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both',
         'float': 'float 4s ease-in-out infinite',
+        'hero-drift': 'hero-drift 22s cubic-bezier(0.22, 1, 0.36, 1) forwards',
       },
     },
   },

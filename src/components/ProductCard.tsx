@@ -4,6 +4,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { getCollection, getProductsByCollection, productPath, type Collection, type Product } from "@/lib/products";
 import { SITE_LINKS } from "@/lib/site";
 import { CardPhotos } from "./CardPhotos";
+import { ImageReveal } from "./ImageReveal";
 import { WishlistButton } from "./WishlistButton";
 
 export const imageUrl = (id?: string) => (id ? PlaceHolderImages.find((img) => img.id === id)?.imageUrl : undefined);
@@ -55,7 +56,7 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
 
   return (
     <article className="group">
-      {/* Photo and name open the product page; the marketplace links below go straight to the store */}
+      {/* Photo and name open the product page; the marketplace links are on that page */}
       <div className="relative">
         <Link
           href={productPath(product.id)}
@@ -63,7 +64,11 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
           aria-hidden
           className="relative block aspect-[3/4] overflow-hidden bg-muted border border-border"
         >
-          {img && <CardPhotos main={img} second={hoverImg} alt={product.name} />}
+          {img && (
+            <ImageReveal>
+              <CardPhotos main={img} second={hoverImg} alt={product.name} />
+            </ImageReveal>
+          )}
         </Link>
         <WishlistButton
           id={product.id}

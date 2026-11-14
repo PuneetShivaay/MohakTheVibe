@@ -27,7 +27,7 @@ export function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[60%_35%]"
+          className="object-cover object-[60%_35%] origin-[60%_35%] motion-safe:animate-hero-drift"
         />
       </motion.div>
 

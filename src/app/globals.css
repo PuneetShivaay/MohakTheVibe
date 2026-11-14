@@ -82,10 +82,14 @@
   }
 }
 
-/* Phones: small uppercase labels one step larger so they stay readable (10px → 11px) */
-@media (max-width: 767px) {
-  .text-eyebrow {
-    font-size: 0.6875rem;
+/* Visitors who prefer reduced motion get plain images: no wipe, no zoom (ImageReveal). !important beats
+   the inline styles Framer Motion writes. */
+@media (prefers-reduced-motion: reduce) {
+  .image-reveal {
+    clip-path: none !important;
+  }
+  .image-reveal-inner {
+    transform: none !important;
   }
 }
 

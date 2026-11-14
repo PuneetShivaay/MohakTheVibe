@@ -15,7 +15,7 @@ Follow `.github/copilot-instructions.md` and the conventions in `docs/redesign-p
 - [x] 5. Content depth (category copy, `material`/`size`, internal links) — drafts need the brand's review
 - [x] 6. Journal (`/journal`) — MDX in the repo; scaffolding done, no articles written yet (brand writes them)
 - [x] 7. Premium pass A: cards, colour, CTA — grid stays four across (decided); CTA colour needs the user's eye
-- [ ] 8. Premium pass B: typography and motion
+- [x] 8. Premium pass B: typography and motion — typeface stays Playfair (user chose after a side-by-side); headline mask reveal deliberately skipped
 - [ ] 9. Boutique content (packaging, craft, founder letter, care, sizing)
 - [ ] 10. Copy and trust tone
 - [ ] 11. Photography — needs a shoot (brand decision, not a code task)
@@ -317,7 +317,7 @@ festival season.
 
 ## Open questions
 - [x] ~~Journal content source~~ — decided: MDX files in `content/journal/` (see `content/journal/README.md`).
-- [ ] Display typeface: stay on Playfair, move to Cormorant Garamond, or buy a licence? Blocks phase 8.
+- [x] ~~Display typeface~~ — decided: stay on Playfair Display (compared side by side with Cormorant Garamond).
 - [ ] Primary CTA colour: phase 7 shipped with Midnight (Ivory in dark mode) and an Ivory hero button, my pick, not yet
       confirmed by the user. Going back to copper is two variables in `globals.css`.
 - [ ] Are `TRUST_POINTS` all literally true today (free shipping on both marketplaces, returns window)? Blocks

@@ -292,6 +292,22 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - Also in the footer commit, which carries both the hairline swap and the layout rework: four columns, Get in
     touch under the logo, Collections in its own column, "Also available on" under Shop as three lines (the user
     edited the WhatsApp label to "WhatsApp").
+- 2026-11-14: **SEO & premium phase 8 done: typography and motion** (typecheck and lint only; motion not seen).
+  - **Typeface decision:** compared Playfair Display with Cormorant Garamond side by side (throwaway page, since
+    deleted); the user chose to **stay on Playfair**. No font change.
+  - **Eyebrow labels:** `text-eyebrow` is 11px everywhere (was 10px, 11px on phones only), tracking trimmed from
+    0.35em to 0.28em so each label stays about as wide (the navbar is tight at laptop widths). The phone-only override in
+    `globals.css` was removed.
+  - **Image reveal:** new `ImageReveal` (client): product photos wipe open from the top while settling from a 1.12
+    zoom, once, on scroll into view. Used in `ProductCard`. Reduced-motion visitors get plain images via a CSS
+    override (`.image-reveal`), not a hook, so server and client markup match. Like `Reveal`, it is hidden until
+    JavaScript runs, so it is not for first-screen images.
+  - **Hero:** the photo does a slow one-time push-in (22s, scale 1 to 1.07, toward the earring); `motion-safe:` only.
+  - **Staggers:** left alone. Card grids already stagger by position in the row (`i % 4`); only short lists use a
+    plain `i * n`, so the flat-stagger problem the plan feared does not exist.
+  - **Not done, on purpose:** the line-by-line headline mask reveal. 18 of the 22 `SectionHeading`s already fade and
+    rise inside a `Reveal`, so a second headline animation would layer two movements. Revisit only if the headings
+    feel flat once seen.
 
 ## Before merging to main
 - [ ] Final test checklist below passes
