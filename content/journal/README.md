@@ -17,7 +17,7 @@ Plan: `docs/seo-premium-plan.md`, phase 6.
 
 | Field | Required | Notes |
 |---|---|---|
-| `title` | yes | Becomes the page title and the heading. Keep it under about 55 characters so Google shows all of it |
+| `title` | yes | Becomes the page title and the heading. The site adds " \| Mohak The Vibe" (18 characters) in search results, and Google cuts titles at about 60, so keep the title itself under about 42 characters. Put it in quotes if it contains a colon |
 | `description` | yes | One or two sentences, under about 155 characters. Shown in search results and on the card |
 | `date` | yes | `2026-12-01`. A future date **schedules** the article: it goes live on the first rebuild on or after that day (the site rebuilds every 3 hours) |
 | `updated` | no | Same format. Set it when you change an article in a meaningful way |

@@ -258,7 +258,16 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
     published, bad one logged), and with 0 articles (clean build, no nav link, no sitemap entry).
   - Deviation from the no-build-per-phase rule: made on purpose, because a new dependency and an empty default state
     could have broken the user's deploy.
-  - No articles are written yet. MDX can run code, so only commit text from the team (noted in the README).
+  - MDX can run code, so only commit text from the team (noted in the README).
+- 2026-11-14: **First four journal articles written** (drafts for the brand to read and correct before merging):
+  `minakari-vs-kundan-how-to-tell-the-difference`, `how-to-care-for-artificial-jewellery`, `how-to-style-jhumkas`,
+  `how-to-choose-earrings-as-a-gift`. Covers are existing site photos. Build passes with 4 articles; every internal
+  link in them resolves; titles are at most 60 characters including the " | Mohak The Vibe" suffix.
+  - They make no material, plating, finish or anti-tarnish claim about the brand's pieces. Traditional crafts are
+    described as the crafts the pieces are "inspired by", matching the collection pages. Care advice is generic.
+    Facts to confirm: Jaipur as a well-known Minakari centre, and Kundan's traditional gold-foil setting.
+  - Dated 3, 6, 10 and 12 November 2026 so they are live immediately; change `date` or add `draft: true` to hold one.
+  - README title guidance corrected: the site adds 18 characters to every title, so keep the title under about 42.
 
 ## Before merging to main
 - [ ] Final test checklist below passes
