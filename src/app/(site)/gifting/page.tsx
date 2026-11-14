@@ -74,9 +74,10 @@ export default async function GiftingPage() {
   // Suggestions to add without leaving the page: the featured pieces, or the first few when none are marked
   const featured = products.filter((p) => p.featured);
   const picks = (featured.length > 0 ? featured : products).slice(0, 6);
-  // Intro prints: two styled photos not used by the other page intros
+  // Intro prints: a styled photo, and the gift box as the small print. The gift box is a stock image with a
+  // pngtree watermark: replace both with real Mohak gift-wrap photos before relying on this page.
   const mainImg = imageUrl("insta-post-5");
-  const detailImg = imageUrl("insta-post-4");
+  const detailImg = imageUrl("gifting-giftbox");
 
   return (
     <>
@@ -114,7 +115,7 @@ export default async function GiftingPage() {
                   main={mainImg}
                   mainAlt="Mohak kundan chandbali earrings, styled"
                   detail={detailImg}
-                  detailAlt="Mohak pearl drop earrings"
+                  detailAlt="A gift box tied with a gold ribbon"
                   priority
                 />
               </FadeIn>

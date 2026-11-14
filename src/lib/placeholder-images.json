@@ -131,6 +131,12 @@
       "description": "Black and gold chandbali, styled",
       "imageUrl": "/images/earring/earring15.webp",
       "imageHint": "instagram post"
+    },
+    {
+      "id": "gifting-giftbox",
+      "description": "Gold gift box with ribbon (stock image, carries a pngtree watermark: replace with a real Mohak gift-wrap photo)",
+      "imageUrl": "/images/giftbox/gift-box-small.webp",
+      "imageHint": "gift box"
     }
   ]
 }
