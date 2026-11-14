@@ -1,6 +1,6 @@
 # Copilot Instructions – Mohak The Vibe
 
-Next.js 15 (App Router, React 19, TypeScript, Tailwind, shadcn/ui) jewelry brand site. Original spec in `docs/blueprint.md`; the active redesign (concept, decisions, phases) is in `docs/redesign-plan.md` and takes precedence. The next project (categories, Google Sheet + Cloudinary catalog) is planned in `docs/catalog-plan.md`; follow its safety rules (build-time fetch, fallback to `products.ts`, never fail the build). Log progress in `docs/redesign-progress.md`. Tech stack, structure and deploy details: `docs/architecture.md`.
+Next.js 15 (App Router, React 19, TypeScript, Tailwind, shadcn/ui) jewelry brand site. Original spec in `docs/blueprint.md`; the active redesign (concept, decisions, phases) is in `docs/redesign-plan.md` and takes precedence. The next project (categories, Google Sheet + Cloudinary catalog) is planned in `docs/catalog-plan.md`; follow its safety rules (build-time fetch, fallback to `products.ts`, never fail the build). Search and art-direction work is planned in `docs/seo-premium-plan.md` (phased; the custom domain is deliberately last). Log progress in `docs/redesign-progress.md`. Tech stack, structure and deploy details: `docs/architecture.md`.
 
 **Static export** (`output: 'export'`): no API routes, server actions, `revalidate`/ISR or runtime secrets. Dynamic routes need `generateStaticParams`. `next/image` is unoptimized.
 
@@ -14,7 +14,7 @@ Next.js 15 (App Router, React 19, TypeScript, Tailwind, shadcn/ui) jewelry brand
 - `src/components/*.tsx` are feature sections (named exports, mostly `"use client"`). For new sections use `Reveal` (Framer Motion scroll animation), `SectionHeading`/`Eyebrow`, and the tokens `text-display*`, `text-eyebrow`, `py-section`, `max-w-site`. `src/components/ui/` is generated shadcn/ui (see `components.json`) – prefer reusing over editing.
 - Logo: `BrandLogo.tsx` (SVG). Use `<BrandLogo compact />` for the navbar mark. `public/mohak.png` is for Open Graph only (dark background).
 - No cart/checkout: products redirect to Flipkart/Meesho or open WhatsApp/Instagram DMs (see `JewelryCatalog.tsx`, `Footer.tsx`, `WhatsAppCTA.tsx`), using links from `src/lib/site.ts`.
-- Images: components look up entries by `id` via `PlaceHolderImages.find(...)` from `src/lib/placeholder-images.ts` (data in `placeholder-images.json`, under the `placeholderImages` key). Add new images to the JSON, and local files under `public/images/` (see `INSTRUCTIONS.txt` there). Always use optional chaining/fallbacks since lookups may miss.
+- Images: components look up entries by `id` via `PlaceHolderImages.find(...)` from `src/lib/placeholder-images.ts` (data in `placeholder-images.json`, under the `placeholderImages` key). Add new images to the JSON, and local files under `public/images/` as WebP ≤1200px (see `README.txt` there). Always use optional chaining/fallbacks since lookups may miss.
 - AI Vibe Stylist is **removed**: every file in `src/ai/` is a `// Feature removed` stub, Genkit is not installed, and `AIStylist.tsx` returns `null`.
 
 ## Conventions

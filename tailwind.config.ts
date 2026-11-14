@@ -10,9 +10,10 @@ export default {
   ],
   theme: {
     extend: {
+      // Variables come from next/font in src/app/layout.tsx (self-hosted, with a size-adjusted fallback)
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Playfair Display', 'serif'],
+        body: ['var(--font-body)', 'Inter', 'sans-serif'],
+        headline: ['var(--font-headline)', 'Playfair Display', 'serif'],
         code: ['monospace'],
       },
       // Redesign type scale (see docs/redesign-plan.md)

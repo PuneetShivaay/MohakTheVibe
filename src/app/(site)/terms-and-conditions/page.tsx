@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/LegalPage";
+import { socialMeta } from "@/lib/seo";
 import { CONTACT } from "@/lib/site";
 
-const title = "Terms & Conditions | Mohak – The Vibe";
-const description = "The terms for using the Mohak – The Vibe website and buying our jewellery through our partner stores.";
+const title = "Terms & Conditions";
+const description = "The terms for using the Mohak The Vibe website and buying our jewellery through our partner stores.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/terms-and-conditions" },
-  openGraph: { title, description },
-  twitter: { title, description },
+  ...socialMeta({ title, description, path: "/terms-and-conditions" }),
 };
 
 // Draft text: have it reviewed before relying on it legally (see progress doc)

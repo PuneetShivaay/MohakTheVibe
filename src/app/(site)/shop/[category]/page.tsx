@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cloudinaryUrl, getProducts } from "@/lib/catalog";
 import { categories, getCategory, getProductsByCategory } from "@/lib/products";
-import { breadcrumbJsonLd, categoryJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, categoryJsonLd, socialMeta } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { CategoryProducts } from "@/components/CategoryProducts";
 import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
@@ -29,13 +29,17 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const items = getProductsByCategory(await getProducts(), category.slug);
   const title = category.seoTitle;
   const description = category.seoDescription;
-  const cover = items[0] ? cloudinaryUrl(items[0].image, 1200) : undefined;
+  const path = `/shop/${category.slug}`;
   return {
     title,
     description,
-    alternates: { canonical: `/shop/${category.slug}` },
-    openGraph: { title, description, images: cover ? [cover] : undefined },
-    twitter: { title, description, images: cover ? [cover] : undefined },
+    alternates: { canonical: path },
+    ...socialMeta({
+      title,
+      description,
+      path,
+      image: items[0] ? cloudinaryUrl(items[0].image, 1200) : undefined,
+    }),
     // A category with no products yet should not appear in search results
     robots: items.length === 0 ? { index: false, follow: true } : undefined,
   };

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/LegalPage";
+import { socialMeta } from "@/lib/seo";
 import { CONTACT, SITE_LINKS } from "@/lib/site";
 
-const title = "Privacy Policy | Mohak – The Vibe";
-const description = "How Mohak – The Vibe handles your information when you visit this website or contact us.";
+const title = "Privacy Policy";
+const description = "How Mohak The Vibe handles your information when you visit this website or contact us.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/privacy-policy" },
-  openGraph: { title, description },
-  twitter: { title, description },
+  ...socialMeta({ title, description, path: "/privacy-policy" }),
 };
 
 // Draft text: have it reviewed before relying on it legally (see progress doc)

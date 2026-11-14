@@ -63,3 +63,12 @@ export const BRAND_PROMISES = ["Handpicked", "Anti-tarnish", "Gift-ready", "Pan-
 
 // Short reassurance row at the top of the footer (only list things that are true)
 export const TRUST_POINTS = ["Free shipping", "Easy returns", "Secure checkout on Flipkart & Meesho"] as const;
+
+// Delivery and returns as declared to search engines in Product structured data, which enables the
+// "Free delivery" / "Free returns" lines under a search result.
+// Deliberately null: orders are fulfilled by Flipkart and Meesho under THEIR policies, so these
+// cannot be filled in from TRUST_POINTS above without confirming the real terms first. Declaring
+// terms a buyer does not actually get is a Merchant Center problem, not just a wrong label.
+// To switch on, set both fields; `seo.ts` picks them up automatically.
+// See docs/seo-premium-plan.md, open questions.
+export const MERCHANT_TERMS: { freeShippingAcrossIndia: boolean; returnDays: number } | null = null;

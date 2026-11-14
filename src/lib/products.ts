@@ -13,7 +13,9 @@ export type Category = {
   name: string;
   tagline: string;
   description: string;
-  // Search results title and description (keyword-rich); the page shows `name` and `description`
+  // Search results title and description (keyword-rich); the page shows `name` and `description`.
+  // No brand suffix: the root layout's title template adds "| Mohak The Vibe". Keep under ~45
+  // characters so the whole title survives Google's truncation.
   seoTitle: string;
   seoDescription: string;
   // Short paragraphs shown at the bottom of the category page (also useful text for search engines)
@@ -65,7 +67,7 @@ export const categories: Category[] = [
     name: "Earrings",
     tagline: "Jhumkas, drops and studs",
     description: "Handpicked earrings, from Minakari jhumkas to everyday drops, each one ready to wear and ready to gift.",
-    seoTitle: "Artificial Earrings Online India: Jhumka, Studs, Hoops | Mohak The Vibe",
+    seoTitle: "Artificial Earrings Online India: Jhumkas",
     seoDescription:
       "Shop artificial earrings online from Mohak The Vibe, Lucknow: Minakari jhumkas, Kundan, Korean and gold-plated earrings, studs, hoops and chandbalis. Gift-ready, delivered across India.",
     about: [
@@ -78,7 +80,7 @@ export const categories: Category[] = [
     name: "Pendants",
     tagline: "A quiet statement at the neckline",
     description: "Pendants that sit close to the heart, from Kundan teardrops to clean contemporary charms.",
-    seoTitle: "Artificial Pendants for Women Online India | Mohak The Vibe",
+    seoTitle: "Artificial Pendants for Women Online",
     seoDescription:
       "Shop artificial pendants online from Mohak The Vibe, Lucknow: Kundan teardrops and contemporary charm pendants, gold-tone and gift-ready. Delivered across India.",
     about: [
@@ -91,7 +93,7 @@ export const categories: Category[] = [
     name: "Bracelets",
     tagline: "Gold-tone and oxidised, made to stack",
     description: "Bracelets to wear alone or stacked, finished to last and boxed to gift.",
-    seoTitle: "Artificial Bracelets for Women Online India | Mohak The Vibe",
+    seoTitle: "Artificial Bracelets for Women Online",
     seoDescription:
       "Shop artificial bracelets online from Mohak The Vibe, Lucknow: gold-tone and oxidised charm bracelets to wear alone or stacked. Gift-ready, delivered across India.",
     about: [

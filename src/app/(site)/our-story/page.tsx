@@ -7,18 +7,18 @@ import { FadeIn } from "@/components/FadeIn";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 import { TeamSection } from "@/components/TeamSection";
+import { socialMeta } from "@/lib/seo";
 import { PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
-const title = "Our Story | Mohak – The Vibe";
+const title = "Our Story";
 const description =
-  "The story of Mohak – The Vibe: started by Ashi and Puneet with a love of earrings, first sold at small events, now on Flipkart and Meesho and led by Pratibha.";
+  "The story of Mohak The Vibe: started by Ashi and Puneet with a love of earrings, first sold at small events, now on Flipkart and Meesho and led by Pratibha.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/our-story" },
-  openGraph: { title, description },
-  twitter: { title, description },
+  ...socialMeta({ title, description, path: "/our-story" }),
 };
 
 // Placeholder copy drawn from the Our Essence section; replace with the founder's own words (see progress doc)

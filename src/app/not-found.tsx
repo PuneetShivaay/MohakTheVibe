@@ -6,7 +6,7 @@ import { Eyebrow } from "@/components/SectionHeading";
 import { PAGE_LINKS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Page not found | Mohak – The Vibe",
+  title: "Page not found",
   robots: { index: false },
 };
 

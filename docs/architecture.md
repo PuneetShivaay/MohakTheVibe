@@ -138,9 +138,9 @@ Anything merged to `main` goes live immediately. Environment variables live in t
 - **Build on `main`**: `main` still contains `src/components/ui/calendar.tsx`, which fails the type check, so `npm run build` (and likely the deploy workflow) fails there. Fixed on `redesign` by deleting the unused file.
 - **`.env` is committed**: `.env` is tracked in git (and in history) and `.gitignore` only covers `.env*.local`. Its contents were not reviewed. If it holds any key, rotate that key, then `git rm --cached .env` and add `.env` to `.gitignore`. Use GitHub secrets for CI and `.env.local` for local values.
 - **No ESLint config**: `next lint` opens an interactive setup prompt and `next build` skips linting. Add an `eslint.config.mjs` (Next.js "Strict") when convenient.
-- **Original images in the repo**: the source PNG/JPEG files (~27 MB) are still committed next to their `.webp` versions and are no longer served by the site. Move them out of `public/` (or delete) once the WebP versions are confirmed.
-- **Unused marketplace logos**: `flipkart-logo.png` and `meesho_logo.png` files are no longer used (their registry entries were removed in phase 9).
-- **Unused code**: Genkit stubs in `src/ai/`, unused dependencies listed above, `public/images/INSTRUCTIONS.txt` lists file names that no longer match.
+- ~~**Original images in the repo**~~: fixed in the SEO/premium pass. The 17 source PNG/JPEG files that had a `.webp` sibling (26 MB) were deleted, and `pratibha2.png` (2.1 MB) was converted to WebP. `public/images/` went from 38 MB to 8.3 MB. Still there, unreferenced and unique (no WebP version), so left for the brand to confirm before deleting: `earring1/2/7/9.png` (3.9 MB) and `header.png` (1.8 MB).
+- **Unused marketplace logos**: `flipkart-logo.png` and `meesho_logo.png` files are no longer used (their registry entries were removed in phase 9). Kept for the "also available on" badges in the redesign plan.
+- **Unused code**: Genkit stubs in `src/ai/`, unused dependencies listed above.
 - **Windows build**: `npm run build` is plain `next build` (no inline `NODE_ENV`), so it works in PowerShell. Delete `.next` if a dev-server leftover breaks the `/404` export.
 - **Bundle size**: Framer Motion raised home first-load JS to ~208 KB. Revisit with `LazyMotion` if Lighthouse flags it in the final test.
 - **`Reveal` hides content until JavaScript runs**: it server-renders with `opacity: 0`. Fixed for first-screen content in phase 9 by using `FadeIn` (CSS) in the hero and page intros; keep `Reveal` for content below the fold.

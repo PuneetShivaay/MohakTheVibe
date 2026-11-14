@@ -10,7 +10,7 @@ import {
   productImages,
   productPath,
 } from "@/lib/products";
-import { BRAND_NAME, breadcrumbJsonLd, productDescription, productJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, productDescription, productJsonLd, socialMeta } from "@/lib/seo";
 import { BRAND_PROMISES, SITE_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "@/components/FadeIn";
@@ -35,15 +35,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const product = getProduct(await getProducts(), (await params).id);
   if (!product) return {};
   const category = getCategory(product.category);
-  const title = `${product.name} | ${BRAND_NAME}`;
+  const title = product.name;
   const description = productDescription(product, category?.name ?? "jewellery");
-  const image = cloudinaryUrl(product.image, 1200);
+  const path = productPath(product.id);
   return {
     title,
     description,
-    alternates: { canonical: productPath(product.id) },
-    openGraph: { title, description, images: [image] },
-    twitter: { title, description, images: [image] },
+    alternates: { canonical: path },
+    ...socialMeta({ title, description, path, image: cloudinaryUrl(product.image, 1200) }),
   };
 }
 

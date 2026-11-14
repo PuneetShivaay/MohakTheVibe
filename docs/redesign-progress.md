@@ -172,12 +172,48 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - "Skip to content" link; `main#main` on all pages.
   - Cleanup: removed the dead logo entries from `placeholder-images.json` and unused CSS (`dashed-link`, `font-serif-italic`, `animate-fade-in`).
   - Not done by design: `loading.tsx` (pages are pre-built HTML, no loading state needed); Lighthouse (part of the final test).
+- 2026-11-14: **SEO & premium phases 1–3 done** (typecheck and lint only; not built or visually tested).
+  Plan: `docs/seo-premium-plan.md`.
+  - **Phase 1, metadata.** New `socialMeta()` in `seo.ts` is the single source of Open Graph and Twitter
+    tags. Next merges `metadata` shallowly, so every page that wrote its own `openGraph` was silently
+    dropping the image, site name, locale and type — confirmed in the old `out/our-story.html`, which had
+    only `og:title` and `og:description`. All eight sub-pages now spread `socialMeta()`.
+  - Root layout uses a title template (`%s | Mohak The Vibe`); pages set a bare title. Brand suffix is now
+    one consistent form (the en-dash `BRAND_NAME` stays for JSON-LD only). Category `seoTitle` values
+    shortened so the suffix fits inside Google's truncation.
+  - `lang="en-IN"`; `sitemap.ts` gained `lastModified` — build date for catalogue pages (they really do
+    change per build), fixed dates for editorial and legal pages, since a build-date lastmod on unchanged
+    pages is what makes search engines ignore lastmod everywhere.
+  - FAQ JSON-LD moved out of an inline `<script>` in the contact page into `faqJsonLd()` + `<JsonLd />`.
+  - **Phase 2, performance.** Fonts now self-hosted via `next/font/local` (files in `src/app/fonts/`,
+    variable-weight latin WOFF2) as CSS variables (`--font-body`, `--font-headline`), read by
+    `tailwind.config.ts`. First tried `next/font/google`, which failed the build on the user's network
+    (the loader crashed parsing Google's response), so don't switch back. Removed the render-blocking
+    `fonts.googleapis.com` stylesheet and two preconnects. `BrandLogo` had `'Playfair Display'` hardcoded
+    in an inline style — next/font renames the family, so it now points at `var(--font-headline)`.
+  - `public/images/` 38 MB → 8.3 MB: deleted 17 PNG/JPEG originals that each had a `.webp` sibling (26 MB,
+    nothing unique lost), converted `pratibha2.png` 2.06 MB → `pratibha2.webp` 97 KB (same 924×1152).
+    Rewrote the stale `README.txt`, deleted the duplicate `INSTRUCTIONS.txt`.
+  - **Phase 3, product structured data.** One shared `productOffer()` feeds both `productJsonLd()` and
+    `categoryJsonLd()` so they cannot drift. Added `priceValidUntil` (build + 1 year; its absence warns on
+    every product in Search Console) and `itemCondition: NewCondition`.
+  - Shipping and returns markup is **built but switched off**: `MERCHANT_TERMS` in `site.ts` is `null`
+    until the real Flipkart/Meesho terms are confirmed. `TRUST_POINTS` says "Free shipping, Easy returns",
+    but marketplaces fulfil the orders under their own policies, so it cannot be copied across. Set both
+    fields to turn the markup on.
+  - **Phase 2c not done** (needs a build to measure): framer-motion is used by `Reveal` (every page),
+    `Hero` and `FooterWordmark`, so dropping it means converting all three. Measure first — see the
+    ~208 KB first-load note under Known issues in `architecture.md`.
+  - Phase 4 (ratings) is the next one, and is blocked on real marketplace rating figures.
 
 ## Before merging to main
 - [ ] Final test checklist below passes
 - [ ] Delete `src/app/preview/` (and its `robots.ts` rule)
 - [ ] Resolve the `.env` question (see open questions)
-- [ ] Decide on the original PNG/JPEG images in `public/images/` (~27 MB, no longer used by the site)
+- [x] ~~Decide on the original PNG/JPEG images in `public/images/` (~27 MB, no longer used by the site)~~ — done
+      2026-11-14, folder is 8.3 MB. Still to confirm: `earring1/2/7/9.png` and `header.png` are unreferenced
+      but have no WebP version, so they were left in place rather than deleted
+- [ ] Decide whether `MERCHANT_TERMS` in `site.ts` can be filled in (real shipping and returns terms)
 - [ ] Confirm or replace placeholder copy: hero subline, collection descriptions, `/our-story`, product names
 - [ ] Merge `redesign` into `main` (this deploys the live site)
 
