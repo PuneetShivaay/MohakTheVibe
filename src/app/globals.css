@@ -91,11 +91,11 @@
   }
 }
 
-/* Visitors who prefer reduced motion get plain images: no wipe, no zoom (ImageReveal). !important beats
+/* Visitors who prefer reduced motion get plain images: no cover panel, no zoom (ImageReveal). !important beats
    the inline styles Framer Motion writes. */
 @media (prefers-reduced-motion: reduce) {
-  .image-reveal {
-    clip-path: none !important;
+  .image-reveal-cover {
+    display: none !important;
   }
   .image-reveal-inner {
     transform: none !important;

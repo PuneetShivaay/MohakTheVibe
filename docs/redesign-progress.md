@@ -336,6 +336,20 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   - Dev-server oddity: `/journal`, `/privacy-policy` and `/terms-and-conditions` kept serving the old footer markup in
     the dev server (same shared component, so the code is right); restart the dev server and re-check them.
 
+- 2026-11-14: **Bug fix: homepage product photos never loaded** (introduced by the phase 8 `ImageReveal`; found by the user,
+  reproduced in headless Chrome on a production build). The reveal started each photo fully clipped
+  (`clip-path: inset(0 0 100%)`) and waited for the browser to report it in view, but browsers measure "in view"
+  after clipping, so it was never seen as in view: the reveal never ran and the lazy-loaded photos never started
+  loading. Product pages were unaffected (they use the gallery, not the card).
+  - Fix: `ImageReveal` now observes an unclipped wrapper and reveals with a card-coloured cover panel that slides away
+    (`.image-reveal-cover`, `scaleY` 1 to 0) instead of a clip; the photo and the observed element are never clipped or
+    hidden. Reduced motion hides the cover and drops the zoom (CSS).
+  - Verified on a production build (65 pages) at 1366 and 390px: 0 of 56 cards across `/`, `/shop/*`, `/collections/*`,
+    a product page and the wishlist had an unloaded photo or a cover still showing. A full production build of the
+    whole branch passes (it had not been built since phase 7).
+  - Lesson: phase 8 was checked with typecheck only, which cannot show a motion or loading bug. Anything that hides
+    content until scroll needs one real-browser check.
+
 ## Before merging to main
 - [ ] Final test checklist below passes
 - [ ] Delete `src/app/preview/` (and its `robots.ts` rule)
