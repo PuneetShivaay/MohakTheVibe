@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getProducts, cloudinaryUrl } from "@/lib/catalog";
 import { collections, getCollection, getProductsByCollection, nonEmptyCollections } from "@/lib/products";
 import { cn } from "@/lib/utils";
-import { CollectionTile, spansFullRow } from "@/components/CollectionTiles";
+import { CollectionTile, threeAcross } from "@/components/CollectionTiles";
 import { LayeredImages } from "@/components/LayeredImages";
 import { collectionCover, collectionCoverSource, ProductCard, productGridClass, ShopFullRange } from "@/components/ProductCard";
 import { FadeIn } from "@/components/FadeIn";
@@ -136,11 +136,11 @@ export default async function CollectionPage({ params }: Params) {
             <Reveal className="mb-12">
               <SectionHeading align="left" eyebrow="Keep exploring" title={<>More <em>collections</em></>} />
             </Reveal>
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+            <div className="grid md:grid-cols-6 gap-4 md:gap-6">
               {others.map((c, i) => {
-                const wide = spansFullRow(i, others.length);
+                const { span, wide } = threeAcross(i, others.length);
                 return (
-                  <Reveal key={c.slug} delay={i * 120} className={wide ? "md:col-span-2" : undefined}>
+                  <Reveal key={c.slug} delay={(i % 3) * 120} className={span}>
                     <CollectionTile
                       collection={c}
                       count={getProductsByCollection(products, c.slug).length}

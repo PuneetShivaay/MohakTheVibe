@@ -11,6 +11,18 @@ import { SectionHeading } from "./SectionHeading";
 // A lone last tile spans both columns so an odd number of collections never leaves a gap
 export const spansFullRow = (index: number, total: number) => total > 1 && total % 2 === 1 && index === total - 1;
 
+// Three-across layout (md and up) for the "More collections" row. Uses a 6-column grid where a tile
+// normally spans 2, so a short last row still fills the width: one leftover tile spans the whole row
+// (and gets the wide photo), two leftovers span half each. Put `md:grid-cols-6` on the grid.
+export function threeAcross(index: number, total: number) {
+  if (total === 1) return { span: "md:col-span-3", wide: false };
+  const leftover = total % 3;
+  const inLastRow = index >= total - leftover;
+  if (leftover === 1 && inLastRow) return { span: "md:col-span-6", wide: true };
+  if (leftover === 2 && inLastRow) return { span: "md:col-span-3", wide: false };
+  return { span: "md:col-span-2", wide: false };
+}
+
 // Editorial tile: cover photo with caption overlay. Links to the collection page by default, or to
 // `href` (used for category tiles). `count` is the number of products and `cover` the ready-to-render
 // photo URL (both derived from getProducts()). `wide` is the full-row variant; `compact` is the small
