@@ -6,22 +6,31 @@ import { usePathname } from "next/navigation";
 import { Heart, Menu, X } from "lucide-react";
 import { BrandLogo } from "./BrandLogo";
 import { ThemeToggle } from "./ThemeToggle";
+import { useGiftBox } from "@/hooks/use-gift-box";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { cn } from "@/lib/utils";
-import { MARKETPLACES, NAV_LINKS, navLinksRight, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
+import { GIFTING_LINK, MARKETPLACES, NAV_LINKS, navLinksRight, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
-function NavLink({ href, label }: { href: string; label: string }) {
+// `count` (gift box pieces) shows as a small gold number after the label
+function NavLink({ href, label, count = 0 }: { href: string; label: string; count?: number }) {
   return (
     <Link href={href} className="text-eyebrow uppercase hover:text-brand-gold transition-colors">
       {label}
+      {count > 0 && (
+        <span className="ml-1.5 text-brand-gold" aria-label={`, ${count} in your gift box`}>
+          {count}
+        </span>
+      )}
     </Link>
   );
 }
 
-// `journal`: show the Journal link (the layout passes true once an article is published)
+// `journal`: show the Journal link (the layout passes true once an article is published).
+// The full link row needs about 1280px, so below that the menu button is used (laptops included).
 export function Navbar({ journal = false }: { journal?: boolean }) {
-  const rightLinks = navLinksRight(journal);
+  const rightLinks = [GIFTING_LINK, ...navLinksRight(journal)];
   const allLinks = [...NAV_LINKS.left, ...rightLinks];
+  const giftBox = useGiftBox();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -67,7 +76,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
           <div className="flex items-center gap-8">
             <button
               type="button"
-              className="lg:hidden -ml-2 p-2 hover:text-brand-gold transition-colors"
+              className="xl:hidden -ml-2 p-2 hover:text-brand-gold transition-colors"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -75,7 +84,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
             >
               {mobileMenuOpen ? <X className="h-5 w-5" strokeWidth={1.25} /> : <Menu className="h-5 w-5" strokeWidth={1.25} />}
             </button>
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden xl:flex items-center gap-8">
               {NAV_LINKS.left.map((link) => (
                 <NavLink key={link.href} {...link} />
               ))}
@@ -89,9 +98,9 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
 
           {/* Right: desktop links, wishlist, theme */}
           <div className="flex items-center justify-end gap-8">
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden xl:flex items-center gap-8">
               {rightLinks.map((link) => (
-                <NavLink key={link.href} {...link} />
+                <NavLink key={link.href} {...link} count={link.href === GIFTING_LINK.href ? giftBox.count : 0} />
               ))}
             </div>
             <Link
@@ -120,7 +129,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
       <div
         id="mobile-menu"
         className={cn(
-          "fixed inset-0 z-[99] bg-background lg:hidden transition-all duration-500 ease-out-soft",
+          "fixed inset-0 z-[99] bg-background xl:hidden transition-all duration-500 ease-out-soft",
           mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none invisible"
         )}
       >
@@ -134,6 +143,9 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
                 className="font-headline text-display-sm border-b border-border py-5 hover:text-brand-gold transition-colors"
               >
                 {link.label}
+                {link.href === GIFTING_LINK.href && giftBox.count > 0 && (
+                  <span className="ml-3 align-middle font-body text-sm text-brand-gold">{giftBox.count} in your box</span>
+                )}
               </Link>
             ))}
           </nav>

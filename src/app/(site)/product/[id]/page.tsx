@@ -21,6 +21,7 @@ import { ProductCard, marketplaceLinks, productGridClass, quietLink } from "@/co
 import { ProductGallery } from "@/components/ProductGallery";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
+import { GiftButton } from "@/components/GiftButton";
 import { WishlistButton } from "@/components/WishlistButton";
 
 type Params = { params: Promise<{ id: string }> };
@@ -166,7 +167,19 @@ export default async function ProductPage({ params }: Params) {
                 withLabel
                 className="text-eyebrow uppercase px-8 py-4 border border-brand-gold/50 hover:border-brand-gold hover:text-brand-gold"
               />
+              <GiftButton
+                id={product.id}
+                name={product.name}
+                className="text-eyebrow uppercase px-8 py-4 border border-brand-gold/50 hover:border-brand-gold hover:text-brand-gold"
+              />
             </div>
+            <p className="mt-4 text-sm text-foreground/60 font-light">
+              Sending it as a gift? We wrap it and courier it anywhere in India,{" "}
+              <Link href="/gifting" className={`text-foreground ${quietLink}`}>
+                with no price on the parcel
+              </Link>
+              .
+            </p>
             {hasListings && (
               <p className="mt-6 text-sm text-foreground/60 font-light">
                 Questions about this piece?{" "}

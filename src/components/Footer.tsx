@@ -5,7 +5,7 @@ import { FooterWordmark } from "./FooterWordmark";
 import { getProducts } from "@/lib/catalog";
 import { hasJournal } from "@/lib/journal";
 import { nonEmptyCollections } from "@/lib/products";
-import { CONTACT, LEGAL_LINKS, MARKETPLACES, navLinksRight, SHOP_LINKS, SITE_LINKS, TRUST_POINTS } from "@/lib/site";
+import { CONTACT, GIFTING_LINK, LEGAL_LINKS, MARKETPLACES, navLinksRight, SHOP_LINKS, SITE_LINKS, TRUST_POINTS } from "@/lib/site";
 
 const columnTitle = "text-eyebrow uppercase text-brand-gold mb-5";
 const columnLink = "text-sm text-foreground/70 hover:text-brand-gold transition-colors";
@@ -75,7 +75,7 @@ export async function Footer() {
         <nav aria-label="Footer shop">
           <p className={columnTitle}>Shop</p>
           <ul className="space-y-2.5">
-            {SHOP_LINKS.map((link) => (
+            {[...SHOP_LINKS, GIFTING_LINK].map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className={columnLink}>
                   {link.label}

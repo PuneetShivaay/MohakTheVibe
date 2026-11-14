@@ -344,6 +344,10 @@ export function getProductsByCategory(products: Product[], slug: string) {
   return products.filter((p) => p.category === slug);
 }
 
+// "₹1,299" -> 1299 (prices are stored as display strings); 0 when it can't be read
+export const priceValue = (price: string) => Number(price.replace(/[^0-9.]/g, "")) || 0;
+export const formatINR = (n: number) => `₹${n.toLocaleString("en-IN")}`;
+
 // Product page URL. Uses only the id, so moving a product to another category keeps its link.
 export const productPath = (id: string) => `/product/${id}`;
 
