@@ -238,6 +238,28 @@ Plan: `docs/catalog-plan.md`. Branch: `catalog`. Google Sheet + Cloudinary, cate
   span 2; a leftover single tile spans the row, a leftover pair spans half each). `threeAcross()` in
   `CollectionTiles.tsx`. Category pages keep two across (they only ever show 2 others).
 
+- 2026-11-14: **SEO & premium phase 6 done: Journal** (typecheck, plus two real builds, see below). Branch
+  `seo-premium`. Articles are `.mdx` files in `content/journal/`; how to write one is in
+  `content/journal/README.md`, and `_template.mdx` is a copy-me starting file (files starting `_` never publish).
+  - New dependency `next-mdx-remote` (compiles MDX at build time inside server components). Chosen over
+    `@next/mdx`, whose loader config is fragile with the Turbopack dev server.
+  - `src/lib/journal.ts` reads and validates the files (zod) like the sheet catalog does: a file with bad front
+    matter is skipped and logged, never fails the build. `draft: true` hides an article; a future `date`
+    schedules it (the 3-hourly rebuild publishes it). Own tiny front-matter parser (CRLF-safe), no extra dependency.
+  - Pages `/journal` and `/journal/[slug]`, `JournalCard`, `JournalBody` (maps MDX elements to the site's
+    type scale), `BlogPosting` JSON-LD, `og:type=article` with published time, sitemap entries, "Shop <category>"
+    button and "More from the journal" row. `socialMeta()` gained an `article` option.
+  - The **Journal link in the navbar, mobile menu and footer only appears once an article is published**
+    (`hasJournal()`, `navLinksRight()` in `site.ts`). With none: no nav link, no sitemap entry, `/journal` is noindex.
+  - **Found by building, fixed:** with zero published articles `generateStaticParams()` was empty and static export
+    refuses that (`missing "generateStaticParams()"`), which would have broken the deploy. With none, the route now
+    generates one placeholder page (`/journal/no-articles-yet`, noindex, "Coming soon") that disappears once an
+    article exists. Verified with two builds: with 1 valid + 1 bad + 1 draft + 1 future article (only the valid one
+    published, bad one logged), and with 0 articles (clean build, no nav link, no sitemap entry).
+  - Deviation from the no-build-per-phase rule: made on purpose, because a new dependency and an empty default state
+    could have broken the user's deploy.
+  - No articles are written yet. MDX can run code, so only commit text from the team (noted in the README).
+
 ## Before merging to main
 - [ ] Final test checklist below passes
 - [ ] Delete `src/app/preview/` (and its `robots.ts` rule)

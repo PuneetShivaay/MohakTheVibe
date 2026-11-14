@@ -53,6 +53,13 @@ export const NAV_LINKS = {
   ],
 } as const;
 
+// Shown in the navbar and footer only once there is a published article (see hasJournal() in journal.ts)
+export const JOURNAL_LINK = { label: "Journal", href: "/journal" } as const;
+
+// Right-hand navigation links, with the journal slotted in after Our Story when it has articles
+export const navLinksRight = (journal: boolean) =>
+  journal ? [NAV_LINKS.right[0], JOURNAL_LINK, ...NAV_LINKS.right.slice(1)] : [...NAV_LINKS.right];
+
 export const MARKETPLACES = [
   { label: "Flipkart", href: SITE_LINKS.flipkartStore },
   { label: "Meesho", href: SITE_LINKS.meeshoStore },

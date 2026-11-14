@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getProducts } from "@/lib/catalog";
+import { getPosts } from "@/lib/journal";
 import { categories, getProductsByCategory, nonEmptyCollections, productPath } from "@/lib/products";
 import { SITE_URL } from "@/lib/site";
 
@@ -15,6 +16,7 @@ const LEGAL_UPDATED = new Date("2026-10-28");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await getProducts();
+  const posts = getPosts();
   // Catalogue pages: their content really is rebuilt from the sheet every 3 hours, so build time is
   // honest. Editorial and legal pages get the date their copy last changed instead — a build-date
   // lastmod on a page that did not change is what makes search engines ignore lastmod altogether.
@@ -41,6 +43,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
+    // Articles only; the index stays out of the sitemap (and noindex) until the first one is published
+    ...(posts.length > 0
+      ? [
+          { url: `${BASE_URL}/journal`, lastModified: new Date(posts[0].updated ?? posts[0].date), changeFrequency: "weekly" as const, priority: 0.6 },
+          ...posts.map((p) => ({
+            url: `${BASE_URL}/journal/${p.slug}`,
+            lastModified: new Date(p.updated ?? p.date),
+            changeFrequency: "monthly" as const,
+            priority: 0.6,
+          })),
+        ]
+      : []),
     ...products.map((p) => ({
       url: `${BASE_URL}${productPath(p.id)}`,
       lastModified,

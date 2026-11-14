@@ -13,7 +13,7 @@ Follow `.github/copilot-instructions.md` and the conventions in `docs/redesign-p
 - [x] 3. Product structured data completeness — shipping/returns built but off, pending confirmation
 - [x] 4. Ratings and reviews from the sheet — code done; no product shows stars until real figures are entered
 - [x] 5. Content depth (category copy, `material`/`size`, internal links) — drafts need the brand's review
-- [ ] 6. Journal (`/journal`)
+- [x] 6. Journal (`/journal`) — MDX in the repo; scaffolding done, no articles written yet (brand writes them)
 - [ ] 7. Premium pass A: cards, colour, CTA, price
 - [ ] 8. Premium pass B: typography and motion
 - [ ] 9. Boutique content (packaging, craft, founder letter, care, sizing)
@@ -316,8 +316,7 @@ festival season.
 ---
 
 ## Open questions
-- [ ] Journal content source: MDX in the repo (better for long copy, needs GitHub access or copy handed over to
-      be committed) vs a second sheet tab (brand can self-serve, painful for formatting)? Blocks phase 6.
+- [x] ~~Journal content source~~ — decided: MDX files in `content/journal/` (see `content/journal/README.md`).
 - [ ] Display typeface: stay on Playfair, move to Cormorant Garamond, or buy a licence? Blocks phase 8.
 - [ ] Primary CTA colour: keep copper, or midnight / ivory outline? Blocks phase 7.
 - [ ] Are `TRUST_POINTS` all literally true today (free shipping on both marketplaces, returns window)? Blocks

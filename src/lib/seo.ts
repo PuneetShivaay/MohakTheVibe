@@ -37,23 +37,26 @@ export function socialMeta({
   description,
   path,
   image,
+  article,
 }: {
   title: string;
   description?: string;
   path: string;
   image?: string;
+  // Journal articles: shared as `article` with their dates instead of as a plain website page
+  article?: { publishedTime: string; modifiedTime?: string };
 }): Pick<Metadata, "openGraph" | "twitter"> {
   const full = pageTitle(title);
+  const common = {
+    title: full,
+    description,
+    url: absoluteUrl(path),
+    siteName: BRAND_SUFFIX,
+    images: image ? [image] : [OG_IMAGE],
+    locale: "en_IN",
+  };
   return {
-    openGraph: {
-      title: full,
-      description,
-      url: absoluteUrl(path),
-      siteName: BRAND_SUFFIX,
-      images: image ? [image] : [OG_IMAGE],
-      locale: "en_IN",
-      type: "website",
-    },
+    openGraph: article ? { ...common, type: "article", ...article } : { ...common, type: "website" },
     twitter: {
       card: "summary_large_image",
       title: full,
@@ -115,6 +118,27 @@ export function breadcrumbJsonLd(crumbs: { name: string; path: string }[]) {
       name: c.name,
       item: absoluteUrl(c.path),
     })),
+  };
+}
+
+// Journal article. Dates are the front matter's YYYY-MM-DD; `image` must already be absolute.
+export function articleJsonLd(post: { slug: string; title: string; description: string; date: string; updated?: string; author: string }, image?: string) {
+  const url = absoluteUrl(`/journal/${post.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: post.title,
+    description: post.description,
+    url,
+    mainEntityOfPage: url,
+    datePublished: post.date,
+    dateModified: post.updated ?? post.date,
+    inLanguage: "en-IN",
+    image: image ?? OG_IMAGE.url,
+    author: { "@type": "Organization", name: post.author, url: SITE_URL },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
   };
 }
 
