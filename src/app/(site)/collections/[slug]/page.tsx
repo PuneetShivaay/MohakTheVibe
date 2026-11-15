@@ -6,7 +6,8 @@ import { collections, getCollection, getProductsByCollection, nonEmptyCollection
 import { cn } from "@/lib/utils";
 import { CollectionTile, threeAcross } from "@/components/CollectionTiles";
 import { LayeredImages } from "@/components/LayeredImages";
-import { collectionCover, collectionCoverSource, ProductCard, productGridClass, ShopFullRange } from "@/components/ProductCard";
+import { collectionCover, collectionCoverSource, ProductCard, productGridClass } from "@/components/ProductCard";
+import { SeeAllCategories } from "@/components/SeeAllCategories";
 import { FadeIn } from "@/components/FadeIn";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbJsonLd, socialMeta } from "@/lib/seo";
@@ -119,12 +120,12 @@ export default async function CollectionPage({ params }: Params) {
                     New <em>{collection.name.toLowerCase()}</em> are on their way
                   </>
                 }
-                description="We are adding pieces to this collection. Meanwhile, see everything we have on Flipkart and Meesho."
+                description="We are adding pieces to this collection. Meanwhile, browse our other categories."
               />
             </Reveal>
           )}
           <Reveal className="mt-16 md:mt-20 text-center">
-            <ShopFullRange />
+            <SeeAllCategories prominent />
           </Reveal>
         </div>
       </section>

@@ -9,7 +9,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { useGiftBox } from "@/hooks/use-gift-box";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { cn } from "@/lib/utils";
-import { GIFTING_LINK, MARKETPLACES, NAV_LINKS, navLinksRight, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
+import { GIFT_BOX_LINK, GIFTING_LINK, MARKETPLACES, NAV_LINKS, navLinksRight, PAGE_LINKS, SITE_LINKS } from "@/lib/site";
 
 function NavLink({ href, label }: { href: string; label: string }) {
   return (
@@ -95,7 +95,7 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
             <BrandLogo compact />
           </Link>
 
-          {/* Right: desktop links, gift box, wishlist, theme */}
+          {/* Right: desktop links, gift box (all sizes); wishlist and theme from xl, in the menu below that */}
           <div className="flex items-center justify-end gap-8">
             <div className="hidden xl:flex items-center gap-8">
               {rightLinks.map((link) => (
@@ -103,10 +103,10 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
               ))}
             </div>
             <Link
-              href={GIFTING_LINK.href}
+              href={giftBox.count > 0 ? GIFT_BOX_LINK.href : GIFTING_LINK.href}
               onClick={() => setMobileMenuOpen(false)}
               aria-label={`Gifting${giftBox.count ? `, ${giftBox.count} in your gift box` : ""}`}
-              title="Gifting"
+              title={giftBox.count > 0 ? "Your gift box" : "Gifting"}
               // Invisible ::after gives the 16px icon a ~44px touch area
               className="relative hover:text-brand-gold transition-colors after:absolute after:-inset-3.5 after:content-['']"
             >
@@ -121,8 +121,8 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
               href={PAGE_LINKS.wishlist}
               onClick={() => setMobileMenuOpen(false)}
               aria-label={`Wishlist${wishlist.ids.length ? `, ${wishlist.ids.length} saved` : ""}`}
-              // Invisible ::after gives the 16px icon a ~44px touch area
-              className="relative hover:text-brand-gold transition-colors after:absolute after:-inset-3.5 after:content-['']"
+              // Invisible ::after gives the 16px icon a ~44px touch area. Below xl the wishlist lives in the menu.
+              className="relative hidden xl:block hover:text-brand-gold transition-colors after:absolute after:-inset-3.5 after:content-['']"
             >
               <Heart className="w-4 h-4" strokeWidth={1.25} />
               {wishlist.ids.length > 0 && (
@@ -131,7 +131,8 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
                 </span>
               )}
             </Link>
-            <ThemeToggle />
+            {/* Below xl the theme switch lives in the menu */}
+            <ThemeToggle className="hidden xl:inline-flex" />
           </div>
         </nav>
       </header>
@@ -159,6 +160,17 @@ export function Navbar({ journal = false }: { journal?: boolean }) {
                 )}
               </Link>
             ))}
+            <Link
+              href={PAGE_LINKS.wishlist}
+              onClick={() => setMobileMenuOpen(false)}
+              className="font-headline text-display-sm border-b border-border py-5 hover:text-brand-gold transition-colors"
+            >
+              Wishlist
+              {wishlist.ids.length > 0 && (
+                <span className="ml-3 align-middle font-body text-sm text-brand-gold">{wishlist.ids.length} saved</span>
+              )}
+            </Link>
+            <ThemeToggle labelled />
           </nav>
 
           <div className="mt-auto pt-12 space-y-8">

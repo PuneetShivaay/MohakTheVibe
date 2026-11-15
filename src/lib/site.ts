@@ -56,6 +56,8 @@ export const NAV_LINKS = {
 // Gift orders: built in the gift box (browser only), sent to us on WhatsApp, delivered with no price on the
 // parcel. See docs/gifting-plan.md.
 export const GIFTING_LINK = { label: "Gifting", href: "/gifting" } as const;
+// The checkout page: only the box, the details and the WhatsApp button. /gifting is the info page.
+export const GIFT_BOX_LINK = { label: "Gift box", href: "/gifting/box" } as const;
 // From this many pieces in one gift order, the WhatsApp message asks for our bulk price. Assumption until the
 // brand sets a real threshold; the page itself names no number.
 export const BULK_HINT_FROM = 5;

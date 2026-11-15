@@ -106,17 +106,5 @@ export function ProductCard({ product, showCollection = true }: { product: Produ
   );
 }
 
-export function ShopFullRange() {
-  return (
-    <p className="text-eyebrow uppercase text-foreground/60">
-      Shop the full range on{" "}
-      <a href={SITE_LINKS.flipkartStore} target="_blank" rel="noopener noreferrer" className={`text-foreground ${quietLink}`}>
-        Flipkart
-      </a>{" "}
-      ·{" "}
-      <a href={SITE_LINKS.meeshoStore} target="_blank" rel="noopener noreferrer" className={`text-foreground ${quietLink}`}>
-        Meesho
-      </a>
-    </p>
-  );
-}
+// (The "Shop the full range on Flipkart · Meesho" line was removed; pages link to the category pages instead,
+// see SeeAllCategories.)

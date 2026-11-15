@@ -3,13 +3,13 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, MessageCircle, Minus, Plus, X } from "lucide-react";
+import { MessageCircle, Minus, Plus, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useGiftBox } from "@/hooks/use-gift-box";
 import { cloudinaryUrl } from "@/lib/images";
 import { formatINR, priceValue, productPath, type Product } from "@/lib/products";
-import { BULK_HINT_FROM, SITE_LINKS, SITE_URL } from "@/lib/site";
+import { BULK_HINT_FROM, GIFTING_LINK, SITE_LINKS, SITE_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { SeeAllCategories } from "./SeeAllCategories";
 
@@ -38,7 +38,7 @@ function giftMessage(lines: Line[], count: number, total: number, d: Details) {
     d.occasion && `Occasion: ${d.occasion}`,
     d.message.trim() && `Gift message: "${d.message.trim()}"`,
     d.from.trim() && `From: ${d.from.trim()}`,
-    d.deliverBy && `Deliver by: ${formatDate(d.deliverBy)}`,
+    d.deliverBy && `Choose Delivery Date: ${formatDate(d.deliverBy)}`,
   ].filter(Boolean);
   return [
     "Hi Mohak, I'd like to send a gift.",
@@ -52,10 +52,10 @@ function giftMessage(lines: Line[], count: number, total: number, d: Details) {
     .join("\n\n");
 }
 
-// The gift box, the order details and the WhatsApp button, plus a short list of pieces to add without leaving
-// the page. `picks` are those suggestions. Ids in the box that are no longer in the catalogue are skipped,
-// not deleted (a build that fell back to default products must not wipe anyone's box).
-export function GiftBoxView({ products, picks }: { products: Product[]; picks: Product[] }) {
+// The gift box, the order details and the WhatsApp button: a clean checkout, no suggestions (those are on
+// /gifting). Ids in the box that are no longer in the catalogue are skipped, not deleted (a build that fell
+// back to default products must not wipe anyone's box).
+export function GiftBoxView({ products }: { products: Product[] }) {
   const box = useGiftBox();
   // The box is only known in the browser; render a placeholder until then to avoid an "empty" flash
   const [ready, setReady] = React.useState(false);
@@ -80,7 +80,7 @@ export function GiftBoxView({ products, picks }: { products: Product[]; picks: P
 
   return (
     <div className="grid gap-14 lg:grid-cols-[7fr_5fr] lg:gap-16 items-start">
-      {/* Left: the box, then pieces to add */}
+      {/* Left: the box */}
       <div>
         <h2 className="font-headline text-display-sm">
           Your gift <em>box</em>
@@ -90,7 +90,11 @@ export function GiftBoxView({ products, picks }: { products: Product[]; picks: P
           <div className="mt-8 min-h-[12rem]" />
         ) : lines.length === 0 ? (
           <p className="mt-6 max-w-md text-foreground/70 font-light leading-relaxed">
-            Your gift box is empty. Add pieces from the list below, or tap “Send as a gift” on any product page.
+            Your gift box is empty. Tap “Send as a gift” on any product page, or choose pieces from{" "}
+            <Link href={GIFTING_LINK.href} className="underline underline-offset-4 hover:text-brand-gold">
+              the gifting page
+            </Link>
+            . New to gifting? <Link href={GIFTING_LINK.href} className="underline underline-offset-4 hover:text-brand-gold">See how it works</Link>.
           </p>
         ) : (
           <ul className="mt-8 divide-y divide-border border-y border-border">
@@ -151,54 +155,8 @@ export function GiftBoxView({ products, picks }: { products: Product[]; picks: P
           </ul>
         )}
 
-        {/* Pieces to add from here */}
-        {picks.length > 0 && (
-          <div className="mt-16">
-            <h3 className="text-eyebrow uppercase text-brand-gold">Add pieces</h3>
-            <ul className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-8">
-              {picks.map((p) => {
-                const qty = box.qtyOf(p.id);
-                return (
-                  <li key={p.id}>
-                    <Link href={productPath(p.id)} className="relative block aspect-[3/4] overflow-hidden bg-muted border border-border">
-                      <Image
-                        src={cloudinaryUrl(p.image, 500)}
-                        alt={p.name}
-                        fill
-                        sizes="(min-width: 1024px) 18vw, (min-width: 640px) 30vw, 50vw"
-                        className="object-cover"
-                      />
-                    </Link>
-                    <p className="mt-3 text-sm leading-snug line-clamp-2">
-                      <Link href={productPath(p.id)} className="hover:text-brand-gold transition-colors">
-                        {p.name}
-                      </Link>
-                    </p>
-                    <p className="mt-1 text-sm text-foreground/60">{p.price}</p>
-                    <button
-                      type="button"
-                      onClick={() => box.add(p.id)}
-                      className="tap-area mt-3 inline-flex items-center gap-2 text-eyebrow uppercase border-b border-foreground/30 pb-1 hover:text-brand-gold hover:border-brand-gold transition-colors"
-                    >
-                      {ready && qty > 0 ? (
-                        <>
-                          <Check aria-hidden className="h-3.5 w-3.5 text-brand-gold" strokeWidth={1.5} />
-                          Added ({qty}), add one more
-                        </>
-                      ) : (
-                        <>
-                          <Plus aria-hidden className="h-3.5 w-3.5" strokeWidth={1.5} />
-                          Add to gift box
-                        </>
-                      )}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-            <SeeAllCategories className="mt-10" />
-          </div>
-        )}
+        {/* One quiet way back to the shop; the suggestions live on /gifting, so this page stays a checkout */}
+        {ready && <SeeAllCategories className="mt-8" label="Add more pieces" />}
       </div>
 
       {/* Right: details and the WhatsApp button; stays in view on large screens */}
@@ -269,7 +227,7 @@ export function GiftBoxView({ products, picks }: { products: Product[]; picks: P
           </div>
           <div>
             <label htmlFor="gift-date" className={fieldLabel}>
-              Deliver by
+              Select Delivery date
             </label>
             <Input
               id="gift-date"

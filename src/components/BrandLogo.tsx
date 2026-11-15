@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export function BrandLogo({ className, compact = false }: { className?: string; compact?: boolean }) {
   return (
     <div className={cn("flex flex-col items-center justify-center transition-all", className)}>
-      <div className={cn("relative flex items-center justify-center", compact ? "w-10 h-10 md:w-12 md:h-12" : "w-12 h-12 md:w-16 md:h-16")}>
+      <div className={cn("relative flex items-center justify-center", compact ? "w-14 h-14 md:w-16 md:h-16" : "w-12 h-12 md:w-16 md:h-16")}>
         {/* Stylized SVG Logo inspired by the provided brand mark */}
         <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
           {/* Outer circle with sparkle texture */}
