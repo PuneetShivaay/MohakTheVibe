@@ -12,7 +12,7 @@ import { FaqSection } from "@/components/FaqSection";
 import { InlineLinks } from "@/components/InlineLinks";
 import { JsonLd } from "@/components/JsonLd";
 import { LayeredImages } from "@/components/LayeredImages";
-import { ShopFullRange } from "@/components/ProductCard";
+import { SeeAllCategories } from "@/components/SeeAllCategories";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, SectionHeading } from "@/components/SectionHeading";
 
@@ -122,12 +122,12 @@ export default async function CategoryPage({ params }: Params) {
                     New <em>{category.name.toLowerCase()}</em> are on their way
                   </>
                 }
-                description="We are adding this range. Meanwhile, see everything we have on Flipkart and Meesho."
+                description="We are adding this range. Meanwhile, browse our other categories."
               />
             </Reveal>
           )}
           <Reveal className="mt-16 md:mt-20 text-center">
-            <ShopFullRange />
+            <SeeAllCategories prominent />
           </Reveal>
         </div>
       </section>

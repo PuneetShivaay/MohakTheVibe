@@ -33,6 +33,11 @@ marketplaces don't: **no price on the parcel, our gift wrap, and any mix of piec
 5. We reply on WhatsApp with delivery charge, any bulk discount and a UPI request; they share the address there.
 
 ## What gets built
+- **Two pages (split later, agreed with the user):** `/gifting` is the info page (hero, how it works, FAQ, a
+  "Start your gift box" call to action). `/gifting/box` is the checkout: step line (Pieces, Details, Send on
+  WhatsApp), the box, the form and the WhatsApp button only. It is `noindex` and not in the sitemap. "Send as a
+  gift" shows a toast with a "View gift box" action instead of navigating. The navbar gift icon goes to the box
+  once it has pieces, otherwise to `/gifting`. `GIFT_BOX_LINK` lives in `site.ts`.
 - `src/hooks/use-gift-box.ts`: `{ id, qty }[]` in `localStorage` (`mohak-gift-box`), synced across components and
   tabs, same pattern as `use-wishlist.ts`. Ids missing from the current catalogue are skipped, not deleted.
 - `GiftButton` ("Send as a gift" / "In your gift box") on the product page next to the wishlist button.

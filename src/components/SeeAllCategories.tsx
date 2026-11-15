@@ -7,11 +7,19 @@ import { cn } from "@/lib/utils";
 // Links to the three category pages. Default is the quiet one-line "See all: Earrings · Pendants · Bracelets";
 // `prominent` is three outlined buttons under a "See all" label, for places where it is the main next step
 // (the home page, below Signature Pieces).
-export function SeeAllCategories({ className, prominent = false }: { className?: string; prominent?: boolean }) {
+export function SeeAllCategories({
+  className,
+  prominent = false,
+  label = "See all",
+}: {
+  className?: string;
+  prominent?: boolean;
+  label?: string;
+}) {
   if (prominent) {
     return (
       <div className={cn("flex flex-col items-center gap-5", className)}>
-        <p className="text-eyebrow uppercase text-brand-gold">See all</p>
+        <p className="text-eyebrow uppercase text-brand-gold">{label}</p>
         <ul className="flex flex-wrap justify-center gap-3 md:gap-4">
           {SHOP_LINKS.map((link) => (
             <li key={link.href}>
@@ -35,7 +43,7 @@ export function SeeAllCategories({ className, prominent = false }: { className?:
 
   return (
     <p className={cn("text-eyebrow uppercase text-foreground/60", className)}>
-      See all:{" "}
+      {label}:{" "}
       {SHOP_LINKS.map((link, i) => (
         <React.Fragment key={link.href}>
           {i > 0 && " · "}
