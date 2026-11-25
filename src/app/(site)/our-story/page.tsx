@@ -78,7 +78,7 @@ const journey = [
   },
   {
     label: "Today",
-    title: "Led by Pratibha",
+    title: "Led by Woman",
     text: "Pratibha began Mohak afresh and now manages everything, from each collection to every order that goes out.",
   },
 ];

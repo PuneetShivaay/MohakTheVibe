@@ -25,8 +25,10 @@ export const TEAM: TeamMember[] = [
   { name: "Ritu Chaudhary", role: "Lead Designer" },
   { name: "Shekhar Sharma", role: "Head of Operations" },
   { name: "Akanksha Singh", role: "Finance & Compliance" },
-  { name: "Madhu Prabha", role: "Brand & Marketing Lead" },
-  { name: "Astha Tripathi", role: "Brand Ambassador" },
+  { name: "Madhu Prabha", role: "Team Member" },
+  { name: "Astha Tripathi", role: "Team Member" },
+  { name: "Poonam Kanaujiya", role: "Team Member" },
+  { name: "Kajal Kanaujiya", role: "Team Member" },
 ];
 
 export const initials = (name: string) =>
