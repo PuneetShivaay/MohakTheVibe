@@ -34,7 +34,11 @@ export const PAGE_LINKS = {
   wishlist: "/wishlist",
 } as const;
 
+// Linked from the footer and from product pages that have marketplace listings
+export const SHIPPING_LINK = { label: "Shipping & Returns", href: "/shipping-and-returns" } as const;
+
 export const LEGAL_LINKS = [
+  SHIPPING_LINK,
   { label: "Terms & Conditions", href: "/terms-and-conditions" },
   { label: "Privacy Policy", href: "/privacy-policy" },
 ] as const;

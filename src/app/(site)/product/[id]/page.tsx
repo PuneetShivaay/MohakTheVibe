@@ -12,7 +12,7 @@ import {
   productPath,
 } from "@/lib/products";
 import { breadcrumbJsonLd, productDescription, productJsonLd, socialMeta } from "@/lib/seo";
-import { BRAND_PROMISES, SITE_LINKS } from "@/lib/site";
+import { BRAND_PROMISES, SHIPPING_LINK, SITE_LINKS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "@/components/FadeIn";
 import { JsonLd } from "@/components/JsonLd";
@@ -180,6 +180,14 @@ export default async function ProductPage({ params }: Params) {
               </Link>
               .
             </p>
+            {hasListings && (
+              <p className="mt-2 text-sm text-foreground/60 font-light">
+                Delivery and returns are handled by the store you buy on.{" "}
+                <Link href={SHIPPING_LINK.href} className={`text-foreground ${quietLink}`}>
+                  How it works
+                </Link>
+              </p>
+            )}
             {hasListings && (
               <p className="mt-6 text-sm text-foreground/60 font-light">
                 Questions about this piece?{" "}

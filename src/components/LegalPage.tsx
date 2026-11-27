@@ -4,13 +4,15 @@ import { Eyebrow } from "./SectionHeading";
 
 export type LegalSection = { heading: string; body: ReactNode };
 
-// Shared layout for plain-text policy pages (terms, privacy)
+// Shared layout for plain-text policy pages (terms, privacy, shipping and returns)
 export function LegalPage({
+  eyebrow = "Legal",
   title,
   updated,
   intro,
   sections,
 }: {
+  eyebrow?: string;
   title: string;
   updated: string;
   intro: string;
@@ -20,7 +22,7 @@ export function LegalPage({
     <section className="pt-28 md:pt-36 pb-section px-6 md:px-12">
       <div className="max-w-3xl mx-auto">
         <FadeIn>
-          <Eyebrow className="mb-6">Legal</Eyebrow>
+          <Eyebrow className="mb-6">{eyebrow}</Eyebrow>
           <h1 className="font-headline text-display">{title}</h1>
           <p className="mt-4 text-eyebrow uppercase text-foreground/50">Last updated: {updated}</p>
           <p className="mt-8 text-foreground/70 font-light leading-relaxed">{intro}</p>

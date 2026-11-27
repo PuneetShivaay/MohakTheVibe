@@ -15,6 +15,8 @@ const PAGE_UPDATED = new Date("2026-11-07");
 const GIFTING_UPDATED = new Date("2026-11-14");
 // Matches the "updated" date shown on both legal pages
 const LEGAL_UPDATED = new Date("2026-11-14");
+// Matches the "updated" date shown on the shipping and returns page
+const SHIPPING_UPDATED = new Date("2026-11-27");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await getProducts();
@@ -38,6 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/gifting`, lastModified: GIFTING_UPDATED, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE_URL}/our-story`, lastModified: PAGE_UPDATED, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/contact`, lastModified: PAGE_UPDATED, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/shipping-and-returns`, lastModified: SHIPPING_UPDATED, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE_URL}/terms-and-conditions`, lastModified: LEGAL_UPDATED, changeFrequency: "yearly", priority: 0.2 },
     { url: `${BASE_URL}/privacy-policy`, lastModified: LEGAL_UPDATED, changeFrequency: "yearly", priority: 0.2 },
     ...nonEmptyCollections(products).map((c) => ({
